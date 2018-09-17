@@ -1,0 +1,12 @@
+Notes:
+Use english only in meetings agenda
+Be ore clear who does what and who did what in meetings agenda
+gitignore.io
+github markdown
+Testdriven development
+
+1. intro
+,,,,,,,,,,,,,
+less CEYMChat
+define målgrupp
+-easily

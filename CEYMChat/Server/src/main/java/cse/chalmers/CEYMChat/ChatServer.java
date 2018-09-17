@@ -21,6 +21,7 @@ public class ChatServer extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
+        
         new Thread(() -> {
             try {
                 // Create a server socket

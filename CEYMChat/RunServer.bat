@@ -1,1 +1,2 @@
-java -jar \Server\Target\Server-1.0.jar
+\Server\Target\Server-1.0.jar
+PAUSE

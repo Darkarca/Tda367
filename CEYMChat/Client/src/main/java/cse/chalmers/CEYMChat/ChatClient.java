@@ -26,11 +26,9 @@ public class ChatClient extends Application {
         paneForTextField.setPadding(new Insets(5, 5, 5, 5));
         paneForTextField.setStyle("-fx-border-color: green");
         paneForTextField.setLeft(new Label("Type Here: "));
-
         TextField tf = new TextField();
         tf.setAlignment(Pos.BOTTOM_RIGHT);
         paneForTextField.setCenter(tf);
-
         BorderPane mainPane = new BorderPane();
         // Text area to display contents
         TextArea ta = new TextArea();
