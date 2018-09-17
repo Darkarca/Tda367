@@ -21,7 +21,7 @@ public class ChatServer extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        
+
         new Thread(() -> {
             try {
                 // Create a server socket
@@ -57,69 +57,5 @@ public class ChatServer extends Application {
                 ex.printStackTrace();
             }
         }).start();
-    }
-    class Session implements Runnable {
-        private Socket clint1;
-        private Socket clint2;
-        private DataInputStream inputFromClient1;
-        private DataOutputStream outputToClient1;
-        private DataInputStream inputFromClient2;
-        private DataOutputStream outputToClient2;
-        private String textFromC1;
-        private String textFromC2;
-
-        // Constructor
-        public Session(Socket clint1, Socket clint2){
-            this.clint1 = clint1;
-            this.clint2 = clint2;
-        }
-        // implement the run method from the Runnable interface
-        public void run (){
-            try {
-                // Create data input and data output streams
-                inputFromClient1 = new DataInputStream(clint1.getInputStream());
-                outputToClient1 = new DataOutputStream(clint1.getOutputStream());
-                inputFromClient2 = new DataInputStream(clint2.getInputStream());
-                outputToClient2 = new DataOutputStream(clint2.getOutputStream());
-
-                //new Thread(() -> {
-
-
-                //while(true){
-                try {
-                    //read from client1 and send to client2
-                    while((textFromC1 = inputFromClient1.readUTF()) != null){
-
-
-                        //while (!textFromC1.equals("")) {
-                        outputToClient2.writeUTF(textFromC1);
-                        //textFromC1 = null;
-                        outputToClient2.flush();
-                    }
-                    //}
-                    //read from client2 and send to client1
-                    while((textFromC2 = inputFromClient2.readUTF()) != null) {
-                        //while (!textFromC2.equals("")) {
-                        outputToClient1.writeUTF(textFromC2);
-                        //textFromC2 = null;
-                        outputToClient1.flush();
-                        //}
-                    }
-                }
-                catch (IOException ex) {
-                    System.err.println(ex);
-                }
-                // }
-                //}).start();
-
-            }
-            catch (IOException ex){
-                ex.printStackTrace();
-            }
-        }
-
-
-
-
     }
 }
