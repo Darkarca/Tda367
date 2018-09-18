@@ -1,0 +1,107 @@
+%
+%  Title       :  System design document
+%  Authors     :  Alex Gerdes
+%  Created     :  August 20, 2018
+%
+%  Purpose     :  Tempate SDD for TDA367/DIT212
+%
+%-------------------------------------------------------------------------------
+
+\documentclass[12pt,a4paper]{scrartcl}
+
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{mathpazo}
+
+\title{System design document for \ldots}
+\author{authors}
+\date{date\\version}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+General info. What is this? What does it describe?
+
+\subsection{Definitions, acronyms, and abbreviations}
+
+Some definitions etc. probably same as in RAD
+
+
+\section{System architecture}
+
+The most overall, top level description of the system. Which (how many)
+machines are involved? What are the system components, and what are they 
+responsible for? Show the dependency between the different system components.
+If there are more computing entities (machines) involved: show dow they 
+communicate. Describe the high level overall flow of some use stories. Describe
+how to start and stop the system.
+
+Any general principles in application? Flow, creations, \ldots
+
+
+\subsection{Subsystem decomposition}
+
+Describe in this section each identified system component (that you have implemented).
+
+\subsection{`first component'}
+
+What is this component responsible for and what does it do.
+
+Divide the component into subsystems (packages) and describe their
+responsibilities. Draw an UML package diagram for the top level. Describe the
+interface and dependencies between the packages. Try to identify abstraction
+layers. Think about concurrency issues.
+
+If your application is a standalone then:
+\begin{itemize}
+  \item Describe how MVC is implemented
+  \item Describe your design model (which should be in one package and
+    build on the domain model)
+  \item Give a class diagram for the design model.
+\end{itemize}
+otherwise:
+\begin{itemize}
+  \item MVC and domain model described at System Architecture
+\end{itemize}
+
+Diagrams
+\begin{itemize}
+  \item Dependencies (\href{http://stan4j.com/}{STAN} or similar)
+  \item UML sequence diagrams for flow.
+  \item Describe which design patterns you have applied.
+\end{itemize}
+
+Quality
+\begin{itemize}
+  \item List of tests (or description where to find the test)
+  \item Quality tool reports, like \href{http://filehippo.com/download_pmd/}{PMD} (known issues listed here)
+\end{itemize}
+
+NOTE: Each Java, XML, etc. file should have a header comment: Author,
+responsibility, used by ..., uses ..., etc.
+
+\subsection{`next component'}
+
+As above, and continue for all components.
+
+
+\section{Persistent data management}
+
+How does the application store data (handle resources, icons, images, audio,
+...). When? How? URLs, pathe’s, ... data formats... naming..
+
+
+\section{Access control and security}
+
+Different roles using the application (admin, user, ...)? How is this handled?
+
+
+\section{References}
+
+
+\end{document}

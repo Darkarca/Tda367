@@ -32,25 +32,9 @@ public class ChatServer extends Application {
                     Socket socket1 = serverSocket.accept();
                     //update the log
                     Platform.runLater(() -> {
-                        textLog.appendText(new Date() + ": Client 1 joined session " + numOfSession + '\n');
-                        textLog.appendText("Client 1's IP address" + socket1.getInetAddress().getHostAddress() + '\n');
-                    });
-                    // Listen for a connection request from the second client
-                    Socket socket2 = serverSocket.accept();
-
-                    //update the log
-                    Platform.runLater(() -> {
-                        textLog.appendText(new Date() + ": Client 2 joined session " + numOfSession + '\n');
-                        textLog.appendText("Client 2's IP address" + socket2.getInetAddress().getHostAddress() + '\n');
-                    });
-                    Platform.runLater(() -> {
-                        textLog.appendText("Session " + numOfSession++ + " is started " + '\n');
+                        textLog.appendText(new Date() + ": A client has joined" + '\n');
                     });
 
-                    //start a thread for two clients
-                    Runnable session = new Session(socket1,socket2);
-                    Thread thread = new Thread(session);
-                    thread.start();
                 }
             }
             catch(IOException ex) {
