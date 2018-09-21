@@ -9,10 +9,10 @@
 
     <groupId>com.CEYMChat</groupId>
     <artifactId>Server</artifactId>
-    <version>Server</version>
+    <version>1</version>
     <packaging>jar</packaging>
 
-    <name>MVC 1.0 Blank Project (from https://github.com/making/mvc-1.0-blank)</name>
+    <name>Server</name>
 
 
     <properties>
@@ -44,6 +44,21 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
+    <plugin>
+      <!-- Build an executable JAR -->
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-jar-plugin</artifactId>
+      <version>3.1.0</version>
+      <configuration>
+        <archive>
+          <manifest>
+            <addClasspath>true</addClasspath>
+            <classpathPrefix>lib/</classpathPrefix>
+            <mainClass>com.CEYMChat.Server</mainClass>
+          </manifest>
+        </archive>
+      </configuration>
+    </plugin>
         </plugins>
     </build>
 </project>

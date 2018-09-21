@@ -14,7 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-public class Client extends Application {
+public class ClientController extends Application {
 
     DataOutputStream toServer = null;
     DataInputStream fromServer = null;
@@ -84,4 +84,3 @@ public class Client extends Application {
         }).start();
     }
 }
-
