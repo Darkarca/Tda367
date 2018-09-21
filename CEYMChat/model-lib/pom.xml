@@ -8,8 +8,8 @@
   </parent>
 
     <groupId>com.CEYMChat</groupId>
-    <artifactId>Client</artifactId>
-    <version>Client</version>
+    <artifactId>model-lib</artifactId>
+    <version>model</version>
     <packaging>jar</packaging>
 
     <name>MVC 1.0 Blank Project (from https://github.com/making/mvc-1.0-blank)</name>
