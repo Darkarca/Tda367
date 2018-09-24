@@ -54,7 +54,7 @@
           <manifest>
             <addClasspath>true</addClasspath>
             <classpathPrefix>lib/</classpathPrefix>
-            <mainClass>com.CEYMChat.ClientController</mainClass>
+            <mainClass>com.CEYMChat.ClientMain</mainClass>
           </manifest>
         </archive>
       </configuration>
