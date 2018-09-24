@@ -1,25 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: BLUE;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.CEYMChat.ClientController">
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="486.0" prefWidth="779.0" style="-fx-background-color: BLUE;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.CEYMChat.ClientController">
    <children>
-      <TextField fx:id="chatBox" layoutX="149.0" layoutY="352.0" prefHeight="26.0" prefWidth="451.0" promptText="Type here to chat!" />
-      <ScrollPane layoutX="149.0" layoutY="95.0" prefHeight="242.0" prefWidth="451.0" vbarPolicy="NEVER">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <TextArea fx:id="ta" layoutX="-1.0" prefHeight="242.0" prefWidth="451.0" style="-fx-border-color: green;" />
-               </children>
-            </AnchorPane>
-        </content>
-      </ScrollPane>
+      <TextField fx:id="chatBox" layoutX="228.0" layoutY="428.0" prefHeight="26.0" prefWidth="451.0" promptText="Type here to chat!" />
+    <AnchorPane layoutX="228.0" layoutY="168.0" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <TextArea fx:id="ta" layoutY="14.0" prefHeight="242.0" prefWidth="451.0" style="-fx-border-color: green;" />
+         </children>
+      </AnchorPane>
       <TextField fx:id="userTxt" layoutX="149.0" layoutY="14.0" prefHeight="26.0" prefWidth="189.0" />
       <Button fx:id="userSet" layoutX="349.0" layoutY="15.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="98.0" text="Set Username" />
       <Text fx:id="friendTxt" fill="#00c400" layoutX="149.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Currently chatting with: " wrappingWidth="304.2445068359375">
@@ -27,5 +22,6 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Text>
+      <Button fx:id="sendButton" layoutX="690.0" layoutY="429.0" mnemonicParsing="false" text="Send" />
    </children>
 </AnchorPane>
