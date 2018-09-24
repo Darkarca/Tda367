@@ -51,6 +51,10 @@ out/
 # mpeltonen/sbt-idea plugin
 .idea_modules/
 
+### floobits ###
+.floo
+
+
 # JIRA plugin
 atlassian-ide-plugin.xml
 
