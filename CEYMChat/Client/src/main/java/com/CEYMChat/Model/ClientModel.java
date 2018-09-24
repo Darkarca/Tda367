@@ -15,6 +15,6 @@ public class ClientModel {
     public static ClientModel getModelInstance(){return modelInstance;}
 
 
-    
+
 
 }
