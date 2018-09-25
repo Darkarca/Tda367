@@ -18,4 +18,10 @@ public class Message<T>{
         this.data = data;
     }
 
+
+
+    public T getData(){
+
+        return this.data;
+    }
 }

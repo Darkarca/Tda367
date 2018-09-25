@@ -38,6 +38,12 @@
             <artifactId>ozark</artifactId>
             <version>1.0.0-m02</version>
         </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>RELEASE</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

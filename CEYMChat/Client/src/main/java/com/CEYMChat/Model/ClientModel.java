@@ -28,4 +28,12 @@ public class ClientModel {
 
     }
 
+    /**
+     * Processes a received message
+     * (Not yet implemented)
+     */
+    public void processMessage(Message m){
+
+        }
+
 }
