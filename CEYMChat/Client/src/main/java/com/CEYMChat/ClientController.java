@@ -24,10 +24,12 @@ public class ClientController {
         //chatWindow.appendText(message);
     }
 
-
+    /**
+     * Captures input from user and send makes use of model to send message
+     */
     public void sendString(){
         String toSend = textInput.getText();
-
+        model.sendStringMessage(toSend);
 
     }
 }

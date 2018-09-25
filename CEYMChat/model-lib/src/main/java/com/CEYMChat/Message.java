@@ -10,6 +10,8 @@ import java.io.File;
  */
 
 public class Message<T>{
+    //User sender;
+    //User receiver;
     T data;
 
     protected Message(T data){
