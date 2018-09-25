@@ -23,4 +23,11 @@ public class ClientController {
         //String message = model.getNewMessage();
         //chatWindow.appendText(message);
     }
+
+
+    public void sendString(){
+        String toSend = textInput.getText();
+
+
+    }
 }

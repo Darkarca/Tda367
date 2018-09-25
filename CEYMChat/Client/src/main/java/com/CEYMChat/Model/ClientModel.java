@@ -1,5 +1,8 @@
 package com.CEYMChat.Model;
 
+import com.CEYMChat.Message;
+import com.CEYMChat.MessageFactory;
+
 /**
  * This class will contain most of the model for the client-side. The model will likely be composed of
  * more classes in the "com.CEYMChat.Model" package.
@@ -20,7 +23,10 @@ public class ClientModel {
 
     public static ClientModel getModelInstance(){return modelInstance;}
 
+    /*public void sendMessage(data <T>){
+        Message = MessageFactory.createStringMessage()
 
+    }*///Not yet implemented
 
 
 }
