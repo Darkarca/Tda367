@@ -16,7 +16,7 @@ public class ClientMain extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("View/ClientView.fxml"));
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("/View/ClientView.fxml"));
         primaryStage.setTitle("CEYMChat");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
