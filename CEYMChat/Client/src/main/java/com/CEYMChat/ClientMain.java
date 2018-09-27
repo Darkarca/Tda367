@@ -7,6 +7,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.net.Socket;
+
 /**
  * This class should do nothing else than to launch the client application.
  */
@@ -20,9 +22,8 @@ public class ClientMain extends Application {
         primaryStage.setTitle("CEYMChat");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
+
+
+
     }
-
-
-
-    public static void main (String[] args){launch(args);}
 }

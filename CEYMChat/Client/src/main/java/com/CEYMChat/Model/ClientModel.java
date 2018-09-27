@@ -3,6 +3,9 @@ import com.CEYMChat.Message;
 import com.CEYMChat.MessageFactory;
 import com.CEYMChat.User;
 
+import java.io.IOException;
+import java.net.Socket;
+
 /**
  * This class will contain most of the model for the client-side. The model will likely be composed of
  * more classes in the "com.CEYMChat.Model" package.
@@ -14,12 +17,17 @@ import com.CEYMChat.User;
 public class ClientModel {
 
     User currentUser;
+    Connection connection = new Connection();
+
+
     private static final ClientModel modelInstance = new ClientModel();
     /**
      * Private constructor with getModelInstance()
      * to ensure only one model is ever created (Singleton pattern)
      * **/
-    private ClientModel(){}
+    private ClientModel(){
+        connection.start();
+    }
 
     public static ClientModel getModelInstance(){return modelInstance;}
 
