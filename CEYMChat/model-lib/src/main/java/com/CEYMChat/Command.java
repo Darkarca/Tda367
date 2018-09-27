@@ -7,6 +7,19 @@ package com.CEYMChat;
  */
 public class Command {
 
+    String commandName;
+
+    public String getCommandName() {
+        return commandName;
+    }
+
+    public String getCommandData() {
+        return commandData;
+    }
+
+    String commandData;
+
+
 
 }
 
