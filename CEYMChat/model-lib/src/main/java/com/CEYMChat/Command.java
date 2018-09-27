@@ -7,6 +7,10 @@ package com.CEYMChat;
  */
 public class Command {
 
+    String commandName;
+    String commandMetaData;
+
+
 
 }
 
