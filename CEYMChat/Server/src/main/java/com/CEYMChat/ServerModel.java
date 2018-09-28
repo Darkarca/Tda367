@@ -16,7 +16,7 @@ public class ServerModel {
     ObjectInputStream messageInStream;
     ObjectOutputStream messageOutStream;
 
-    public void logInUser(Command c) {
+   /* public void logInUser(Command c) {
         if (checkUser(c.getCommandData())) {
             try {
                 int newUser = clientList.size();
@@ -31,7 +31,7 @@ public class ServerModel {
                 exception.printStackTrace();
             }
         }
-    }
+    }*/
 
     public void registerUser(){
 
