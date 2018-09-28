@@ -19,6 +19,11 @@ public class TestServer {
         ServerModel sm = new ServerModel();
         boolean val = sm.checkUser();
         assertFalse(val);
+    }
+
+    @Test
+    public void shouldFail(){
+        assertFalse(true);
 
     }
 
