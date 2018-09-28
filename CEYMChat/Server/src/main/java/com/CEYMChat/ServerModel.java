@@ -44,8 +44,8 @@ public class ServerModel {
 
     }
 
-    private boolean checkUser(String details){
-
+    public boolean checkUser(){
+            return false;
     }
 
 }

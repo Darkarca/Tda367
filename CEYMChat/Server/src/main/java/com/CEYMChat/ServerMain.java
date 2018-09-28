@@ -7,7 +7,7 @@ public class ServerMain{
 
     static ServerSocket serverSocket;
 
-    public void main() {
+    public static void main(String[] args) {
         try {
             ServerSocket serverSocket = new ServerSocket(8989);
         } catch (IOException ex) {
