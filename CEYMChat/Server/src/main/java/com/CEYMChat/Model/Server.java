@@ -64,8 +64,8 @@ import javafx.stage.Stage;
                         Thread thread1 = new Thread(clienth1);
                         thread1.start();
                         Runnable clienth2 = new ClientHandler(socket2,socket1);
-                        Thread thread2 = new Thread(clienth1);
-                        thread1.start();
+                        Thread thread2 = new Thread(clienth2);
+                        thread2.start();
 
                     }
                 } catch (IOException ex) {
