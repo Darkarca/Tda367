@@ -1,4 +1,4 @@
-package com.CEYMChat.Model;
+package com.CEYMChat;
 
 import com.CEYMChat.Message;
 import sun.rmi.transport.ObjectTable;
@@ -25,7 +25,6 @@ public class Connection extends Thread {
 
     }
 
-
     @Override
     public void start(){
         try {
@@ -37,8 +36,11 @@ public class Connection extends Thread {
         }
 
         while(true){
-
-
+            try {
+                messageOutStream.writeObject(messageOut);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
 
         }
@@ -47,6 +49,16 @@ public class Connection extends Thread {
 
     }
 
+    public ObjectOutputStream getMessageOutStream() {
+        return messageOutStream;
+    }
+
+    public ObjectInputStream getMessageInStream() {
+        return messageInStream;
+    }
+    public Message getInMessage(){
+        return null;
+    }
 
 
 

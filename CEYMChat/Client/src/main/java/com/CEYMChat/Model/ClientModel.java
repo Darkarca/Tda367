@@ -1,10 +1,8 @@
 package com.CEYMChat.Model;
+import com.CEYMChat.Connection;
 import com.CEYMChat.Message;
 import com.CEYMChat.MessageFactory;
 import com.CEYMChat.User;
-
-import java.io.IOException;
-import java.net.Socket;
 
 /**
  * This class will contain most of the model for the client-side. The model will likely be composed of
