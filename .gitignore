@@ -1,3 +1,20 @@
+Skip to content
+ 
+Search or jump to…
+
+Pull requests
+Issues
+Marketplace
+Explore
+ @ostcarl Sign out
+3
+0 0 Darkarca/Tda367
+ Code  Issues 0  Pull requests 0  Projects 0  Wiki  Insights
+Tda367/.gitignore
+85d4f8b  2 days ago
+@ostcarl ostcarl added .idea to gitignore
+     
+131 lines (98 sloc)  2.32 KB
 
 # Created by https://www.gitignore.io/api/java,maven,intellij
 
@@ -128,3 +145,16 @@ buildNumber.properties
 
 
 # End of https://www.gitignore.io/api/java,maven,intellij
+© 2018 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Help
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
+Press h to open a hovercard with more details.
