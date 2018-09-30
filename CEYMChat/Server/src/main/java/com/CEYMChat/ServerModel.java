@@ -6,13 +6,23 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ServerModel {
+    ServerSocket serverSocket;
 
-    List<Socket> clientList = new ArrayList<Socket>();
+    {
+        try {
+            serverSocket = new ServerSocket(8989);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    List<Socket> socketList = new ArrayList<Socket>();
     ObjectInputStream messageInStream;
     ObjectOutputStream messageOutStream;
 
@@ -33,19 +43,27 @@ public class ServerModel {
         }
     }*/
 
-    public void registerUser(){
+    public void registerUser() {
 
     }
-
-    public void performCommand(Command c){
+    public void performCommand(Command c) {
     }
 
-    public void startSession(){
+    public void startSession() {
 
     }
-
-    public boolean checkUser(){
-            return false;
+    public boolean checkUser() {
+        return false;
     }
+
+    public ServerSocket getServerSocket() {
+        return serverSocket;
+    }
+    public void addSocket(Socket s){
+        socketList.add(s);
+    }
+
+
+
 
 }

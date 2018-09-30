@@ -17,7 +17,7 @@ import java.net.Socket;
 public class ClientModel {
 
     User currentUser;
-    Connection connection = new Connection();
+   Connection connection = new Connection();
 
 
     private static final ClientModel modelInstance = new ClientModel();
@@ -26,7 +26,10 @@ public class ClientModel {
      * to ensure only one model is ever created (Singleton pattern)
      * **/
     private ClientModel(){
-        connection.start();
+    }
+    public void connectToServer (){
+            connection.start();
+            System.out.println("Connection started");
     }
 
     public static ClientModel getModelInstance(){return modelInstance;}

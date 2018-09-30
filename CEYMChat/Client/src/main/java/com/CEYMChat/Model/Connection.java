@@ -36,14 +36,6 @@ public class Connection extends Thread {
             e.printStackTrace();
         }
 
-        while(true){
-
-
-
-
-        }
-
-
 
     }
 

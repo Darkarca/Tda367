@@ -1,18 +1,19 @@
 package com.CEYMChat;
 
+import javafx.application.Application;
+import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 
-public class ServerMain{
+public class ServerMain extends Application {
 
-    static ServerSocket serverSocket;
+    ServerModel model = new ServerModel();
+    SocketHandler socketHandler = new SocketHandler(model);
 
-    public static void main(String[] args) {
-        try {
-            ServerSocket serverSocket = new ServerSocket(8989);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        socketHandler.start();
+        System.out.println("Server running");
     }
-
 }
