@@ -1,9 +1,10 @@
-package Model;
+package com.CEYMChat.Model;
 import java.io.*;
 import java.net.*;
 import java.util.Date;
 
-import Service.ClientHandler;
+
+import com.CEYMChat.Service.ClientHandler;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;

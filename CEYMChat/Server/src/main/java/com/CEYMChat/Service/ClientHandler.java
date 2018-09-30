@@ -1,4 +1,4 @@
-package Service;
+package com.CEYMChat.Service;
 import java.io.*;
 import java.net.*;
 
