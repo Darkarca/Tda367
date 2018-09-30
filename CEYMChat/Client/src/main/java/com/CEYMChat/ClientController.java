@@ -10,13 +10,15 @@ public class ClientController {
     ClientModel model = ClientModel.getModelInstance();
 
     @FXML
-    TextField textInput;
+    TextField chatBox;
 
     @FXML
     TextArea chatWindow;
 
     @FXML
     Button sendButton;
+
+
 
     // This is just a dummy method to illustrate how the model/controller might work together.
     public void displayNewMessage(){
@@ -28,7 +30,7 @@ public class ClientController {
      * Captures input from user and send makes use of model to send message
      */
     public void sendString(){
-        String toSend = textInput.getText();
+        String toSend = chatBox.getText();
         model.sendStringMessage(toSend);
 
     }

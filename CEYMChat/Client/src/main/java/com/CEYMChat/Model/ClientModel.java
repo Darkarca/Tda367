@@ -31,7 +31,8 @@ public class ClientModel {
 
     public void sendStringMessage(String s){
         Message message = MessageFactory.createStringMessage(s);
-
+        connection.setMessageOut(message);
+        System.out.println(message.getData().toString());
     }
 
     /**

@@ -18,24 +18,26 @@ public class Connection extends Thread {
     ObjectOutputStream messageOutStream;
     ObjectInputStream messageInStream;
     Message messageIn;
+
     Message messageOut;
+
     public Connection(){
 
 
 
     }
-
     @Override
-    public void start(){
-        try {
-            Socket socket = new Socket("localhost", 8989);
-            this.messageInStream = new ObjectInputStream(socket.getInputStream());
-            this.messageOutStream = new ObjectOutputStream(socket.getOutputStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void start() {
+        new Thread(() -> {
+            try {
+                Socket socket = new Socket("localhost", 6969);
+                this.messageInStream = new ObjectInputStream(socket.getInputStream());
+                this.messageOutStream = new ObjectOutputStream(socket.getOutputStream());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-        while(true){
+            while (true) {
             try {
                 messageOutStream.writeObject(messageOut);
             } catch (IOException e) {
@@ -43,10 +45,10 @@ public class Connection extends Thread {
             }
 
 
-        }
+            }
 
 
-
+        });
     }
 
     public ObjectOutputStream getMessageOutStream() {
@@ -55,6 +57,10 @@ public class Connection extends Thread {
 
     public ObjectInputStream getMessageInStream() {
         return messageInStream;
+    }
+
+    public void setMessageOut(Message messageOut) {
+        this.messageOut = messageOut;
     }
     public Message getInMessage(){
         return null;
