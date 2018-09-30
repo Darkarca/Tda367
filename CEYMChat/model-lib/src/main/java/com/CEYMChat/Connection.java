@@ -18,14 +18,12 @@ public class Connection extends Thread {
     ObjectOutputStream messageOutStream;
     ObjectInputStream messageInStream;
     Message messageIn;
-
     Message messageOut;
 
     public Connection(){
-
-
-
+    this.start();
     }
+
     @Override
     public void start() {
         new Thread(() -> {
@@ -40,11 +38,10 @@ public class Connection extends Thread {
             while (true) {
             try {
                 messageOutStream.writeObject(messageOut);
+                System.out.print("Message to be sent");
             } catch (IOException e) {
                 e.printStackTrace();
-            }
-
-
+                }
             }
 
 

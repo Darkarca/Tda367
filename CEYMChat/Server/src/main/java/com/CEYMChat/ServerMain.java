@@ -1,6 +1,8 @@
 package com.CEYMChat;
 
 import com.CEYMChat.Command;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -11,7 +13,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ServerMain {
+public class ServerMain extends Application{
 
     ServerSocket server;
     List<Connection> clientList = new ArrayList<Connection>();
@@ -20,15 +22,14 @@ public class ServerMain {
 
 
 
-    public void main(){
+    public void start(Stage primaryStage){
         try{
             server  = new ServerSocket(8989);
-
+            System.out.println("Server running");
+            startConnection();
         while(true){
             for (Connection c:clientList) {
                 displayMessage(getMessage(c));
-
-
             }
 
 
@@ -66,11 +67,16 @@ public class ServerMain {
         return null;
     }
 
-    public void startConnection(Connection c) throws IOException {
-
-        c.socket = server.accept();
-        clientList.add(c);
-
+    public void startConnection() throws IOException {
+        System.out.print("Method called");
+        Connection c = new Connection();
+        c.start();
+        while(clientList.isEmpty()) {
+            c.socket = server.accept();
+            clientList.add(c);
+            System.out.println("Client connected");
+        }
+        System.out.println("Method ended");
     }
 
     public void startSession(){
