@@ -1,8 +1,10 @@
 package com.CEYMChat.Model;
-import com.CEYMChat.Connection;
 import com.CEYMChat.Message;
 import com.CEYMChat.MessageFactory;
 import com.CEYMChat.User;
+
+import java.io.IOException;
+import java.net.Socket;
 
 /**
  * This class will contain most of the model for the client-side. The model will likely be composed of
@@ -15,7 +17,7 @@ import com.CEYMChat.User;
 public class ClientModel {
 
     User currentUser;
-    Connection connection = new Connection();
+   Connection connection = new Connection();
 
 
     private static final ClientModel modelInstance = new ClientModel();
@@ -24,15 +26,17 @@ public class ClientModel {
      * to ensure only one model is ever created (Singleton pattern)
      * **/
     private ClientModel(){
-        connection.start();
+    }
+    public void connectToServer (){
+            connection.start();
+            System.out.println("Connection started");
     }
 
     public static ClientModel getModelInstance(){return modelInstance;}
 
     public void sendStringMessage(String s){
         Message message = MessageFactory.createStringMessage(s);
-        connection.setMessageOut(message);
-        System.out.println(message.getData().toString());
+
     }
 
     /**
