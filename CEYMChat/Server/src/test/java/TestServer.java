@@ -21,11 +21,6 @@ public class TestServer {
         assertFalse(val);
     }
 
-    @Test
-    public void shouldFail(){
-        assertFalse(true);
-
-    }
 
 
 }

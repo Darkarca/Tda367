@@ -68,28 +68,27 @@ public class    ServerModel {
     }
 
 
-    public void initiateConnection() throws IOException {
-        new Thread(() -> {
-            int i = 0;
-            while(true){
+    public synchronized void initiateConnection() throws IOException {
 
-            if(socketList.size() > i) {
 
-                System.out.println("Connection initiated");
-                try {
-                    messageInStream = new DataInputStream(socketList.get(i).getInputStream());
-                    messageOutStream = new DataOutputStream(socketList.get(i).getOutputStream());
+            while(true)
+                for (Socket s:socketList) {
+                    try {
+                    messageInStream = new DataInputStream(s.getInputStream());
+                    //messageOutStream = new DataOutputStream(s.getOutputStream());
+                    displayMessage(getMessage());
+                    //System.out.println("Connection initiated");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            i++;
+                System.out.println(socketList.size());
             }
-            }
-        }
-        ).start();
     }
 
-    public Message getMessage(){
+
+
+
+    public synchronized Message getMessage(){
         try {
             return new Message(messageInStream.readUTF());
         } catch (Exception e) {

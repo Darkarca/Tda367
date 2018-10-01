@@ -36,7 +36,7 @@ public class ClientModel {
 
     public void sendStringMessage(String s) throws IOException {
         Message message = MessageFactory.createStringMessage(s);
-        System.out.print(message.getData().toString());
+        System.out.println(message.getData().toString());
         connection.messageOutStream.writeUTF(message.getData().toString());
 
     }

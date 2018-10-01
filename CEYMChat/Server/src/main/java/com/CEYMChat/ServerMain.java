@@ -16,11 +16,11 @@ public class ServerMain extends Application {
         System.out.println("Server running");
         socketHandler.start();
         model.initiateConnection();
-        while (true) {
+        /*while (true) {
             while (model.getMessage() != null) {
                 System.out.println(model.getMessage().getData().toString());
             }
            // System.out.print("Hello world!");
-        }
+        }*/
     }
 }
