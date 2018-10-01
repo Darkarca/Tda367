@@ -2,12 +2,13 @@ package com.CEYMChat;
 
 import java.io.DataInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.net.Socket;
 
 public class ReadThread implements Runnable{
     ServerModel model;
     Socket socket;
-    DataInputStream inputStream;
+    ObjectInputStream inputStream;
 
 
     public ReadThread(ServerModel model, Socket socket){
@@ -15,7 +16,7 @@ public class ReadThread implements Runnable{
         this.socket = socket;
         {
             try {
-                inputStream = new DataInputStream(this.socket.getInputStream());
+                inputStream = new ObjectInputStream(this.socket.getInputStream());
             } catch (IOException e) {
                 e.printStackTrace();
                 System.out.println("No socket found");
@@ -31,8 +32,10 @@ public class ReadThread implements Runnable{
     public void run() {
         while(true){
             try {
-                model.displayMessage(inputStream.readUTF());
+                model.displayMessage((Message)inputStream.readObject());
             } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
 

@@ -21,8 +21,9 @@ public class    ServerModel {
     }
 
     List<Socket> socketList = new ArrayList<Socket>();
-    DataInputStream messageInStream;
-    DataOutputStream messageOutStream;
+    ObjectInputStream messageInStream;
+    ObjectOutputStream messageOutStream;
+    FileInputStream fis;
 
    /* public void logInUser(Command c) {
         if (checkUser(c.getCommandData())) {
@@ -68,8 +69,8 @@ public class    ServerModel {
     }
 
 
-    public void displayMessage(String s) {
-        System.out.println(s);
+    public void displayMessage(Message m) {
+        System.out.println(m.getData());
     }
     public void startReadThreads(){
         for (ReadThread rt : readThreads){
@@ -101,7 +102,7 @@ public class    ServerModel {
 
     public synchronized Message getMessage(){
         try {
-            return new Message(messageInStream.readUTF());
+            return new Message(messageInStream.readObject());
         } catch (Exception e) {
            // e.printStackTrace();
         } /*catch (ClassNotFoundException e) {
