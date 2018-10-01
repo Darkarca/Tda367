@@ -4,13 +4,13 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-public class ReadThread implements Runnable{
+public class ReadThread implements Runnable {
     ServerModel model;
     Socket socket;
     DataInputStream inputStream;
 
 
-    public ReadThread(ServerModel model, Socket socket){
+    public ReadThread(ServerModel model, Socket socket) {
         this.model = model;
         this.socket = socket;
         {
@@ -26,10 +26,9 @@ public class ReadThread implements Runnable{
     }
 
 
-
     @Override
     public void run() {
-        while(true){
+        while (true) {
             try {
                 model.displayMessage(inputStream.readUTF());
             } catch (IOException e) {
@@ -38,6 +37,15 @@ public class ReadThread implements Runnable{
 
 
         }
+    }
+
+    public String getUserName() {
+        try {
+            return inputStream.readUTF();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 

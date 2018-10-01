@@ -28,6 +28,8 @@ public class ClientController {
 
     @FXML
     Button sendButton;
+    @FXML
+    TextField loginTextField;
 
 
 
@@ -60,5 +62,13 @@ public class ClientController {
             e.printStackTrace();
         }
         model.connectToServer();
+    }
+    public void login(){
+        try {
+            model.sendStringMessage(loginTextField.getText());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }
