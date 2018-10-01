@@ -7,7 +7,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ServerModel {
+public class    ServerModel {
 
     ServerSocket serverSocket;
 
@@ -75,13 +75,13 @@ public class ServerModel {
 
             if(socketList.size() > i) {
 
+                System.out.println("Connection initiated");
                 try {
                     messageInStream = new DataInputStream(socketList.get(i).getInputStream());
                     messageOutStream = new DataOutputStream(socketList.get(i).getOutputStream());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                System.out.println("Connection initiated");
             i++;
             }
             }
