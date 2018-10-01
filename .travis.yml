@@ -1,4 +1,4 @@
 language: java
 script: 
     - cd CEYMChat
-- mvn clean verify
+    - mvn clean verify
