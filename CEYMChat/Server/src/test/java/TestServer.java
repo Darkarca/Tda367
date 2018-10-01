@@ -1,4 +1,5 @@
 import com.CEYMChat.ServerModel;
+import com.CEYMChat.SocketHandler;
 import org.junit.*;
 
 import static java.lang.System.out;
@@ -21,6 +22,12 @@ public class TestServer {
         assertFalse(val);
     }
 
+    @Test
+    public void testSocketHandlerStart(){
+        SocketHandler sh = new SocketHandler(new ServerModel());
+        sh.start();
+
+    }
 
 
 }

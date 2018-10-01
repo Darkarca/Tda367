@@ -6,6 +6,10 @@ import java.io.ObjectInputStream;
 import java.net.Socket;
 import java.net.SocketException;
 
+/**
+ * Thread that reads user input and send it to the server.
+ */
+
 public class ReadThread implements Runnable {
     ServerModel model;
     Socket socket;
