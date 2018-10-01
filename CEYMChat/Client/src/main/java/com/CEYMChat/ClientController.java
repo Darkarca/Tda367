@@ -32,6 +32,10 @@ public class ClientController {
     TextField loginTextField;
 
 
+    Parent login;
+    Stage loginStage = new Stage();
+
+
 
     // This is just a dummy method to illustrate how the model/controller might work together.
     public void displayNewMessage(){
@@ -44,6 +48,7 @@ public class ClientController {
      */
     public void sendString() throws IOException {
         String toSend = chatBox.getText();
+        chatBox.setText("");
         model.sendStringMessage(toSend);
 
     }
@@ -51,13 +56,13 @@ public class ClientController {
     public void connectToServer(MouseEvent mouseEvent) {
         try{
             URL url = Paths.get("Client/src/main/resources/View/login.fxml").toUri().toURL();
-            Parent root = FXMLLoader.load(url);
-            Stage stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.initStyle(StageStyle.UTILITY);
-            stage.setTitle("Login");
-            stage.setScene(new Scene(root));
-            stage.show();
+            login = FXMLLoader.load(url);
+            loginStage.initModality(Modality.APPLICATION_MODAL);
+            loginStage.initStyle(StageStyle.UTILITY);
+            loginStage.setTitle("Login");
+            loginStage.setScene(new Scene(login));
+            loginStage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -66,9 +71,14 @@ public class ClientController {
     public void login(){
         try {
             model.sendStringMessage(loginTextField.getText());
+            
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+        loginStage.hide();
+
+
 
     }
 }
