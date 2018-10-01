@@ -15,7 +15,6 @@ public class ServerMain extends Application {
     public void start(Stage primaryStage) throws Exception {
         System.out.println("Server running");
         socketHandler.start();
-        model.initiateConnection();
         /*while (true) {
             while (model.getMessage() != null) {
                 System.out.println(model.getMessage().getData().toString());
