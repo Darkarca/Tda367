@@ -15,6 +15,7 @@ public class User {
         this.model = model;
         this.socket = s;
         this.readThread = new ReadThread(model, this.socket);
+        readThread.username = username;
 
         if(this.username == null){
             System.out.println("Awaiting username");

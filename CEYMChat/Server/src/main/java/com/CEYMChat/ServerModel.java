@@ -71,8 +71,8 @@ public class    ServerModel {
     }
 
 
-    public void displayMessage(Message m) {
-        System.out.println(m.getData());
+    public void displayMessage(Message m, String username) {
+        System.out.println(username + ": " + m.getData());
     }
     public void startReadThreads(){
         for (ReadThread rt : readThreads){

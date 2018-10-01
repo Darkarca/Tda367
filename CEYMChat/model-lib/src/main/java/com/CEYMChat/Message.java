@@ -15,6 +15,7 @@ public class Message<T> implements Serializable {
     //User receiver;
     T data;
 
+
     protected Message(T data){
         this.data = data;
     }
