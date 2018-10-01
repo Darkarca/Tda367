@@ -11,6 +11,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.Window;
 
 import java.io.IOException;
 import java.net.URL;
@@ -30,6 +31,8 @@ public class ClientController {
     Button sendButton;
     @FXML
     TextField loginTextField;
+    @FXML
+    Button loginButton;
 
 
     Parent login;
@@ -68,17 +71,20 @@ public class ClientController {
         }
         model.connectToServer();
     }
+    @FXML
     public void login(){
+
         try {
             model.sendStringMessage(loginTextField.getText());
-
+            Window window = loginButton.getScene().getWindow();
+            window.hide();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-        loginStage.hide();
 
 
 
     }
+
 }
