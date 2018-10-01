@@ -17,7 +17,7 @@ public class SocketHandler extends Thread{
     }
 
     @Override
-    public synchronized void start() {
+    public synchronized void run() {
         while(true){
             try {
                 connectSocket();

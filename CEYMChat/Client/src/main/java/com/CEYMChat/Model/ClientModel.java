@@ -15,9 +15,8 @@ import java.net.Socket;
 
 
 public class ClientModel {
-
     User currentUser;
-   Connection connection = new Connection();
+    Connection connection = new Connection();
 
 
     private static final ClientModel modelInstance = new ClientModel();
@@ -28,7 +27,8 @@ public class ClientModel {
     private ClientModel(){
     }
     public void connectToServer (){
-            connection.start();
+            Thread connectionThread = new Thread(connection);
+            connectionThread.run();
             System.out.println("Connection started");
     }
 
