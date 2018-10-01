@@ -1,9 +1,7 @@
 package com.CEYMChat;
 
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -22,8 +20,8 @@ public class ServerModel {
     }
 
     List<Socket> socketList = new ArrayList<Socket>();
-    ObjectInputStream messageInStream;
-    ObjectOutputStream messageOutStream;
+    DataInputStream messageInStream;
+    DataOutputStream messageOutStream;
 
    /* public void logInUser(Command c) {
         if (checkUser(c.getCommandData())) {
@@ -78,9 +76,9 @@ public class ServerModel {
             if(socketList.size() > i) {
 
                 try {
-                    messageInStream = new ObjectInputStream(socketList.get(i).getInputStream());
-                    messageOutStream = new ObjectOutputStream(socketList.get(i).getOutputStream());
-                } catch (IOException e) {
+                    messageInStream = new DataInputStream(socketList.get(i).getInputStream());
+                    messageOutStream = new DataOutputStream(socketList.get(i).getOutputStream());
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 System.out.println("Connection initiated");
@@ -93,7 +91,7 @@ public class ServerModel {
 
     public Message getMessage(){
         try {
-            return new Message(messageInStream.readObject());
+            return new Message(messageInStream.readUTF());
         } catch (Exception e) {
            // e.printStackTrace();
         } /*catch (ClassNotFoundException e) {

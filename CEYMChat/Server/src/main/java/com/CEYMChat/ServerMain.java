@@ -16,5 +16,8 @@ public class ServerMain extends Application {
         System.out.println("Server running");
         socketHandler.start();
         model.initiateConnection();
+        while (model.getMessage() != null) {
+            System.out.print(model.getMessage().getData().toString());
+        }
     }
 }
