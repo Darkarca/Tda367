@@ -13,6 +13,7 @@ import java.util.List;
 
 public class ServerModel {
     ServerSocket serverSocket;
+    List<User> userList = new ArrayList<>();
 
     {
         try {
@@ -62,6 +63,10 @@ public class ServerModel {
     public void addSocket(Socket s){
         socketList.add(s);
     }
+    public void addUser(User u){
+        userList.add(u);
+    }
+
 
 
 

@@ -27,6 +27,6 @@ public class SocketHandler extends Thread{
         }
     }
     public synchronized void connectSocket() throws IOException {
-        model.addSocket( serverSocket.accept());
+        model.addUser(new User(serverSocket.accept(), "Username"));
     }
 }
