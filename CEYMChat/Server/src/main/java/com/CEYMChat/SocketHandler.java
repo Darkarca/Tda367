@@ -19,7 +19,7 @@ public class SocketHandler extends Thread{
             while (true) {
                 try {
                     System.out.println("Looking for socket");
-                    connectSocket();
+                    this.connectSocket();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -29,6 +29,10 @@ public class SocketHandler extends Thread{
         }).start();
     }
     public synchronized void connectSocket() throws IOException {
-        model.addSocket( serverSocket.accept());
+        Socket s = serverSocket.accept();
+        ReadThread rt = new ReadThread(model, s);
+        Thread readThread = new Thread(rt);
+        readThread.start();
+        model.addReadThread(rt);
     }
 }

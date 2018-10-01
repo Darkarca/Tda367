@@ -10,6 +10,7 @@ import java.util.List;
 public class    ServerModel {
 
     ServerSocket serverSocket;
+    List<ReadThread> readThreads = new ArrayList<>();
 
     {
         try {
@@ -62,13 +63,23 @@ public class    ServerModel {
     public void addSocket(Socket s) {
         socketList.add(s);
     }
-
-    public void displayMessage(Message m) {
-        System.out.println(m.getData().toString());
+    public void addReadThread(ReadThread rt) {
+        readThreads.add(rt);
     }
 
 
-    public synchronized void initiateConnection() throws IOException {
+    public void displayMessage(String s) {
+        System.out.println(s);
+    }
+    public void startReadThreads(){
+        for (ReadThread rt : readThreads){
+            rt.run();
+        }
+
+    }
+
+
+   /* public synchronized void initiateConnection() throws IOException {
 
 
             while(true)
@@ -76,14 +87,14 @@ public class    ServerModel {
                     try {
                     messageInStream = new DataInputStream(s.getInputStream());
                     //messageOutStream = new DataOutputStream(s.getOutputStream());
-                    displayMessage(getMessage());
+                  //  displayMessage(getMessage());
                     //System.out.println("Connection initiated");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
                 System.out.println(socketList.size());
             }
-    }
+    }*/
 
 
 
