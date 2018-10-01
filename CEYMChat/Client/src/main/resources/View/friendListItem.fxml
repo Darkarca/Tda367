@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane fx:id="friendPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#selectFriend" prefHeight="38.0" prefWidth="167.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.CEYMChat.ClientController">
+   <children>
+      <Text fx:id="friendUsername" layoutX="11.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="107.0" />
+      <Circle fx:id="onlineIndicator" fill="RED" layoutX="145.0" layoutY="19.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+   </children>
+</AnchorPane>
