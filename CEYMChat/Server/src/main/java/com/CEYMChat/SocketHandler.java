@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+/**
+ * This class will be the thread running that accepts socket requests and then stores new Users in the model.
+ */
 public class SocketHandler extends Thread{
     ServerSocket serverSocket;
     ServerModel model;
