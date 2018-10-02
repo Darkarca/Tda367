@@ -9,16 +9,16 @@ import java.io.File;
 public class MessageFactory {
 
 
-    public static Message<String> createStringMessage(String data){
-        return new Message(data);
+    public static Message<String> createStringMessage(String data, String user){
+        return new Message(data, user);
     }
-    public static Message<Image> createImageMessage(Image data){
-        return new Message(data);
+    public static Message<Image> createImageMessage(Image data, String user){
+        return new Message(data, user);
     }
-    public static Message<File> createFileMessage(File data) {
-        return new Message(data);
+    public static Message<File> createFileMessage(File data, String user) {
+        return new Message(data, user);
     }
-    public static Message<Command> createCommandMessage(Command data){
-        return new Message(data);
+    public static Message<Command> createCommandMessage(Command data, String user){
+        return new Message(data, user);
     }
 }

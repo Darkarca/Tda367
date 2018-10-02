@@ -1,6 +1,7 @@
 package com.CEYMChat.Model;
 
 import com.CEYMChat.Message;
+import com.CEYMChat.MessageFactory;
 import sun.rmi.transport.ObjectTable;
 
 import java.io.*;
@@ -16,6 +17,7 @@ public class Connection extends Thread {
     ObjectOutputStream messageOutStream;
 
     ObjectInputStream messageInStream;
+
     Message messageIn;
     Message messageOut;
     public Connection(){
@@ -23,7 +25,6 @@ public class Connection extends Thread {
 
 
     }
-
     @Override
     public void start() {
         new Thread(() -> {
@@ -31,12 +32,11 @@ public class Connection extends Thread {
                 Socket socket = new Socket("localhost", 8989);
                 System.out.println("Thread strated");
                 this.messageOutStream = new ObjectOutputStream(socket.getOutputStream());
-                //this.messageInStream = new ObjectInputStream(socket.getInputStream());
+                this.messageInStream = new ObjectInputStream(socket.getInputStream());
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
 
         }
         ).start();
@@ -46,6 +46,10 @@ public class Connection extends Thread {
         System.out.println("MessageOutputStream: " + messageOutStream);
         messageOutStream.writeObject(m);
         System.out.println("Message sent: " + m);
+    }
+
+    public Socket getSocket() {
+        return socket;
     }
 
 

@@ -1,4 +1,5 @@
 package com.CEYMChat.Model;
+import com.CEYMChat.Command;
 import com.CEYMChat.Message;
 import com.CEYMChat.MessageFactory;
 
@@ -15,26 +16,38 @@ import java.io.IOException;
 public class ClientModel {
 
     //User currentUser;
-   Connection connection = new Connection();
+
+
+    Connection connection = new Connection();
+    String user;
 
 
     private static final ClientModel modelInstance = new ClientModel();
+
     /**
      * Private constructor with getModelInstance()
      * to ensure only one model is ever created (Singleton pattern)
      * **/
     private ClientModel(){
+
     }
+
+
     public void connectToServer (){
-            connection.start();
-            System.out.println("Connection started");
+        connection.start();
+        System.out.println("Connection started");
     }
 
     public static ClientModel getModelInstance(){return modelInstance;}
 
     public void sendStringMessage(String s) throws IOException {
+<<<<<<< HEAD
         Message message = MessageFactory.createStringMessage(s);
         System.out.println("Me: "+message.getData().toString());
+=======
+        Message message = MessageFactory.createStringMessage(s, user);
+        System.out.println(message.getSender() + ": " + message.getData().toString());
+>>>>>>> de87800957ec17d0456ed4b6c74c00aef2317725
         //connection.messageOutStream.writeObject(message);
         connection.setMessageOut(message);
     }
@@ -47,4 +60,20 @@ public class ClientModel {
 
         }
 
+        public void setUser(String user){
+        this.user = user;
+        }
+
+    public String retrieveMessage() throws IOException, ClassNotFoundException {
+        Message m = (Message) connection.messageInStream.readObject();
+        String s = m.getSender() + ": " + m.getData().toString();
+        return s;
+    }
+
+
+    public void sendCommandMessage(String sCommand, String sData) throws IOException {
+        Message message = MessageFactory.createCommandMessage(new Command(sCommand, sData), user);
+        System.out.println("Command sent: " + sCommand + " with data: " + sData);
+        connection.setMessageOut(message);
+    }
 }

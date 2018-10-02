@@ -11,16 +11,21 @@ import java.io.Serializable;
  */
 
 public class Message<T> implements Serializable {
-    //User sender;
+    String sender;
+
     //User receiver;
     T data;
 
-
-    protected Message(T data){
+    protected Message(T data, String sender){
         this.data = data;
+        this.sender = sender;
     }
 
 
+
+    public String getSender() {
+        return sender;
+    }
 
     public T getData(){
 

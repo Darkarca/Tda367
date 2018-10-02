@@ -24,7 +24,6 @@ public class    ServerModel {
     List<Socket> socketList = new ArrayList<Socket>();
     ObjectInputStream messageInStream;
     ObjectOutputStream messageOutStream;
-    FileInputStream fis;
 
    /* public void logInUser(Command c) {
         if (checkUser(c.getCommandData())) {
@@ -48,6 +47,10 @@ public class    ServerModel {
     }
 
     public void performCommand(Command c) {
+        switch(c.getCommandName()){
+            case("setUser"): userList.get(userList.size()-1).username = c.getCommandData();
+            System.out.println("Command performed: 'setUser'");
+        }
     }
 
     public void startSession() {
@@ -71,8 +74,8 @@ public class    ServerModel {
     }
 
 
-    public void displayMessage(Message m, String username) {
-        System.out.println(username + ": " + m.getData());
+    public void displayMessage(Message m) {
+        System.out.println(m.getSender() + ": " + m.getData());
     }
     public void startReadThreads(){
         for (ReadThread rt : readThreads){
@@ -104,12 +107,16 @@ public class    ServerModel {
 
     public synchronized Message getMessage(){
         try {
-            return new Message(messageInStream.readObject());
+            return (Message) messageInStream.readObject();
         } catch (Exception e) {
-           // e.printStackTrace();
+            e.printStackTrace();
         } /*catch (ClassNotFoundException e) {
             e.printStackTrace();
         }*/
         return null;
+    }
+
+    public synchronized void sendMessage(Message m) throws IOException {
+            messageOutStream.writeObject(m);
     }
 }
