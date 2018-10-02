@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="677.0" prefWidth="1166.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.CEYMChat.ClientController">
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="677.0" prefWidth="1166.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.CEYMChat.ClientController">
    <children>
       <SplitPane dividerPositions="0.20077220077220076" layoutX="-14.0" prefHeight="677.0" prefWidth="1183.0">
         <items>
@@ -25,10 +25,11 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="606.0" prefWidth="904.0" style="-fx-background-color: grey;">
                <children>
-                  <TextArea fx:id="chatWindow" layoutX="175.0" layoutY="196.0" prefHeight="360.0" prefWidth="591.0" style="-fx-border-color: green;" />
+                  <TextArea fx:id="receiveWindow" layoutX="174.0" layoutY="197.0" prefHeight="361.0" prefWidth="287.0" style="-fx-border-color: green;" />
                   <TextField fx:id="chatBox" layoutX="174.0" layoutY="558.0" onAction="#sendString" prefHeight="25.0" prefWidth="523.0" promptText="Type here to chat!" />
                   <Button fx:id="sendButton" layoutX="703.0" layoutY="558.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Send" />
                   <Button fx:id="connectButton" layoutX="845.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#connectToServer" prefHeight="25.0" prefWidth="82.0" text="Connect" />
+                  <TextArea fx:id="sendWindow" layoutX="461.0" layoutY="197.0" prefHeight="361.0" prefWidth="287.0" style="-fx-border-color: green;" />
                </children>
             </AnchorPane>
         </items>
