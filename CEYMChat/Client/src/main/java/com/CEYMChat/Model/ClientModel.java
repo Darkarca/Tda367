@@ -41,13 +41,9 @@ public class ClientModel {
     public static ClientModel getModelInstance(){return modelInstance;}
 
     public void sendStringMessage(String s) throws IOException {
-<<<<<<< HEAD
-        Message message = MessageFactory.createStringMessage(s);
-        System.out.println("Me: "+message.getData().toString());
-=======
+
         Message message = MessageFactory.createStringMessage(s, user);
         System.out.println(message.getSender() + ": " + message.getData().toString());
->>>>>>> de87800957ec17d0456ed4b6c74c00aef2317725
         //connection.messageOutStream.writeObject(message);
         connection.setMessageOut(message);
     }

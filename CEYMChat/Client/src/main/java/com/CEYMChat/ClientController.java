@@ -20,16 +20,11 @@ import java.nio.file.Paths;
 
 public class ClientController {
     ClientModel model = ClientModel.getModelInstance();
-<<<<<<< HEAD
-;
 
-=======
 
-    @FXML
-    TextField chatBox;
+
     @FXML
     TextArea chatWindow;
->>>>>>> de87800957ec17d0456ed4b6c74c00aef2317725
     @FXML
     Button sendButton;
     @FXML
@@ -38,6 +33,13 @@ public class ClientController {
     Button loginButton;
     @FXML
     Button connectButton;
+    @FXML
+    TextField chatBox;
+
+    @FXML
+    TextArea sendWindow;
+    @FXML
+    TextArea receiveWindow;
 
 
 
@@ -50,13 +52,6 @@ public class ClientController {
         //String message = model.getNewMessage();
         //chatWindow.appendText(message);
     }
-    @FXML
-    TextField chatBox;
-
-    @FXML
-    TextArea sendWindow;
-    @FXML
-    TextArea receiveWindow
 
     /**
      * Captures input from user and send makes use of model to send message
