@@ -27,12 +27,10 @@
                <children>
 
                   <TextArea fx:id="receiveWindow" layoutX="174.0" layoutY="197.0" prefHeight="361.0" prefWidth="287.0" style="-fx-border-color: green;" />
-
-                  <TextArea fx:id="chatWindow" editable="false" layoutX="175.0" layoutY="196.0" prefHeight="360.0" prefWidth="591.0" style="-fx-border-color: green;" />
-                  <TextField fx:id="chatBox" layoutX="174.0" layoutY="558.0" onAction="#sendString" prefHeight="25.0" prefWidth="523.0" promptText="Type here to chat!" />
+                  <TextArea fx:id="sendWindow" editable="false" layoutX="461.0" layoutY="197.0" prefHeight="361.0" prefWidth="287.0" style="-fx-border-color: green;" />
+                  <TextField fx:id="chatBox" editable="false" layoutX="174.0" layoutY="558.0" onAction="#sendString" prefHeight="25.0" prefWidth="523.0" promptText="Type here to chat!" />
                   <Button fx:id="sendButton" layoutX="703.0" layoutY="558.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Send" />
                   <Button fx:id="connectButton" layoutX="845.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#connectToServer" prefHeight="25.0" prefWidth="82.0" text="Connect" />
-                  <TextArea fx:id="sendWindow" layoutX="461.0" layoutY="197.0" prefHeight="361.0" prefWidth="287.0" style="-fx-border-color: green;" />
                </children>
             </AnchorPane>
         </items>

@@ -74,6 +74,7 @@ public class ClientController {
             loginStage.setScene(new Scene(login));
             loginStage.show();
             model.connectToServer();
+            toggleChatBox();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -93,6 +94,14 @@ public class ClientController {
             e.printStackTrace();
         }
 
+    }
+    @FXML
+    public void toggleChatBox(){
+        if (chatBox.isEditable())
+            chatBox.setEditable(false);
+        else{
+            chatBox.setEditable(true);
+        }
     }
 
     public void displayMessage() throws IOException, ClassNotFoundException {
