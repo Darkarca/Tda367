@@ -23,21 +23,21 @@ public class ClientController {
 
     @FXML
     TextField chatBox;
-
     @FXML
     TextArea chatWindow;
-
     @FXML
     Button sendButton;
     @FXML
     TextField loginTextField;
     @FXML
     Button loginButton;
+    @FXML
+    Button connectButton;
+
 
 
     Parent login;
     Stage loginStage = new Stage();
-
 
 
     // This is just a dummy method to illustrate how the model/controller might work together.
@@ -58,6 +58,7 @@ public class ClientController {
 
     public void connectToServer(MouseEvent mouseEvent) {
         try{
+            connectButton.setDisable(true);
             URL url = Paths.get("Client/src/main/resources/View/login.fxml").toUri().toURL();
             login = FXMLLoader.load(url);
             loginStage.initModality(Modality.APPLICATION_MODAL);
@@ -65,26 +66,30 @@ public class ClientController {
             loginStage.setTitle("Login");
             loginStage.setScene(new Scene(login));
             loginStage.show();
+            model.connectToServer();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-        model.connectToServer();
     }
     @FXML
     public void login(){
 
         try {
-            model.sendStringMessage(loginTextField.getText());
+            model.sendCommandMessage("setUser", loginTextField.getText());
+            model.setUser(loginTextField.getText());
             Window window = loginButton.getScene().getWindow();
             window.hide();
+
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+    }
 
-
+    public void displayMessage() throws IOException, ClassNotFoundException {
+        chatWindow.appendText(model.retrieveMessage());
     }
 
 }

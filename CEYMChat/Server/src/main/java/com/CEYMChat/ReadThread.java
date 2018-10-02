@@ -3,6 +3,7 @@ package com.CEYMChat;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.SocketException;
 
@@ -10,6 +11,8 @@ public class ReadThread implements Runnable {
     ServerModel model;
     Socket socket;
     ObjectInputStream inputStream;
+    ObjectOutputStream outputStream;
+    Message inMessage;
     String username;
 
 
@@ -19,12 +22,12 @@ public class ReadThread implements Runnable {
         {
             try {
                 inputStream = new ObjectInputStream(this.socket.getInputStream());
+                outputStream = new ObjectOutputStream(this.socket.getOutputStream());
             } catch (IOException e) {
                 e.printStackTrace();
                 System.out.println("No socket found");
             }
         }
-
 
     }
 
@@ -33,7 +36,22 @@ public class ReadThread implements Runnable {
     public void run() {
         while (true) {
             try {
-                model.displayMessage((Message)inputStream.readObject(), username);
+                inMessage = (Message) inputStream.readObject();
+                System.out.println(inMessage.getData().getClass());
+                if (inMessage.getData().getClass().equals(new Command("s", "s").getClass())) {
+                    System.out.println("Message type: Command");
+                    model.performCommand((Command)inMessage.getData());
+                } else if (inMessage.getData().getClass().equals("s".getClass())) {
+                    System.out.println("Message type: String");
+                    model.displayMessage(inMessage);
+                    break;
+                }
+                //case(File):
+                //  break;
+                //case(Image):
+                //   break;
+               // model.displayMessage((Message)inputStream.readObject());
+               // model.sendMessage((Message)inputStream.readObject());
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (ClassNotFoundException e) {
@@ -47,8 +65,9 @@ public class ReadThread implements Runnable {
     public String getUserName() {
         try {
             Message usernameMSG = (Message)inputStream.readObject();
-            username = usernameMSG.getData().toString();
-            return usernameMSG.getData().toString();
+            Command c = (Command)usernameMSG.getData();
+            username = c.getCommandData();
+            return username;
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {

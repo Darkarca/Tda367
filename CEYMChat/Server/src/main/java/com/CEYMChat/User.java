@@ -17,7 +17,7 @@ public class User {
         this.readThread = new ReadThread(model, this.socket);
         readThread.username = username;
 
-        if(this.username == null){
+        /*if(this.username == null){
             System.out.println("Awaiting username");
             this.username = readThread.getUserName();
             System.out.println("Username set to "+ this.username);
@@ -26,10 +26,10 @@ public class User {
 
 
         }
-        else {
+        else {*/
             Thread thread = new Thread(this.readThread);
             thread.start();
         }
 
     }
-}
+//}
