@@ -1,11 +1,9 @@
 package com.CEYMChat;
 
-import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.net.SocketException;
 
 /**
  * Thread that reads user input and send it to the server.
@@ -18,6 +16,11 @@ public class ReadThread implements Runnable {
     ObjectOutputStream outputStream;
     Message inMessage;
     String username;
+    enum MessageType{
+        Command,
+        String;
+
+    }
 
 
     public ReadThread(ServerModel model, Socket socket) {
@@ -38,29 +41,35 @@ public class ReadThread implements Runnable {
 
     @Override
     public void run() {
+
         while (true) {
             try {
                 inMessage = (Message) inputStream.readObject();
-                System.out.println(inMessage.getData().getClass());
-                if (inMessage.getData().getClass().equals(new Command("s", "s").getClass())) {
-                    System.out.println("Message type: Command");
-                    model.performCommand((Command)inMessage.getData(), this);
-                } else if (inMessage.getData().getClass().equals("s".getClass())) {
-                    System.out.println("Message type: String");
-                    model.displayMessage(inMessage);
-                    break;
+                MessageType msgType = MessageType.valueOf(inMessage.getType().getSimpleName());
+                switch(msgType) {
+                    case Command:{
+                        System.out.println("Message type: Command");
+                        model.performCommand((Command) inMessage.getData(), this);
+                    }
+                    case String: {
+                        System.out.println("Message type: String");
+                        model.displayMessage(inMessage);
+                    }
+                    
                 }
-                //case(File):
+                } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            //case(File):
                 //  break;
                 //case(Image):
                 //   break;
                // model.displayMessage((Message)inputStream.readObject());
                // model.sendMessage((Message)inputStream.readObject());
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
+
 
 
         }

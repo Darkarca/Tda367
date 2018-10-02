@@ -2,6 +2,7 @@ package com.CEYMChat;
 
 
 import java.io.Serializable;
+import java.lang.reflect.Type;
 
 /**
  * This class is used to send commands to the server from a client.
@@ -25,6 +26,7 @@ public class Command implements Serializable {
     public String getCommandData() {
         return commandData;
     }
+
 
 
 

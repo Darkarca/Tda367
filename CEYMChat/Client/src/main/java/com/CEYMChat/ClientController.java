@@ -65,7 +65,7 @@ public class ClientController {
 
     public void connectToServer(MouseEvent mouseEvent) {
         try{
-            connectButton.setDisable(true);
+
             URL url = Paths.get("Client/src/main/resources/View/login.fxml").toUri().toURL();
             login = FXMLLoader.load(url);
             loginStage.initModality(Modality.APPLICATION_MODAL);
@@ -75,6 +75,7 @@ public class ClientController {
             loginStage.show();
             model.connectToServer();
             toggleChatBox();
+            connectButton.setDisable(true);
 
         } catch (IOException e) {
             e.printStackTrace();

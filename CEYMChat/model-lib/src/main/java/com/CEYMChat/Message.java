@@ -4,6 +4,7 @@ import javafx.scene.image.Image;
 
 import java.io.File;
 import java.io.Serializable;
+import java.lang.reflect.Type;
 
 /**
  * Generic class that works in conjunction with MessageFactory to create messages that are sent and received by the server/client.
@@ -30,6 +31,10 @@ public class Message<T> implements Serializable {
     public T getData(){
 
         return this.data;
+    }
+
+    public Class getType(){
+       return data.getClass();
     }
 
 }
