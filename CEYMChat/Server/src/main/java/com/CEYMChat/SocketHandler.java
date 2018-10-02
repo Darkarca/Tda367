@@ -30,7 +30,6 @@ public class SocketHandler extends Thread{
     }
     public synchronized void connectSocket() throws IOException {
         Socket s = serverSocket.accept();
-
         User newUser = new User(s, model);
         model.addUser(newUser);
     }
