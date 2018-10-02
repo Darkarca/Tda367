@@ -3,14 +3,12 @@ package com.CEYMChat;
 
 import java.io.*;
 import java.net.ServerSocket;
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
 public class    ServerModel {
 
     ServerSocket serverSocket;
-    List<ReadThread> readThreads = new ArrayList<>();
     List<User> userList = new ArrayList<>();
 
     {
@@ -45,7 +43,7 @@ public class    ServerModel {
 
     }
 
-    public void performCommand(Command c, ReadThread t) {
+    public void performCommand(Command c, Reader t) {
         switch(c.getCommandName()){
             case("setUser"): userList.get(userList.indexOf(t)+1).username = c.getCommandData();
             System.out.println("Command performed: 'setUser'");

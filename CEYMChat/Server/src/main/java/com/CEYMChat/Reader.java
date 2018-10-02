@@ -9,11 +9,10 @@ import java.net.Socket;
  * Thread that reads user input and send it to the server.
  */
 
-public class ReadThread implements Runnable {
+public class Reader implements Runnable {
     ServerModel model;
     Socket socket;
     ObjectInputStream inputStream;
-    ObjectOutputStream outputStream;
     Message inMessage;
     String username;
     enum MessageType{
@@ -23,13 +22,12 @@ public class ReadThread implements Runnable {
     }
 
 
-    public ReadThread(ServerModel model, Socket socket) {
+    public Reader(ServerModel model, Socket socket) {
         this.model = model;
         this.socket = socket;
         {
             try {
                 inputStream = new ObjectInputStream(this.socket.getInputStream());
-                outputStream = new ObjectOutputStream(this.socket.getOutputStream());
             } catch (IOException e) {
                 e.printStackTrace();
                 System.out.println("No socket found");
@@ -55,7 +53,7 @@ public class ReadThread implements Runnable {
                         System.out.println("Message type: String");
                         model.displayMessage(inMessage);
                     }
-                    
+
                 }
                 } catch (IOException e) {
                 e.printStackTrace();

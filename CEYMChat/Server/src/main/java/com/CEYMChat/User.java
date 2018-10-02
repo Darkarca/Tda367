@@ -6,19 +6,24 @@ public class User {
 
     Socket socket;
     String username;
-    ReadThread readThread;
+    Reader reader;
+    Writer writer;
     ServerModel model;
 
 
     public User(Socket s, ServerModel model) {
         this.model = model;
         this.socket = s;
-        this.readThread = new ReadThread(model, this.socket);
-        readThread.username = username;
+        this.reader = new Reader(model, this.socket);
+        this.writer = new Writer(model, this.socket);
+        reader.username = username;
 
 
-        Thread thread = new Thread(this.readThread);
-        thread.start();
+        Thread rThread = new Thread(this.reader);
+        rThread.start();
+        Thread wThread = new Thread(this.writer);
+        wThread.start();
+
     }
 
 }
