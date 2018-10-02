@@ -15,12 +15,8 @@ import java.io.IOException;
 
 public class ClientModel {
 
-    //User currentUser;
-
-
     Connection connection = new Connection();
     String user;
-
 
     private static final ClientModel modelInstance = new ClientModel();
 
@@ -71,5 +67,8 @@ public class ClientModel {
         Message message = MessageFactory.createCommandMessage(new Command(sCommand, sData), user);
         System.out.println("Command sent: " + sCommand + " with data: " + sData);
         connection.setMessageOut(message);
+    }
+    public String getUser(){
+        return user;
     }
 }

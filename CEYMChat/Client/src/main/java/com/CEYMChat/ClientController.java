@@ -82,19 +82,18 @@ public class ClientController {
     }
     @FXML
     public void login(){
-
         try {
             model.sendCommandMessage("setUser", loginTextField.getText());
             model.setUser(loginTextField.getText());
             Window window = loginButton.getScene().getWindow();
             window.hide();
 
-
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
+
     @FXML
     public void toggleChatBox(){
         if (chatBox.isEditable())
@@ -107,5 +106,6 @@ public class ClientController {
     public void displayMessage() throws IOException, ClassNotFoundException {
         chatWindow.appendText(model.retrieveMessage());
     }
+
 
 }

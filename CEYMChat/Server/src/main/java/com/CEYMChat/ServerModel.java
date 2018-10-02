@@ -21,7 +21,6 @@ public class    ServerModel {
         }
     }
 
-    List<Socket> socketList = new ArrayList<Socket>();
     ObjectInputStream messageInStream;
     ObjectOutputStream messageOutStream;
 
@@ -46,63 +45,34 @@ public class    ServerModel {
 
     }
 
-    public void performCommand(Command c) {
+    public void performCommand(Command c, ReadThread t) {
         switch(c.getCommandName()){
-            case("setUser"): userList.get(userList.size()-1).username = c.getCommandData();
+            case("setUser"): userList.get(userList.indexOf(t)+1).username = c.getCommandData();
             System.out.println("Command performed: 'setUser'");
+                break;
+            case("disconnect"): userList.remove(t);
+                break;
+            case("register"):
+                break;
+            case("addFriend"):
+                break;
+
         }
-    }
-
-    public void startSession() {
 
     }
 
-    public boolean checkUser() {
-        return false;
-    }
 
     public ServerSocket getServerSocket() {
         return serverSocket;
-    }
-
-    public void addSocket(Socket s) {
-        socketList.add(s);
     }
 
     public void addUser(User u) {
         userList.add(u);
     }
 
-
     public void displayMessage(Message m) {
         System.out.println(m.getSender() + ": " + m.getData());
     }
-    public void startReadThreads(){
-        for (ReadThread rt : readThreads){
-            rt.run();
-        }
-
-    }
-
-
-   /* public synchronized void initiateConnection() throws IOException {
-
-
-            while(true)
-                for (Socket s:socketList) {
-                    try {
-                    messageInStream = new DataInputStream(s.getInputStream());
-                    //messageOutStream = new DataOutputStream(s.getOutputStream());
-                  //  displayMessage(getMessage());
-                    //System.out.println("Connection initiated");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                System.out.println(socketList.size());
-            }
-    }*/
-
-
 
 
     public synchronized Message getMessage(){

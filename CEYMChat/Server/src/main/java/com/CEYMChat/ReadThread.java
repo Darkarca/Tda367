@@ -44,7 +44,7 @@ public class ReadThread implements Runnable {
                 System.out.println(inMessage.getData().getClass());
                 if (inMessage.getData().getClass().equals(new Command("s", "s").getClass())) {
                     System.out.println("Message type: Command");
-                    model.performCommand((Command)inMessage.getData());
+                    model.performCommand((Command)inMessage.getData(), this);
                 } else if (inMessage.getData().getClass().equals("s".getClass())) {
                     System.out.println("Message type: String");
                     model.displayMessage(inMessage);
