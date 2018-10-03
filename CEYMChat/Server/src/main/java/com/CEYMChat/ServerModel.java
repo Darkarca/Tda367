@@ -3,6 +3,7 @@ package com.CEYMChat;
 
 import java.io.*;
 import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,10 +46,10 @@ public class    ServerModel {
 
     public void performCommand(Command c, Reader t) {
         switch(c.getCommandName()){
-            case("setUser"): userList.get(userList.indexOf(t)+1).username = c.getCommandData();
+            case("setUser"): getUser(t.socket).username = c.getCommandData();
             System.out.println("Command performed: 'setUser'");
                 break;
-            case("disconnect"): userList.remove(t);
+            case("disconnect"): userList.remove(getUser(t.socket));
                 break;
             case("register"):
                 break;
@@ -57,6 +58,16 @@ public class    ServerModel {
 
         }
 
+    }
+
+    public User getUser(Socket s){
+        for (User u:userList) {
+            if(u.socket.equals(s)){
+                return u;
+            }
+
+        }
+        return null;
     }
 
 
@@ -68,19 +79,19 @@ public class    ServerModel {
         userList.add(u);
     }
 
-    public void displayMessage(Message m) {
+    public void displayMessage(Message m) throws IOException, ClassNotFoundException {
         System.out.println(m.getSender() + ": " + m.getData());
+        userList.get(0).writer.setOutMessage(m);
     }
 
 
     public synchronized Message getMessage(){
         try {
+
             return (Message) messageInStream.readObject();
         } catch (Exception e) {
             e.printStackTrace();
-        } /*catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }*/
+        }
         return null;
     }
 

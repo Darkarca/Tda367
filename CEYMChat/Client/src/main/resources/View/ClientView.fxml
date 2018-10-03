@@ -26,7 +26,7 @@
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="606.0" prefWidth="904.0" style="-fx-background-color: grey;">
                <children>
 
-                  <TextArea fx:id="receiveWindow" layoutX="174.0" layoutY="197.0" prefHeight="361.0" prefWidth="287.0" style="-fx-border-color: green;" />
+                  <TextArea fx:id="receiveWindow" editable="false" layoutX="174.0" layoutY="197.0" prefHeight="361.0" prefWidth="287.0" style="-fx-border-color: green;" />
                   <TextArea fx:id="sendWindow" editable="false" layoutX="461.0" layoutY="197.0" prefHeight="361.0" prefWidth="287.0" style="-fx-border-color: green;" />
                   <TextField fx:id="chatBox" editable="false" layoutX="174.0" layoutY="558.0" onAction="#sendString" prefHeight="25.0" prefWidth="523.0" promptText="Type here to chat!" />
                   <Button fx:id="sendButton" layoutX="703.0" layoutY="558.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Send" />

@@ -33,13 +33,30 @@ public class Connection extends Thread {
                 System.out.println("Thread strated");
                 this.messageOutStream = new ObjectOutputStream(socket.getOutputStream());
                 this.messageInStream = new ObjectInputStream(socket.getInputStream());
+                    while(true){
+                        try {
+                            if (getMessageIn().getData().getClass() == "s".getClass() && messageIn != getMessageIn()) {
+                                System.out.println("Message received: " + getMessageIn().getSender() + ": " + getMessageIn().getData());
+                                messageIn = getMessageIn();
+                            }
+                        }catch(NullPointerException e){
 
+                        }
+                    }
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
         }
         ).start();
+    }
+
+    private Message getMessageIn() {
+        try{
+            return (Message)messageInStream.readObject();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public void setMessageOut(Message m) throws IOException {

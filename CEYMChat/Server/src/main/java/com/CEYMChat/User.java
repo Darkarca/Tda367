@@ -14,14 +14,14 @@ public class User {
     public User(Socket s, ServerModel model) {
         this.model = model;
         this.socket = s;
-        this.reader = new Reader(model, this.socket);
         this.writer = new Writer(model, this.socket);
+        this.reader = new Reader(model, this.socket);
         reader.username = username;
 
 
         Thread rThread = new Thread(this.reader);
-        rThread.start();
         Thread wThread = new Thread(this.writer);
+        rThread.start();
         wThread.start();
 
     }

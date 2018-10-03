@@ -10,6 +10,7 @@ public class Writer implements Runnable {
     Socket socket;
     ObjectOutputStream outputStream;
     Message outMessage;
+    Message lastMsg;
 
 
 
@@ -35,6 +36,12 @@ public class Writer implements Runnable {
         while(true){
             try {
                 outputStream.writeObject(outMessage);
+                if(outMessage != lastMsg) {
+                    lastMsg = outMessage;
+                    System.out.println("Object written to stream: " + outMessage.toString());
+                }
+            } catch (NullPointerException e) {
+                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
