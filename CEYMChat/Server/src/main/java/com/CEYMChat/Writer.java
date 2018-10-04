@@ -38,7 +38,10 @@ public class Writer implements Runnable {
                 outputStream.writeObject(outMessage);
                 if(outMessage != lastMsg) {
                     lastMsg = outMessage;
-                    System.out.println("Object written to stream: " + outMessage.toString());
+                    System.out.println( outMessage.getSender() + ": " + outMessage.getData());
+
+                    // System.out.println("Object written to stream: " + outMessage.toString());
+                   // System.out.println("the received message is " + outMessage.toString());
                 }
             } catch (NullPointerException e) {
                 e.printStackTrace();
@@ -49,6 +52,8 @@ public class Writer implements Runnable {
     }
 
     public void setOutMessage(Message m){
-        outMessage = m;
+        System.out.println( m.getSender() + ": " + m.getData());
+        this.outMessage = m;
+
     }
 }

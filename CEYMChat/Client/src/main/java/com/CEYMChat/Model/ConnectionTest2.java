@@ -1,6 +1,5 @@
 package com.CEYMChat.Model;
 
-import com.CEYMChat.ClientController;
 import com.CEYMChat.Message;
 import com.CEYMChat.MessageFactory;
 import sun.rmi.transport.ObjectTable;
@@ -12,7 +11,7 @@ import java.net.Socket;
  *  This class should uphold the connection. This might be implemented as part of the "Session" instead.
  */
 
-public class Connection extends Thread {
+public class ConnectionTest2 extends Thread {
     Socket socket;
 
     ObjectOutputStream messageOutStream;
@@ -21,10 +20,11 @@ public class Connection extends Thread {
 
     Message messageIn;
     Message messageOut;
+    public ConnectionTest2(){
 
-    public Connection(){
+
+
     }
-
     @Override
     public void start() {
         new Thread(() -> {
@@ -38,7 +38,6 @@ public class Connection extends Thread {
                             if (getMessageIn().getData().getClass() == "s".getClass() && messageIn != getMessageIn()) {
                                 System.out.println("Message received: " + getMessageIn().getSender() + ": " + getMessageIn().getData());
                                 messageIn = getMessageIn();
-                                clientController.displayMsgsOnWindow(getMessageIn().getSender(), getMessageIn().getData().toString());
                             }
                         }catch(NullPointerException e){
 

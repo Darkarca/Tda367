@@ -13,18 +13,18 @@ import java.io.IOException;
  */
 
 
-public class ClientModel {
+public class ClientModelTest2 {
 
-    Connection connection = new Connection();
+    ConnectionTest2 connection = new ConnectionTest2();
     String user;
 
-    private static final ClientModel modelInstance = new ClientModel();
+    private static final ClientModelTest2 modelInstance = new ClientModelTest2();
 
     /**
      * Private constructor with getModelInstance()
      * to ensure only one model is ever created (Singleton pattern)
      * **/
-    private ClientModel(){
+    private ClientModelTest2(){
 
     }
 
@@ -34,7 +34,7 @@ public class ClientModel {
         System.out.println("Connection started");
     }
 
-    public static ClientModel getModelInstance(){return modelInstance;}
+    public static ClientModelTest2 getModelInstance(){return modelInstance;}
 
     public void sendStringMessage(String s) throws IOException {
         Message message = MessageFactory.createStringMessage(s, user);

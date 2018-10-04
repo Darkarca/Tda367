@@ -1,5 +1,6 @@
 package com.CEYMChat;
 import com.CEYMChat.Model.ClientModel;
+import com.CEYMChat.Model.ClientModelTest1;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,8 +19,8 @@ import java.net.URL;
 import java.nio.file.Paths;
 
 
-public class ClientController {
-    ClientModel model = ClientModel.getModelInstance();
+public class ClientControllerTest1 {
+    ClientModelTest1 model = ClientModelTest1.getModelInstance();
 
 
 
@@ -61,10 +62,6 @@ public class ClientController {
         chatBox.setText("");
         model.sendStringMessage(toSend);
         sendWindow.appendText("Me: "+toSend+"\n");
-    }
-
-    public void displayMsgsOnWindow (String sender, String message){
-        sendWindow.appendText(sender + ": " + message+"\n");
     }
 
     public void connectToServer(MouseEvent mouseEvent) {

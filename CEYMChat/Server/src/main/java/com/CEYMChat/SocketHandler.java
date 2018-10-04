@@ -20,6 +20,7 @@ public class SocketHandler extends Thread{
                 try {
                     System.out.println("Looking for socket");
                     this.connectSocket();
+                    System.out.println(model.userList.size());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -28,6 +29,7 @@ public class SocketHandler extends Thread{
             }
         }).start();
     }
+
     public synchronized void connectSocket() throws IOException {
         Socket s = serverSocket.accept();
         User newUser = new User(s, model);

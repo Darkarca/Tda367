@@ -81,7 +81,16 @@ public class    ServerModel {
 
     public void displayMessage(Message m) throws IOException, ClassNotFoundException {
         System.out.println(m.getSender() + ": " + m.getData());
+
         userList.get(0).writer.setOutMessage(m);
+        sendMessageToAll(m);
+    }
+
+    public void sendMessageToAll(Message m){
+        for (User u: userList) {
+        //    u.writer.outMessage = m;         // fungerar bra
+            u.reader.inMessage = m;
+        }
     }
 
 

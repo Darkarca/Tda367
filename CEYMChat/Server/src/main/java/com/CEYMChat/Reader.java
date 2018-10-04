@@ -43,6 +43,7 @@ public class Reader implements Runnable {
         while (true) {
             try {
                 inMessage = (Message) inputStream.readObject();
+                System.out.println("I'am here");
                 MessageType msgType = MessageType.valueOf(inMessage.getType().getSimpleName());
                 switch(msgType) {
                     case Command:{
