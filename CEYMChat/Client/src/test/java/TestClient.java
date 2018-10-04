@@ -31,7 +31,7 @@ public class TestClient{
      */
     @Test
     public void testConnectionStart(){
-        Connection c = new Connection();
+        Connection c = new Connection(ClientModel.getModelInstance());
         c.start();
 
     }

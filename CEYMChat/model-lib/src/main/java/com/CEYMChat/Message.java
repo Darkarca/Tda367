@@ -14,13 +14,21 @@ import java.lang.reflect.Type;
 public class Message<T> implements Serializable {
     String sender;
 
-    //User receiver;
+
+    String receiver;
     T data;
 
+    protected Message(T data, String sender, String receiver){
+        this.data = data;
+        this.sender = sender;
+        this.receiver = receiver;
+    }
     protected Message(T data, String sender){
         this.data = data;
         this.sender = sender;
+
     }
+
 
 
 
@@ -35,6 +43,9 @@ public class Message<T> implements Serializable {
 
     public Class getType(){
        return data.getClass();
+    }
+    public String getReceiver() {
+        return receiver;
     }
 
 }

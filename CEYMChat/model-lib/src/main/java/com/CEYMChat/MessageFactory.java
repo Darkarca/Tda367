@@ -9,14 +9,14 @@ import java.io.File;
 public class MessageFactory {
 
 
-    public static Message<String> createStringMessage(String data, String user){
-        return new Message(data, user);
+    public static Message<String> createStringMessage(String data, String user, String receiver){
+        return new Message(data, user, receiver);
     }
-    public static Message<Image> createImageMessage(Image data, String user){
-        return new Message(data, user);
+    public static Message<Image> createImageMessage(Image data, String user, String receiver){
+        return new Message(data, user, receiver);
     }
-    public static Message<File> createFileMessage(File data, String user) {
-        return new Message(data, user);
+    public static Message<File> createFileMessage(File data, String user, String receiver) {
+        return new Message(data, user, receiver);
     }
     public static Message<Command> createCommandMessage(Command data, String user){
         return new Message(data, user);

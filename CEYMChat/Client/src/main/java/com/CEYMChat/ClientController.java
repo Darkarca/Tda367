@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.Window;
 
+import javax.ws.rs.client.Client;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
@@ -22,6 +23,11 @@ public class ClientController {
     ClientModel model = ClientModel.getModelInstance();
 
 
+
+    /**
+     * Private constructor with getControllerInstance()
+     * to ensure only one controller is ever created (Singleton pattern)
+     * **/
 
     @FXML
     TextArea chatWindow;
@@ -40,6 +46,8 @@ public class ClientController {
     TextArea sendWindow;
     @FXML
     TextArea receiveWindow;
+    @FXML
+    TextField sendToTextField;
 
 
 
@@ -47,11 +55,6 @@ public class ClientController {
     Stage loginStage = new Stage();
 
 
-    // This is just a dummy method to illustrate how the model/controller might work together.
-    public void displayNewMessage(){
-        //String message = model.getNewMessage();
-        //chatWindow.appendText(message);
-    }
 
     /**
      * Captures input from user and send makes use of model to send message
@@ -59,7 +62,7 @@ public class ClientController {
     public void sendString() throws IOException {
         String toSend = chatBox.getText();
         chatBox.setText("");
-        model.sendStringMessage(toSend);
+        model.sendStringMessage(toSend, sendToTextField.getText());
         sendWindow.appendText("Me: "+toSend+"\n");
     }
 
@@ -104,10 +107,9 @@ public class ClientController {
         }
     }
 
-    public void displayMessage() throws IOException, ClassNotFoundException {
-        chatWindow.appendText(model.retrieveMessage());
+    public void displayNewMessage(String s) {
+        chatWindow.appendText(s + "\n");
     }
-
     public void requestChat(){
         try {
             model.sendCommandMessage("requestChat","user2");

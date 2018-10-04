@@ -7,7 +7,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-public class    ServerModel {
+public class  ServerModel {
 
     ServerSocket serverSocket;
     List<User> userList = new ArrayList<>();
@@ -44,32 +44,22 @@ public class    ServerModel {
 
     }
 
-    public void performCommand(Command c, Reader t) {
+    public void performCommand(Command c, String sender) {
         switch(c.getCommandName()){
-            case("setUser"): getUser(t.socket).username = c.getCommandData();
+
+            case("setUser"): userList.get(userList.size()-1).setUsername(c.getCommandData());
             System.out.println("Command performed: 'setUser'");
                 break;
-            case("disconnect"): userList.remove(getUser(t.socket));
+            case("disconnect"): userList.remove(getUserByUsername(sender));
                 break;
             case("register"):
                 break;
             case("addFriend"):
                 break;
             case("requestChat"):
-                createSession(getUserByUsername(c.getCommandData()),getUserByUsername(c.getSender()));
-
+               // createSession(getUserByUsername(c.getCommandData()),getUserByUsername(c.getSender()));
         }
 
-    }
-
-    public User getUser(Socket s){
-        for (User u:userList) {
-            if(u.socket.equals(s)){
-                return u;
-            }
-
-        }
-        return null;
     }
 
 
@@ -85,9 +75,9 @@ public class    ServerModel {
         System.out.println(m.getSender() + ": " + m.getData());
     }
 
-    public void sendMessage(Message m){
-        System.out.println("Message sent to ");
-        userList.get(0).getWriter().setOutMessage(m);
+    public void sendMessage(Message m, String receiver){
+        User u = getUserByUsername(receiver);
+        u.getWriter().setOutMessage(m);
     }
 
 
@@ -103,17 +93,13 @@ public class    ServerModel {
 
     public User getUserByUsername(String username){
         for (User u : userList){
-            if (u.getUsername() == username){
+            if (u.getUsername().equals(username)){
                 return u;
             }
         }
         return null;
     }
-    public void createSession(User user1, User user2){
-        Thread t = new Thread(new Session(user1, user2));
-        t.run();
 
-    }
 
 
 

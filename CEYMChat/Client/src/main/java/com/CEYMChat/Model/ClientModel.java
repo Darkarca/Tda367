@@ -1,7 +1,7 @@
 package com.CEYMChat.Model;
-import com.CEYMChat.Command;
-import com.CEYMChat.Message;
-import com.CEYMChat.MessageFactory;
+import com.CEYMChat.*;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 
@@ -15,10 +15,12 @@ import java.io.IOException;
 
 public class ClientModel {
 
-    Connection connection = new Connection();
+    Connection connection = new Connection(this);
     String user;
+    ClientController controller = ClientMain.getClientController();
 
-    private static final ClientModel modelInstance = new ClientModel();
+
+    private static ClientModel modelInstance = new ClientModel();
 
     /**
      * Private constructor with getModelInstance()
@@ -34,25 +36,35 @@ public class ClientModel {
         System.out.println("Connection started");
     }
 
-    public static ClientModel getModelInstance(){return modelInstance;}
+    public static ClientModel getModelInstance(){ return modelInstance;}
 
-    public void sendStringMessage(String s) throws IOException {
 
-        Message message = MessageFactory.createStringMessage(s, user);
+    public void sendStringMessage(String toSend, String receiver) throws IOException {
+
+        Message message = MessageFactory.createStringMessage(toSend, user, receiver);
         System.out.println(message.getSender() + ": " + message.getData().toString());
         //connection.messageOutStream.writeObject(message);
         connection.setMessageOut(message);
     }
 
     /**
-     * Processes a received message
-     * (Not yet implemented)
+     * Processes a received message to a displayable format for the client.
      */
-    public void processMessage(Message m){
+    public String processMessage(Message m) {
+        String processedMessage;
+        processedMessage = m.getSender()+m.getData().toString();
+        return processedMessage;
+    }
 
-        }
 
-        public void setUser(String user){
+    public void displayNewMessage(Message m){
+        String toDisplay;
+        toDisplay = processMessage(m);
+        controller.displayNewMessage(toDisplay);
+
+
+    }
+    public void setUser(String user){
         this.user = user;
         }
 

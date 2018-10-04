@@ -53,11 +53,14 @@ public class Reader implements Runnable {
                 switch(msgType) {
                     case Command:{
                         System.out.println("Message type: Command");
-                        model.performCommand((Command) inMessage.getData(), this);
+                        model.performCommand((Command) inMessage.getData(), inMessage.getSender());
+                        break;
                     }
                     case String: {
                         System.out.println("Message type: String");
                         model.displayMessage(inMessage);
+                        model.sendMessage(inMessage,inMessage.getReceiver());
+                        break;
                     }
 
                 }

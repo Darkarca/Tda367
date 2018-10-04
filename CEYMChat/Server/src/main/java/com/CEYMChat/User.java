@@ -7,7 +7,11 @@ public class User {
     Socket socket;
 
 
-     String username;
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    String username;
 
 
 
