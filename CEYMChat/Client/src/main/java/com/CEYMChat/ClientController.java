@@ -108,5 +108,14 @@ public class ClientController {
         chatWindow.appendText(model.retrieveMessage());
     }
 
+    public void requestChat(){
+        try {
+            model.sendCommandMessage("requestChat","user2");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
 }

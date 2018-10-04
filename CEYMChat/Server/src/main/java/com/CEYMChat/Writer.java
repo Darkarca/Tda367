@@ -6,11 +6,14 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class Writer implements Runnable {
-    ServerModel model;
-    Socket socket;
-    ObjectOutputStream outputStream;
-    Message outMessage;
-    Message lastMsg;
+    private ServerModel model;
+    private Socket socket;
+
+
+
+    private ObjectOutputStream outputStream;
+    private Message outMessage;
+    private Message lastMsg;
 
 
 
@@ -50,5 +53,9 @@ public class Writer implements Runnable {
 
     public void setOutMessage(Message m){
         outMessage = m;
+    }
+
+    public ObjectOutputStream getOutputStream() {
+        return outputStream;
     }
 }

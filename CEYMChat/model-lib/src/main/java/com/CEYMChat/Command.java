@@ -12,6 +12,11 @@ public class Command implements Serializable {
 
     String commandName;
 
+    public String getSender() {
+        return sender;
+    }
+
+    String sender;
     String commandData;
 
     public Command(String commandName, String commandData) {

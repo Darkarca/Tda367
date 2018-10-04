@@ -10,15 +10,21 @@ import java.net.Socket;
  */
 
 public class Reader implements Runnable {
-    ServerModel model;
+   private ServerModel model;
+
+
     Socket socket;
-    ObjectInputStream inputStream;
-    Message inMessage;
-    String username;
-    enum MessageType{
+
+
+
+   private ObjectInputStream inputStream;
+   private Message inMessage;
+
+
+   private String username;
+   enum MessageType{
         Command,
         String;
-
     }
 
 
@@ -86,6 +92,17 @@ public class Reader implements Runnable {
         }
         return null;
     }
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    public ObjectInputStream getInputStream() {
+        return inputStream;
+    }
+    public Message getInMessage() {
+        return inMessage;
+    }
+
+
 
 
 

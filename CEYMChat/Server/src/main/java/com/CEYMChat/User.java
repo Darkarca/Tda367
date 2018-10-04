@@ -5,10 +5,15 @@ import java.net.Socket;
 public class User {
 
     Socket socket;
-    String username;
-    Reader reader;
-    Writer writer;
-    ServerModel model;
+
+
+     String username;
+
+
+
+    private Reader reader;
+    private Writer writer;
+    private ServerModel model;
 
 
     public User(Socket s, ServerModel model) {
@@ -16,7 +21,7 @@ public class User {
         this.socket = s;
         this.writer = new Writer(model, this.socket);
         this.reader = new Reader(model, this.socket);
-        reader.username = username;
+        reader.setUsername(username);
 
 
         Thread rThread = new Thread(this.reader);
@@ -24,6 +29,17 @@ public class User {
         rThread.start();
         wThread.start();
 
+    }
+
+    public String getUsername() {
+        return username;
+    }
+    public Reader getReader() {
+        return reader;
+    }
+
+    public Writer getWriter() {
+        return writer;
     }
 
 }

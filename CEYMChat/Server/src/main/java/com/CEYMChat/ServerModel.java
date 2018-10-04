@@ -55,6 +55,8 @@ public class    ServerModel {
                 break;
             case("addFriend"):
                 break;
+            case("requestChat"):
+                createSession(getUserByUsername(c.getCommandData()),getUserByUsername(c.getSender()));
 
         }
 
@@ -81,7 +83,11 @@ public class    ServerModel {
 
     public void displayMessage(Message m) throws IOException, ClassNotFoundException {
         System.out.println(m.getSender() + ": " + m.getData());
-        userList.get(0).writer.setOutMessage(m);
+    }
+
+    public void sendMessage(Message m){
+        System.out.println("Message sent to ");
+        userList.get(0).getWriter().setOutMessage(m);
     }
 
 
@@ -95,7 +101,21 @@ public class    ServerModel {
         return null;
     }
 
-    public synchronized void sendMessage(Message m) throws IOException {
-            messageOutStream.writeObject(m);
+    public User getUserByUsername(String username){
+        for (User u : userList){
+            if (u.getUsername() == username){
+                return u;
+            }
+        }
+        return null;
     }
+    public void createSession(User user1, User user2){
+        Thread t = new Thread(new Session(user1, user2));
+        t.run();
+
+    }
+
+
+
+
 }
