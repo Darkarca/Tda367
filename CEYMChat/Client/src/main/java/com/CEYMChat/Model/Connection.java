@@ -37,6 +37,9 @@ public class Connection extends Thread {
                 this.messageInStream = new ObjectInputStream(socket.getInputStream());
                     while(true){
                            messageIn = getMessageIn();
+                           /*TODO
+                           * Fixa så meddelandet inte printas om och om igen
+                           * */
                            if(messageIn != null) {
                                System.out.println("Message received from " + messageIn.getSender() +": "+messageIn.getData());
                               // model.displayNewMessage(messageIn);
