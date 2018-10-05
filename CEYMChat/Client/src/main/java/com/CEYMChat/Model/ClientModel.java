@@ -17,7 +17,8 @@ public class ClientModel {
 
     Connection connection = new Connection(this);
     String user;
-    ClientController controller = ClientMain.getClientController();
+
+    ClientController controller;
 
 
     private static ClientModel modelInstance = new ClientModel();
@@ -52,7 +53,7 @@ public class ClientModel {
      */
     public String processMessage(Message m) {
         String processedMessage;
-        processedMessage = m.getSender()+m.getData().toString();
+        processedMessage = m.getSender() + ": " + m.getData().toString();
         return processedMessage;
     }
 
@@ -61,13 +62,11 @@ public class ClientModel {
         String toDisplay;
         toDisplay = processMessage(m);
         controller.displayNewMessage(toDisplay);
-
-
     }
+
     public void setUser(String user){
         this.user = user;
         }
-
     public String retrieveMessage() throws IOException, ClassNotFoundException {
         Message m = (Message) connection.messageInStream.readObject();
         String s = m.getSender() + ": " + m.getData().toString();
@@ -80,7 +79,12 @@ public class ClientModel {
         System.out.println("Command sent: " + sCommand + " with data: " + sData);
         connection.setMessageOut(message);
     }
+
     public String getUser(){
         return user;
+    }
+
+    public void setController(ClientController controller) {
+        this.controller = controller;
     }
 }

@@ -20,6 +20,7 @@ public class Connection extends Thread {
     ObjectInputStream messageInStream;
     ClientModel model;
     Message messageIn;
+    Message lastMsg;
     Message messageOut;
     public Connection(ClientModel model){
         this.model = model;
@@ -37,11 +38,10 @@ public class Connection extends Thread {
                 this.messageInStream = new ObjectInputStream(socket.getInputStream());
                     while(true){
                            messageIn = getMessageIn();
-                           /*TODO
-                           * Fixa så meddelandet inte printas om och om igen
-                           * */
-                           if(messageIn != null) {
+                           if(messageIn != lastMsg && messageIn != null) {
                                System.out.println("Message received from " + messageIn.getSender() +": "+messageIn.getData());
+                               lastMsg = messageIn;
+                               model.displayNewMessage(getMessageIn());
                               // model.displayNewMessage(messageIn);
                            }
 
@@ -63,7 +63,7 @@ public class Connection extends Thread {
     public void setMessageOut(Message m) throws IOException {
         System.out.println("MessageOutputStream: " + messageOutStream);
         messageOutStream.writeObject(m);
-        System.out.println("Message sent: " + m);
+        System.out.println("Message sent: " + m.getData());
     }
 
     public Socket getSocket() {

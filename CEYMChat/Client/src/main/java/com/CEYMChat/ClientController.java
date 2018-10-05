@@ -77,6 +77,7 @@ public class ClientController {
             loginStage.setScene(new Scene(login));
             loginStage.show();
             model.connectToServer();
+            model.setController(this);
             toggleChatBox();
             connectButton.setDisable(true);
 
@@ -108,8 +109,10 @@ public class ClientController {
     }
 
     public void displayNewMessage(String s) {
-        chatWindow.appendText(s + "\n");
+        System.out.println("displayNewMessage has been called with string: " + s);
+        receiveWindow.appendText(s + "\n");
     }
+
     public void requestChat(){
         try {
             model.sendCommandMessage("requestChat","user2");
@@ -118,6 +121,8 @@ public class ClientController {
         }
 
     }
+
+
 
 
 }
