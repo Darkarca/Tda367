@@ -4,6 +4,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class will contain most of the model for the client-side. The model will likely be composed of
@@ -16,9 +18,12 @@ import java.io.IOException;
 public class ClientModel {
 
     Connection connection = new Connection(this);
-    String user;
+    String username;
+    private ArrayList<UserDisplayInfo> friendList;
 
     ClientController controller;
+
+    public boolean inlogged = false;
 
 
     private static ClientModel modelInstance = new ClientModel();
@@ -27,9 +32,7 @@ public class ClientModel {
      * Private constructor with getModelInstance()
      * to ensure only one model is ever created (Singleton pattern)
      * **/
-    private ClientModel(){
-
-    }
+    private ClientModel(){}
 
 
     public void connectToServer (){
@@ -42,10 +45,18 @@ public class ClientModel {
 
     public void sendStringMessage(String toSend, String receiver) throws IOException {
 
-        Message message = MessageFactory.createStringMessage(toSend, user, receiver);
+        Message message = MessageFactory.createStringMessage(toSend, username, receiver);
         System.out.println(message.getSender() + ": " + message.getData().toString());
         //connection.messageOutStream.writeObject(message);
         connection.setMessageOut(message);
+    }
+
+    public ArrayList<UserDisplayInfo> getFriendList() {
+        return friendList;
+    }
+
+    public void setFriendList(ArrayList<UserDisplayInfo> friendList) {
+        this.friendList = friendList;
     }
 
     /**
@@ -64,9 +75,14 @@ public class ClientModel {
         controller.displayNewMessage(toDisplay);
     }
 
-    public void setUser(String user){
-        this.user = user;
-        }
+    public void displayFriendList() throws IOException {
+        controller.showOnlineFriends(friendList);
+    }
+
+    public void setUsername(String user){
+        this.username = user;
+    }
+
     public String retrieveMessage() throws IOException, ClassNotFoundException {
         Message m = (Message) connection.messageInStream.readObject();
         String s = m.getSender() + ": " + m.getData().toString();
@@ -75,13 +91,13 @@ public class ClientModel {
 
 
     public void sendCommandMessage(String sCommand, String sData) throws IOException {
-        Message message = MessageFactory.createCommandMessage(new Command(sCommand, sData), user);
+        Message message = MessageFactory.createCommandMessage(new Command(sCommand, sData), username);
         System.out.println("Command sent: " + sCommand + " with data: " + sData);
         connection.setMessageOut(message);
     }
 
     public String getUser(){
-        return user;
+        return username;
     }
 
     public void setController(ClientController controller) {

@@ -28,6 +28,9 @@ public class Message<T> implements Serializable {
         this.sender = sender;
 
     }
+    protected Message(T data){
+        this.data = data;
+    }
 
 
 

@@ -4,17 +4,8 @@ import java.net.Socket;
 
 public class User {
 
-    Socket socket;
-
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    String username;
-
-
-
+    private Socket socket;
+    private String username;
     private Reader reader;
     private Writer writer;
     private ServerModel model;
@@ -35,13 +26,15 @@ public class User {
 
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
     public String getUsername() {
         return username;
     }
     public Reader getReader() {
         return reader;
     }
-
     public Writer getWriter() {
         return writer;
     }

@@ -4,25 +4,24 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.List;
 
 /**
  * Thread that reads user input and send it to the server.
  */
 
 public class Reader implements Runnable {
-   private ServerModel model;
+    private ServerModel model;   //TODO Must not be in user reader/writer therefor (screenshot)
 
 
     Socket socket;
 
+    private ObjectInputStream inputStream;
+    private Message inMessage;
 
+    private String username;
 
-   private ObjectInputStream inputStream;
-   private Message inMessage;
-
-
-   private String username;
-   enum MessageType{
+    enum MessageType {
         Command,
         String;
     }
@@ -50,8 +49,8 @@ public class Reader implements Runnable {
             try {
                 inMessage = (Message) inputStream.readObject();
                 MessageType msgType = MessageType.valueOf(inMessage.getType().getSimpleName());
-                switch(msgType) {
-                    case Command:{
+                switch (msgType) {
+                    case Command: {
                         System.out.println("Message type: Command");
                         model.performCommand((Command) inMessage.getData(), inMessage.getSender());
                         break;
@@ -59,24 +58,23 @@ public class Reader implements Runnable {
                     case String: {
                         System.out.println("Message type: String");
                         model.displayMessage(inMessage);
-                        model.sendMessage(inMessage,inMessage.getReceiver());
+                        model.sendMessage(inMessage, inMessage.getReceiver());
                         break;
                     }
 
                 }
-                } catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
 
             //case(File):
-                //  break;
-                //case(Image):
-                //   break;
-               // model.displayMessage((Message)inputStream.readObject());
-               // model.sendMessage((Message)inputStream.readObject());
-
+            //  break;
+            //case(Image):
+            //   break;
+            // model.displayMessage((Message)inputStream.readObject());
+            // model.sendMessage((Message)inputStream.readObject());
 
 
         }
@@ -84,8 +82,8 @@ public class Reader implements Runnable {
 
     public String getUserName() {
         try {
-            Message usernameMSG = (Message)inputStream.readObject();
-            Command c = (Command)usernameMSG.getData();
+            Message usernameMSG = (Message) inputStream.readObject();
+            Command c = (Command) usernameMSG.getData();
             username = c.getCommandData();
             return username;
         } catch (IOException e) {
@@ -95,19 +93,17 @@ public class Reader implements Runnable {
         }
         return null;
     }
+
     public void setUsername(String username) {
         this.username = username;
     }
+
     public ObjectInputStream getInputStream() {
         return inputStream;
     }
+
     public Message getInMessage() {
         return inMessage;
     }
-
-
-
-
-
 
 }

@@ -9,8 +9,10 @@ import java.util.List;
 
 public class  ServerModel {
 
-    ServerSocket serverSocket;
-    List<User> userList = new ArrayList<>();
+    private ServerSocket serverSocket;
+    private List<User> userList = new ArrayList<>();
+
+    boolean inlogged = false;
 
     {
         try {
@@ -47,9 +49,12 @@ public class  ServerModel {
     public void performCommand(Command c, String sender) {
         switch(c.getCommandName()){
 
-            case("setUser"): userList.get(userList.size()-1).setUsername(c.getCommandData());
-            System.out.println("Command performed: 'setUser'");
+            case("setUser"): {
+                userList.get(userList.size()-1).setUsername(c.getCommandData());
+                System.out.println("Command performed: 'setUser'" + c.getCommandData());
+                inlogged = true;
                 break;
+            }
             case("disconnect"): userList.remove(getUserByUsername(sender));
                 break;
             case("register"):
@@ -65,6 +70,10 @@ public class  ServerModel {
 
     public ServerSocket getServerSocket() {
         return serverSocket;
+    }
+
+    public List<User> getUserList() {
+        return userList;
     }
 
     public void addUser(User u) {
@@ -99,9 +108,4 @@ public class  ServerModel {
         }
         return null;
     }
-
-
-
-
-
 }

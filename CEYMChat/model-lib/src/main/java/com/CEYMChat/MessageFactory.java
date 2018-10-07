@@ -1,6 +1,7 @@
 package com.CEYMChat;
 import javafx.scene.image.Image;
 import java.io.File;
+import java.util.List;
 
 
 /**
@@ -20,5 +21,8 @@ public class MessageFactory {
     }
     public static Message<Command> createCommandMessage(Command data, String user){
         return new Message(data, user);
+    }
+    public static Message<List> createFriendInfoList (List<UserDisplayInfo> userDisplayInfoList){
+        return new Message(userDisplayInfoList);
     }
 }
