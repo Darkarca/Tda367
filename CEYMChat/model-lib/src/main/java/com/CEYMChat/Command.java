@@ -10,19 +10,14 @@ import java.lang.reflect.Type;
  */
 public class Command implements Serializable {
 
-    String commandName;
-
-    public String getSender() {
-        return sender;
-    }
-
-    String sender;
-    String commandData;
+    private String commandName;
+    private String commandData;
 
     public Command(String commandName, String commandData) {
         this.commandName = commandName;
         this.commandData = commandData;
     }
+
 
     public String getCommandName() {
         return commandName;

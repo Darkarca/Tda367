@@ -18,18 +18,12 @@ import java.util.List;
 
 public class Connection extends Thread {
     private Socket socket;
-
-    ObjectOutputStream messageOutStream;
-    ObjectInputStream messageInStream;
-
-    ClientModel model;
-
-    ObjectInputStream comingData;
-    Message messageIn;
-    Message lastMsg;
-    Message messageOut;
-
-    ArrayList<UserDisplayInfo> comingFriendsList = new ArrayList();
+    private ObjectOutputStream messageOutStream;
+    private ObjectInputStream messageInStream;
+    private ClientModel model;
+    private Message messageIn;
+    private Message lastMsg;
+    private ArrayList<UserDisplayInfo> comingFriendsList = new ArrayList();
 
     public Connection(ClientModel model) {
         this.model = model;
@@ -45,7 +39,7 @@ public class Connection extends Thread {
     public void start() {
         new Thread(() -> {
             try {
-                Socket socket = new Socket("localhost", 9000);
+                socket = new Socket("localhost", 9000);
                 System.out.println("Thread started");
 
                 //this.comingData = this.messageInStream = new ObjectInputStream(socket.getInputStream());

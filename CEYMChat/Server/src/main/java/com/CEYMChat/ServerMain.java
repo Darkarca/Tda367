@@ -8,8 +8,8 @@ import java.net.ServerSocket;
 
 public class ServerMain extends Application {
 
-    ServerModel model = new ServerModel();
-    SocketHandler socketHandler = new SocketHandler(model);
+    private ServerModel model = new ServerModel();
+    private SocketHandler socketHandler = new SocketHandler(model);
 
     @Override
     public void start(Stage primaryStage) throws Exception {

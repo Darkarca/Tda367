@@ -5,58 +5,45 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.shape.Circle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.Window;
-import sun.security.x509.FreshestCRLExtension;
-
-import javax.ws.rs.client.Client;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class ClientController {
     ClientModel model = ClientModel.getModelInstance();
 
+    @FXML
+    private Button sendButton;
+    @FXML
+    private TextField loginTextField;
+    @FXML
+    private Button loginButton;
+    @FXML
+    private Button connectButton;
+    @FXML
+    private TextField chatBox;
+    @FXML
+    private TextArea sendWindow;
+    @FXML
+    private TextArea receiveWindow;
+    @FXML
+    private TextField sendToTextField;
+    @FXML
+    private FlowPane friendsFlowPane;
+    private Parent login;
+    private Stage loginStage = new Stage();
 
-
-    @FXML
-    TextArea chatWindow;
-    @FXML
-    Button sendButton;
-    @FXML
-    TextField loginTextField;
-    @FXML
-    Button loginButton;
-    @FXML
-    Button connectButton;
-    @FXML
-    TextField chatBox;
-    @FXML
-    TextArea sendWindow;
-    @FXML
-    TextArea receiveWindow;
-    @FXML
-    TextField sendToTextField;
-    @FXML
-    FlowPane friendsFlowPane;
-
-
-    Parent login;
-    Stage loginStage = new Stage();
-
-    ArrayList<FriendListItem> friendItemList = new ArrayList<>();
+    private ArrayList<FriendListItem> friendItemList = new ArrayList<>();
 
     /**
      * Captures input from user and send makes use of model to send message
@@ -134,10 +121,9 @@ public class ClientController {
 
     public void showOnlineFriends (ArrayList<UserDisplayInfo> friendList) throws IOException {
         friendItemList.clear();
-        //friendItemList = friendList;
         createFriendListItemList(friendList);
         for (FriendListItem friendListItem : friendItemList) {
-            friendsFlowPane.getChildren().add(friendListItem.friendPane);
+            friendsFlowPane.getChildren().add(friendListItem.getFriendPane());
         }
     }
 }

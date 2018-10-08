@@ -10,9 +10,6 @@ import java.util.List;
 public class Writer implements Runnable {
     private ServerModel model;
     private Socket socket;
-
-
-
     private ObjectOutputStream outputStream;
     private Message outMessage;
     private Message lastMsg;
@@ -47,9 +44,9 @@ public class Writer implements Runnable {
                     System.out.println("Object written to stream: " + outMessage.toString());
                 }
 
-                if (model.inlogged == true) {
+                if (model.isLoggedIn() == true) {
                     outputStream.writeObject(createUserInfoList(model.getUserList()));
-                    model.inlogged = false;
+                    model.setLoggedIn(false);
                 }
             } catch (NullPointerException e) {
                 e.printStackTrace();

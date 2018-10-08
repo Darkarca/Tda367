@@ -14,13 +14,10 @@ public class Reader implements Runnable {
     private ServerModel model;   //TODO Must not be in user reader/writer therefor (screenshot)
 
 
-    Socket socket;
-
+    private Socket socket;
     private ObjectInputStream inputStream;
     private Message inMessage;
-
     private String username;
-
     enum MessageType {
         Command,
         String;

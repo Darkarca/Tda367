@@ -12,11 +12,9 @@ import java.lang.reflect.Type;
  */
 
 public class Message<T> implements Serializable {
-    String sender;
-
-
-    String receiver;
-    T data;
+    private String sender;
+    private String receiver;
+    private T data;
 
     protected Message(T data, String sender, String receiver){
         this.data = data;

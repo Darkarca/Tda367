@@ -14,14 +14,14 @@ import java.io.IOException;
 public class FriendListItem {
 
     @FXML
-    AnchorPane friendPane;
-    @FXML
-    Label friendUsername;
-    @FXML
-    Circle onlineIndicator;
-    @FXML
-    ImageView friendImg;
+    private AnchorPane friendPane;
 
+    @FXML
+    private Label friendUsername;
+    @FXML
+    private Circle onlineIndicator;
+    @FXML
+    private ImageView friendImg;
 
     FriendListItem(String username) throws IOException {
 
@@ -40,6 +40,10 @@ public class FriendListItem {
     @FXML
     public void selectFriend (){
 
+    }
+
+    public AnchorPane getFriendPane() {
+        return friendPane;
     }
 
 }

@@ -5,8 +5,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class SocketHandler extends Thread{
-    ServerSocket serverSocket;
-    ServerModel model;
+    private ServerSocket serverSocket;
+    private ServerModel model;
     public SocketHandler(ServerModel model){
         this.model = model;
         this.serverSocket = model.getServerSocket();

@@ -17,11 +17,11 @@ import java.util.List;
 
 public class ClientModel {
 
-    Connection connection = new Connection(this);
-    String username;
+    private Connection connection = new Connection(this);
+    private String username;
     private ArrayList<UserDisplayInfo> friendList;
 
-    ClientController controller;
+    private ClientController controller;
 
     public boolean loggedIn = false;
 

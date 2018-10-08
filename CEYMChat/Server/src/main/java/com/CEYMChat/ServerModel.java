@@ -3,7 +3,6 @@ package com.CEYMChat;
 
 import java.io.*;
 import java.net.ServerSocket;
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +11,7 @@ public class  ServerModel {
     private ServerSocket serverSocket;
     private List<User> userList = new ArrayList<>();
 
-    boolean inlogged = false;
+    private boolean inlogged = false;
 
     {
         try {
@@ -22,8 +21,8 @@ public class  ServerModel {
         }
     }
 
-    ObjectInputStream messageInStream;
-    ObjectOutputStream messageOutStream;
+    private ObjectInputStream messageInStream;
+    private ObjectOutputStream messageOutStream;
 
    /* public void logInUser(Command c) {
         if (checkUser(c.getCommandData())) {
@@ -107,5 +106,13 @@ public class  ServerModel {
             }
         }
         return null;
+    }
+
+    public boolean isLoggedIn() {
+        return inlogged;
+    }
+
+    public void setLoggedIn(boolean value) {
+        inlogged = value;
     }
 }

@@ -3,14 +3,10 @@ package com.CEYMChat;
 
 
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
-
-import java.net.Socket;
 import java.net.URL;
 import java.nio.file.Paths;
 
@@ -23,11 +19,8 @@ public class ClientMain extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("View/ClientView.fxml"));
-        Parent root = loader.load();
-        controller = loader.getController();
-        //URL url = Paths.get("Client/src/main/resources/View/ClientView.fxml").toUri().toURL();
-        //Parent root = FXMLLoader.load(url);
+        URL url = Paths.get("Client/src/main/resources/View/ClientView.fxml").toUri().toURL();
+        Parent root = FXMLLoader.load(url);
         primaryStage.setTitle("CEYMChat");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
