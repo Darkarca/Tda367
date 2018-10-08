@@ -16,7 +16,7 @@ public class  ServerModel {
 
     {
         try {
-            serverSocket = new ServerSocket(8989);
+            serverSocket = new ServerSocket(9000);
         } catch (IOException e) {
             e.printStackTrace();
         }

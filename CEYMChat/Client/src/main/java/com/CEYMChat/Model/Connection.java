@@ -45,7 +45,7 @@ public class Connection extends Thread {
     public void start() {
         new Thread(() -> {
             try {
-                Socket socket = new Socket("localhost", 8989);
+                Socket socket = new Socket("localhost", 9000);
                 System.out.println("Thread started");
 
                 //this.comingData = this.messageInStream = new ObjectInputStream(socket.getInputStream());
