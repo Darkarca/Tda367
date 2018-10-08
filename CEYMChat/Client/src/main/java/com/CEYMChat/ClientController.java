@@ -31,11 +31,6 @@ public class ClientController {
 
 
 
-    /**
-     * Private constructor with getControllerInstance()
-     * to ensure only one controller is ever created (Singleton pattern)
-     * **/
-
     @FXML
     TextArea chatWindow;
     @FXML
@@ -99,7 +94,7 @@ public class ClientController {
             model.setUsername(loginTextField.getText());
             Window window = loginButton.getScene().getWindow();
             window.hide();
-            model.inlogged = true;
+            model.login();
 
         } catch (IOException e) {
             e.printStackTrace();

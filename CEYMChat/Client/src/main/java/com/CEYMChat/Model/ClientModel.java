@@ -23,7 +23,7 @@ public class ClientModel {
 
     ClientController controller;
 
-    public boolean inlogged = false;
+    public boolean loggedIn = false;
 
 
     private static ClientModel modelInstance = new ClientModel();
@@ -38,6 +38,15 @@ public class ClientModel {
     public void connectToServer (){
         connection.start();
         System.out.println("Connection started");
+    }
+    public void login(){
+        loggedIn = true;
+    }
+    public void logout(){
+        loggedIn = false;
+    }
+    public boolean getLoginStatus(){
+        return loggedIn;
     }
 
     public static ClientModel getModelInstance(){ return modelInstance;}
@@ -83,21 +92,10 @@ public class ClientModel {
         this.username = user;
     }
 
-    public String retrieveMessage() throws IOException, ClassNotFoundException {
-        Message m = (Message) connection.messageInStream.readObject();
-        String s = m.getSender() + ": " + m.getData().toString();
-        return s;
-    }
-
-
     public void sendCommandMessage(String sCommand, String sData) throws IOException {
         Message message = MessageFactory.createCommandMessage(new Command(sCommand, sData), username);
         System.out.println("Command sent: " + sCommand + " with data: " + sData);
         connection.setMessageOut(message);
-    }
-
-    public String getUser(){
-        return username;
     }
 
     public void setController(ClientController controller) {

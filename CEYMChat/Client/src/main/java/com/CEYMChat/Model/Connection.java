@@ -67,7 +67,7 @@ public class Connection extends Thread {
                                 model.displayNewMessage(messageIn);
                             }
 
-                        } else if (msgType.equals(MessageType.ArrayList)&& model.inlogged == true) {
+                        } else if (msgType.equals(MessageType.ArrayList)&& model.getLoginStatus() == true) {
                             comingFriendsList = (ArrayList) messageIn.getData();
                             model.setFriendList(comingFriendsList);
                             Platform.runLater(
@@ -80,7 +80,7 @@ public class Connection extends Thread {
                                         }
                                     }
                             );
-                            model.inlogged = false;
+                            model.logout();
                         }
                     }
                 }
