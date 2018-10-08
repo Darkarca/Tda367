@@ -45,7 +45,7 @@ public class Message<T> implements Serializable {
     }
 
     public Class getType(){
-       return data.getClass();
+        return data.getClass();
     }
     public String getReceiver() {
         return receiver;

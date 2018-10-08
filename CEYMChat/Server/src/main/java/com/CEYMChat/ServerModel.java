@@ -62,7 +62,7 @@ public class  ServerModel {
             case("addFriend"):
                 break;
             case("requestChat"):
-               // createSession(getUserByUsername(c.getCommandData()),getUserByUsername(c.getSender()));
+                // createSession(getUserByUsername(c.getCommandData()),getUserByUsername(c.getSender()));
         }
 
     }
