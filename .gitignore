@@ -15,7 +15,7 @@
 .CEYMChat/Client.idea/
 .CEYMChat/Server.idea/
 .CEYMChat/model-lib.idea/
-
+.iml*
 
 # Generated files
 .idea/**/contentModel.xml
@@ -52,7 +52,7 @@ cmake-build-*/
 
 # IntelliJ
 out/
-
+*.iml
 # mpeltonen/sbt-idea plugin
 .idea_modules/
 
