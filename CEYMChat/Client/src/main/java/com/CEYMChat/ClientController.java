@@ -1,5 +1,7 @@
 package com.CEYMChat;
 import com.CEYMChat.Model.ClientModel;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -33,26 +35,25 @@ public class ClientController {
     @FXML
     private TextField chatBox;
     @FXML
-    private TextArea sendWindow;
-    @FXML
-    private TextArea receiveWindow;
+    private TextArea messageWindow;
     @FXML
     private TextField sendToTextField;
     @FXML
     private FlowPane friendsFlowPane;
     private Parent login;
     private Stage loginStage = new Stage();
-
     private ArrayList<FriendListItem> friendItemList = new ArrayList<>();
+    String currentChat;
 
     /**
      * Captures input from user and send makes use of model to send message
      */
+
     public void sendString() throws IOException {
         String toSend = chatBox.getText();
         chatBox.setText("");
-        model.sendStringMessage(toSend, sendToTextField.getText());   //Change sendToTextField.getText() to click on friend
-        sendWindow.appendText("Me: "+toSend+"\n");
+        model.sendStringMessage(toSend, currentChat);   //Change sendToTextField.getText() to click on friend
+        messageWindow.appendText("Me: "+toSend+"\n");
     }
 
     public void connectToServer(MouseEvent mouseEvent) {
@@ -100,7 +101,7 @@ public class ClientController {
 
     public void displayNewMessage(String s) {
         System.out.println("displayNewMessage has been called with string: " + s);
-        receiveWindow.appendText(s + "\n");
+        messageWindow.appendText(s + "\n");
     }
 
     public void requestChat(){
@@ -114,8 +115,14 @@ public class ClientController {
 
     public void createFriendListItemList (ArrayList<UserDisplayInfo> friendList) throws IOException {
         for (UserDisplayInfo uInfo : friendList) {
-            FriendListItem friendListItem = new FriendListItem(uInfo.getUsername());
-            friendItemList.add(friendListItem);
+            FriendListItem userItem = new FriendListItem(uInfo.getUsername());
+            friendItemList.add(userItem);
+            userItem.getFriendPane().setOnMouseClicked(new EventHandler<MouseEvent>() {
+                public void handle(MouseEvent Event){
+                    currentChat = userItem.getFriendUsername().getText();
+                    System.out.println("CurrentChat set to: " + currentChat);
+                }
+            });
         }
     }
 
@@ -126,4 +133,6 @@ public class ClientController {
             friendsFlowPane.getChildren().add(friendListItem.getFriendPane());
         }
     }
+
+
 }

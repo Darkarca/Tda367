@@ -16,9 +16,7 @@ public class ClientModel {
     private Connection connection = new Connection(this);
     private String username;
     private ArrayList<UserDisplayInfo> friendList;
-
     private ClientController controller;
-
     public boolean loggedIn = false;
 
 

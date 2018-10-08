@@ -15,9 +15,6 @@ public class Writer implements Runnable {
     private Message lastMsg;
     private List userInfoList = new ArrayList();
 
-
-
-
     public Writer(ServerModel model, Socket socket) {
         this.model = model;
         this.socket = socket;
@@ -29,13 +26,10 @@ public class Writer implements Runnable {
                 System.out.println("No socket found");
             }
         }
-
     }
-
 
     @Override
     public void run() {
-
         while(true){
             try {
                 outputStream.writeObject(outMessage);

@@ -6,9 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
-
 import java.io.IOException;
-
 
 public class FriendListItem {
 
@@ -17,11 +15,11 @@ public class FriendListItem {
 
     @FXML
     private Label friendUsername;
+
     @FXML
     private Circle onlineIndicator;
     @FXML
     private ImageView friendImg;
-
     FriendListItem(String username) throws IOException {
 
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("View/friendListItem.fxml"));
@@ -39,6 +37,10 @@ public class FriendListItem {
     @FXML
     public void selectFriend (){
 
+    }
+
+    public Label getFriendUsername() {
+        return friendUsername;
     }
 
     public AnchorPane getFriendPane() {
