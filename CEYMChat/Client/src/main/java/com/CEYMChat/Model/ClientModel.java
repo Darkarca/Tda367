@@ -1,11 +1,7 @@
 package com.CEYMChat.Model;
 import com.CEYMChat.*;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.Pane;
-
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This class will contain most of the model for the client-side. The model will likely be composed of
@@ -28,13 +24,6 @@ public class ClientModel {
 
     private static ClientModel modelInstance = new ClientModel();
 
-    /**
-     * Private constructor with getModelInstance()
-     * to ensure only one model is ever created (Singleton pattern)
-     * **/
-    private ClientModel(){}
-
-
     public void connectToServer (){
         connection.start();
         System.out.println("Connection started");
@@ -56,12 +45,7 @@ public class ClientModel {
 
         Message message = MessageFactory.createStringMessage(toSend, username, receiver);
         System.out.println(message.getSender() + ": " + message.getData().toString());
-        //connection.messageOutStream.writeObject(message);
         connection.setMessageOut(message);
-    }
-
-    public ArrayList<UserDisplayInfo> getFriendList() {
-        return friendList;
     }
 
     public void setFriendList(ArrayList<UserDisplayInfo> friendList) {
@@ -71,6 +55,7 @@ public class ClientModel {
     /**
      * Processes a received message to a displayable format for the client.
      */
+
     public String processMessage(Message m) {
         String processedMessage;
         processedMessage = m.getSender() + ": " + m.getData().toString();

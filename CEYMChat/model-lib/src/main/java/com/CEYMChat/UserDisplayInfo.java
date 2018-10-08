@@ -2,7 +2,6 @@ package com.CEYMChat;
 
 
 import javafx.scene.image.ImageView;
-
 import java.io.Serializable;
 
 public class UserDisplayInfo implements Serializable {

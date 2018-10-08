@@ -15,7 +15,6 @@ import java.nio.file.Paths;
  */
 
 public class ClientMain extends Application {
-    static ClientController controller;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -26,7 +25,4 @@ public class ClientMain extends Application {
         primaryStage.show();
     }
 
-    public static ClientController getClientController(){
-        return controller;
-    }
 }

@@ -1,10 +1,7 @@
 package com.CEYMChat;
 
-import javafx.scene.image.Image;
-
-import java.io.File;
 import java.io.Serializable;
-import java.lang.reflect.Type;
+
 
 /**
  * Generic class that works in conjunction with MessageFactory to create messages that are sent and received by the server/client.

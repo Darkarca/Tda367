@@ -3,19 +3,14 @@ package com.CEYMChat;
 import java.net.Socket;
 
 public class User {
-
-    private Socket socket;
     private String username;
     private Reader reader;
     private Writer writer;
-    private ServerModel model;
 
 
-    public User(Socket s, ServerModel model) {
-        this.model = model;
-        this.socket = s;
-        this.writer = new Writer(model, this.socket);
-        this.reader = new Reader(model, this.socket);
+    public User(Socket socket, ServerModel model) {
+        this.writer = new Writer(model, socket);
+        this.reader = new Reader(model, socket);
         reader.setUsername(username);
 
 
@@ -32,9 +27,7 @@ public class User {
     public String getUsername() {
         return username;
     }
-    public Reader getReader() {
-        return reader;
-    }
+
     public Writer getWriter() {
         return writer;
     }

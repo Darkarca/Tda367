@@ -60,9 +60,6 @@ public class Writer implements Runnable {
         outMessage = m;
     }
 
-    public ObjectOutputStream getOutputStream() {
-        return outputStream;
-    }
 
     public Message createUserInfoList (List<User> users){
         userInfoList.clear();

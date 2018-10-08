@@ -28,6 +28,7 @@ public class SocketHandler extends Thread{
             }
         }).start();
     }
+
     public synchronized void connectSocket() throws IOException {
         Socket s = serverSocket.accept();
         User newUser = new User(s, model);

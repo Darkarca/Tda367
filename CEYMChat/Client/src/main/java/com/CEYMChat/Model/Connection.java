@@ -1,16 +1,11 @@
 package com.CEYMChat.Model;
 
 import com.CEYMChat.Message;
-import com.CEYMChat.MessageFactory;
 import com.CEYMChat.UserDisplayInfo;
 import javafx.application.Platform;
-import sun.rmi.transport.ObjectTable;
-
 import java.io.*;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This class should uphold the connection. This might be implemented as part of the "Session" instead.
@@ -85,28 +80,11 @@ public class Connection extends Thread {
             }
         }).start();
     }
-/*
-    private Object getMessageIn() {
-        try{
-            if (messageInStream.readObject() instanceof Message)
-                return (Message)messageInStream.readObject();
-            else
-                return (List)messageInStream.readObject();
-        } catch (Exception e) {
-            return null;
-        }
-    }
-    */
-
 
     public void setMessageOut(Message m) throws IOException {
         System.out.println("MessageOutputStream: " + messageOutStream);
         messageOutStream.writeObject(m);
         System.out.println("Message sent: " + m.getData());
-    }
-
-    public Socket getSocket() {
-        return socket;
     }
 
 }

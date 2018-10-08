@@ -2,9 +2,7 @@ package com.CEYMChat;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.List;
 
 /**
  * Thread that reads user input and send it to the server.
@@ -37,7 +35,6 @@ public class Reader implements Runnable {
         }
 
     }
-
 
     @Override
     public void run() {
@@ -77,30 +74,8 @@ public class Reader implements Runnable {
         }
     }
 
-    public String getUserName() {
-        try {
-            Message usernameMSG = (Message) inputStream.readObject();
-            Command c = (Command) usernameMSG.getData();
-            username = c.getCommandData();
-            return username;
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public ObjectInputStream getInputStream() {
-        return inputStream;
-    }
-
-    public Message getInMessage() {
-        return inMessage;
     }
 
 }

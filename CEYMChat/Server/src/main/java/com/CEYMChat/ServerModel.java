@@ -10,7 +10,6 @@ public class  ServerModel {
 
     private ServerSocket serverSocket;
     private List<User> userList = new ArrayList<>();
-
     private boolean inlogged = false;
 
     {
@@ -19,30 +18,6 @@ public class  ServerModel {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private ObjectInputStream messageInStream;
-    private ObjectOutputStream messageOutStream;
-
-   /* public void logInUser(Command c) {
-        if (checkUser(c.getCommandData())) {
-            try {
-                int newUser = clientList.size();
-                clientList.add(new Socket());
-                Socket thisLogIn;
-                thisLogIn = clientList.get(newUser);
-                thisLogIn = ServerMain.serverSocket.accept();
-                messageInStream = new ObjectInputStream(thisLogIn.getInputStream());
-                messageOutStream = new ObjectOutputStream(thisLogIn.getOutputStream());
-
-            } catch (IOException exception) {
-                exception.printStackTrace();
-            }
-        }
-    }*/
-
-    public void registerUser() {
-
     }
 
     public void performCommand(Command c, String sender) {
@@ -86,17 +61,6 @@ public class  ServerModel {
     public void sendMessage(Message m, String receiver){
         User u = getUserByUsername(receiver);
         u.getWriter().setOutMessage(m);
-    }
-
-
-    public synchronized Message getMessage(){
-        try {
-
-            return (Message) messageInStream.readObject();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
     public User getUserByUsername(String username){
