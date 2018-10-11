@@ -1,6 +1,7 @@
-package com.CEYMChat.Model;
+package com.CEYMChat.Services;
 
 import com.CEYMChat.Message;
+import com.CEYMChat.Model.ClientModel;
 import com.CEYMChat.UserDisplayInfo;
 import javafx.application.Platform;
 import java.io.*;

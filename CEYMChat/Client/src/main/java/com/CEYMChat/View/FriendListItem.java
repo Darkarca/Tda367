@@ -1,4 +1,4 @@
-package com.CEYMChat;
+package com.CEYMChat.View;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
