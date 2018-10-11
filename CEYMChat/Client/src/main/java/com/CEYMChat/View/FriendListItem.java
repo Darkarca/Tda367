@@ -20,7 +20,7 @@ public class FriendListItem {
     private Circle onlineIndicator;
     @FXML
     private ImageView friendImg;
-    FriendListItem(String username) throws IOException {
+    public FriendListItem(String username) throws IOException {
 
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("View/friendListItem.fxml"));
         loader.setController(this);
