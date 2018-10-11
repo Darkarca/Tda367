@@ -3,13 +3,6 @@ import com.CEYMChat.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
-/**
- * This class will contain most of the model for the client-side. The model will likely be composed of
- * more classes in the "com.CEYMChat.Model" package.
- *
- * The model should handle all the requests and replies with the server.
- */
-
 
 public class ClientModel {
 
@@ -17,11 +10,10 @@ public class ClientModel {
     private String username;
     private ArrayList<UserDisplayInfo> friendList;
     private ClientController controller;
-    public boolean loggedIn = false;
+    private boolean loggedIn = false;
 
 
     private static ClientModel modelInstance = new ClientModel();
-
     public void connectToServer (){
         connection.start();
         System.out.println("Connection started");
@@ -37,7 +29,6 @@ public class ClientModel {
     }
 
     public static ClientModel getModelInstance(){ return modelInstance;}
-
 
     public void sendStringMessage(String toSend, String receiver) throws IOException {
 
