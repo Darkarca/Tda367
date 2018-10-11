@@ -17,8 +17,8 @@ public class ClientModel {
 
 
     private static ClientModel modelInstance = new ClientModel();
-    public void connectToServer (){
-        connection.start();
+    public void connectToServer (ClientController c){
+        connection.start(c);
         System.out.println("Connection started");
     }
     public void login(){
@@ -35,7 +35,7 @@ public class ClientModel {
 
 
 
-    public void setFriendList(ArrayList<UserDisplayInfo> friendList) {
+    /*public void setFriendList(ArrayList<UserDisplayInfo> friendList) {
         this.friendList = friendList;
     }
 
@@ -43,22 +43,11 @@ public class ClientModel {
      * Processes a received message to a displayable format for the client.
      */
 
-    public String processMessage(Message m) {
-        String processedMessage;
-        processedMessage = m.getSender() + ": " + m.getData().toString();
-        return processedMessage;
-    }
 
 
-    public void displayNewMessage(Message m){
-        String toDisplay;
-        toDisplay = processMessage(m);
-        controller.displayNewMessage(toDisplay);
-    }
 
-    public void displayFriendList() throws IOException {
-        controller.showOnlineFriends(friendList);
-    }
+
+
 
     public void setUsername(String user){
         this.username = user;
@@ -66,10 +55,6 @@ public class ClientModel {
 
     public String getUsername(){
         return username;
-    }
-
-    public void setController(ClientController controller) {
-        this.controller = controller;
     }
 
     public IService getConnectionService(){

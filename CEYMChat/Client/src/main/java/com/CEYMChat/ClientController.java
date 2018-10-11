@@ -69,9 +69,9 @@ public class ClientController {
             loginStage.setTitle("Login");
             loginStage.setScene(new Scene(login));
             loginStage.show();
-            model.connectToServer();
+            model.connectToServer(this);
             connection = model.getConnectionService();
-            model.setController(this);
+
             toggleChatBox();
             connectButton.setDisable(true);
 

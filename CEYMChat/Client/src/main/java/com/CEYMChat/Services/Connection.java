@@ -1,10 +1,7 @@
 package com.CEYMChat.Services;
 
-import com.CEYMChat.Command;
-import com.CEYMChat.Message;
-import com.CEYMChat.MessageFactory;
+import com.CEYMChat.*;
 import com.CEYMChat.Model.ClientModel;
-import com.CEYMChat.UserDisplayInfo;
 import javafx.application.Platform;
 import java.io.*;
 import java.net.Socket;
@@ -22,6 +19,7 @@ public class Connection extends Thread implements IService{
     private Message messageIn;
     private Message lastMsg;
     private ArrayList<UserDisplayInfo> comingFriendsList = new ArrayList();
+    private ClientController controller;
 
     public Connection(ClientModel model) {
         this.model = model;
@@ -34,9 +32,10 @@ public class Connection extends Thread implements IService{
     }
 
     @Override
-    public void start() {
+    public void start(ClientController c) {
         new Thread(() -> {
             try {
+                this.controller = c;
                 socket = new Socket("localhost", 9000);
                 System.out.println("Thread started");
 
@@ -56,7 +55,7 @@ public class Connection extends Thread implements IService{
                                 System.out.println("Message received from " + messageIn.getSender() + ": " + messageIn.getData());
                                 lastMsg = messageIn;
                                 //model.displayNewMessage(getMessageIn());
-                                model.displayNewMessage(messageIn);
+                                displayNewMessage(messageIn);
                             }
 
                         } else if (msgType.equals(MessageType.ArrayList)&& model.getLoginStatus() == true) {
@@ -66,7 +65,7 @@ public class Connection extends Thread implements IService{
                                     () -> {
                                         // Update UI here.
                                         try {
-                                            model.displayFriendList();
+                                            displayFriendList();
                                         } catch (IOException e) {
                                             e.printStackTrace();
                                         }
@@ -100,6 +99,23 @@ public class Connection extends Thread implements IService{
         Message message = MessageFactory.createStringMessage(toSend, model.getUsername(), receiver);
         System.out.println(message.getSender() + ": " + message.getData().toString());
         setMessageOut(message);
+    }
+
+    public void displayNewMessage(Message m){
+        String toDisplay;
+        toDisplay = processMessage(m);
+        controller.displayNewMessage(toDisplay);
+    }
+
+
+    public String processMessage(Message m) {
+        String processedMessage;
+        processedMessage = m.getSender() + ": " + m.getData().toString();
+        return processedMessage;
+    }
+
+    public void displayFriendList() throws IOException {
+        controller.showOnlineFriends(comingFriendsList);
     }
 
 }

@@ -1,3 +1,4 @@
+import com.CEYMChat.ClientController;
 import com.CEYMChat.Model.ClientModel;
 import com.CEYMChat.Services.Connection;
 import org.junit.Test;
@@ -17,7 +18,7 @@ public class TestClient{
     @Test
     public void testConnectionStart(){
         Connection c = new Connection(new ClientModel());
-        c.start();
+        c.start(new ClientController());
 
     }
 

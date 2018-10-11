@@ -1,5 +1,6 @@
 package com.CEYMChat.Services;
 
+import com.CEYMChat.ClientController;
 import com.CEYMChat.Message;
 
 import java.io.IOException;
@@ -12,5 +13,5 @@ public interface IService {
 
     void sendStringMessage(String toSend, String currentChat) throws IOException;
 
-    void start();
+    void start(ClientController c);
 }
