@@ -1,6 +1,6 @@
 package com.CEYMChat;
 import com.CEYMChat.Model.ClientModel;
-import javafx.event.ActionEvent;
+import com.CEYMChat.View.FriendListItem;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

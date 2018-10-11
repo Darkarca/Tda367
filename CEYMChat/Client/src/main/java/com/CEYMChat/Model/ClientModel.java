@@ -1,5 +1,7 @@
 package com.CEYMChat.Model;
 import com.CEYMChat.*;
+import com.CEYMChat.Services.Connection;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
