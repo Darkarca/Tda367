@@ -1,5 +1,7 @@
 package com.CEYMChat;
 import com.CEYMChat.Model.ClientModel;
+import com.CEYMChat.Services.Connection;
+import com.CEYMChat.Services.IService;
 import com.CEYMChat.View.FriendListItem;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -44,6 +46,7 @@ public class ClientController {
     private Stage loginStage = new Stage();
     private ArrayList<FriendListItem> friendItemList = new ArrayList<>();
     String currentChat;
+    private IService connection;
 
     /**
      * Captures input from user and send makes use of model to send message
@@ -52,7 +55,7 @@ public class ClientController {
     public void sendString() throws IOException {
         String toSend = chatBox.getText();
         chatBox.setText("");
-        model.sendStringMessage(toSend, currentChat);   //Change sendToTextField.getText() to click on friend
+        model.getConnectionService().sendStringMessage(toSend, currentChat);   //Change sendToTextField.getText() to click on friend
         messageWindow.appendText("Me: "+toSend+"\n");
     }
 
@@ -67,6 +70,7 @@ public class ClientController {
             loginStage.setScene(new Scene(login));
             loginStage.show();
             model.connectToServer();
+            connection = model.getConnectionService();
             model.setController(this);
             toggleChatBox();
             connectButton.setDisable(true);
@@ -78,7 +82,7 @@ public class ClientController {
     @FXML
     public void login(){
         try {
-            model.sendCommandMessage("setUser", loginTextField.getText());
+            model.getConnectionService().sendCommandMessage("setUser", loginTextField.getText());
             model.setUsername(loginTextField.getText());
             Window window = loginButton.getScene().getWindow();
             window.hide();
@@ -106,7 +110,7 @@ public class ClientController {
 
     public void requestChat(){
         try {
-            model.sendCommandMessage("requestChat","user2");
+            model.getConnectionService().sendCommandMessage("requestChat","user2");
         } catch (IOException e) {
             e.printStackTrace();
         }

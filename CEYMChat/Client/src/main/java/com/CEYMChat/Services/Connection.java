@@ -1,6 +1,8 @@
 package com.CEYMChat.Services;
 
+import com.CEYMChat.Command;
 import com.CEYMChat.Message;
+import com.CEYMChat.MessageFactory;
 import com.CEYMChat.Model.ClientModel;
 import com.CEYMChat.UserDisplayInfo;
 import javafx.application.Platform;
@@ -12,7 +14,7 @@ import java.util.ArrayList;
  * This class should uphold the connection. This might be implemented as part of the "Session" instead.
  */
 
-public class Connection extends Thread {
+public class Connection extends Thread implements IService{
     private Socket socket;
     private ObjectOutputStream messageOutStream;
     private ObjectInputStream messageInStream;
@@ -82,10 +84,22 @@ public class Connection extends Thread {
         }).start();
     }
 
+    public void sendCommandMessage(String sCommand, String sData) throws IOException {
+        Message message = MessageFactory.createCommandMessage(new Command(sCommand, sData), model.getUsername());
+        System.out.println("Command sent: " + sCommand + " with data: " + sData);
+        setMessageOut(message);
+    }
+
     public void setMessageOut(Message m) throws IOException {
         System.out.println("MessageOutputStream: " + messageOutStream);
         messageOutStream.writeObject(m);
         System.out.println("Message sent: " + m.getData());
+    }
+
+    public void sendStringMessage(String toSend, String receiver) throws IOException {
+        Message message = MessageFactory.createStringMessage(toSend, model.getUsername(), receiver);
+        System.out.println(message.getSender() + ": " + message.getData().toString());
+        setMessageOut(message);
     }
 
 }

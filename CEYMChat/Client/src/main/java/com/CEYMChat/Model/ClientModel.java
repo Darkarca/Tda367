@@ -1,6 +1,7 @@
 package com.CEYMChat.Model;
 import com.CEYMChat.*;
 import com.CEYMChat.Services.Connection;
+import com.CEYMChat.Services.IService;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,7 +9,7 @@ import java.util.ArrayList;
 
 public class ClientModel {
 
-    private Connection connection = new Connection(this);
+    private IService connection = new Connection(this);
     private String username;
     private ArrayList<UserDisplayInfo> friendList;
     private ClientController controller;
@@ -32,12 +33,7 @@ public class ClientModel {
 
     public static ClientModel getModelInstance(){ return modelInstance;}
 
-    public void sendStringMessage(String toSend, String receiver) throws IOException {
 
-        Message message = MessageFactory.createStringMessage(toSend, username, receiver);
-        System.out.println(message.getSender() + ": " + message.getData().toString());
-        connection.setMessageOut(message);
-    }
 
     public void setFriendList(ArrayList<UserDisplayInfo> friendList) {
         this.friendList = friendList;
@@ -68,13 +64,15 @@ public class ClientModel {
         this.username = user;
     }
 
-    public void sendCommandMessage(String sCommand, String sData) throws IOException {
-        Message message = MessageFactory.createCommandMessage(new Command(sCommand, sData), username);
-        System.out.println("Command sent: " + sCommand + " with data: " + sData);
-        connection.setMessageOut(message);
+    public String getUsername(){
+        return username;
     }
 
     public void setController(ClientController controller) {
         this.controller = controller;
+    }
+
+    public IService getConnectionService(){
+        return connection;
     }
 }
