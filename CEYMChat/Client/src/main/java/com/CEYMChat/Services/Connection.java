@@ -58,12 +58,14 @@ public class Connection extends Thread implements IService{
                                 displayNewMessage(messageIn);
                             }
 
-                        } else if (msgType.equals(MessageType.ArrayList)&& model.getLoginStatus() == true) {
+                        } else if (msgType.equals(MessageType.ArrayList)) {
                             comingFriendsList = (ArrayList) messageIn.getData();
-                            model.setFriendList(comingFriendsList);
+                            model.createFriendList(comingFriendsList);
+                            System.out.println("new friend list has come");
+
                             Platform.runLater(
                                     () -> {
-                                        // Update UI here.
+                                        // Updating the UI
                                         try {
                                             displayFriendList();
                                         } catch (IOException e) {
@@ -71,7 +73,8 @@ public class Connection extends Thread implements IService{
                                         }
                                     }
                             );
-                            model.logout();
+
+                            //model.logout();
                         }
                     }
                 }
@@ -115,7 +118,9 @@ public class Connection extends Thread implements IService{
     }
 
     public void displayFriendList() throws IOException {
-        controller.showOnlineFriends(comingFriendsList);
+        controller.showOnlineFriends(model.getfriendList());
+        System.out.println("new friend list updating 1");
+
     }
 
 }

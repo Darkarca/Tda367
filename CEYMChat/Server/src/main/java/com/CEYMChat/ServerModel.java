@@ -41,7 +41,6 @@ public class  ServerModel {
 
     }
 
-
     public ServerSocket getServerSocket() {
         return serverSocket;
     }

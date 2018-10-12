@@ -15,6 +15,7 @@ public class TestServer {
     public void testLogin(){
 
     }
+
     @Test
     public void checkUser(){
         ServerModel sm = new ServerModel();

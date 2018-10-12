@@ -3,6 +3,7 @@ import com.CEYMChat.Model.ClientModel;
 import com.CEYMChat.Services.Connection;
 import com.CEYMChat.Services.IService;
 import com.CEYMChat.View.FriendListItem;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -86,7 +87,7 @@ public class ClientController {
             model.setUsername(loginTextField.getText());
             Window window = loginButton.getScene().getWindow();
             window.hide();
-            model.login();
+            //model.login();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -118,20 +119,23 @@ public class ClientController {
     }
 
     public void createFriendListItemList (ArrayList<UserDisplayInfo> friendList) throws IOException {
+        System.out.println("new friend list updating 3");
         for (UserDisplayInfo uInfo : friendList) {
-            FriendListItem userItem = new FriendListItem(uInfo.getUsername());
-            friendItemList.add(userItem);
-            userItem.getFriendPane().setOnMouseClicked(new EventHandler<MouseEvent>() {
-                public void handle(MouseEvent Event){
+            System.out.println(uInfo.getUsername());
+            if (!uInfo.getUsername().equals(model.getUsername())) {
+                FriendListItem userItem = new FriendListItem(uInfo.getUsername());
+                friendItemList.add(userItem);
+                userItem.getFriendPane().setOnMouseClicked(Event -> {
                     currentChat = userItem.getFriendUsername().getText();
                     System.out.println("CurrentChat set to: " + currentChat);
-                }
-            });
+                });
+            }
         }
     }
 
     public void showOnlineFriends (ArrayList<UserDisplayInfo> friendList) throws IOException {
         friendItemList.clear();
+        System.out.println("new friend list updating 2");
         createFriendListItemList(friendList);
         for (FriendListItem friendListItem : friendItemList) {
             friendsFlowPane.getChildren().add(friendListItem.getFriendPane());

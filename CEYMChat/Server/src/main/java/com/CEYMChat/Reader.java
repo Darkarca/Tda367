@@ -16,6 +16,7 @@ public class Reader implements Runnable {
     private ObjectInputStream inputStream;
     private Message inMessage;
     private String username;
+
     enum MessageType {
         Command,
         String;
