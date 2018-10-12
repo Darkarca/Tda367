@@ -2,7 +2,6 @@ package com.CEYMChat.Model;
 import com.CEYMChat.*;
 import com.CEYMChat.Services.Connection;
 import com.CEYMChat.Services.IService;
-import javafx.collections.ObservableList;
 import java.util.ArrayList;
 
 
@@ -41,6 +40,7 @@ public class ClientModel {
     public void setFriendList(ArrayList<UserDisplayInfo> friendList) {
         this.friendList = friendList;
     }
+
 
     //public void login(){loggedIn = true;}
 
