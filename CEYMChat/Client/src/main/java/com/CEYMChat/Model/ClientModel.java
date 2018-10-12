@@ -33,21 +33,9 @@ public class ClientModel {
 
     public static ClientModel getModelInstance(){ return modelInstance;}
 
-
-
-    /*public void setFriendList(ArrayList<UserDisplayInfo> friendList) {
+    public void setFriendList(ArrayList<UserDisplayInfo> friendList) {
         this.friendList = friendList;
     }
-
-    /**
-     * Processes a received message to a displayable format for the client.
-     */
-
-
-
-
-
-
 
     public void setUsername(String user){
         this.username = user;
