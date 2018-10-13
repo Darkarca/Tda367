@@ -5,14 +5,14 @@ import com.CEYMChat.Message;
 
 import java.io.IOException;
 
-public interface IService {
+public interface IService extends Runnable {
 
     public void sendCommandMessage(String sCommand, String sData) throws IOException;
     public void setMessageOut(Message m) throws IOException;
 
 
     void sendStringMessage(String toSend, String currentChat) throws IOException;
-    void start(ClientController c);
+    //void start(ClientController c);
 
 
 

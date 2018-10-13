@@ -13,7 +13,6 @@ import java.nio.file.Paths;
 /**
  * This class should do nothing else than to launch the client application.
  */
-
 public class ClientMain extends Application {
 
     @Override

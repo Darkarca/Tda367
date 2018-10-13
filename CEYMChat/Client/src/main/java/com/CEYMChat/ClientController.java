@@ -3,8 +3,6 @@ import com.CEYMChat.Model.ClientModel;
 import com.CEYMChat.Services.Connection;
 import com.CEYMChat.Services.IService;
 import com.CEYMChat.View.FriendListItem;
-import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -25,7 +23,8 @@ import java.util.ArrayList;
 
 
 public class ClientController {
-    ClientModel model = ClientModel.getModelInstance();
+
+    private ClientModel model;
 
     @FXML
     private Button sendButton;
@@ -49,20 +48,29 @@ public class ClientController {
     String currentChat;
     private IService connection;
 
+
+
+
     /**
      * Captures input from user and send makes use of model to send message
      */
 
+    public ClientModel getModel() {
+        return model;
+    }
+
     public void sendString() throws IOException {
         String toSend = chatBox.getText();
         chatBox.setText("");
-        model.getConnectionService().sendStringMessage(toSend, currentChat);   //Change sendToTextField.getText() to click on friend
+        connection.sendStringMessage(toSend, currentChat);   //Change sendToTextField.getText() to click on friend
         messageWindow.appendText("Me: "+toSend+"\n");
     }
 
+
+    @FXML
     public void connectToServer(MouseEvent mouseEvent) {
         try{
-
+            model = new ClientModel();
             URL url = Paths.get("Client/src/main/resources/View/login.fxml").toUri().toURL();
             login = FXMLLoader.load(url);
             loginStage.initModality(Modality.APPLICATION_MODAL);
@@ -70,23 +78,27 @@ public class ClientController {
             loginStage.setTitle("Login");
             loginStage.setScene(new Scene(login));
             loginStage.show();
-            model.connectToServer(this);
-            connection = model.getConnectionService();
 
             toggleChatBox();
             connectButton.setDisable(true);
+
+            connection = new Connection(this);
+            new Thread(connection).start();
+            System.out.println("Connection started");
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     @FXML
     public void login(){
         try {
-            model.getConnectionService().sendCommandMessage("setUser", loginTextField.getText());
+            connection.sendCommandMessage("setUser", loginTextField.getText());
             model.setUsername(loginTextField.getText());
             Window window = loginButton.getScene().getWindow();
             window.hide();
+
             //model.login();
 
         } catch (IOException e) {
@@ -111,7 +123,7 @@ public class ClientController {
 
     public void requestChat(){
         try {
-            model.getConnectionService().sendCommandMessage("requestChat","user2");
+            connection.sendCommandMessage("requestChat","user2");
         } catch (IOException e) {
             e.printStackTrace();
         }

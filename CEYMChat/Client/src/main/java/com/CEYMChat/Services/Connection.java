@@ -1,7 +1,6 @@
 package com.CEYMChat.Services;
 
 import com.CEYMChat.*;
-import com.CEYMChat.Model.ClientModel;
 import javafx.application.Platform;
 import java.io.*;
 import java.net.Socket;
@@ -11,18 +10,16 @@ import java.util.ArrayList;
  * This class should uphold the connection. This might be implemented as part of the "Session" instead.
  */
 
-public class Connection extends Thread implements IService{
-    private Socket socket;
+public class Connection implements IService{
     private ObjectOutputStream messageOutStream;
     private ObjectInputStream messageInStream;
-    private ClientModel model;
     private Message messageIn;
     private Message lastMsg;
     private ArrayList<UserDisplayInfo> comingFriendsList = new ArrayList();
     private ClientController controller;
 
-    public Connection(ClientModel model) {
-        this.model = model;
+    public Connection(ClientController controller){
+        this.controller = controller;
     }
 
     enum MessageType {
@@ -32,17 +29,14 @@ public class Connection extends Thread implements IService{
     }
 
     @Override
-    public void start(ClientController c) {
-        new Thread(() -> {
+    public void run() {
             try {
-                this.controller = c;
-                socket = new Socket("localhost", 9000);
                 System.out.println("Thread started");
 
                 //this.comingData = this.messageInStream = new ObjectInputStream(socket.getInputStream());
 
-                this.messageOutStream = new ObjectOutputStream(socket.getOutputStream());
-                this.messageInStream = new ObjectInputStream(socket.getInputStream());
+                this.messageOutStream = new ObjectOutputStream(controller.getModel().getSocket().getOutputStream());
+                this.messageInStream = new ObjectInputStream(controller.getModel().getSocket().getInputStream());
 
                 while (true) {
 
@@ -54,13 +48,13 @@ public class Connection extends Thread implements IService{
                             if (messageIn != lastMsg && messageIn != null) {
                                 System.out.println("Message received from " + messageIn.getSender() + ": " + messageIn.getData());
                                 lastMsg = messageIn;
-                                //model.displayNewMessage(getMessageIn());
+                                //getModel().displayNewMessage(getMessageIn());
                                 displayNewMessage(messageIn);
                             }
 
                         } else if (msgType.equals(MessageType.ArrayList)) {
                             comingFriendsList = (ArrayList) messageIn.getData();
-                            model.createFriendList(comingFriendsList);
+                            controller.getModel().createFriendList(comingFriendsList);
                             System.out.println("new friend list has come");
 
                             Platform.runLater(
@@ -74,7 +68,7 @@ public class Connection extends Thread implements IService{
                                     }
                             );
 
-                            //model.logout();
+                            //getModel().logout();
                         }
                     }
                 }
@@ -83,11 +77,10 @@ public class Connection extends Thread implements IService{
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
-        }).start();
     }
 
     public void sendCommandMessage(String sCommand, String sData) throws IOException {
-        Message message = MessageFactory.createCommandMessage(new Command(sCommand, sData), model.getUsername());
+        Message message = MessageFactory.createCommandMessage(new Command(sCommand, sData), controller.getModel().getUsername());
         System.out.println("Command sent: " + sCommand + " with data: " + sData);
         setMessageOut(message);
     }
@@ -99,7 +92,7 @@ public class Connection extends Thread implements IService{
     }
 
     public void sendStringMessage(String toSend, String receiver) throws IOException {
-        Message message = MessageFactory.createStringMessage(toSend, model.getUsername(), receiver);
+        Message message = MessageFactory.createStringMessage(toSend, controller.getModel().getUsername(), receiver);
         System.out.println(message.getSender() + ": " + message.getData().toString());
         setMessageOut(message);
     }
@@ -118,7 +111,7 @@ public class Connection extends Thread implements IService{
     }
 
     public void displayFriendList() throws IOException {
-        controller.showOnlineFriends(model.getfriendList());
+        controller.showOnlineFriends(controller.getModel().getfriendList());
         System.out.println("new friend list updating 1");
 
     }
