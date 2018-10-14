@@ -20,6 +20,10 @@ public class ClientModel {
 
     private static ClientModel modelInstance = new ClientModel();
 
+    /**
+     * Start the connection service
+     * @param c Passes a controller that controls the connection service.
+     */
     public void connectToServer (ClientController c){
         connection.start(c);
         System.out.println("Connection started");
@@ -50,6 +54,10 @@ public class ClientModel {
 
    // public boolean getLoginStatus(){ return loggedIn; }
 
+    /**
+     * Adds other users to the friendlist Arraylist
+     * @param friendList
+     */
     public void createFriendList(ArrayList<UserDisplayInfo> friendList) {
         this.friendList.clear();
         for (UserDisplayInfo uInfo : friendList){

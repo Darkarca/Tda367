@@ -25,6 +25,9 @@ public class Connection extends Thread implements IService{
         this.model = model;
     }
 
+    /**
+     * Enum to decide what type of command is received.
+     */
     enum MessageType {
         Command,
         String,
