@@ -4,7 +4,9 @@ import com.CEYMChat.ClientController;
 import com.CEYMChat.Message;
 
 import java.io.IOException;
-
+/**
+ * Interface for communicating with the server.
+ */
 public interface IService {
 
     public void sendCommandMessage(String sCommand, String sData) throws IOException;

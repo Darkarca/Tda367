@@ -23,6 +23,9 @@ import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+/**
+ * Controller for the Client.
+ */
 
 public class ClientController {
     ClientModel model = ClientModel.getModelInstance();
@@ -72,7 +75,6 @@ public class ClientController {
             loginStage.show();
             model.connectToServer(this);
             connection = model.getConnectionService();
-
             toggleChatBox();
             connectButton.setDisable(true);
 

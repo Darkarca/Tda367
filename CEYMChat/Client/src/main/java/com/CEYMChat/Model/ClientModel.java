@@ -4,7 +4,9 @@ import com.CEYMChat.Services.Connection;
 import com.CEYMChat.Services.IService;
 import java.util.ArrayList;
 
-
+/**
+ * Model for the client
+ */
 
 public class ClientModel {
 

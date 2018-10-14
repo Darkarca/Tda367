@@ -8,7 +8,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 /**
- * This class should uphold the connection. This might be implemented as part of the "Session" instead.
+ * This class implements the IService interface. It communicates via Sockets to the server.
  */
 
 public class Connection extends Thread implements IService{
