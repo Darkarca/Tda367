@@ -39,7 +39,7 @@ public class FriendListItem {
 
     @FXML
     public void selectFriend (){
-
+        
     }
 
     public Label getFriendUsername() {
