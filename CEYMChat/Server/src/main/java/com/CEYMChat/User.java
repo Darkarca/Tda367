@@ -4,6 +4,7 @@ import com.CEYMChat.Services.IReader;
 import com.CEYMChat.Services.IWriter;
 
 import java.net.Socket;
+import java.util.List;
 
 public class User {
     private String username;
@@ -14,10 +15,8 @@ public class User {
     public User(Socket socket, ServerModel model) {
         this.writer = new Writer(model, socket);
         this.reader = new Reader(model, socket);
-        reader.setUsername(username);
         Thread rThread = new Thread((Runnable) reader);
         rThread.start();
-
     }
 
     public void setUsername(String username) {
@@ -27,12 +26,12 @@ public class User {
         return username;
     }
 
-    public IWriter getWriter() {
-        return writer;
-    }
-
 
     public void sendMessage(Message m){
             writer.setOutMessage(m);
         }
+
+    public void sendUserList(List<User> userList) {
+        writer.sendUserList(userList);
     }
+}

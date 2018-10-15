@@ -10,15 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Writer implements IWriter {
-    private ServerModel model;
+
     private Socket socket;
     private ObjectOutputStream outputStream;
     private Message outMessage;
     private Message lastMsg;
     private List userInfoList = new ArrayList();
 
-    public Writer(ServerModel model, Socket socket) {
-        this.model = model;
+    public Writer(Socket socket) {
+
         this.socket = socket;
         {
             try {
@@ -29,10 +29,6 @@ public class Writer implements IWriter {
             }
         }
     }
-
-
-
-
 
     public synchronized void setOutMessage(Message m){
         outMessage = m;

@@ -25,6 +25,7 @@ public class ClientModel {
      * @param c Passes a controller that controls the connection service.
      */
     public void connectToServer (ClientController c){
+
         connection.start(c);
         System.out.println("Connection started");
     }

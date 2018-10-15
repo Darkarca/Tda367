@@ -102,7 +102,7 @@ public class ClientController {
     public void refreshFriendList(){
         try {
             System.out.println("Send refreshFriendList command");
-            model.getConnectionService().sendCommandMessage("refreshFriendList",null);
+            model.getConnectionService().sendCommandMessage("refreshFriendList",user);
         } catch (IOException e) {
             e.printStackTrace();
         }

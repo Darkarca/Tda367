@@ -12,14 +12,10 @@ import java.util.ArrayList;
  */
 
 public class Reader implements Runnable, IReader {
-    private ServerModel model;   //TODO Must not be in user reader/writer therefor (screenshot)
-
-
+    private ServerModel model;
     private Socket socket;
     private ObjectInputStream inputStream;
     private Message inMessage;
-    private String username;
-
 
 
     public Reader(ServerModel model, Socket socket) {
@@ -60,19 +56,6 @@ public class Reader implements Runnable, IReader {
                 e.printStackTrace();
             }
 
-            //case(File):
-            //  break;
-            //case(Image):
-            //   break;
-            // model.displayMessage((Message)inputStream.readObject());
-            // model.sendMessage((Message)inputStream.readObject());
-
-
         }
     }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
 }
