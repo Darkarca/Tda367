@@ -15,12 +15,9 @@ public class User {
         this.writer = new Writer(model, socket);
         this.reader = new Reader(model, socket);
         reader.setUsername(username);
-
-
         Thread rThread = new Thread((Runnable) reader);
-        Thread wThread = new Thread((Runnable) writer);
         rThread.start();
-        wThread.start();
+
     }
 
     public void setUsername(String username) {

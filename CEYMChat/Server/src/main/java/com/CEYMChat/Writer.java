@@ -9,7 +9,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Writer implements Runnable, IWriter {
+public class Writer implements IWriter {
     private ServerModel model;
     private Socket socket;
     private ObjectOutputStream outputStream;
@@ -30,25 +30,20 @@ public class Writer implements Runnable, IWriter {
         }
     }
 
-    @Override
-    public void run() {
-        while(true){
-            try {
-                outputStream.writeObject(outMessage);
-                if(outMessage != lastMsg) {
-                    lastMsg = outMessage;
-                    System.out.println("Object written to stream: " + outMessage.toString());
-                }
-            } catch (NullPointerException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+
+
+
 
     public synchronized void setOutMessage(Message m){
         outMessage = m;
+        writeToStream();
+    }
+    public void writeToStream(){
+        try {
+            outputStream.writeObject(outMessage);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public synchronized void sendUserList(){
