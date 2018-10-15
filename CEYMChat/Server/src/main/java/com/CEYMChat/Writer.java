@@ -38,16 +38,19 @@ public class Writer implements IWriter {
         outMessage = m;
         writeToStream();
     }
+
+    @Override
+    public void sendUserList(List<User> users) {
+        setOutMessage(createUserInfoList(users));
+
+    }
+
     public void writeToStream(){
         try {
             outputStream.writeObject(outMessage);
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public synchronized void sendUserList(){
-        setOutMessage(createUserInfoList(model.getUserList()));
     }
 
     public Message createUserInfoList (List<User> users){

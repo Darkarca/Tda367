@@ -34,7 +34,7 @@ public class  ServerModel {
             case("refreshFriendList"):
                 User u = getUserByUsername(sender);
                 IWriter w = u.getWriter();
-                w.sendUserList();
+                w.sendUserList(userList);
                 System.out.println("Command performed: 'refreshFriendList '" + c.getCommandData());
                 break;
             case("disconnect"): userList.remove(getUserByUsername(sender));
