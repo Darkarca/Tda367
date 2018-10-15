@@ -51,6 +51,7 @@ public class ClientController {
     private ArrayList<FriendListItem> friendItemList = new ArrayList<>();
     String currentChat;
     private IService connection;
+    String user;
 
     /**
      * Captures input from user and send makes use of model to send message
@@ -89,12 +90,21 @@ public class ClientController {
             model.setUsername(loginTextField.getText());
             Window window = loginButton.getScene().getWindow();
             window.hide();
+            user = loginTextField.getText();
             //model.login();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+    }
+    @FXML
+    public void refreshFriendList(){
+        try {
+            model.getConnectionService().sendCommandMessage("refreshFriendList",user);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

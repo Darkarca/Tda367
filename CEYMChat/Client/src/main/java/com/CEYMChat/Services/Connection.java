@@ -121,7 +121,7 @@ public class Connection extends Thread implements IService{
     }
 
     public void displayFriendList() throws IOException {
-        controller.showOnlineFriends(model.getfriendList());
+        controller.showOnlineFriends(model.getFriendList());
         System.out.println("new friend list updating 1");
 
     }

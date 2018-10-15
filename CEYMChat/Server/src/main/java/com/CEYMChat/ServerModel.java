@@ -29,6 +29,11 @@ public class  ServerModel {
                 inlogged = true;
                 break;
             }
+            case("refreshFriendList"):
+                User u = getUserByUsername(sender);
+                Writer w = u.getWriter();
+                w.setOutMessage(w.createUserInfoList(userList));
+                break;
             case("disconnect"): userList.remove(getUserByUsername(sender));
                 break;
             case("register"):

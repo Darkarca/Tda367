@@ -55,7 +55,7 @@ public class ClientModel {
    // public boolean getLoginStatus(){ return loggedIn; }
 
     /**
-     * Adds other users to the friendlist Arraylist
+     * Refreshes users to the friendlist Arraylist
      * @param friendList
      */
     public void createFriendList(ArrayList<UserDisplayInfo> friendList) {
@@ -65,7 +65,7 @@ public class ClientModel {
         }
     }
 
-    public ArrayList<UserDisplayInfo> getfriendList() {
+    public ArrayList<UserDisplayInfo> getFriendList() {
         return friendList;
     }
 
