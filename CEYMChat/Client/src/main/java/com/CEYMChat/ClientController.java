@@ -1,10 +1,9 @@
 package com.CEYMChat;
 import com.CEYMChat.Model.ClientModel;
-import com.CEYMChat.Services.Connection;
 import com.CEYMChat.Services.IService;
+import com.CEYMChat.Services.Recieve;
+import com.CEYMChat.Services.Send;
 import com.CEYMChat.View.FriendListItem;
-import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,6 +18,9 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.Window;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -28,7 +30,8 @@ import java.util.ArrayList;
  */
 
 public class ClientController {
-    ClientModel model = ClientModel.getModelInstance();
+   // ClientModel model = ClientModel.getModelInstance();
+
 
     @FXML
     private Button sendButton;
@@ -50,7 +53,13 @@ public class ClientController {
     private Stage loginStage = new Stage();
     private ArrayList<FriendListItem> friendItemList = new ArrayList<>();
     String currentChat;
-    private IService connection;
+    private IService send = new Send();
+    Socket socket;
+    ObjectInputStream objectIn;
+    ObjectOutputStream objectOut;
+
+    ClientModel model = new ClientModel(socket,objectIn,objectOut);
+
 
     /**
      * Captures input from user and send makes use of model to send message
@@ -59,7 +68,7 @@ public class ClientController {
     public void sendString() throws IOException {
         String toSend = chatBox.getText();
         chatBox.setText("");
-        model.getConnectionService().sendStringMessage(toSend, currentChat);   //Change sendToTextField.getText() to click on friend
+        send.sendStringMessage(toSend, currentChat);   //Change sendToTextField.getText() to click on friend
         messageWindow.appendText("Me: "+toSend+"\n");
     }
 
@@ -73,8 +82,9 @@ public class ClientController {
             loginStage.setTitle("Login");
             loginStage.setScene(new Scene(login));
             loginStage.show();
-            model.connectToServer(this);
-            connection = model.getConnectionService();
+            model.setUpConnection();
+            new Recieve(socket,objectIn,objectOut ).start();
+            //connection = model.getConnectionService();
             toggleChatBox();
             connectButton.setDisable(true);
 
@@ -85,7 +95,7 @@ public class ClientController {
     @FXML
     public void login(){
         try {
-            model.getConnectionService().sendCommandMessage("setUser", loginTextField.getText());
+            send.sendCommandMessage("setUser", loginTextField.getText());
             model.setUsername(loginTextField.getText());
             Window window = loginButton.getScene().getWindow();
             window.hide();
@@ -113,7 +123,7 @@ public class ClientController {
 
     public void requestChat(){
         try {
-            model.getConnectionService().sendCommandMessage("requestChat","user2");
+            send.sendCommandMessage("requestChat","user2");
         } catch (IOException e) {
             e.printStackTrace();
         }

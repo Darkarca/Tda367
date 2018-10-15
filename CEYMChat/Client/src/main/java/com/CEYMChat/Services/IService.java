@@ -4,6 +4,8 @@ import com.CEYMChat.ClientController;
 import com.CEYMChat.Message;
 
 import java.io.IOException;
+import java.net.Socket;
+
 /**
  * Interface for communicating with the server.
  */
@@ -14,7 +16,7 @@ public interface IService {
 
 
     void sendStringMessage(String toSend, String currentChat) throws IOException;
-    void start(ClientController c);
+  //  void setUpConnection(ClientController c);
 
 
 

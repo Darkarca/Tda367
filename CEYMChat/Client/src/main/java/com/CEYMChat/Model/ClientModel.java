@@ -1,7 +1,11 @@
 package com.CEYMChat.Model;
 import com.CEYMChat.*;
-import com.CEYMChat.Services.Connection;
 import com.CEYMChat.Services.IService;
+
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.util.ArrayList;
 
 /**
@@ -9,8 +13,16 @@ import java.util.ArrayList;
  */
 
 public class ClientModel {
+    Socket socket;
+    ObjectInputStream objectIn;
+    ObjectOutputStream objectOut;
 
-    private IService connection = new Connection(this);
+    public ClientModel(Socket socket,ObjectInputStream objectIn,ObjectOutputStream objectOut ){
+        this.socket = socket;
+        this.objectIn = objectIn;
+        this.objectOut = objectOut;
+    }
+
     private String username;
     private boolean loggedIn = false;
 
@@ -18,15 +30,23 @@ public class ClientModel {
     //private ClientController controller;
    // private boolean loggedIn = false;
 
-    private static ClientModel modelInstance = new ClientModel();
+   // private static ClientModel modelInstance = new ClientModel();
 
     /**
      * Start the connection service
      * @param c Passes a controller that controls the connection service.
      */
-    public void connectToServer (ClientController c){
-        connection.start(c);
-        System.out.println("Connection started");
+    public void setUpConnection() {
+
+
+        try {
+            socket = new Socket("localhost", 9000);
+            objectOut = new ObjectOutputStream(socket.getOutputStream());
+            objectIn = new ObjectInputStream(socket.getInputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Thread started");
     }
 
     public void login(){
@@ -41,7 +61,7 @@ public class ClientModel {
         return loggedIn;
     }
 
-    public static ClientModel getModelInstance(){ return modelInstance;}
+    //public static ClientModel getModelInstance(){ return modelInstance;}
 
     public void setFriendList(ArrayList<UserDisplayInfo> friendList) {
         this.friendList = friendList;
@@ -77,7 +97,4 @@ public class ClientModel {
         return username;
     }
 
-    public IService getConnectionService(){
-        return connection;
-    }
 }
