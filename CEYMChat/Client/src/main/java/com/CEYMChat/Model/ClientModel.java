@@ -47,13 +47,6 @@ public class ClientModel {
         this.friendList = friendList;
     }
 
-
-    //public void login(){loggedIn = true;}
-
-   // public void logout()loggedIn = false;}
-
-   // public boolean getLoginStatus(){ return loggedIn; }
-
     /**
      * Refreshes users to the friendlist Arraylist
      * @param friendList

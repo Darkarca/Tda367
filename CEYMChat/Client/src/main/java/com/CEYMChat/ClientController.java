@@ -128,7 +128,6 @@ public class ClientController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public void createFriendListItemList (ArrayList<UserDisplayInfo> friendList) throws IOException {

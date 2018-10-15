@@ -1,11 +1,14 @@
 package com.CEYMChat;
 
+import com.CEYMChat.Services.IReader;
+import com.CEYMChat.Services.IWriter;
+
 import java.net.Socket;
 
 public class User {
     private String username;
-    private Reader reader;
-    private Writer writer;
+    private IReader reader;
+    private IWriter writer;
 
 
     public User(Socket socket, ServerModel model) {
@@ -14,11 +17,10 @@ public class User {
         reader.setUsername(username);
 
 
-        Thread rThread = new Thread(this.reader);
-        Thread wThread = new Thread(this.writer);
+        Thread rThread = new Thread((Runnable) reader);
+        Thread wThread = new Thread((Runnable) writer);
         rThread.start();
         wThread.start();
-
     }
 
     public void setUsername(String username) {
@@ -28,7 +30,7 @@ public class User {
         return username;
     }
 
-    public Writer getWriter() {
+    public IWriter getWriter() {
         return writer;
     }
 

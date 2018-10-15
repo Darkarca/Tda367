@@ -1,14 +1,17 @@
 package com.CEYMChat;
 
+import com.CEYMChat.Services.IReader;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 
 /**
  * Thread that reads user input and send it to the server.
  */
 
-public class Reader implements Runnable {
+public class Reader implements Runnable, IReader {
     private ServerModel model;   //TODO Must not be in user reader/writer therefor (screenshot)
 
 
@@ -17,10 +20,6 @@ public class Reader implements Runnable {
     private Message inMessage;
     private String username;
 
-    enum MessageType {
-        Command,
-        String;
-    }
 
 
     public Reader(ServerModel model, Socket socket) {
@@ -34,12 +33,10 @@ public class Reader implements Runnable {
                 System.out.println("No socket found");
             }
         }
-
     }
 
     @Override
     public void run() {
-
         while (true) {
             try {
                 inMessage = (Message) inputStream.readObject();
@@ -56,7 +53,6 @@ public class Reader implements Runnable {
                         model.sendMessage(inMessage, inMessage.getReceiver());
                         break;
                     }
-
                 }
             } catch (IOException e) {
                 e.printStackTrace();

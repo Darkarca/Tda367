@@ -28,11 +28,6 @@ public class Connection extends Thread implements IService{
     /**
      * Enum to decide what type of command is received.
      */
-    enum MessageType {
-        Command,
-        String,
-        ArrayList
-    }
 
     @Override
     public void start(ClientController c) {
@@ -48,7 +43,6 @@ public class Connection extends Thread implements IService{
                 this.messageInStream = new ObjectInputStream(socket.getInputStream());
 
                 while (true) {
-
                     messageIn = (Message) messageInStream.readObject();
                     if (messageIn != null) {
                         MessageType msgType = MessageType.valueOf(messageIn.getType().getSimpleName());
@@ -103,7 +97,6 @@ public class Connection extends Thread implements IService{
         System.out.println("MessageOutputStream: " + messageOutStream);
         messageOutStream.writeObject(m);
         System.out.println("Message sent: " + m.getData());
-        messageOutStream.flush();
 
     }
 

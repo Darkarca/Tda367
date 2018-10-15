@@ -1,13 +1,15 @@
 package com.CEYMChat;
 
 
+import com.CEYMChat.Services.IWriter;
+
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Writer implements Runnable {
+public class Writer implements Runnable, IWriter {
     private ServerModel model;
     private Socket socket;
     private ObjectOutputStream outputStream;
@@ -45,13 +47,14 @@ public class Writer implements Runnable {
         }
     }
 
-    public void setOutMessage(Message m){
+    public synchronized void setOutMessage(Message m){
         outMessage = m;
     }
 
-    public void sendUserList(){
+    public synchronized void sendUserList(){
         setOutMessage(createUserInfoList(model.getUserList()));
     }
+
     public Message createUserInfoList (List<User> users){
         userInfoList.clear();
         for (User u : users){
