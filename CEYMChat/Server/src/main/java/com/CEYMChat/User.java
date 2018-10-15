@@ -34,4 +34,8 @@ public class User {
         return writer;
     }
 
-}
+
+    public void sendMessage(Message m){
+            writer.setOutMessage(m);
+        }
+    }

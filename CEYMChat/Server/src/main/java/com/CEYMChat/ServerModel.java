@@ -66,7 +66,8 @@ public class  ServerModel {
 
     public void sendMessage(Message m, String receiver){
         User u = getUserByUsername(receiver);
-        u.getWriter().setOutMessage(m);
+        u.sendMessage(m);
+
     }
 
     public User getUserByUsername(String username){
