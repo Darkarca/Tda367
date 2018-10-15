@@ -150,6 +150,7 @@ public class ClientController {
         friendItemList.clear();
         System.out.println("new friend list updating 2");
         createFriendListItemList(friendList);
+        friendsFlowPane.getChildren().clear();
         for (FriendListItem friendListItem : friendItemList) {
             friendsFlowPane.getChildren().add(friendListItem.getFriendPane());
         }
