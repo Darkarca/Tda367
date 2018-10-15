@@ -45,6 +45,14 @@
             <version>2.7.7</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.junit</groupId>
+            <artifactId>arquillian-junit-container</artifactId>
+            <version>1.4.0.Final</version>
+            <scope>test</scope>
+        </dependency>
+
+
     </dependencies>
     <build>
         <plugins>
