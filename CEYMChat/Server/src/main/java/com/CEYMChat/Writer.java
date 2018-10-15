@@ -14,7 +14,6 @@ public class Writer implements IWriter {
     private Socket socket;
     private ObjectOutputStream outputStream;
     private Message outMessage;
-    private Message lastMsg;
     private List userInfoList = new ArrayList();
 
     public Writer(Socket socket) {

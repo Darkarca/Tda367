@@ -13,7 +13,7 @@ public class User {
 
 
     public User(Socket socket, ServerModel model) {
-        this.writer = new Writer(model, socket);
+        this.writer = new Writer(socket);
         this.reader = new Reader(model, socket);
         Thread rThread = new Thread((Runnable) reader);
         rThread.start();
