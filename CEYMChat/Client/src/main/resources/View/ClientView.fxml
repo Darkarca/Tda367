@@ -26,6 +26,7 @@
                                 <FlowPane fx:id="friendsFlowPane" prefHeight="535.0" prefWidth="218.0" />
                             </content>
                         </ScrollPane>
+                  <Button fx:id="refreshButton" layoutX="59.0" layoutY="34.0" mnemonicParsing="false" onMouseClicked="#refreshFriendList" prefHeight="39.0" prefWidth="116.0" text="Refresh" />
                     </children>
                 </AnchorPane>
                 <AnchorPane maxWidth="900.0" minHeight="0.0" minWidth="0.0" prefHeight="675.0" prefWidth="748.0">

@@ -62,20 +62,24 @@ public class Connection extends Thread implements IService{
                             }
 
                         } else if (msgType.equals(MessageType.ArrayList)) {
-                            comingFriendsList = (ArrayList) messageIn.getData();
-                            model.createFriendList(comingFriendsList);
-                            System.out.println("new friend list has come");
+                            if (messageIn != lastMsg && messageIn != null) {
 
-                            Platform.runLater(
-                                    () -> {
-                                        // Updating the UI
-                                        try {
-                                            displayFriendList();
-                                        } catch (IOException e) {
-                                            e.printStackTrace();
+                                comingFriendsList = (ArrayList) messageIn.getData();
+                                model.createFriendList(comingFriendsList);
+                                System.out.println("new friend list has come");
+                                lastMsg = messageIn;
+
+                                Platform.runLater(
+                                        () -> {
+                                            // Updating the UI
+                                            try {
+                                                displayFriendList();
+                                            } catch (IOException e) {
+                                                e.printStackTrace();
+                                            }
                                         }
-                                    }
-                            );
+                                );
+                            }
 
                             //model.logout();
                         }
@@ -99,6 +103,8 @@ public class Connection extends Thread implements IService{
         System.out.println("MessageOutputStream: " + messageOutStream);
         messageOutStream.writeObject(m);
         System.out.println("Message sent: " + m.getData());
+        messageOutStream.flush();
+
     }
 
     public void sendStringMessage(String toSend, String receiver) throws IOException {

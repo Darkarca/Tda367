@@ -101,7 +101,8 @@ public class ClientController {
     @FXML
     public void refreshFriendList(){
         try {
-            model.getConnectionService().sendCommandMessage("refreshFriendList",user);
+            System.out.println("Send refreshFriendList command");
+            model.getConnectionService().sendCommandMessage("refreshFriendList",null);
         } catch (IOException e) {
             e.printStackTrace();
         }

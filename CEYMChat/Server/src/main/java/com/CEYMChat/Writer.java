@@ -37,11 +37,6 @@ public class Writer implements Runnable {
                     lastMsg = outMessage;
                     System.out.println("Object written to stream: " + outMessage.toString());
                 }
-
-                if (model.isLoggedIn() == true) {
-                    outputStream.writeObject(createUserInfoList(model.getUserList()));
-                    model.setLoggedIn(false);
-                }
             } catch (NullPointerException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -54,7 +49,9 @@ public class Writer implements Runnable {
         outMessage = m;
     }
 
-
+    public void sendUserList(){
+        setOutMessage(createUserInfoList(model.getUserList()));
+    }
     public Message createUserInfoList (List<User> users){
         userInfoList.clear();
         for (User u : users){
