@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * This class implements the IService interface. It communicates via Sockets to the server.
  */
 
-public class Connection extends Thread implements IService{
+public class Connection implements IService{
     private Socket socket;
     private ObjectOutputStream messageOutStream;
     private ObjectInputStream messageInStream;
