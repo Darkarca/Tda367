@@ -27,7 +27,7 @@ import java.util.ArrayList;
  * Controller for the Client.
  */
 
-public class ClientController {
+public class ClientController implements IController{
     ClientModel model = ClientModel.getModelInstance();
 
     @FXML
