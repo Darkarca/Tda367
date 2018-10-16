@@ -18,8 +18,7 @@ public class User {
         return username;
     }
 
-<<<<<<< HEAD
-=======
+
     public void startThreads(Socket socket, ServerModel model){
         this.writer = new Writer(socket);
         this.reader = new Reader(model, socket);
@@ -27,7 +26,6 @@ public class User {
         rThread.start();
     }
 
->>>>>>> c90053e28ad368ed314e77d2ca777d5c92511f0e
     public void sendMessage(Message m){
             writer.setOutMessage(m);
         }
