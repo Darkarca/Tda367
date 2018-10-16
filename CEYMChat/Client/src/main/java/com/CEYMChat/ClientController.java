@@ -3,7 +3,10 @@ import com.CEYMChat.Model.ClientModel;
 import com.CEYMChat.Services.Connection;
 import com.CEYMChat.Services.IService;
 import com.CEYMChat.View.FriendListItem;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +21,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.Window;
+import javafx.util.Duration;
+
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
@@ -57,6 +62,17 @@ public class ClientController implements IController{
      * Captures input from user and send makes use of model to send message
      */
 
+    Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
+
+        @Override
+        public void handle(ActionEvent event) {
+
+            refreshFriendList();//this method only works first time at the moment. some bug.
+            System.out.println("this is called every 2 seconds on UI thread");
+        }
+    }));
+
+
     public void sendString() throws IOException {
         String toSend = chatBox.getText();
         chatBox.setText("");
@@ -79,6 +95,8 @@ public class ClientController implements IController{
             connection = model.getConnectionService();
             toggleChatBox();
             connectButton.setDisable(true);
+            fiveSecondsWonder.setCycleCount(Timeline.INDEFINITE);
+            fiveSecondsWonder.play();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -155,6 +173,9 @@ public class ClientController implements IController{
             friendsFlowPane.getChildren().add(friendListItem.getFriendPane());
         }
     }
+
+
+
 
 
 }
