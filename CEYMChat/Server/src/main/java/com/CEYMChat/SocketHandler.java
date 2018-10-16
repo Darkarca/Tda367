@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class SocketHandler extends Thread{
+public class SocketHandler{
     private ServerSocket serverSocket;
     private ServerModel model;
     public SocketHandler(ServerModel model){
@@ -13,7 +13,7 @@ public class SocketHandler extends Thread{
 
     }
 
-    @Override
+
     public synchronized void start() {
         new Thread(() -> {
             while (true) {

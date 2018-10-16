@@ -101,6 +101,7 @@ public class ClientController {
     @FXML
     public void refreshFriendList(){
         try {
+            System.out.println("Send refreshFriendList command");
             model.getConnectionService().sendCommandMessage("refreshFriendList",user);
         } catch (IOException e) {
             e.printStackTrace();
@@ -127,7 +128,6 @@ public class ClientController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public void createFriendListItemList (ArrayList<UserDisplayInfo> friendList) throws IOException {
@@ -149,6 +149,7 @@ public class ClientController {
         friendItemList.clear();
         System.out.println("new friend list updating 2");
         createFriendListItemList(friendList);
+        friendsFlowPane.getChildren().clear();
         for (FriendListItem friendListItem : friendItemList) {
             friendsFlowPane.getChildren().add(friendListItem.getFriendPane());
         }

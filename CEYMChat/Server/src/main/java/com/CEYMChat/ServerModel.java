@@ -1,6 +1,8 @@
 package com.CEYMChat;
 
 
+import com.CEYMChat.Services.IWriter;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.util.ArrayList;
@@ -31,8 +33,8 @@ public class  ServerModel {
             }
             case("refreshFriendList"):
                 User u = getUserByUsername(sender);
-                Writer w = u.getWriter();
-                w.setOutMessage(w.createUserInfoList(userList));
+                u.sendUserList(userList);
+                System.out.println("Command performed: 'refreshFriendList '" + c.getCommandData());
                 break;
             case("disconnect"): userList.remove(getUserByUsername(sender));
                 break;
@@ -43,7 +45,6 @@ public class  ServerModel {
             case("requestChat"):
                 // createSession(getUserByUsername(c.getCommandData()),getUserByUsername(c.getSender()));
         }
-
     }
 
     public ServerSocket getServerSocket() {
@@ -64,7 +65,8 @@ public class  ServerModel {
 
     public void sendMessage(Message m, String receiver){
         User u = getUserByUsername(receiver);
-        u.getWriter().setOutMessage(m);
+        u.sendMessage(m);
+
     }
 
     public User getUserByUsername(String username){

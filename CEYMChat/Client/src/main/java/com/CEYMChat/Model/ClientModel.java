@@ -25,6 +25,7 @@ public class ClientModel {
      * @param c Passes a controller that controls the connection service.
      */
     public void connectToServer (ClientController c){
+
         connection.start(c);
         System.out.println("Connection started");
     }
@@ -46,13 +47,6 @@ public class ClientModel {
     public void setFriendList(ArrayList<UserDisplayInfo> friendList) {
         this.friendList = friendList;
     }
-
-
-    //public void login(){loggedIn = true;}
-
-   // public void logout()loggedIn = false;}
-
-   // public boolean getLoginStatus(){ return loggedIn; }
 
     /**
      * Refreshes users to the friendlist Arraylist
