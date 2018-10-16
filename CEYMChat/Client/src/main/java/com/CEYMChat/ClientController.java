@@ -17,6 +17,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -46,6 +47,8 @@ public class ClientController implements IController{
     @FXML
     private TextField chatBox;
     @FXML
+    private Text currentChat;
+    @FXML
     private TextArea messageWindow;
     @FXML
     private TextField sendToTextField;
@@ -54,7 +57,7 @@ public class ClientController implements IController{
     private Parent login;
     private Stage loginStage = new Stage();
     private ArrayList<FriendListItem> friendItemList = new ArrayList<>();
-    String currentChat;
+    String currentChatName;
     private IService connection;
     String user;
 
@@ -76,7 +79,7 @@ public class ClientController implements IController{
     public void sendString() throws IOException {
         String toSend = chatBox.getText();
         chatBox.setText("");
-        model.getConnectionService().sendStringMessage(toSend, currentChat);   //Change sendToTextField.getText() to click on friend
+        model.getConnectionService().sendStringMessage(toSend, currentChatName);   //Change sendToTextField.getText() to click on friend
         messageWindow.appendText("Me: "+toSend+"\n");
     }
 
@@ -110,8 +113,6 @@ public class ClientController implements IController{
             Window window = loginButton.getScene().getWindow();
             window.hide();
             user = loginTextField.getText();
-            //model.login();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -150,15 +151,16 @@ public class ClientController implements IController{
     }
 
     public void createFriendListItemList (ArrayList<UserDisplayInfo> friendList) throws IOException {
-        System.out.println("new friend list updating 3");
+        System.out.println("New list of friendItems created");
         for (UserDisplayInfo uInfo : friendList) {
-            System.out.println(uInfo.getUsername());
+            System.out.println("User added: " + uInfo.getUsername());
             if (!uInfo.getUsername().equals(model.getUsername())) {
                 FriendListItem userItem = new FriendListItem(uInfo.getUsername());
                 friendItemList.add(userItem);
                 userItem.getFriendPane().setOnMouseClicked(Event -> {
-                    currentChat = userItem.getFriendUsername().getText();
-                    System.out.println("CurrentChat set to: " + currentChat);
+                    currentChatName = userItem.getFriendUsername().getText();
+                    currentChat.setText("Currently chatting with: " + currentChatName);
+                    System.out.println("CurrentChat set to: " + currentChatName);
                 });
             }
         }
@@ -166,7 +168,7 @@ public class ClientController implements IController{
 
     public void showOnlineFriends (ArrayList<UserDisplayInfo> friendList) throws IOException {
         friendItemList.clear();
-        System.out.println("new friend list updating 2");
+        System.out.println("FriendListItems are being created");
         createFriendListItemList(friendList);
         friendsFlowPane.getChildren().clear();
         for (FriendListItem friendListItem : friendItemList) {

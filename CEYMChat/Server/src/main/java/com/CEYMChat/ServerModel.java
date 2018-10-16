@@ -10,7 +10,6 @@ public class  ServerModel {
 
     private ServerSocket serverSocket;
     private List<User> userList = new ArrayList<>();
-    private boolean inlogged = false;
 
     {
         try {
@@ -26,7 +25,6 @@ public class  ServerModel {
             case SET_USER: {
                 userList.get(userList.size()-1).setUsername(c.getCommandData());
                 System.out.println("Command performed: 'setUser'" + c.getCommandData());
-                inlogged = true;
                 break;
             }
             case REFRESH_FRIENDLIST:
@@ -76,11 +74,4 @@ public class  ServerModel {
         return null;
     }
 
-    public boolean isLoggedIn() {
-        return inlogged;
-    }
-
-    public void setLoggedIn(boolean value) {
-        inlogged = value;
-    }
 }

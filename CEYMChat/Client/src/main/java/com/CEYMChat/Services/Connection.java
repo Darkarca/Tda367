@@ -52,21 +52,18 @@ public class Connection extends Thread implements IService{
                             if (messageIn != lastMsg && messageIn != null) {
                                 System.out.println("Message received from " + messageIn.getSender() + ": " + messageIn.getData());
                                 lastMsg = messageIn;
-                                //model.displayNewMessage(getMessageIn());
                                 displayNewMessage(messageIn);
                             }
 
                         } else if (msgType.equals(MessageType.ArrayList)) {
                             if (messageIn != lastMsg && messageIn != null) {
-
                                 comingFriendsList = (ArrayList) messageIn.getData();
-                                model.createFriendList(comingFriendsList);
-                                System.out.println("new friend list has come");
+                                model.setFriendList(comingFriendsList);
+                                System.out.println("A new list of friends has arrived");
                                 lastMsg = messageIn;
 
                                 Platform.runLater(
                                         () -> {
-                                            // Updating the UI
                                             try {
                                                 displayFriendList();
                                             } catch (IOException e) {
@@ -75,8 +72,6 @@ public class Connection extends Thread implements IService{
                                         }
                                 );
                             }
-
-                            //model.logout();
                         }
                     }
                 }
@@ -122,7 +117,7 @@ public class Connection extends Thread implements IService{
 
     public void displayFriendList() throws IOException {
         controller.showOnlineFriends(model.getFriendList());
-        System.out.println("new friend list updating 1");
+        System.out.println("New list of friends displayed");
     }
 
 }

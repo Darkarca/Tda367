@@ -1,10 +1,6 @@
 package com.CEYMChat;
 
 import org.junit.Test;
-
-import java.net.Socket;
-import java.net.SocketException;
-
 import static org.junit.Assert.*;
 
 public class ServerModelTest {
