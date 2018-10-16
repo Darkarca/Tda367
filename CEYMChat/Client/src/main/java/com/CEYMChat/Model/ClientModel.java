@@ -12,12 +12,7 @@ public class ClientModel {
 
     private IService connection = new Connection(this);
     private String username;
-    private boolean loggedIn = false;
-
     private ArrayList<UserDisplayInfo> friendList = new ArrayList<>();
-    //private ClientController controller;
-   // private boolean loggedIn = false;
-
     private static ClientModel modelInstance = new ClientModel();
 
     /**
@@ -25,38 +20,15 @@ public class ClientModel {
      * @param c Passes a controller that controls the connection service.
      */
     public void connectToServer (ClientController c){
-
         connection.start(c);
         System.out.println("Connection started");
     }
 
-    public void login(){
-        loggedIn = true;
-    }
-
-    public void logout(){
-        loggedIn = false;
-    }
-
-    public boolean getLoginStatus(){
-        return loggedIn;
-    }
 
     public static ClientModel getModelInstance(){ return modelInstance;}
 
     public void setFriendList(ArrayList<UserDisplayInfo> friendList) {
         this.friendList = friendList;
-    }
-
-    /**
-     * Refreshes users to the friendlist Arraylist
-     * @param friendList
-     */
-    public void createFriendList(ArrayList<UserDisplayInfo> friendList) {
-        this.friendList.clear();
-        for (UserDisplayInfo uInfo : friendList){
-            this.friendList.add(uInfo);
-        }
     }
 
     public ArrayList<UserDisplayInfo> getFriendList() {
