@@ -20,17 +20,6 @@ public class TestServer {
     }
     @Test
     public void testAddUser(){
-       /* try {
-            ServerSocket ss = new ServerSocket(9090);
-            Socket s = ss.accept();
-            ServerModel model = new ServerModel();
-            User u = new User(s,model);
-            model.addUser(u);
-            assertEquals(model.getUserList().get(0),u);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-*/
 
     }
 

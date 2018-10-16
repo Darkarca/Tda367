@@ -31,7 +31,7 @@ public class  ServerModel {
             }
             case REFRESH_FRIENDLIST:
                 User u = getUserByUsername(sender);
-                u.sendUserList(userList);
+                u.sendInfo(sendUserInfo());
                 System.out.println("Command performed: 'refreshFriendList '" + c.getCommandData());
                 break;
             case DISCONNECT: userList.remove(getUserByUsername(sender));
@@ -43,6 +43,17 @@ public class  ServerModel {
             case REQUEST_CHAT:
                 // createSession(getUserByUsername(c.getCommandData()),getUserByUsername(c.getSender()));
         }
+    }
+
+    public Message sendUserInfo(){
+        List<UserDisplayInfo> list = new ArrayList<UserDisplayInfo>();
+        for (User u:userList
+             ) {
+            UserDisplayInfo u1 = new UserDisplayInfo();
+            u1.setUsername(u.getUsername());
+            list.add(u1);
+        }
+        return MessageFactory.createFriendInfoList(list);
     }
 
     public ServerSocket getServerSocket() {

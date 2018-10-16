@@ -14,7 +14,7 @@ public class Writer implements IWriter {
     private Socket socket;
     private ObjectOutputStream outputStream;
     private Message outMessage;
-    private List userInfoList = new ArrayList();
+    private List<UserDisplayInfo>  userInfoList = new ArrayList();
 
     public Writer(Socket socket) {
 
@@ -34,12 +34,6 @@ public class Writer implements IWriter {
         writeToStream();
     }
 
-    @Override
-    public void sendUserList(List<User> users) {
-        setOutMessage(createUserInfoList(users));
-
-    }
-
     public void writeToStream(){
         try {
             outputStream.writeObject(outMessage);
@@ -48,22 +42,6 @@ public class Writer implements IWriter {
         }
     }
 
-    public Message createUserInfoList (List<User> users){
-        userInfoList.clear();
-        for (User u : users){
-            UserDisplayInfo uInfo = new UserDisplayInfo();
-            userInfoInit(u,uInfo);
-            userInfoList.add(uInfo);
-        }
-        Message listMessage = MessageFactory.createFriendInfoList(userInfoList);
-        return listMessage;
-    }
-
-    public void userInfoInit(User u, UserDisplayInfo uInfo){
-        uInfo.setUsername(u.getUsername());
-        //uInfo.setStatus();
-        //uInfo.setImg();
-    }
 }
 
 

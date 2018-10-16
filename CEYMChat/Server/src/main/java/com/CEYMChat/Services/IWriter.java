@@ -8,5 +8,5 @@ import java.util.List;
 public interface IWriter {
 
     void setOutMessage(Message m);
-    void sendUserList(List<User> user);
+    void writeToStream();
 }

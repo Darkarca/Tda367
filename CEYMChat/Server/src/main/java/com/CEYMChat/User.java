@@ -30,7 +30,7 @@ public class User {
             writer.setOutMessage(m);
         }
 
-    public void sendUserList(List<User> userList) {
-        writer.sendUserList(userList);
+    public void sendInfo(Message m){
+        writer.setOutMessage(m);
     }
 }
