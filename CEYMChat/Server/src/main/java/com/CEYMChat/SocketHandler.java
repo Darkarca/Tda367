@@ -31,7 +31,8 @@ public class SocketHandler{
 
     public synchronized void connectSocket() throws IOException {
         Socket s = serverSocket.accept();
-        User newUser = new User(s, model);
+        User newUser = new User();
+        newUser.startThreads(s, model);
         model.addUser(newUser);
     }
 }
