@@ -10,7 +10,6 @@ public class SocketHandler{
     public SocketHandler(ServerModel model){
         this.model = model;
         this.serverSocket = model.getServerSocket();
-
     }
 
 
@@ -23,8 +22,6 @@ public class SocketHandler{
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
-
             }
         }).start();
     }

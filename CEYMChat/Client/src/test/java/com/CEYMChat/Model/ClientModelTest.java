@@ -1,10 +1,30 @@
 package com.CEYMChat.Model;
 
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
+
+import java.io.IOException;
+import java.net.ServerSocket;
 
 import static org.junit.Assert.*;
 
 public class ClientModelTest {
+
+    @Before
+    public void setUp() throws IOException {
+            ServerSocket serverSocket = new ServerSocket(9000);
+
+        new Thread(()->{
+            while (true){
+                try {
+                    serverSocket.accept();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
 
     @Test
     public void connectToServer() {

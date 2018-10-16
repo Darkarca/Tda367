@@ -36,7 +36,7 @@ public class Connection extends Thread implements IService{
         new Thread(() -> {
             try {
                 socket = new Socket("localhost", 9000);
-                System.out.println("Thread started");
+                System.out.println("Connection started");
 
                 //this.comingData = this.messageInStream = new ObjectInputStream(socket.getInputStream());
 
