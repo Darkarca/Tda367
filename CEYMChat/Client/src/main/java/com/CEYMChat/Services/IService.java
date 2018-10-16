@@ -15,7 +15,7 @@ public interface IService {
 
 
     void sendStringMessage(String toSend, String currentChat) throws IOException;
-    void start(ClientController c);
+    void start();
 
 
 }

@@ -13,7 +13,7 @@ public class ServerModelTest {
     public void performCommand() {
         ServerModel testModel = new ServerModel();
         testModel.addUser(new User());
-        testModel.performCommand(new Command("setUser", "true"), testModel.getUserList().get(0).getUsername());
+        testModel.performCommand(new Command(CommandName.SET_USER, "true"), testModel.getUserList().get(0).getUsername());
         assertEquals(testModel.getUserList().get(0).getUsername(), "true");
     }
 
