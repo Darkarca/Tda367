@@ -28,7 +28,7 @@ import java.util.ArrayList;
  * Controller for the Client.
  */
 
-public class ClientController {
+public class ClientController implements IController{
     ClientModel model = ClientModel.getModelInstance();
 
     @FXML
@@ -67,6 +67,7 @@ public class ClientController {
         messageWindow.appendText("Me: "+toSend+"\n");
     }
 
+
     public void connectToServer(MouseEvent mouseEvent) {
         try{
 
@@ -89,7 +90,7 @@ public class ClientController {
     @FXML
     public void login(){
         try {
-            model.getConnectionService().sendCommandMessage("setUser", loginTextField.getText());
+            model.getConnectionService().sendCommandMessage(CommandName.SET_USER, loginTextField.getText());
             model.setUsername(loginTextField.getText());
             Window window = loginButton.getScene().getWindow();
             window.hide();
@@ -103,7 +104,7 @@ public class ClientController {
     public void refreshFriendList(){
         try {
             System.out.println("Send refreshFriendList command");
-            model.getConnectionService().sendCommandMessage("refreshFriendList",user);
+            model.getConnectionService().sendCommandMessage(CommandName.REFRESH_FRIENDLIST,user);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -125,7 +126,7 @@ public class ClientController {
 
     public void requestChat(){
         try {
-            model.getConnectionService().sendCommandMessage("requestChat","user2");
+            model.getConnectionService().sendCommandMessage(CommandName.REQUEST_CHAT,"user2");
         } catch (IOException e) {
             e.printStackTrace();
         }

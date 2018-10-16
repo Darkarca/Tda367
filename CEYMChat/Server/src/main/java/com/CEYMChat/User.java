@@ -18,6 +18,7 @@ public class User {
         return username;
     }
 
+
     public void startThreads(Socket socket, ServerModel model){
         this.writer = new Writer(socket);
         this.reader = new Reader(model, socket);

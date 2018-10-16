@@ -21,8 +21,10 @@ public class Connection extends Thread implements IService{
     private ArrayList<UserDisplayInfo> comingFriendsList = new ArrayList();
     private ClientController controller;
 
-    public Connection(ClientModel model) {
+    public Connection(ClientModel model, ClientController c)
+    {
         this.model = model;
+        this.controller = c;
     }
 
     /**
@@ -30,10 +32,9 @@ public class Connection extends Thread implements IService{
      */
 
     @Override
-    public void start(ClientController c) {
+    public void start() {
         new Thread(() -> {
             try {
-                this.controller = c;
                 socket = new Socket("localhost", 9000);
                 System.out.println("Thread started");
 
@@ -82,7 +83,7 @@ public class Connection extends Thread implements IService{
         }).start();
     }
 
-    public void sendCommandMessage(String sCommand, String sData) throws IOException {
+    public void sendCommandMessage(CommandName sCommand, String sData) throws IOException {
         Message message = MessageFactory.createCommandMessage(new Command(sCommand, sData), model.getUsername());
         System.out.println("Command sent: " + sCommand + " with data: " + sData);
         setMessageOut(message);
@@ -117,7 +118,6 @@ public class Connection extends Thread implements IService{
     public void displayFriendList() throws IOException {
         controller.showOnlineFriends(model.getFriendList());
         System.out.println("New list of friends displayed");
-
     }
 
 }

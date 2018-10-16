@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class ClientModel {
 
-    private IService connection = new Connection(this);
+    private IService connection;
     private String username;
     private ArrayList<UserDisplayInfo> friendList = new ArrayList<>();
     private static ClientModel modelInstance = new ClientModel();
@@ -20,7 +20,8 @@ public class ClientModel {
      * @param c Passes a controller that controls the connection service.
      */
     public void connectToServer (ClientController c){
-        connection.start(c);
+        connection = new Connection(this, c);
+        connection.start();
         System.out.println("Connection started");
     }
 
