@@ -9,16 +9,16 @@ import java.io.Serializable;
 
 public class Command implements Serializable {
 
-    private String commandName;
+    private CommandName commandName;
     private String commandData;
 
-    public Command(String commandName, String commandData) {
+    public Command(CommandName commandName, String commandData) {
         this.commandName = commandName;
         this.commandData = commandData;
     }
 
 
-    public String getCommandName() {
+    public CommandName getCommandName() {
         return commandName;
     }
 

@@ -87,7 +87,7 @@ public class Connection extends Thread implements IService{
         }).start();
     }
 
-    public void sendCommandMessage(String sCommand, String sData) throws IOException {
+    public void sendCommandMessage(CommandName sCommand, String sData) throws IOException {
         Message message = MessageFactory.createCommandMessage(new Command(sCommand, sData), model.getUsername());
         System.out.println("Command sent: " + sCommand + " with data: " + sData);
         setMessageOut(message);

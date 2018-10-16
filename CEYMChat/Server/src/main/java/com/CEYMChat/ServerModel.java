@@ -25,24 +25,24 @@ public class  ServerModel {
     public void performCommand(Command c, String sender) {
         switch(c.getCommandName()){
 
-            case("setUser"): {
+            case SET_USER: {
                 userList.get(userList.size()-1).setUsername(c.getCommandData());
                 System.out.println("Command performed: 'setUser'" + c.getCommandData());
                 inlogged = true;
                 break;
             }
-            case("refreshFriendList"):
+            case REFRESH_FRIENDLIST:
                 User u = getUserByUsername(sender);
                 u.sendUserList(userList);
                 System.out.println("Command performed: 'refreshFriendList '" + c.getCommandData());
                 break;
-            case("disconnect"): userList.remove(getUserByUsername(sender));
+            case DISCONNECT: userList.remove(getUserByUsername(sender));
                 break;
-            case("register"):
+            case REGISTER:
                 break;
-            case("addFriend"):
+            case ADD_FRIEND:
                 break;
-            case("requestChat"):
+            case REQUEST_CHAT:
                 // createSession(getUserByUsername(c.getCommandData()),getUserByUsername(c.getSender()));
         }
     }

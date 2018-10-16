@@ -26,7 +26,6 @@ public class User {
         return username;
     }
 
-
     public void sendMessage(Message m){
             writer.setOutMessage(m);
         }
