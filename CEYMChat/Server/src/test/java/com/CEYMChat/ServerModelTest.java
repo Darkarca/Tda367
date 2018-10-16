@@ -2,20 +2,19 @@ package com.CEYMChat;
 
 import org.junit.Test;
 
+import java.net.Socket;
+import java.net.SocketException;
+
 import static org.junit.Assert.*;
 
 public class ServerModelTest {
 
     @Test
     public void performCommand() {
-    }
-
-    @Test
-    public void getServerSocket() {
-    }
-
-    @Test
-    public void getUserList() {
+        ServerModel testModel = new ServerModel();
+        testModel.addUser(new User());
+        testModel.performCommand(new Command("setUser", "true"), testModel.getUserList().get(0).getUsername());
+        assertEquals(testModel.getUserList().get(0).getUsername(), "true");
     }
 
     @Test
