@@ -64,6 +64,7 @@ public class ClientController implements IController{
         messageWindow.appendText("Me: "+toSend+"\n");
     }
 
+
     public void connectToServer(MouseEvent mouseEvent) {
         try{
 
