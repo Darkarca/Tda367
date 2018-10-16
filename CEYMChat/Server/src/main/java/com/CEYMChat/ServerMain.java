@@ -1,16 +1,18 @@
 package com.CEYMChat;
 
-import javafx.application.Application;
-import javafx.stage.Stage;
 
-public class ServerMain extends Application {
+public class ServerMain{
+
+    public static void main(String[] args) throws Exception {
+        System.out.println("Server running");
+        ServerMain main = new ServerMain();
+        main.startHandler();
+    }
 
     private ServerModel model = new ServerModel();
     private SocketHandler socketHandler = new SocketHandler(model);
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        System.out.println("Server running");
+    public void startHandler(){
         socketHandler.start();
     }
 }
