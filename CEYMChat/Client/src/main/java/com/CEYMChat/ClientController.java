@@ -52,6 +52,7 @@ public class ClientController implements IController{
     private TextArea messageWindow;
     @FXML
     private TextField sendToTextField;
+
     @FXML
     private FlowPane friendsFlowPane;
     private Parent login;
