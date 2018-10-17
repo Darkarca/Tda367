@@ -50,7 +50,7 @@ public class ClientController implements IController{
     @FXML
     private FlowPane friendsFlowPane;
     private Parent login;
-    private Stage loginStage = new Stage();
+    private Stage loginStage;
     private ArrayList<FriendListItem> friendItemList = new ArrayList<>();
     String currentChatName;
     public IService connection;
@@ -59,10 +59,16 @@ public class ClientController implements IController{
      * Captures input from user and send makes use of model to send message
      */
 
+    public ClientController(){
+        loginStage = new Stage();
+    }
+    public ClientModel getModel() {
+        return model;
+    }
+
     Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
-
             refreshFriendList();//this method only works first time at the moment. some bug.
             System.out.println("this is called every 2 seconds on UI thread");
         }
@@ -164,5 +170,4 @@ public class ClientController implements IController{
             friendsFlowPane.getChildren().add(friendListItem.getFriendPane());
         }
     }
-
 }

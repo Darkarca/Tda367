@@ -6,13 +6,11 @@ import javafx.application.Platform;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
-
 /**
  * This class implements the IService interface. It communicates via Sockets to the server.
  */
 
-public class Connection extends Thread implements IService{
-    private Socket socket;
+public class Connection implements IService{
     private ObjectOutputStream messageOutStream;
     private ObjectInputStream messageInStream;
     private ClientModel model;
@@ -27,24 +25,27 @@ public class Connection extends Thread implements IService{
         this.controller = c;
     }
 
+    public ObjectInputStream getMessageInStream() {
+        return messageInStream;
+    }
+
     /**
      * Enum to decide what type of command is received.
      */
+
 
     @Override
     public void start() {
         new Thread(() -> {
             try {
-                socket = new Socket("localhost", 9000);
-                System.out.println("Thread started");
-                this.messageOutStream = new ObjectOutputStream(socket.getOutputStream());
-                this.messageInStream = new ObjectInputStream(socket.getInputStream());
-
+                model.setSocket( new Socket("localhost", 9000));
+                System.out.println("Connection started");
+                this.messageOutStream = new ObjectOutputStream(model.getSocket().getOutputStream());
+                this.messageInStream = new ObjectInputStream(model.getSocket().getInputStream());
                 while (true) {
                     messageIn = (Message) messageInStream.readObject();
                     if (messageIn != null) {
                         MessageType msgType = MessageType.valueOf(messageIn.getType().getSimpleName());
-
                         if (msgType.equals(MessageType.String)) {
                             if (messageIn != lastMsg && messageIn != null) {
                                 System.out.println("Message received from " + messageIn.getSender() + ": " + messageIn.getData());
@@ -113,5 +114,4 @@ public class Connection extends Thread implements IService{
         controller.showOnlineFriends(model.getFriendList());
         System.out.println("New list of friends displayed");
     }
-
 }

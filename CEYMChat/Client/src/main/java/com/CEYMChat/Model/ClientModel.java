@@ -2,14 +2,14 @@ package com.CEYMChat.Model;
 import com.CEYMChat.*;
 import com.CEYMChat.Services.Connection;
 import com.CEYMChat.Services.IService;
+import java.net.Socket;
 import java.util.ArrayList;
-
 /**
  * Model for the client
  */
-
 public class ClientModel {
 
+    private Socket socket;
     private IService connection;
     private String username;
     private ArrayList<UserDisplayInfo> friendList = new ArrayList<>();
@@ -22,6 +22,14 @@ public class ClientModel {
         connection = new Connection(this, c);
         connection.start();
         System.out.println("Connection started");
+    }
+
+    public Socket getSocket() {
+        return socket;
+    }
+
+    public void setSocket(Socket socket) {
+        this.socket = socket;
     }
 
     public static ClientModel getModelInstance(){ return modelInstance;}

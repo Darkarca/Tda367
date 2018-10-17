@@ -7,7 +7,6 @@ public class ServerMain{
         ServerMain main = new ServerMain();
         main.startHandler();
     }
-
     private ServerModel model = new ServerModel();
     private SocketHandler socketHandler = new SocketHandler(model);
     public void startHandler(){

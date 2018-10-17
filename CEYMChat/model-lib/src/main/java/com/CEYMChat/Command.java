@@ -14,11 +14,9 @@ public class Command implements Serializable {
         this.commandName = commandName;
         this.commandData = commandData;
     }
-
     public CommandName getCommandName() {
         return commandName;
     }
-
     public String getCommandData() {
         return commandData;
     }

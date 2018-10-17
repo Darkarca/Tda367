@@ -11,7 +11,6 @@ public class SocketHandler{
     public SocketHandler(ServerModel model){
         this.model = model;
         this.serverSocket = model.getServerSocket();
-
     }
 
     public synchronized void start() {

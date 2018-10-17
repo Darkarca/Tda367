@@ -2,7 +2,6 @@ package com.CEYMChat;
 
 
 import com.CEYMChat.Services.IWriter;
-
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -29,7 +28,6 @@ public class Writer implements IWriter {
         outMessage = m;
         writeToStream();
     }
-
     public void writeToStream(){
         try {
             outputStream.writeObject(outMessage);
