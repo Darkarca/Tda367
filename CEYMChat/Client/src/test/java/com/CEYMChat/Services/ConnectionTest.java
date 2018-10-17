@@ -2,8 +2,6 @@ package com.CEYMChat.Services;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 public class ConnectionTest {
 
     @Test

@@ -6,4 +6,5 @@ public interface IWriter {
 
     void setOutMessage(Message m);
     void writeToStream();
+    Message getOutMessage();
 }

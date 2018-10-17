@@ -1,16 +1,10 @@
 package com.CEYMChat.Model;
 
 import com.CEYMChat.ClientController;
-import com.CEYMChat.Services.Connection;
-import com.CEYMChat.Services.IService;
 import org.junit.*;
-
-import javax.validation.constraints.AssertTrue;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-
-import static org.junit.Assert.*;
 
 public class ClientModelTest {
 
@@ -54,7 +48,6 @@ public class ClientModelTest {
         int received = inputStream.read();
         Assert.assertEquals(sent, received);
     }
-
 
     @Test
     public void createFriendList() {

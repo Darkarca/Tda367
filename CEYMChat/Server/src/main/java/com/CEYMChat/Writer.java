@@ -28,12 +28,16 @@ public class Writer implements IWriter {
         outMessage = m;
         writeToStream();
     }
+
     public void writeToStream(){
         try {
             outputStream.writeObject(outMessage);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public Message getOutMessage() {
+        return outMessage;
     }
 }
 
