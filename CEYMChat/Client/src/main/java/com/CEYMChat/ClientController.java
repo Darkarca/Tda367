@@ -56,7 +56,7 @@ public class ClientController implements IController{
     private FlowPane friendsFlowPane;
 
     private Parent login;
-    private Stage loginStage = new Stage();
+    private Stage loginStage;
     private ArrayList<FriendListItem> friendItemList = new ArrayList<>();
     String currentChatName;
     private IService connection;
@@ -65,6 +65,17 @@ public class ClientController implements IController{
     /**
      * Captures input from user and send makes use of model to send message
      */
+
+    public ClientController(String Test){
+    }
+
+    public ClientController(){
+        loginStage = new Stage();
+    }
+
+    public ClientModel getModel() {
+        return model;
+    }
 
     Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
 
@@ -95,7 +106,7 @@ public class ClientController implements IController{
             loginStage.setTitle("Login");
             loginStage.setScene(new Scene(login));
             loginStage.show();
-            model.connectToServer(this);
+            model.connectToServer(this,model);
             connection = model.getConnectionService();
             toggleChatBox();
             connectButton.setDisable(true);

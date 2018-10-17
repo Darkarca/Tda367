@@ -12,7 +12,6 @@ import java.util.ArrayList;
  */
 
 public class Connection implements IService{
-    private Socket socket;
     private ObjectOutputStream messageOutStream;
     private ObjectInputStream messageInStream;
     private ClientModel model;
@@ -27,21 +26,26 @@ public class Connection implements IService{
         this.controller = c;
     }
 
+    public ObjectInputStream getMessageInStream() {
+        return messageInStream;
+    }
+
     /**
      * Enum to decide what type of command is received.
      */
+
 
     @Override
     public void start() {
         new Thread(() -> {
             try {
-                socket = new Socket("localhost", 9000);
+                model.setSocket( new Socket("localhost", 9000));
                 System.out.println("Connection started");
 
                 //this.comingData = this.messageInStream = new ObjectInputStream(socket.getInputStream());
 
-                this.messageOutStream = new ObjectOutputStream(socket.getOutputStream());
-                this.messageInStream = new ObjectInputStream(socket.getInputStream());
+                this.messageOutStream = new ObjectOutputStream(model.getSocket().getOutputStream());
+                this.messageInStream = new ObjectInputStream(model.getSocket().getInputStream());
 
                 while (true) {
                     messageIn = (Message) messageInStream.readObject();
@@ -82,6 +86,7 @@ public class Connection implements IService{
             }
         }).start();
     }
+
 
     public void sendCommandMessage(CommandName sCommand, String sData) throws IOException {
         Message message = MessageFactory.createCommandMessage(new Command(sCommand, sData), model.getUsername());
