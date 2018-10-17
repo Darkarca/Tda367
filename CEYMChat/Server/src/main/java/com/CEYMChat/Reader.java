@@ -1,22 +1,17 @@
 package com.CEYMChat;
 
 import com.CEYMChat.Services.IReader;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
-import java.util.ArrayList;
-
 /**
  * Thread that reads user input and send it to the server.
  */
-
 public class Reader implements Runnable, IReader {
     private ServerModel model;
     private Socket socket;
     private ObjectInputStream inputStream;
     private Message inMessage;
-
 
     public Reader(ServerModel model, Socket socket) {
         this.model = model;
@@ -55,7 +50,6 @@ public class Reader implements Runnable, IReader {
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
-
         }
     }
 }

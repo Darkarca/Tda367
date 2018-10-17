@@ -5,7 +5,6 @@ import javafx.scene.input.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 public interface IController {
-
     public void sendString() throws IOException;
     public void connectToServer(MouseEvent mouseEvent);
     @FXML

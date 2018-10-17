@@ -1,11 +1,9 @@
 package com.CEYMChat;
 import com.CEYMChat.Model.ClientModel;
-import com.CEYMChat.Services.Connection;
 import com.CEYMChat.Services.IService;
 import com.CEYMChat.View.FriendListItem;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -23,19 +21,16 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.Window;
 import javafx.util.Duration;
-
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-
 /**
  * Controller for the Client.
  */
 
 public class ClientController implements IController{
     ClientModel model = ClientModel.getModelInstance();
-
     @FXML
     private Button sendButton;
     @FXML
@@ -58,15 +53,13 @@ public class ClientController implements IController{
     private Stage loginStage = new Stage();
     private ArrayList<FriendListItem> friendItemList = new ArrayList<>();
     String currentChatName;
-    private IService connection;
+    public IService connection;
     String user;
-
     /**
      * Captures input from user and send makes use of model to send message
      */
 
     Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
-
         @Override
         public void handle(ActionEvent event) {
 
@@ -75,7 +68,6 @@ public class ClientController implements IController{
         }
     }));
 
-
     public void sendString() throws IOException {
         String toSend = chatBox.getText();
         chatBox.setText("");
@@ -83,10 +75,8 @@ public class ClientController implements IController{
         messageWindow.appendText("Me: "+toSend+"\n");
     }
 
-
     public void connectToServer(MouseEvent mouseEvent) {
         try{
-
             URL url = Paths.get("Client/src/main/resources/View/login.fxml").toUri().toURL();
             login = FXMLLoader.load(url);
             loginStage.initModality(Modality.APPLICATION_MODAL);
@@ -100,7 +90,6 @@ public class ClientController implements IController{
             connectButton.setDisable(true);
             fiveSecondsWonder.setCycleCount(Timeline.INDEFINITE);
             fiveSecondsWonder.play();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -116,8 +105,8 @@ public class ClientController implements IController{
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
+
     @FXML
     public void refreshFriendList(){
         try {
@@ -175,9 +164,5 @@ public class ClientController implements IController{
             friendsFlowPane.getChildren().add(friendListItem.getFriendPane());
         }
     }
-
-
-
-
 
 }

@@ -14,17 +14,15 @@ public class ClientModel {
     private String username;
     private ArrayList<UserDisplayInfo> friendList = new ArrayList<>();
     private static ClientModel modelInstance = new ClientModel();
-
     /**
      * Start the connection service
      * @param c Passes a controller that controls the connection service.
      */
-    public void connectToServer (ClientController c){
+    public void connectToServer (IController c){
         connection = new Connection(this, c);
         connection.start();
         System.out.println("Connection started");
     }
-
 
     public static ClientModel getModelInstance(){ return modelInstance;}
 

@@ -10,7 +10,6 @@ public class ServerMain{
 
     private ServerModel model = new ServerModel();
     private SocketHandler socketHandler = new SocketHandler(model);
-
     public void startHandler(){
         socketHandler.start();
     }

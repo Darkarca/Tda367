@@ -7,12 +7,12 @@ import java.net.Socket;
 public class SocketHandler{
     private ServerSocket serverSocket;
     private ServerModel model;
+
     public SocketHandler(ServerModel model){
         this.model = model;
         this.serverSocket = model.getServerSocket();
 
     }
-
 
     public synchronized void start() {
         new Thread(() -> {
@@ -23,8 +23,6 @@ public class SocketHandler{
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
-
             }
         }).start();
     }

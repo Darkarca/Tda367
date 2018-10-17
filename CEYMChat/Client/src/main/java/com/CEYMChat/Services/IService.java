@@ -1,6 +1,4 @@
 package com.CEYMChat.Services;
-
-import com.CEYMChat.ClientController;
 import com.CEYMChat.CommandName;
 import com.CEYMChat.Message;
 
@@ -12,8 +10,6 @@ public interface IService {
 
     public void sendCommandMessage(CommandName sCommand, String sData) throws IOException;
     public void setMessageOut(Message m) throws IOException;
-
-
     void sendStringMessage(String toSend, String currentChat) throws IOException;
     void start();
 

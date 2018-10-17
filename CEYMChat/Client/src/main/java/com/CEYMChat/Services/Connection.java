@@ -19,9 +19,9 @@ public class Connection extends Thread implements IService{
     private Message messageIn;
     private Message lastMsg;
     private ArrayList<UserDisplayInfo> comingFriendsList = new ArrayList();
-    private ClientController controller;
+    private IController controller;
 
-    public Connection(ClientModel model, ClientController c)
+    public Connection(ClientModel model, IController c)
     {
         this.model = model;
         this.controller = c;
@@ -37,9 +37,6 @@ public class Connection extends Thread implements IService{
             try {
                 socket = new Socket("localhost", 9000);
                 System.out.println("Thread started");
-
-                //this.comingData = this.messageInStream = new ObjectInputStream(socket.getInputStream());
-
                 this.messageOutStream = new ObjectOutputStream(socket.getOutputStream());
                 this.messageInStream = new ObjectInputStream(socket.getInputStream());
 
@@ -54,14 +51,12 @@ public class Connection extends Thread implements IService{
                                 lastMsg = messageIn;
                                 displayNewMessage(messageIn);
                             }
-
                         } else if (msgType.equals(MessageType.ArrayList)) {
                             if (messageIn != lastMsg && messageIn != null) {
                                 comingFriendsList = (ArrayList) messageIn.getData();
                                 model.setFriendList(comingFriendsList);
                                 System.out.println("A new list of friends has arrived");
                                 lastMsg = messageIn;
-
                                 Platform.runLater(
                                         () -> {
                                             try {
@@ -107,7 +102,6 @@ public class Connection extends Thread implements IService{
         toDisplay = processMessage(m);
         controller.displayNewMessage(toDisplay);
     }
-
 
     public String processMessage(Message m) {
         String processedMessage;

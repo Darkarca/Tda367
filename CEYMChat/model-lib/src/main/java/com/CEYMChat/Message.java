@@ -26,19 +26,13 @@ public class Message<T> implements Serializable {
     protected Message(T data){
         this.data = data;
     }
-
-
-
-
     public String getSender() {
         return sender;
     }
-
     public T getData(){
 
         return this.data;
     }
-
     public Class getType(){
         return data.getClass();
     }

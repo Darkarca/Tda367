@@ -1,6 +1,4 @@
-
 package com.CEYMChat;
-
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +13,6 @@ import java.nio.file.Paths;
  */
 
 public class ClientMain extends Application {
-
     @Override
     public void start(Stage primaryStage) throws Exception {
         URL url = Paths.get("Client/src/main/resources/View/ClientView.fxml").toUri().toURL();
