@@ -1,15 +1,10 @@
 package com.CEYMChat.Model;
-<<<<<<< HEAD
-=======
+
 
 import com.CEYMChat.Command;
 import com.CEYMChat.Message;
 import com.CEYMChat.MessageFactory;
-import com.CEYMChat.Model.User;
 import com.CEYMChat.UserDisplayInfo;
->>>>>>> c744fa3f9fa53e1cb5b976661f9d5ec75041f702
-
-import com.CEYMChat.*;
 import java.io.*;
 import java.net.ServerSocket;
 import java.util.ArrayList;
