@@ -1,4 +1,7 @@
-package com.CEYMChat;
+package com.CEYMChat.Services;
+
+import com.CEYMChat.Model.ServerModel;
+import com.CEYMChat.Model.User;
 
 import java.io.IOException;
 import java.net.ServerSocket;

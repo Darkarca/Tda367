@@ -1,7 +1,11 @@
-package com.CEYMChat;
+package com.CEYMChat.Model;
 
+import com.CEYMChat.Message;
 import com.CEYMChat.Services.IReader;
 import com.CEYMChat.Services.IWriter;
+import com.CEYMChat.Services.Reader;
+import com.CEYMChat.Services.Writer;
+
 import java.net.Socket;
 
 public class User {

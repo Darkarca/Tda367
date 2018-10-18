@@ -71,6 +71,7 @@ public class ClientController implements IController{
     }
 
     public void login(){
+
         appInit();
         service.connectToS();
         service.login(CommandName.SET_USER, userName);

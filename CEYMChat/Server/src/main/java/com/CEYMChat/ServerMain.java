@@ -1,7 +1,7 @@
 package com.CEYMChat;
 
-import java.io.IOException;
-import java.net.ServerSocket;
+import com.CEYMChat.Model.ServerModel;
+import com.CEYMChat.Services.SocketHandler;
 
 public class ServerMain{
 

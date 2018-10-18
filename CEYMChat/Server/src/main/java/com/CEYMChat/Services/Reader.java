@@ -1,7 +1,9 @@
-package com.CEYMChat;
+package com.CEYMChat.Services;
 
-import com.CEYMChat.Services.IReader;
-
+import com.CEYMChat.Command;
+import com.CEYMChat.Message;
+import com.CEYMChat.MessageType;
+import com.CEYMChat.ServerModel;
 import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
