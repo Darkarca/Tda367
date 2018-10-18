@@ -8,6 +8,7 @@ public class UserDisplayInfo implements Serializable {
     private String username;
     private ImageView img;
     private String status;
+    private Boolean isFriend = false;
 
     public String getUsername() {
         return username;
@@ -18,6 +19,7 @@ public class UserDisplayInfo implements Serializable {
     public String getStatus() {
         return status;
     }
+    public Boolean getIsFriend(){return isFriend;}
     public void setUsername(String username) {
         this.username = username;
     }
@@ -27,4 +29,5 @@ public class UserDisplayInfo implements Serializable {
     public void setStatus(String status) {
         this.status = status;
     }
+    public void setIsFriend(Boolean isFriend){this.isFriend=isFriend;}
 }

@@ -136,6 +136,7 @@ public class ClientController implements IController {
                 System.out.println("User added: " + uInfo.getUsername());
                 if (!uInfo.getUsername().equals(model.getUsername())) {
                     FriendListItem userItem = new FriendListItem(uInfo.getUsername());
+                    userItem.setUInfo(uInfo);
                     friendItemList.add(userItem);
                     userItem.getFriendPane().setOnMouseClicked(Event -> {
                         currentChatName = userItem.getFriendUsername().getText();
@@ -188,7 +189,7 @@ public class ClientController implements IController {
                 messageWindow.appendText(savedSentMessages.get(i) +": " + savedSentMessages.get(i+1)+ "\n");
                 messageWindow.appendText(savedReceivedMessages.get(i) +": " + savedReceivedMessages.get(i+1)+ "\n");
             }
-
         }
+
     }
 

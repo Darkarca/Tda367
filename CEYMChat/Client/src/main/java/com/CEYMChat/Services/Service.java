@@ -63,7 +63,7 @@ public class Service implements IService{
                             case ArrayList: {
                                 if (messageIn != lastMsg && messageIn != null) {
                                     comingFriendsList = (ArrayList) messageIn.getData();
-                                    model.setFriendList(comingFriendsList);
+                                    model.setUserList(comingFriendsList);
                                     System.out.println("A new list of friends has arrived");
                                     lastMsg = messageIn;
                                     Platform.runLater(
@@ -169,7 +169,7 @@ public class Service implements IService{
     }
 
     public void displayFriendList() throws IOException {
-        controller.showOnlineFriends(model.getFriendList());
+        controller.showOnlineFriends(model.getUserList());
         System.out.println("New list of friends displayed");
     }
 

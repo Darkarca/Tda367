@@ -38,7 +38,6 @@ public class  ServerModel {
             case DISCONNECT:
                 User user = getUserByUsername(sender);
                 user.closeSConnection();
-
                 userList.remove(user);
                 updateUserLists();
                 break;

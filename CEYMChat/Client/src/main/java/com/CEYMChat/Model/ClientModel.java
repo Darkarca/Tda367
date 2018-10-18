@@ -13,6 +13,7 @@ public class ClientModel {
 
     private Socket socket;
     private String username;
+    private ArrayList<UserDisplayInfo> userList = new ArrayList<>();
     private ArrayList<UserDisplayInfo> friendList = new ArrayList<>();
     private ArrayList<Message> receivedMessages = new ArrayList<>();
     private ArrayList<Message> sentMessages = new ArrayList<>();
@@ -24,11 +25,11 @@ public class ClientModel {
     public void setSocket(Socket socket) {
         this.socket = socket;
     }
-    public void setFriendList(ArrayList<UserDisplayInfo> friendList) {
-        this.friendList = friendList;
+    public void setUserList(ArrayList<UserDisplayInfo> userList) {
+        this.userList = userList;
     }
-    public ArrayList<UserDisplayInfo> getFriendList() {
-        return friendList;
+    public ArrayList<UserDisplayInfo> getUserList() {
+        return userList;
     }
     public void setUsername(String user){
         this.username = user;
