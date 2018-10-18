@@ -82,6 +82,8 @@ public class ClientController implements IController {
         }
         mainPane.getScene().getWindow().setOnCloseRequest(Event -> {
             try {
+                saveMessages();
+
                 service.sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.DISCONNECT, userName), userName));
             } catch (IOException e) {
                 e.printStackTrace();
@@ -174,8 +176,8 @@ public class ClientController implements IController {
         }
     }
 
-
         public void saveMessages () {
+            System.out.println("Messages saved.");
             model.saveReceivedMessages();
             model.saveSendMessages();
         }
