@@ -35,8 +35,12 @@ public class  ServerModel {
                 u.sendInfo(sendUserInfo());
                 System.out.println("Command performed: 'refreshFriendList '" + c.getCommandData());
                 break;
-            case DISCONNECT: userList.remove(getUserByUsername(sender));
-            updateUserLists();
+            case DISCONNECT:
+                User user = getUserByUsername(sender);
+                user.closeSConnection();
+
+                userList.remove(user);
+                updateUserLists();
                 break;
             case REGISTER:
                 break;

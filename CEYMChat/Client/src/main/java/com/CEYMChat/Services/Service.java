@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * This class implements the IService interface. It communicates via Sockets to the server.
  */
 
-public class Services implements IService{
+public class Service implements IService{
     private Socket socket;
     private ObjectOutputStream messageOutStream;
     private ObjectInputStream messageInStream;
@@ -19,8 +19,9 @@ public class Services implements IService{
     private Message lastMsg;
     private ArrayList<UserDisplayInfo> comingFriendsList = new ArrayList();
     private IController controller;
+    private boolean running = true;
 
-    public Services(ClientModel model, IController c)
+    public Service(ClientModel model, IController c)
     {
         this.model = model;
         this.controller = c;
@@ -52,7 +53,7 @@ public class Services implements IService{
     public void read() {
         new Thread(() -> {
             try {
-                while (true) {
+                while (running) {
                     messageIn = (Message) messageInStream.readObject();
                     if (messageIn != null) {
                         MessageType msgType = MessageType.valueOf(messageIn.getType().getSimpleName());
@@ -111,6 +112,17 @@ public class Services implements IService{
         messageOutStream.writeObject(m);
         System.out.println("Message sent: " + m.getData());
 
+    }
+    public void stop(){
+        running = false;
+        try {
+            messageOutStream = null;
+            messageInStream = null;
+            socket.shutdownOutput();
+            socket.shutdownInput();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void sendMessage(Message m) throws IOException {

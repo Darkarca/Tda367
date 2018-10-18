@@ -14,5 +14,7 @@ public interface IService {
     void connectToS();
     void login(CommandName sCommand, String userName);
     void sendMessage(Message stringMessage) throws IOException;
+
+    void stop();
 }
 

@@ -11,7 +11,7 @@ import java.net.Socket;
 public class User {
     private String username;
     private IReader reader;
-
+    private Thread rThread;
     private IWriter writer;
 
     public void setUsername(String username) {
@@ -24,7 +24,7 @@ public class User {
     public void initIO(Socket socket, ServerModel model){
         this.writer = new Writer(socket);
         this.reader = new Reader(model, socket);
-        Thread rThread = new Thread((Runnable) reader);
+        rThread = new Thread((Runnable) reader);
         rThread.start();
     }
     public void sendMessage(Message m){
@@ -36,6 +36,12 @@ public class User {
 
     public IWriter getWriter() {
         return writer;
+    }
+    public void closeSConnection(){
+        rThread.interrupt();
+        reader.stop();
+
+
     }
 
 }
