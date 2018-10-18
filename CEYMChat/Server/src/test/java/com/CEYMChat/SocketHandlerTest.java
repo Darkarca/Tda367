@@ -1,6 +1,6 @@
 package com.CEYMChat;
 
-import com.CEYMChat.Model.ServerModel;
+import com.CEYMChat.Model.*;
 import com.CEYMChat.Services.SocketHandler;
 import org.junit.Test;
 import java.io.IOException;

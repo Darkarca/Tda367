@@ -85,7 +85,7 @@ public class Services implements IService{
                                     displayNewMessage(messageIn);
                                 }
                             }
-                                case File: {
+                            case File: {
                                     if(messageIn != lastMsg && messageIn != null){
                                         System.out.println("File received from " + messageIn.getSender() + ": " + ((File)messageIn.getData()).getName());
                                         File newFile = new File(((File)messageIn.getData()).getName());

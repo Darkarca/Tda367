@@ -1,12 +1,9 @@
 package com.CEYMChat;
+
 import com.CEYMChat.Model.ClientModel;
 import com.CEYMChat.Services.IService;
 import com.CEYMChat.Services.Services;
 import com.CEYMChat.View.FriendListItem;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -16,15 +13,13 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
-import javafx.util.Duration;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 /**
  * Controller for the Client.
  */
-public class ClientController implements IController{
+public class ClientController implements IController {
     ClientModel model;
     public IService service;
     @FXML
@@ -54,6 +49,7 @@ public class ClientController implements IController{
     private ArrayList<FriendListItem> friendItemList = new ArrayList<>();
     String currentChatName;
     String userName;
+
     /**
      * Captures input from user and send makes use of model to send message
      */
@@ -65,107 +61,120 @@ public class ClientController implements IController{
         toggleChatBox();
     }
 
-    public void appInit(){
+    public void appInit() {
         model = new ClientModel();
-        service =new Services(model,this);
+        service = new Services(model, this);
     }
 
     public void login() throws IOException {
 
-        appInit();
-        service.connectToS();
-        service.login(CommandName.SET_USER, userName);
-        model.setUsername(userName);
-        loadSavedMessages();
-    }
 
-    public void sendString() throws IOException {
-        String toSend = chatBox.getText();
-        chatBox.setText("");
-        service.sendStringMessage(toSend, currentChatName);   //Change sendToTextField.getText() to click on friend
-        messageWindow.appendText("Me: "+toSend+"\n");
-    }
+            appInit();
+            service.connectToS();
+            service.login(CommandName.SET_USER, userName);
+            model.setUsername(userName);
 
-    @FXML
-    public void refreshFriendList(){
-        try {
-            System.out.println("Send refreshFriendList command");
-            service.sendCommandMessage(CommandName.REFRESH_FRIENDLIST,userName);
-        } catch (IOException e) {
-            e.printStackTrace();
+            loadSavedMessages();
+
+            mainPane.getScene().getWindow().setOnCloseRequest(Event -> {
+                try {
+                    service.sendCommandMessage(CommandName.DISCONNECT, userName);
+                } catch (IOException e) {
+                    e.printStackTrace();
+
+                }
+            });
+
         }
-    }
-    @FXML
-    public void toggleChatBox(){
-        if (chatBox.isEditable())
-            chatBox.setEditable(false);
-        else{
-            chatBox.setEditable(true);
+
+        public void sendString () throws IOException {
+            String toSend = chatBox.getText();
+            chatBox.setText("");
+            service.sendStringMessage(toSend, currentChatName);   //Change sendToTextField.getText() to click on friend
+            messageWindow.appendText("Me: " + toSend + "\n");
         }
-    }
 
-    public void displayNewMessage(String s) {
-        System.out.println("displayNewMessage has been called with string: " + s);
-        messageWindow.appendText(s + "\n");
-    }
-
-    public void requestChat(){
-        try {
-            service.sendCommandMessage(CommandName.REQUEST_CHAT,"user2");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void createFriendListItemList (ArrayList<UserDisplayInfo> friendList) throws IOException {
-        System.out.println("New list of friendItems created");
-        for (UserDisplayInfo uInfo : friendList) {
-            System.out.println("User added: " + uInfo.getUsername());
-            if (!uInfo.getUsername().equals(model.getUsername())) {
-                FriendListItem userItem = new FriendListItem(uInfo.getUsername());
-                friendItemList.add(userItem);
-                userItem.getFriendPane().setOnMouseClicked(Event -> {
-                    currentChatName = userItem.getFriendUsername().getText();
-                    currentChat.setText("Currently chatting with: " + currentChatName);
-                    System.out.println("CurrentChat set to: " + currentChatName);
-                });
+        @FXML
+        public void refreshFriendList () {
+            try {
+                System.out.println("Send refreshFriendList command");
+                service.sendCommandMessage(CommandName.REFRESH_FRIENDLIST, userName);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
-    }
-
-    public void showOnlineFriends (ArrayList<UserDisplayInfo> friendList) throws IOException {
-        friendItemList.clear();
-        System.out.println("FriendListItems are being created");
-        createFriendListItemList(friendList);
-        friendsFlowPane.getChildren().clear();
-        for (FriendListItem friendListItem : friendItemList) {
-            friendsFlowPane.getChildren().add(friendListItem.getFriendPane());
-        }
-    }
-
-
-    public void chooseFile() {
-        FileChooser fc = new FileChooser();
-        fc.setTitle("Choose a file to send with your message");
-        fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text Files", "*.txt"),
-                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"),
-                new FileChooser.ExtensionFilter("Audio Files", "*.wav", "*.mp3", "*.aac"),
-                new FileChooser.ExtensionFilter("All Files", "*.*"));
-        File selectedFile = fc.showOpenDialog(chatBox.getScene().getWindow());
-        if (selectedFile != null) {
-            service.setFile(selectedFile);
+        @FXML
+        public void toggleChatBox () {
+            if (chatBox.isEditable())
+                chatBox.setEditable(false);
+            else {
+                chatBox.setEditable(true);
+            }
         }
 
-    }
-    public void saveMessages(){
-        model.saveReceivedMessages();
-        model.saveSendMessages();
-    }
-    public void loadSavedMessages() throws IOException {
-        ArrayList<String> savedMessages = model.loadSavedSentMessage();
-        for (int i = 1; i<=savedMessages.size();i = i+2){
-            messageWindow.appendText("Me: " + savedMessages.get(i) + "\n");
+        public void displayNewMessage (String s){
+            System.out.println("displayNewMessage has been called with string: " + s);
+            messageWindow.appendText(s + "\n");
         }
+
+        public void requestChat () {
+            try {
+                service.sendCommandMessage(CommandName.REQUEST_CHAT, "user2");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        public void createFriendListItemList (ArrayList < UserDisplayInfo > friendList) throws IOException {
+            System.out.println("New list of friendItems created");
+            for (UserDisplayInfo uInfo : friendList) {
+                System.out.println("User added: " + uInfo.getUsername());
+                if (!uInfo.getUsername().equals(model.getUsername())) {
+                    FriendListItem userItem = new FriendListItem(uInfo.getUsername());
+                    friendItemList.add(userItem);
+                    userItem.getFriendPane().setOnMouseClicked(Event -> {
+                        currentChatName = userItem.getFriendUsername().getText();
+                        currentChat.setText("Currently chatting with: " + currentChatName);
+                        System.out.println("CurrentChat set to: " + currentChatName);
+                    });
+                }
+            }
+        }
+
+        public void showOnlineFriends (ArrayList < UserDisplayInfo > friendList) throws IOException {
+            friendItemList.clear();
+            System.out.println("FriendListItems are being created");
+            createFriendListItemList(friendList);
+            friendsFlowPane.getChildren().clear();
+            for (FriendListItem friendListItem : friendItemList) {
+                friendsFlowPane.getChildren().add(friendListItem.getFriendPane());
+            }
+        }
+
+
+        public void chooseFile () {
+            FileChooser fc = new FileChooser();
+            fc.setTitle("Choose a file to send with your message");
+            fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text Files", "*.txt"),
+                    new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"),
+                    new FileChooser.ExtensionFilter("Audio Files", "*.wav", "*.mp3", "*.aac"),
+                    new FileChooser.ExtensionFilter("All Files", "*.*"));
+            File selectedFile = fc.showOpenDialog(chatBox.getScene().getWindow());
+            if (selectedFile != null) {
+                service.setFile(selectedFile);
+            }
+
+        }
+        public void saveMessages () {
+            model.saveReceivedMessages();
+            model.saveSendMessages();
+        }
+        public void loadSavedMessages () throws IOException {
+            ArrayList<String> savedMessages = model.loadSavedSentMessage();
+            for (int i = 1; i <= savedMessages.size(); i = i + 2) {
+                messageWindow.appendText("Me: " + savedMessages.get(i) + "\n");
+            }
+        }
+
     }
 
-}
