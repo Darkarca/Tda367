@@ -42,10 +42,18 @@ public class ClientModel {
     public void addSentMessage (Message m){
         sentMessages.add(m);
     }
+
+
     public void saveArrayListToFile(ArrayList<Message> list, String filename) throws IOException {
         FileWriter writer = new FileWriter(filename);
+
         for(Message m: list) {
-            writer.write(m.getSender()+","+m.getData().toString()+",");
+            if(m.getSender().equals(username)) {
+                writer.write("Me: " + "," + m.getData().toString() + ",");
+            }
+            else{
+                writer.write(m.getSender() + "," + m.getData().toString() + ",");
+            }
         }
         writer.close();
     }
@@ -89,4 +97,19 @@ public class ClientModel {
 
     }
 
+    public ArrayList<String> loadSavedReceivedMessage() throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader("Client/messages/received.csv"));
+        String line = "";
+        String cvsSplitBy = ",";
+        String [] savedMessages = {};
+        while((line = br.readLine())!=null){
+            savedMessages = line.split(cvsSplitBy);
+
+        }
+        ArrayList<String> savedMessagesList = new ArrayList<String>(Arrays.asList(savedMessages));
+        System.out.println(savedMessagesList.toString());
+        return savedMessagesList;
+
+
+    }
 }
