@@ -58,7 +58,7 @@ public class ClientController implements IController{
      * Captures input from user and send makes use of model to send message
      */
     @FXML
-    public void onClick(){
+    public void onClick() throws IOException {
         this.userName = loginTextField.getText();
         login();
         mainPane.toFront();
@@ -70,12 +70,13 @@ public class ClientController implements IController{
         service =new Services(model,this);
     }
 
-    public void login(){
+    public void login() throws IOException {
 
         appInit();
         service.connectToS();
         service.login(CommandName.SET_USER, userName);
         model.setUsername(userName);
+        loadSavedMessages();
     }
 
     public void sendString() throws IOException {
@@ -155,6 +156,16 @@ public class ClientController implements IController{
             service.setFile(selectedFile);
         }
 
+    }
+    public void saveMessages(){
+        model.saveReceivedMessages();
+        model.saveSendMessages();
+    }
+    public void loadSavedMessages() throws IOException {
+        ArrayList<String> savedMessages = model.loadSavedSentMessage();
+        for (int i = 1; i<=savedMessages.size();i = i+2){
+            messageWindow.appendText("Me: " + savedMessages.get(i) + "\n");
+        }
     }
 
 }

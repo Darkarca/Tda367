@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public interface IController {
     public void sendString() throws IOException;
     @FXML
-    public void login();
+    public void login() throws IOException;
     @FXML
     public void refreshFriendList();
     @FXML
