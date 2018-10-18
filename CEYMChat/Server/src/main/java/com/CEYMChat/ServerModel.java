@@ -8,10 +8,10 @@ import java.util.List;
 public class  ServerModel {
     private ServerSocket serverSocket;
     private List<User> userList = new ArrayList<>();
-
+    private int port = 9000;
     {
         try {
-            serverSocket = new ServerSocket(9000);
+            serverSocket = new ServerSocket(port);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -48,6 +48,7 @@ public class  ServerModel {
         }
         return MessageFactory.createFriendInfoList(list);
     }
+
     public ServerSocket getServerSocket() {
         return serverSocket;
     }

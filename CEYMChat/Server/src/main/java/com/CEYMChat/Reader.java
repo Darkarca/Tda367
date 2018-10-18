@@ -30,6 +30,7 @@ public class Reader implements Runnable, IReader {
     public void run() {
         while (true) {
             try {
+                Thread.sleep(1000);
                 inMessage = (Message) inputStream.readObject();
                 MessageType msgType = MessageType.valueOf(inMessage.getType().getSimpleName());
                 switch (msgType) {
@@ -48,6 +49,8 @@ public class Reader implements Runnable, IReader {
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }

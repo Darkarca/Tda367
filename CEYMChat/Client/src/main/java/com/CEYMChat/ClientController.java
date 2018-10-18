@@ -75,7 +75,6 @@ public class ClientController implements IController{
         service.login(CommandName.SET_USER, userName);
         model.setUsername(userName);
     }
-
     Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
@@ -83,7 +82,6 @@ public class ClientController implements IController{
             System.out.println("this is called every 2 seconds on UI thread");
         }
     }));
-
     public void sendString() throws IOException {
         String toSend = chatBox.getText();
         chatBox.setText("");
@@ -100,7 +98,6 @@ public class ClientController implements IController{
             e.printStackTrace();
         }
     }
-
     @FXML
     public void toggleChatBox(){
         if (chatBox.isEditable())
@@ -148,4 +145,5 @@ public class ClientController implements IController{
             friendsFlowPane.getChildren().add(friendListItem.getFriendPane());
         }
     }
+
 }

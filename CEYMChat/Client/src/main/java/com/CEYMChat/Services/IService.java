@@ -15,6 +15,5 @@ public interface IService {
     public void login(CommandName sCommand, String userName);
 
 
-
 }
 
