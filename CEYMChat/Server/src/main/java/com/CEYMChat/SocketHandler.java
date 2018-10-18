@@ -19,7 +19,10 @@ public class SocketHandler{
                 try {
                     System.out.println("Looking for socket");
                     this.connectSocket();
+                    this.wait(10000);
                 } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
