@@ -1,5 +1,10 @@
 package com.CEYMChat.Model;
 import com.CEYMChat.*;
+import com.CEYMChat.Services.IService;
+import com.CEYMChat.Services.Services;
+
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 /**
@@ -10,7 +15,7 @@ public class ClientModel {
     private Socket socket;
     private String username;
     private ArrayList<UserDisplayInfo> friendList = new ArrayList<>();
-    private static ClientModel modelInstance = new ClientModel();
+    //private static ClientModel modelInstance = new ClientModel();
 
 
     public Socket getSocket() {
@@ -21,7 +26,7 @@ public class ClientModel {
         this.socket = socket;
     }
 
-    public static ClientModel getModelInstance(){ return modelInstance;}
+    //public static ClientModel getModelInstance(){ return modelInstance;}
 
     public void setFriendList(ArrayList<UserDisplayInfo> friendList) {
         this.friendList = friendList;

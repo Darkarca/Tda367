@@ -24,7 +24,6 @@ public class Services implements IService{
     {
         this.model = model;
         this.controller = c;
-
     }
 
     public ObjectInputStream getMessageInStream() {

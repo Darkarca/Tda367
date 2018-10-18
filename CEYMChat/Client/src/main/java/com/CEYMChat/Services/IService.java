@@ -6,12 +6,13 @@ import java.io.IOException;
  * Interface for communicating with the server.
  */
 public interface IService {
-    public void connectToS();
-    public void login(CommandName sCommand, String userName);
+
     public void sendCommandMessage(CommandName sCommand, String sData) throws IOException;
     public void setMessageOut(Message m) throws IOException;
     void sendStringMessage(String toSend, String currentChat) throws IOException;
     void read();
+    public void connectToS();
+    public void login(CommandName sCommand, String userName);
 
 
 
