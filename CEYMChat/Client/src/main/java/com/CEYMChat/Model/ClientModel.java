@@ -1,6 +1,7 @@
 package com.CEYMChat.Model;
 import com.CEYMChat.*;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.Socket;
@@ -15,6 +16,7 @@ public class ClientModel {
     private ArrayList<UserDisplayInfo> friendList = new ArrayList<>();
     private ArrayList<Message> receivedMessages = new ArrayList<>();
     private ArrayList<Message> sentMessages = new ArrayList<>();
+    private File selectedFile;
 
     public Socket getSocket() {
         return socket;
@@ -47,7 +49,6 @@ public class ClientModel {
         }
         writer.close();
     }
-
     public void saveReceivedMessages() {
         try {
             saveArrayListToFile(receivedMessages, "Client/messages/received.csv");
@@ -62,6 +63,14 @@ public class ClientModel {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public File getSelectedFile() {
+        return selectedFile;
+    }
+
+    public void setSelectedFile(File selectedFile) {
+        this.selectedFile = selectedFile;
     }
 
 }

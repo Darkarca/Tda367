@@ -19,7 +19,6 @@ public class Services implements IService{
     private Message lastMsg;
     private ArrayList<UserDisplayInfo> comingFriendsList = new ArrayList();
     private IController controller;
-    private File selectedFile;
 
     public Services(ClientModel model, IController c)
     {
@@ -47,7 +46,6 @@ public class Services implements IService{
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -73,7 +71,7 @@ public class Services implements IService{
                                                     e.printStackTrace();
                                                 }
                                             }
-                                    );
+                                     );
                                 }
                                 break;
                             }
@@ -95,8 +93,8 @@ public class Services implements IService{
                                         break;
                                     }
                                 }
-                    }
-                }
+                             }
+                         }
                     }
                 } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -106,12 +104,6 @@ public class Services implements IService{
                 e.printStackTrace();
             }
         }).start();
-    }
-
-    public void sendCommandMessage(CommandName sCommand, String sData) throws IOException {
-        Message message = MessageFactory.createCommandMessage(new Command(sCommand, sData), model.getUsername());
-        System.out.println("Command sent: " + sCommand + " with data: " + sData);
-        setMessageOut(message);
     }
 
     public void setMessageOut(Message m) throws IOException {
@@ -130,24 +122,8 @@ public class Services implements IService{
             case Command: setMessageOut(m);
                 break;
             case File: setMessageOut(m);
-                selectedFile = null;
+                model.setSelectedFile(null);
                 break;
-        }
-    }
-
-
-    public void sendStringMessage(String toSend, String receiver) throws IOException {
-        if (selectedFile != null) {
-            Message fileMessage = MessageFactory.createFileMessage(selectedFile, model.getUsername(), receiver);
-            System.out.println(fileMessage.getSender() + ": sent a file named " + selectedFile.getName());
-            setMessageOut(fileMessage);
-            selectedFile = null;
-        } else {
-            Message stringMessage = MessageFactory.createStringMessage(toSend, model.getUsername(), receiver);
-            System.out.println(stringMessage.getSender() + ": " + stringMessage.getData().toString());
-            setMessageOut(stringMessage);
-            model.addSentMessage(stringMessage);
-
         }
     }
 
@@ -170,14 +146,9 @@ public class Services implements IService{
 
     public void login(CommandName sCommand, String userName){
         try {
-            sendCommandMessage(sCommand,userName);
+            sendMessage(MessageFactory.createCommandMessage(new Command(sCommand,userName),userName));
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void setFile(File selectedFile) {
-        this.selectedFile = selectedFile;
     }
 }

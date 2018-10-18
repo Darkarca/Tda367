@@ -46,6 +46,10 @@ public class ClientController implements IController{
     private TextField loginTextField;
     @FXML
     private Button loginButton;
+    @FXML
+    private Button fileSend;
+    @FXML
+    private Text fileName;
     private ArrayList<FriendListItem> friendItemList = new ArrayList<>();
     String currentChatName;
     String userName;
@@ -72,7 +76,7 @@ public class ClientController implements IController{
         model.setUsername(userName);
         mainPane.getScene().getWindow().setOnCloseRequest(Event -> {
             try {
-                service.sendCommandMessage(CommandName.DISCONNECT, userName);
+                service.sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.DISCONNECT, userName), userName));
             } catch (IOException e) {
                 e.printStackTrace();
 
@@ -82,7 +86,7 @@ public class ClientController implements IController{
     public void sendString() throws IOException {
         String toSend = chatBox.getText();
         chatBox.setText("");
-        service.sendStringMessage(toSend, currentChatName);   //Change sendToTextField.getText() to click on friend
+        service.sendMessage(MessageFactory.createStringMessage(toSend, userName, currentChatName));
         messageWindow.appendText("Me: "+toSend+"\n");
     }
 
@@ -90,7 +94,7 @@ public class ClientController implements IController{
     public void refreshFriendList(){
         try {
             System.out.println("Send refreshFriendList command");
-            service.sendCommandMessage(CommandName.REFRESH_FRIENDLIST,userName);
+            service.sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.REFRESH_FRIENDLIST, userName), userName));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -111,7 +115,7 @@ public class ClientController implements IController{
 
     public void requestChat(){
         try {
-            service.sendCommandMessage(CommandName.REQUEST_CHAT,"user2");
+            service.sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.REQUEST_CHAT, "user2"),userName));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -153,9 +157,15 @@ public class ClientController implements IController{
                 new FileChooser.ExtensionFilter("All Files", "*.*"));
         File selectedFile = fc.showOpenDialog(chatBox.getScene().getWindow());
         if (selectedFile != null) {
-            service.setFile(selectedFile);
+            model.setSelectedFile(selectedFile);
+            fileName.setText("Current file: " + model.getSelectedFile().getName());
         }
-
+    }
+    public void sendFile() throws IOException {
+        if (model.getSelectedFile() != null) {
+            service.sendMessage(MessageFactory.createFileMessage(model.getSelectedFile(), userName, currentChatName));
+            fileName.setText("Current file: none");
+        }
     }
 
 }

@@ -45,6 +45,8 @@
                               <Image url="@../attached_icon.png" />
                            </image>
                         </ImageView>
+                        <Button fx:id="fileSend" layoutX="252.0" layoutY="603.0" mnemonicParsing="false" onAction="#sendFile" prefHeight="49.0" prefWidth="65.0" text="Send File" />
+                        <Text fx:id="fileName" layoutX="79.0" layoutY="640.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current file: none" />
                           </children>
                       </AnchorPane>
                   </items>

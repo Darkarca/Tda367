@@ -4,6 +4,6 @@ public enum MessageType {
         Command,
         String,
         ArrayList,
-        File;
+        File
     }
 

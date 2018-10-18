@@ -9,14 +9,10 @@ import java.io.IOException;
  */
 public interface IService {
 
-    public void sendCommandMessage(CommandName sCommand, String sData) throws IOException;
-    public void setMessageOut(Message m) throws IOException;
-    void sendStringMessage(String toSend, String currentChat) throws IOException;
+    void setMessageOut(Message m) throws IOException;
     void read();
-    public void connectToS();
-    public void login(CommandName sCommand, String userName);
-    
-    void setFile(File selectedFile);
-
+    void connectToS();
+    void login(CommandName sCommand, String userName);
+    void sendMessage(Message stringMessage) throws IOException;
 }
 
