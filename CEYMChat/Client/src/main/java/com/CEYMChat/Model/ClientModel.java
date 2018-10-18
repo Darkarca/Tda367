@@ -1,11 +1,11 @@
 package com.CEYMChat.Model;
 import com.CEYMChat.*;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  * Model for the client
  */
@@ -71,6 +71,22 @@ public class ClientModel {
 
     public void setSelectedFile(File selectedFile) {
         this.selectedFile = selectedFile;
+    }
+
+    public ArrayList<String> loadSavedSentMessage() throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader("Client/messages/sent.csv"));
+        String line = "";
+        String cvsSplitBy = ",";
+        String [] savedMessages = {};
+        while((line = br.readLine())!=null){
+            savedMessages = line.split(cvsSplitBy);
+
+        }
+        ArrayList<String> savedMessagesList = new ArrayList<String>(Arrays.asList(savedMessages));
+        System.out.println(savedMessagesList.toString());
+        return savedMessagesList;
+
+
     }
 
 }

@@ -19,7 +19,7 @@ import java.util.ArrayList;
 /**
  * Controller for the Client.
  */
-public class ClientController implements IController{
+public class ClientController implements IController {
     ClientModel model;
     public IService service;
     @FXML
@@ -53,37 +53,38 @@ public class ClientController implements IController{
     private ArrayList<FriendListItem> friendItemList = new ArrayList<>();
     String currentChatName;
     String userName;
+
     /**
      * Captures input from user and send makes use of model to send message
      */
     @FXML
-    public void onClick(){
+    public void onClick() throws IOException {
         this.userName = loginTextField.getText();
         login();
         mainPane.toFront();
         toggleChatBox();
     }
 
-    public void appInit(){
+    public void appInit() {
         model = new ClientModel();
-        service =new Services(model,this);
+        service = new Services(model, this);
     }
 
-    public void login(){
+    public void login() throws IOException {
         appInit();
         service.connectToS();
         service.login(CommandName.SET_USER, userName);
         model.setUsername(userName);
+        loadSavedMessages();
         mainPane.getScene().getWindow().setOnCloseRequest(Event -> {
             try {
                 service.sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.DISCONNECT, userName), userName));
             } catch (IOException e) {
                 e.printStackTrace();
-
-            }});
+            }
+        });
     }
-
-    public void sendString() throws IOException {
+    public void sendString()throws IOException {
         String toSend = chatBox.getText();
         chatBox.setText("");
         service.sendMessage(MessageFactory.createStringMessage(toSend, userName, currentChatName));
@@ -91,7 +92,7 @@ public class ClientController implements IController{
     }
 
     @FXML
-    public void refreshFriendList(){
+    public void refreshFriendList() {
         try {
             System.out.println("Send refreshFriendList command");
             service.sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.REFRESH_FRIENDLIST, userName), userName));
@@ -99,54 +100,55 @@ public class ClientController implements IController{
             e.printStackTrace();
         }
     }
-    @FXML
-    public void toggleChatBox(){
-        if (chatBox.isEditable())
-            chatBox.setEditable(false);
-        else{
-            chatBox.setEditable(true);
-        }
-    }
 
-    public void displayNewMessage(String s) {
-        System.out.println("displayNewMessage has been called with string: " + s);
-        messageWindow.appendText(s + "\n");
-    }
-
-    public void requestChat(){
-        try {
-            service.sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.REQUEST_CHAT, "user2"),userName));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void createFriendListItemList (ArrayList<UserDisplayInfo> friendList) throws IOException {
-        System.out.println("New list of friendItems created");
-        for (UserDisplayInfo uInfo : friendList) {
-            System.out.println("User added: " + uInfo.getUsername());
-            if (!uInfo.getUsername().equals(model.getUsername())) {
-                FriendListItem userItem = new FriendListItem(uInfo.getUsername());
-                friendItemList.add(userItem);
-                userItem.getFriendPane().setOnMouseClicked(Event -> {
-                    currentChatName = userItem.getFriendUsername().getText();
-                    currentChat.setText("Currently chatting with: " + currentChatName);
-                    System.out.println("CurrentChat set to: " + currentChatName);
-                });
+        @FXML
+        public void toggleChatBox () {
+            if (chatBox.isEditable())
+                chatBox.setEditable(false);
+            else {
+                chatBox.setEditable(true);
             }
         }
-    }
 
-    public void showOnlineFriends (ArrayList<UserDisplayInfo> friendList) throws IOException {
-        friendItemList.clear();
-        System.out.println("FriendListItems are being created");
-        createFriendListItemList(friendList);
-        friendsFlowPane.getChildren().clear();
-        for (FriendListItem friendListItem : friendItemList) {
-            friendsFlowPane.getChildren().add(friendListItem.getFriendPane());
+
+    public void requestChat(){
+                            try {
+                                service.sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.REQUEST_CHAT, "user2"), userName));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+        public void displayNewMessage (String s){
+            System.out.println("displayNewMessage has been called with string: " + s);
+            messageWindow.appendText(s + "\n");
+
         }
-    }
 
+        public void createFriendListItemList (ArrayList < UserDisplayInfo > friendList) throws IOException {
+            System.out.println("New list of friendItems created");
+            for (UserDisplayInfo uInfo : friendList) {
+                System.out.println("User added: " + uInfo.getUsername());
+                if (!uInfo.getUsername().equals(model.getUsername())) {
+                    FriendListItem userItem = new FriendListItem(uInfo.getUsername());
+                    friendItemList.add(userItem);
+                    userItem.getFriendPane().setOnMouseClicked(Event -> {
+                        currentChatName = userItem.getFriendUsername().getText();
+                        currentChat.setText("Currently chatting with: " + currentChatName);
+                        System.out.println("CurrentChat set to: " + currentChatName);
+                    });
+                }
+            }
+        }
+
+        public void showOnlineFriends (ArrayList < UserDisplayInfo > friendList) throws IOException {
+            friendItemList.clear();
+            System.out.println("FriendListItems are being created");
+            createFriendListItemList(friendList);
+            friendsFlowPane.getChildren().clear();
+            for (FriendListItem friendListItem : friendItemList) {
+                friendsFlowPane.getChildren().add(friendListItem.getFriendPane());
+            }
+        }
 
     public void chooseFile() {
         FileChooser fc = new FileChooser();
@@ -168,4 +170,17 @@ public class ClientController implements IController{
         }
     }
 
-}
+
+        public void saveMessages () {
+            model.saveReceivedMessages();
+            model.saveSendMessages();
+        }
+        public void loadSavedMessages () throws IOException {
+            ArrayList<String> savedMessages = model.loadSavedSentMessage();
+            for (int i = 1; i <= savedMessages.size(); i = i + 2) {
+                messageWindow.appendText("Me: " + savedMessages.get(i) + "\n");
+            }
+
+        }
+    }
+
