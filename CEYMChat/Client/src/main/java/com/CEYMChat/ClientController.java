@@ -2,7 +2,7 @@ package com.CEYMChat;
 
 import com.CEYMChat.Model.ClientModel;
 import com.CEYMChat.Services.IService;
-import com.CEYMChat.Services.Services;
+import com.CEYMChat.Services.Service;
 import com.CEYMChat.View.FriendListItem;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -67,7 +67,7 @@ public class ClientController implements IController {
 
     public void appInit() {
         model = new ClientModel();
-        service = new Services(model, this);
+        service = new Service(model, this);
     }
 
     public void login() throws IOException {
@@ -83,8 +83,8 @@ public class ClientController implements IController {
         mainPane.getScene().getWindow().setOnCloseRequest(Event -> {
             try {
                 saveMessages();
-
                 service.sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.DISCONNECT, userName), userName));
+                service.stop();
             } catch (IOException e) {
                 e.printStackTrace();
             }
