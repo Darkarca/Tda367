@@ -15,8 +15,8 @@ public interface IService {
     void read();
     public void connectToS();
     public void login(CommandName sCommand, String userName);
-
-
+    
     void setFile(File selectedFile);
+
 }
 

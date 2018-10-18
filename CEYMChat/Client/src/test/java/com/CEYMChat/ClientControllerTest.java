@@ -1,11 +1,16 @@
 package com.CEYMChat;
 
 import org.junit.Test;
+import java.io.IOException;
+import static org.junit.Assert.*;
+
 
 public class ClientControllerTest {
 
+    ClientController testController = new ClientController();
+
     @Test
-    public void sendString() {
+    public void sendString() throws IOException {
     }
 
     @Test

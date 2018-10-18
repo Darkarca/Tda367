@@ -93,7 +93,6 @@ public class ClientController implements IController{
             e.printStackTrace();
         }
     }
-
     @FXML
     public void toggleChatBox(){
         if (chatBox.isEditable())
@@ -142,6 +141,7 @@ public class ClientController implements IController{
         }
     }
 
+
     public void chooseFile() {
         FileChooser fc = new FileChooser();
         fc.setTitle("Choose a file to send with your message");
@@ -155,4 +155,5 @@ public class ClientController implements IController{
         }
 
     }
+
 }
