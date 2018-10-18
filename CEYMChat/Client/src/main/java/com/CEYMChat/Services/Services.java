@@ -10,7 +10,8 @@ import java.util.ArrayList;
  * This class implements the IService interface. It communicates via Sockets to the server.
  */
 
-public class Connection implements IService{
+public class Services implements IService{
+    private Socket socket;
     private ObjectOutputStream messageOutStream;
     private ObjectInputStream messageInStream;
     private ClientModel model;
@@ -19,7 +20,7 @@ public class Connection implements IService{
     private ArrayList<UserDisplayInfo> comingFriendsList = new ArrayList();
     private IController controller;
 
-    public Connection(ClientModel model, IController c)
+    public Services(ClientModel model, IController c)
     {
         this.model = model;
         this.controller = c;
@@ -32,16 +33,26 @@ public class Connection implements IService{
     /**
      * Enum to decide what type of command is received.
      */
+    @Override
+    public void connectToS(){
+        try {
+            socket = new Socket("localhost", 9000);
+            System.out.println("Thread started");
+            messageOutStream = new ObjectOutputStream(socket.getOutputStream());
+            messageInStream = new ObjectInputStream(socket.getInputStream());
+            System.out.println("Connection started");
+            read();
 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     @Override
-    public void start() {
+    public void read() {
         new Thread(() -> {
             try {
-                model.setSocket( new Socket("localhost", 9000));
-                System.out.println("Connection started");
-                this.messageOutStream = new ObjectOutputStream(model.getSocket().getOutputStream());
-                this.messageInStream = new ObjectInputStream(model.getSocket().getInputStream());
                 while (true) {
                     messageIn = (Message) messageInStream.readObject();
                     if (messageIn != null) {
@@ -113,5 +124,13 @@ public class Connection implements IService{
     public void displayFriendList() throws IOException {
         controller.showOnlineFriends(model.getFriendList());
         System.out.println("New list of friends displayed");
+    }
+
+    public void login(CommandName sCommand, String userName){
+        try {
+            sendCommandMessage(sCommand,userName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

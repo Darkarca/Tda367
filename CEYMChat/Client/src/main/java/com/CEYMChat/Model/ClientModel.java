@@ -1,7 +1,5 @@
 package com.CEYMChat.Model;
 import com.CEYMChat.*;
-import com.CEYMChat.Services.Connection;
-import com.CEYMChat.Services.IService;
 import java.net.Socket;
 import java.util.ArrayList;
 /**
@@ -10,19 +8,10 @@ import java.util.ArrayList;
 public class ClientModel {
 
     private Socket socket;
-    private IService connection;
     private String username;
     private ArrayList<UserDisplayInfo> friendList = new ArrayList<>();
-    private static ClientModel modelInstance = new ClientModel();
-    /**
-     * Start the connection service
-     * @param c Passes a controller that controls the connection service.
-     */
-    public void connectToServer (IController c){
-        connection = new Connection(this, c);
-        connection.start();
-        System.out.println("Connection started");
-    }
+    //private static ClientModel modelInstance = new ClientModel();
+
 
     public Socket getSocket() {
         return socket;
@@ -32,7 +21,7 @@ public class ClientModel {
         this.socket = socket;
     }
 
-    public static ClientModel getModelInstance(){ return modelInstance;}
+    //public static ClientModel getModelInstance(){ return modelInstance;}
 
     public void setFriendList(ArrayList<UserDisplayInfo> friendList) {
         this.friendList = friendList;
@@ -48,10 +37,6 @@ public class ClientModel {
 
     public String getUsername(){
         return username;
-    }
-
-    public IService getConnectionService(){
-        return connection;
     }
 
 }
