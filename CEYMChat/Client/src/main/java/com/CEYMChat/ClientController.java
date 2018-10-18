@@ -1,6 +1,7 @@
 package com.CEYMChat;
 import com.CEYMChat.Model.ClientModel;
 import com.CEYMChat.Services.IService;
+import com.CEYMChat.Services.Services;
 import com.CEYMChat.View.FriendListItem;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -53,7 +54,7 @@ public class ClientController implements IController{
     private Stage loginStage;
     private ArrayList<FriendListItem> friendItemList = new ArrayList<>();
     String currentChatName;
-    public IService connection;
+    public IService service =new Services(model,this);
     String user;
     /**
      * Captures input from user and send makes use of model to send message
@@ -77,7 +78,7 @@ public class ClientController implements IController{
     public void sendString() throws IOException {
         String toSend = chatBox.getText();
         chatBox.setText("");
-        model.getConnectionService().sendStringMessage(toSend, currentChatName);   //Change sendToTextField.getText() to click on friend
+        service.sendStringMessage(toSend, currentChatName);   //Change sendToTextField.getText() to click on friend
         messageWindow.appendText("Me: "+toSend+"\n");
     }
 
@@ -90,8 +91,7 @@ public class ClientController implements IController{
             loginStage.setTitle("Login");
             loginStage.setScene(new Scene(login));
             loginStage.show();
-            model.connectToServer(this);
-            connection = model.getConnectionService();
+            service.connectToS();
             toggleChatBox();
             connectButton.setDisable(true);
             fiveSecondsWonder.setCycleCount(Timeline.INDEFINITE);
@@ -102,22 +102,18 @@ public class ClientController implements IController{
     }
     @FXML
     public void login(){
-        try {
-            model.getConnectionService().sendCommandMessage(CommandName.SET_USER, loginTextField.getText());
+            service.login(CommandName.SET_USER, loginTextField.getText());
             model.setUsername(loginTextField.getText());
             Window window = loginButton.getScene().getWindow();
             window.hide();
             user = loginTextField.getText();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     @FXML
     public void refreshFriendList(){
         try {
             System.out.println("Send refreshFriendList command");
-            model.getConnectionService().sendCommandMessage(CommandName.REFRESH_FRIENDLIST,user);
+            service.sendCommandMessage(CommandName.REFRESH_FRIENDLIST,user);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -139,7 +135,7 @@ public class ClientController implements IController{
 
     public void requestChat(){
         try {
-            model.getConnectionService().sendCommandMessage(CommandName.REQUEST_CHAT,"user2");
+            service.sendCommandMessage(CommandName.REQUEST_CHAT,"user2");
         } catch (IOException e) {
             e.printStackTrace();
         }
