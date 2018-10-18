@@ -19,6 +19,5 @@ public class ClientMain extends Application {
         primaryStage.setTitle("CEYMChat");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
-
     }
 }

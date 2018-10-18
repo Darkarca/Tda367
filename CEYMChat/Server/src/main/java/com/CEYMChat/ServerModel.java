@@ -22,6 +22,7 @@ public class  ServerModel {
             case SET_USER: {
                 userList.get(userList.size()-1).setUsername(c.getCommandData());
                 System.out.println("Command performed: 'setUser'" + c.getCommandData());
+                updateUserLists();
                 break;
             }
             case REFRESH_FRIENDLIST:
@@ -54,8 +55,15 @@ public class  ServerModel {
     public List<User> getUserList() {
         return userList;
     }
-    public void addUser(User u) {
-        userList.add(u);
+    public void addUser(User user) {
+        userList.add(user);
+    }
+
+    public void updateUserLists(){
+        for (User u:userList) {
+            u.sendInfo(sendUserInfo());
+        }
+        System.out.println("Userlists updated!");
     }
     public void displayMessage(Message m) throws IOException, ClassNotFoundException {
         System.out.println(m.getSender() + ": " + m.getData());

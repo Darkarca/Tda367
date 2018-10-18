@@ -15,7 +15,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.util.Duration;
+
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 /**
@@ -60,8 +63,6 @@ public class ClientController implements IController{
         login();
         mainPane.toFront();
         toggleChatBox();
-        fiveSecondsWonder.setCycleCount(Timeline.INDEFINITE);
-        fiveSecondsWonder.play();
     }
 
     public void appInit(){
@@ -75,14 +76,6 @@ public class ClientController implements IController{
         service.login(CommandName.SET_USER, userName);
         model.setUsername(userName);
     }
-
-    Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
-        @Override
-        public void handle(ActionEvent event) {
-            refreshFriendList();//this method only works first time at the moment. some bug.
-            System.out.println("this is called every 2 seconds on UI thread");
-        }
-    }));
 
     public void sendString() throws IOException {
         String toSend = chatBox.getText();
@@ -147,5 +140,19 @@ public class ClientController implements IController{
         for (FriendListItem friendListItem : friendItemList) {
             friendsFlowPane.getChildren().add(friendListItem.getFriendPane());
         }
+    }
+
+    public void chooseFile() {
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Choose a file to send with your message");
+        fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text Files", "*.txt"),
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"),
+                new FileChooser.ExtensionFilter("Audio Files", "*.wav", "*.mp3", "*.aac"),
+                new FileChooser.ExtensionFilter("All Files", "*.*"));
+        File selectedFile = fc.showOpenDialog(chatBox.getScene().getWindow());
+        if (selectedFile != null) {
+            service.setFile(selectedFile);
+        }
+
     }
 }

@@ -19,6 +19,7 @@ public class Services implements IService{
     private Message lastMsg;
     private ArrayList<UserDisplayInfo> comingFriendsList = new ArrayList();
     private IController controller;
+    private File selectedFile;
 
     public Services(ClientModel model, IController c)
     {
@@ -57,31 +58,48 @@ public class Services implements IService{
                     messageIn = (Message) messageInStream.readObject();
                     if (messageIn != null) {
                         MessageType msgType = MessageType.valueOf(messageIn.getType().getSimpleName());
-                        if (msgType.equals(MessageType.String)) {
-                            if (messageIn != lastMsg && messageIn != null) {
-                                System.out.println("Message received from " + messageIn.getSender() + ": " + messageIn.getData());
-                                lastMsg = messageIn;
-                                displayNewMessage(messageIn);
-                            }
-                        } else if (msgType.equals(MessageType.ArrayList)) {
-                            if (messageIn != lastMsg && messageIn != null) {
-                                comingFriendsList = (ArrayList) messageIn.getData();
-                                model.setFriendList(comingFriendsList);
-                                System.out.println("A new list of friends has arrived");
-                                lastMsg = messageIn;
-                                Platform.runLater(
-                                        () -> {
-                                            try {
-                                                displayFriendList();
-                                            } catch (IOException e) {
-                                                e.printStackTrace();
+                        switch (msgType) {
+                            case ArrayList: {
+                                if (messageIn != lastMsg && messageIn != null) {
+                                    comingFriendsList = (ArrayList) messageIn.getData();
+                                    model.setFriendList(comingFriendsList);
+                                    System.out.println("A new list of friends has arrived");
+                                    lastMsg = messageIn;
+                                    Platform.runLater(
+                                            () -> {
+                                                try {
+                                                    displayFriendList();
+                                                } catch (IOException e) {
+                                                    e.printStackTrace();
+                                                }
                                             }
-                                        }
-                                );
+                                    );
+                                }
+                                break;
                             }
-                        }
+                            case String: {
+                                if (messageIn != lastMsg && messageIn != null) {
+                                    model.addReceivedMessage(messageIn);
+                                    System.out.println("Message received from " + messageIn.getSender() + ": " + messageIn.getData());
+                                    lastMsg = messageIn;
+                                    displayNewMessage(messageIn);
+                                }
+                            }
+                                case File: {
+                                    if(messageIn != lastMsg && messageIn != null){
+                                        System.out.println("File received from " + messageIn.getSender() + ": " + ((File)messageIn.getData()).getName());
+                                        File newFile = new File(((File)messageIn.getData()).getName());
+                                        FileOutputStream output = new FileOutputStream("Client/messages/" + newFile.getName());
+                                        ObjectOutputStream stream = new ObjectOutputStream(output);
+                                        stream.writeObject(newFile);
+                                        break;
+                                    }
+                                }
                     }
                 }
+                    }
+                } catch (FileNotFoundException e) {
+                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (ClassNotFoundException e) {
@@ -103,10 +121,34 @@ public class Services implements IService{
 
     }
 
+    public void sendMessage(Message m) throws IOException {
+        MessageType msgType = MessageType.valueOf(m.getType().getSimpleName());
+        switch(msgType){
+            case String: setMessageOut(m);
+                model.addSentMessage(m);
+                break;
+            case Command: setMessageOut(m);
+                break;
+            case File: setMessageOut(m);
+                selectedFile = null;
+                break;
+        }
+    }
+
+
     public void sendStringMessage(String toSend, String receiver) throws IOException {
-        Message message = MessageFactory.createStringMessage(toSend, model.getUsername(), receiver);
-        System.out.println(message.getSender() + ": " + message.getData().toString());
-        setMessageOut(message);
+        if (selectedFile != null) {
+            Message fileMessage = MessageFactory.createFileMessage(selectedFile, model.getUsername(), receiver);
+            System.out.println(fileMessage.getSender() + ": sent a file named " + selectedFile.getName());
+            setMessageOut(fileMessage);
+            selectedFile = null;
+        } else {
+            Message stringMessage = MessageFactory.createStringMessage(toSend, model.getUsername(), receiver);
+            System.out.println(stringMessage.getSender() + ": " + stringMessage.getData().toString());
+            setMessageOut(stringMessage);
+            model.addSentMessage(stringMessage);
+
+        }
     }
 
     public void displayNewMessage(Message m){
@@ -132,5 +174,10 @@ public class Services implements IService{
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void setFile(File selectedFile) {
+        this.selectedFile = selectedFile;
     }
 }

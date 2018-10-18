@@ -1,6 +1,8 @@
 package com.CEYMChat;
 
 import com.CEYMChat.Services.IReader;
+
+import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
@@ -30,6 +32,7 @@ public class Reader implements Runnable, IReader {
     public void run() {
         while (true) {
             try {
+                Thread.sleep(1000);
                 inMessage = (Message) inputStream.readObject();
                 MessageType msgType = MessageType.valueOf(inMessage.getType().getSimpleName());
                 switch (msgType) {
@@ -44,12 +47,20 @@ public class Reader implements Runnable, IReader {
                         model.sendMessage(inMessage, inMessage.getReceiver());
                         break;
                     }
+                    case File: {
+                        System.out.println("Message type: File");
+                        System.out.println("Filename: " + ((File)inMessage.getData()).getName());
+                        model.sendMessage(inMessage, inMessage.getReceiver());
+                    }
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
     }
 }
+
