@@ -1,7 +1,11 @@
 package com.CEYMChat.Services;
 
+<<<<<<< HEAD
 import com.CEYMChat.Model.*;
+=======
+>>>>>>> c744fa3f9fa53e1cb5b976661f9d5ec75041f702
 import com.CEYMChat.Model.User;
+import com.CEYMChat.Model.ServerModel;
 
 import java.io.IOException;
 import java.net.ServerSocket;

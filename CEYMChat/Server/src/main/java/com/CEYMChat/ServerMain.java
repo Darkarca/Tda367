@@ -1,7 +1,11 @@
 package com.CEYMChat;
 
 import com.CEYMChat.Services.SocketHandler;
+<<<<<<< HEAD
 import com.CEYMChat.Model.*;
+=======
+import com.CEYMChat.Model.ServerModel;
+>>>>>>> c744fa3f9fa53e1cb5b976661f9d5ec75041f702
 
 public class ServerMain{
 

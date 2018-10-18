@@ -3,7 +3,11 @@ package com.CEYMChat.Services;
 import com.CEYMChat.Command;
 import com.CEYMChat.Message;
 import com.CEYMChat.MessageType;
+<<<<<<< HEAD
 import com.CEYMChat.Model.*;
+=======
+import com.CEYMChat.Model.ServerModel;
+>>>>>>> c744fa3f9fa53e1cb5b976661f9d5ec75041f702
 import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
