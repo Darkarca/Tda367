@@ -75,9 +75,15 @@ public class ClientController implements IController {
         service.connectToS();
         service.login(CommandName.SET_USER, userName);
         model.setUsername(userName);
-        loadSavedMessages();
+        File received = new File("Client/messages/received.csv");
+        File sent = new File("Client/messages/received.csv");
+        if(received.exists() && sent.exists()) {
+            loadSavedMessages();
+        }
         mainPane.getScene().getWindow().setOnCloseRequest(Event -> {
             try {
+                saveMessages();
+
                 service.sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.DISCONNECT, userName), userName));
             } catch (IOException e) {
                 e.printStackTrace();
@@ -170,15 +176,17 @@ public class ClientController implements IController {
         }
     }
 
-
         public void saveMessages () {
+            System.out.println("Messages saved.");
             model.saveReceivedMessages();
             model.saveSendMessages();
         }
         public void loadSavedMessages () throws IOException {
-            ArrayList<String> savedMessages = model.loadSavedSentMessage();
-            for (int i = 1; i <= savedMessages.size(); i = i + 2) {
-                messageWindow.appendText("Me: " + savedMessages.get(i) + "\n");
+            ArrayList<String> savedSentMessages = model.loadSavedSentMessage();
+            ArrayList<String> savedReceivedMessages = model.loadSavedReceivedMessage();
+            for (int i = 0; i < savedSentMessages.size(); i = i + 2) {
+                messageWindow.appendText(savedSentMessages.get(i) +": " + savedSentMessages.get(i+1)+ "\n");
+                messageWindow.appendText(savedReceivedMessages.get(i) +": " + savedReceivedMessages.get(i+1)+ "\n");
             }
 
         }
