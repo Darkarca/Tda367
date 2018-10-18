@@ -39,6 +39,8 @@ public class Reader implements Runnable, IReader {
                         break;
                     }
                     case String: {
+                        System.out.println("Message type: String");
+                        model.displayMessage(inMessage);
                         model.sendMessage(inMessage, inMessage.getReceiver());
                         break;
                     }
