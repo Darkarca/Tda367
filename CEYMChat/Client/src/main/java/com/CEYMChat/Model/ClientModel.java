@@ -1,10 +1,5 @@
 package com.CEYMChat.Model;
 import com.CEYMChat.*;
-import com.CEYMChat.Services.IService;
-import com.CEYMChat.Services.Services;
-
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 /**

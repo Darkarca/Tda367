@@ -1,7 +1,6 @@
 package com.CEYMChat;
 
 import javafx.fxml.FXML;
-import javafx.scene.input.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 public interface IController {
