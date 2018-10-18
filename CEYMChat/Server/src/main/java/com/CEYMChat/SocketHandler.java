@@ -13,7 +13,7 @@ public class SocketHandler{
         this.serverSocket = model.getServerSocket();
     }
 
-    public synchronized void run() {
+    public synchronized void start() {
         new Thread(() -> {
             while (true) {
                 try {

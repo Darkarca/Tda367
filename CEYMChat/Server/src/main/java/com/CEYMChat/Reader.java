@@ -30,7 +30,7 @@ public class Reader implements Runnable, IReader {
     public void run() {
         while (true) {
             try {
-                this.wait(10000);
+                Thread.sleep(1000);
                 inMessage = (Message) inputStream.readObject();
                 MessageType msgType = MessageType.valueOf(inMessage.getType().getSimpleName());
                 switch (msgType) {
