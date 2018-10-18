@@ -2,6 +2,8 @@ package com.CEYMChat;
 
 import org.junit.Test;
 
+import java.io.IOException;
+import java.net.ServerSocket;
 import java.net.Socket;
 
 import static org.junit.Assert.*;
@@ -24,17 +26,17 @@ public class ServerModelTest {
     }
 
     @Test
-    public void displayMessage() {
-    }
-
-    @Test
-    public void sendMessage() {
-       /* User testUser = new User();
-        testUser.startThreads(new Socket(), testModel);
+    public void sendMessage() throws IOException {
+       User testUser = new User();
+        SocketHandler testHandler = new SocketHandler(testModel);
+        testHandler.start();
+        Socket socket = new Socket("localhost", 9000);
+        testUser.initThreads(socket, testModel);
+        testUser.setUsername("testUser");
+        testModel.addUser(testUser);
         Message testMessage = MessageFactory.createStringMessage("Hello world!", "testUser", "testUser");
         testModel.sendMessage(testMessage,"testUser");
         assertEquals(testUser.getWriter().getOutMessage(),testMessage);
-        */
     }
 
     @Test

@@ -17,11 +17,9 @@ public class User {
     public String getUsername() {
         return username;
     }
-    public void startThreads(Socket socket, ServerModel model){
+    public void initThreads(Socket socket, ServerModel model){
         this.writer = new Writer(socket);
         this.reader = new Reader(model, socket);
-        Thread rThread = new Thread((Runnable) reader);
-        rThread.start();
     }
     public void sendMessage(Message m){
             writer.setOutMessage(m);
@@ -32,5 +30,9 @@ public class User {
 
     public IWriter getWriter() {
         return writer;
+    }
+    public void startThreads(){
+        Thread rThread = new Thread((Runnable) reader);
+        rThread.start();
     }
 }
