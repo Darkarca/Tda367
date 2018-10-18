@@ -29,18 +29,17 @@ public class ServerModelTest {
     }
 
     @Test
-    public void sendMessage() throws IOException {
+    public void sendMessage() throws IOException, InterruptedException {
         testModel  = new ServerModel();
-       User testUser = new User();
         SocketHandler testHandler = new SocketHandler(testModel);
-        testHandler.start();
         Socket socket = new Socket("localhost", 9000);
-        testUser.initThreads(socket, testModel);
-        testUser.setUsername("testUser");
-        testModel.addUser(testUser);
+        Thread.sleep(2000);
+        testHandler.start();
+        Thread.sleep(2000);
+        testModel.getUserList().get(0).setUsername("testUser");
         Message testMessage = MessageFactory.createStringMessage("Hello world!", "testUser", "testUser");
         testModel.sendMessage(testMessage,"testUser");
-        assertEquals(testUser.getWriter().getOutMessage(),testMessage);
+        assertEquals(testModel.getUserByUsername("testUser").getWriter().getOutMessage(),testMessage);
         testModel.getServerSocket().close();
     }
 
