@@ -1,42 +1,40 @@
 package com.CEYMChat;
 import com.CEYMChat.Model.ClientModel;
 import com.CEYMChat.Services.IService;
+import com.CEYMChat.Services.Services;
 import com.CEYMChat.View.FriendListItem;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.stage.Window;
+import javafx.stage.FileChooser;
 import javafx.util.Duration;
+
+import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 /**
  * Controller for the Client.
  */
-
 public class ClientController implements IController{
-    ClientModel model = ClientModel.getModelInstance();
+    ClientModel model;
+    public IService service;
+    @FXML
+    AnchorPane loginPane;
+    @FXML
+    AnchorPane mainPane;
+    @FXML
+    StackPane programStackPane;
     @FXML
     private Button sendButton;
-    @FXML
-    private TextField loginTextField;
-    @FXML
-    private Button loginButton;
     @FXML
     private Button connectButton;
     @FXML
@@ -49,74 +47,48 @@ public class ClientController implements IController{
     private TextField sendToTextField;
     @FXML
     private FlowPane friendsFlowPane;
-    private Parent login;
-    private Stage loginStage;
+    @FXML
+    private TextField loginTextField;
+    @FXML
+    private Button loginButton;
     private ArrayList<FriendListItem> friendItemList = new ArrayList<>();
     String currentChatName;
-    public IService connection;
-    String user;
+    String userName;
     /**
      * Captures input from user and send makes use of model to send message
      */
+    @FXML
+    public void onClick(){
+        this.userName = loginTextField.getText();
+        login();
+        mainPane.toFront();
+        toggleChatBox();
+    }
 
-    public ClientController(){
-        loginStage = new Stage();
+    public void appInit(){
+        model = new ClientModel();
+        service =new Services(model,this);
     }
-    public ClientModel getModel() {
-        return model;
+
+    public void login(){
+        appInit();
+        service.connectToS();
+        service.login(CommandName.SET_USER, userName);
+        model.setUsername(userName);
     }
-    Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
-        @Override
-        public void handle(ActionEvent event) {
-            refreshFriendList();//this method only works first time at the moment. some bug.
-            System.out.println("this is called every 2 seconds on UI thread");
-        }
-    }));
+
     public void sendString() throws IOException {
         String toSend = chatBox.getText();
         chatBox.setText("");
-        model.getConnectionService().sendStringMessage(toSend, currentChatName);   //Change sendToTextField.getText() to click on friend
+        service.sendStringMessage(toSend, currentChatName);   //Change sendToTextField.getText() to click on friend
         messageWindow.appendText("Me: "+toSend+"\n");
-    }
-
-    public void connectToServer(MouseEvent mouseEvent) {
-        try{
-            URL url = Paths.get("Client/src/main/resources/View/login.fxml").toUri().toURL();
-            login = FXMLLoader.load(url);
-            loginStage.initModality(Modality.APPLICATION_MODAL);
-            loginStage.initStyle(StageStyle.UTILITY);
-            loginStage.setTitle("Login");
-            loginStage.setScene(new Scene(login));
-            loginStage.show();
-            model.connectToServer(this);
-            connection = model.getConnectionService();
-            toggleChatBox();
-            connectButton.setDisable(true);
-            fiveSecondsWonder.setCycleCount(Timeline.INDEFINITE);
-            fiveSecondsWonder.play();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    public void login(){
-        try {
-            model.getConnectionService().sendCommandMessage(CommandName.SET_USER, loginTextField.getText());
-            model.setUsername(loginTextField.getText());
-            Window window = loginButton.getScene().getWindow();
-            window.hide();
-            user = loginTextField.getText();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     @FXML
     public void refreshFriendList(){
         try {
             System.out.println("Send refreshFriendList command");
-            model.getConnectionService().sendCommandMessage(CommandName.REFRESH_FRIENDLIST,user);
+            service.sendCommandMessage(CommandName.REFRESH_FRIENDLIST,userName);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -137,7 +109,7 @@ public class ClientController implements IController{
 
     public void requestChat(){
         try {
-            model.getConnectionService().sendCommandMessage(CommandName.REQUEST_CHAT,"user2");
+            service.sendCommandMessage(CommandName.REQUEST_CHAT,"user2");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -167,6 +139,21 @@ public class ClientController implements IController{
         for (FriendListItem friendListItem : friendItemList) {
             friendsFlowPane.getChildren().add(friendListItem.getFriendPane());
         }
+    }
+
+
+    public void chooseFile() {
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Choose a file to send with your message");
+        fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text Files", "*.txt"),
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"),
+                new FileChooser.ExtensionFilter("Audio Files", "*.wav", "*.mp3", "*.aac"),
+                new FileChooser.ExtensionFilter("All Files", "*.*"));
+        File selectedFile = fc.showOpenDialog(chatBox.getScene().getWindow());
+        if (selectedFile != null) {
+            service.setFile(selectedFile);
+        }
+
     }
 
 }
