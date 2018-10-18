@@ -28,6 +28,10 @@ public class Writer implements IWriter {
         writeToStream();
     }
 
+    public Socket getSocket(){
+        return this.socket;
+    }
+
     public void writeToStream(){
         try {
             outputStream.writeObject(outMessage);

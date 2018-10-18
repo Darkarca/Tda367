@@ -87,5 +87,16 @@ public class  ServerModel {
         }
         return null;
     }
+
+    public void sendFile(String s, Message m) throws IOException {
+        sendMessage(m,m.getReceiver());
+        File toSend = new File(s);
+        byte[] sentFile = new byte[(int)toSend.length()];
+        FileInputStream fileInput = new FileInputStream(toSend);
+        BufferedInputStream bufferedInput = new BufferedInputStream(fileInput);
+        bufferedInput.read(sentFile,0,sentFile.length);
+        OutputStream outputStream = getUserByUsername(m.getReceiver()).getWriter().getSocket().getOutputStream();
+        outputStream.write(sentFile,0,sentFile.length);
+    }
 }
 

@@ -11,7 +11,6 @@ import java.net.Socket;
 public class User {
     private String username;
     private IReader reader;
-
     private IWriter writer;
 
     public void setUsername(String username) {

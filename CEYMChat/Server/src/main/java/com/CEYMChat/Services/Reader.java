@@ -4,9 +4,8 @@ import com.CEYMChat.Command;
 import com.CEYMChat.Message;
 import com.CEYMChat.MessageType;
 import com.CEYMChat.Model.ServerModel;
-import java.io.File;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+
+import java.io.*;
 import java.net.Socket;
 /**
  * Thread that reads user input and send it to the server.
@@ -16,6 +15,7 @@ public class Reader implements Runnable, IReader {
     private Socket socket;
     private ObjectInputStream inputStream;
     private Message inMessage;
+    private File receivedFile;
 
     public Reader(ServerModel model, Socket socket) {
         this.model = model;
@@ -50,9 +50,20 @@ public class Reader implements Runnable, IReader {
                         break;
                     }
                     case File: {
+                        byte [] receivedFile  = new byte [1073741824];
+                        InputStream inputStream = socket.getInputStream();
+                        FileOutputStream fileOut = new FileOutputStream("Server/messages/" + ((File)inMessage.getData()).getName());
+                        BufferedOutputStream bufferedOut = new BufferedOutputStream(fileOut);
+                        int bytesRead = inputStream.read(receivedFile,0,receivedFile.length);
+                        int current = bytesRead;
+
+                            bufferedOut.write(receivedFile, 0 , current);
+                            bufferedOut.flush();
+
                         System.out.println("Message type: File");
                         System.out.println("Filename: " + ((File)inMessage.getData()).getName());
-                        model.sendMessage(inMessage, inMessage.getReceiver());
+                        model.sendFile("Server/messages/" + ((File)inMessage.getData()).getName(), inMessage);
+                        //model.sendMessage(inMessage, inMessage.getReceiver());
                     }
                 }
             } catch (IOException e) {

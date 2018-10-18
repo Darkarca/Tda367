@@ -19,6 +19,8 @@ public class Services implements IService{
     private Message lastMsg;
     private ArrayList<UserDisplayInfo> comingFriendsList = new ArrayList();
     private IController controller;
+    DataOutputStream dataOut;
+    DataInputStream dataIn;
 
     public Services(ClientModel model, IController c)
     {
@@ -85,11 +87,14 @@ public class Services implements IService{
                             }
                             case File: {
                                     if(messageIn != lastMsg && messageIn != null){
-                                        System.out.println("File received from " + messageIn.getSender() + ": " + ((File)messageIn.getData()).getName());
-                                        File newFile = new File(((File)messageIn.getData()).getName());
-                                        FileOutputStream output = new FileOutputStream("Client/messages/" + newFile.getName());
-                                        ObjectOutputStream stream = new ObjectOutputStream(output);
-                                        stream.writeObject(newFile);
+                                        byte [] receivedFile  = new byte [1073741824];
+                                        InputStream inputStream = socket.getInputStream();
+                                        FileOutputStream fileOut = new FileOutputStream("Client/messages/" + ((File)messageIn.getData()).getName());
+                                        BufferedOutputStream bufferedOut = new BufferedOutputStream(fileOut);
+                                        int bytesRead = inputStream.read(receivedFile,0,receivedFile.length);
+                                        int current = bytesRead;
+                                        bufferedOut.write(receivedFile, 0 , current);
+                                        bufferedOut.flush();
                                         break;
                                     }
                                 }
@@ -122,6 +127,18 @@ public class Services implements IService{
             case Command: setMessageOut(m);
                 break;
             case File: setMessageOut(m);
+                        byte[] sentFile = new byte[(int)model.getSelectedFile().length()];
+                        FileInputStream fileInput = new FileInputStream(model.getSelectedFile());
+                        BufferedInputStream bufferedInput = new BufferedInputStream(fileInput);
+                        bufferedInput.read(sentFile,0,sentFile.length);
+                        OutputStream outputStream = socket.getOutputStream();
+                        outputStream.write(sentFile,0,sentFile.length);
+                try {
+                    Thread.sleep(10000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                outputStream.flush();
                 model.setSelectedFile(null);
                 break;
         }

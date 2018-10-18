@@ -2,7 +2,7 @@ package com.CEYMChat.Services;
 
 import org.junit.Test;
 
-public class ConnectionTest {
+public class ServicesTest {
 
     @Test
     public void start() {
