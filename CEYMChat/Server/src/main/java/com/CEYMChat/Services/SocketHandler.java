@@ -1,6 +1,6 @@
 package com.CEYMChat.Services;
 
-import com.CEYMChat.Model.ServerModel;
+import com.CEYMChat.Model.*;
 import com.CEYMChat.Model.User;
 
 import java.io.IOException;

@@ -1,12 +1,9 @@
 package com.CEYMChat;
+
 import com.CEYMChat.Model.ClientModel;
 import com.CEYMChat.Services.IService;
 import com.CEYMChat.Services.Services;
 import com.CEYMChat.View.FriendListItem;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -16,8 +13,6 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
-import javafx.util.Duration;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -71,11 +66,17 @@ public class ClientController implements IController{
     }
 
     public void login(){
-
         appInit();
         service.connectToS();
         service.login(CommandName.SET_USER, userName);
         model.setUsername(userName);
+        mainPane.getScene().getWindow().setOnCloseRequest(Event -> {
+            try {
+                service.sendCommandMessage(CommandName.DISCONNECT, userName);
+            } catch (IOException e) {
+                e.printStackTrace();
+
+            }});
     }
 
     public void sendString() throws IOException {
