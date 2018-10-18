@@ -8,7 +8,7 @@ public class ServerMain{
     private ServerModel model = new ServerModel();
     private SocketHandler socketHandler = new SocketHandler(model);
     public void startHandler(){
-        socketHandler.start();
+        socketHandler.run();
     }
     public static void main(String[] args) throws Exception {
         System.out.println("Server running");

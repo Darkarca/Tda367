@@ -13,16 +13,18 @@ public class SocketHandler{
         this.serverSocket = model.getServerSocket();
     }
 
-    public synchronized void start() {
+    public synchronized void run() {
         new Thread(() -> {
             while (true) {
                 try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                try {
                     System.out.println("Looking for socket");
                     this.connectSocket();
-                    this.wait(10000);
                 } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
