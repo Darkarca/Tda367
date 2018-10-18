@@ -1,6 +1,10 @@
-package com.CEYMChat;
+package com.CEYMChat.Model;
 
+import com.CEYMChat.Command;
+import com.CEYMChat.Message;
+import com.CEYMChat.MessageFactory;
 import com.CEYMChat.Model.User;
+import com.CEYMChat.UserDisplayInfo;
 
 import java.io.*;
 import java.net.ServerSocket;

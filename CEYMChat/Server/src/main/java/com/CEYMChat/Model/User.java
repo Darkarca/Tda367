@@ -1,7 +1,6 @@
 package com.CEYMChat.Model;
 
 import com.CEYMChat.Message;
-import com.CEYMChat.ServerModel;
 import com.CEYMChat.Services.IReader;
 import com.CEYMChat.Services.IWriter;
 import com.CEYMChat.Services.Reader;
