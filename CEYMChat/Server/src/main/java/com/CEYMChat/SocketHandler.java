@@ -33,8 +33,10 @@ public class SocketHandler{
 
     public synchronized void connectSocket() throws IOException {
         Socket s = serverSocket.accept();
+        System.out.println(s.isConnected());
         User newUser = new User();
-        newUser.initIO(s, model);
         model.addUser(newUser);
+        newUser.initIO(s, model);
+
     }
 }
