@@ -60,8 +60,8 @@ public class ClientController implements IController{
         login();
         mainPane.toFront();
         toggleChatBox();
-        fiveSecondsWonder.setCycleCount(Timeline.INDEFINITE);
-        fiveSecondsWonder.play();
+        timer.setCycleCount(Timeline.INDEFINITE);
+        timer.play();
     }
 
     public void appInit(){
@@ -70,12 +70,13 @@ public class ClientController implements IController{
     }
 
     public void login(){
+        
         appInit();
         service.connectToS();
         service.login(CommandName.SET_USER, userName);
         model.setUsername(userName);
     }
-    Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
+    Timeline timer = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
             refreshFriendList();//this method only works first time at the moment. some bug.
