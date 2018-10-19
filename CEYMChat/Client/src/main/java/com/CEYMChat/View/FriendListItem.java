@@ -63,9 +63,9 @@ public class FriendListItem {
 
     public void setFriend() {
         if(uInfo.getIsFriend()) {
-            friendIndicator.setImage(new Image("notFriend.png"));
-        }else if(!uInfo.getIsFriend()){
             friendIndicator.setImage(new Image("friend.png"));
+        }else if(!uInfo.getIsFriend()){
+            friendIndicator.setImage(new Image("notFriend.png"));
         }
     }
 }

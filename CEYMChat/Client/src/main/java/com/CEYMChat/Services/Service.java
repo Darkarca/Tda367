@@ -86,6 +86,7 @@ public class Service implements IService{
                                     lastMsg = messageIn;
                                     displayNewMessage(messageIn);
                                 }
+                                break;
                             }
                             case File: {
                                     if(messageIn != lastMsg && messageIn != null){
