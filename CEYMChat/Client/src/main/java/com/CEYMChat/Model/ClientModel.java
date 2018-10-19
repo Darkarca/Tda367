@@ -18,13 +18,6 @@ public class ClientModel {
     private ArrayList<Message> receivedMessages = new ArrayList<>();
     private ArrayList<Message> sentMessages = new ArrayList<>();
     private File selectedFile;
-
-    public Socket getSocket() {
-        return socket;
-    }
-    public void setSocket(Socket socket) {
-        this.socket = socket;
-    }
     public void setUserList(ArrayList<UserDisplayInfo> userList) {
         this.userList = userList;
     }

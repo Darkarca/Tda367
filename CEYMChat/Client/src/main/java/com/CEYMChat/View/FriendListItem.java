@@ -57,4 +57,15 @@ public class FriendListItem {
         this.uInfo = uInfo;
     }
 
+    public UserDisplayInfo getUInfo(){
+        return uInfo;
+    }
+
+    public void setFriend() {
+        if(uInfo.getIsFriend()) {
+            friendIndicator.setImage(new Image("notFriend.png"));
+        }else if(!uInfo.getIsFriend()){
+            friendIndicator.setImage(new Image("friend.png"));
+        }
+    }
 }

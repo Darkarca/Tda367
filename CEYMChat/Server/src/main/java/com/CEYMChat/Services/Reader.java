@@ -69,6 +69,12 @@ public class Reader implements Runnable, IReader {
                         model.sendMessage(inMessage, inMessage.getReceiver());
                         break;
                     }
+                    case ArrayList: {
+                        System.out.println("Updating friendslist for: " + inMessage.getSender());
+                        model.getUserByUsername(inMessage.getSender()).syncFriends(inMessage);
+                        model.performCommand(new Command(CommandName.REFRESH_FRIENDLIST,inMessage.getSender()),inMessage.getSender());
+                        break;
+                    }
                     case File: {
                         byte [] receivedFile  = new byte [1073741824];
                         InputStream inputStream = socket.getInputStream();
@@ -84,6 +90,7 @@ public class Reader implements Runnable, IReader {
                         System.out.println("Filename: " + ((File)inMessage.getData()).getName());
                         model.sendFile("Server/messages/" + ((File)inMessage.getData()).getName(), inMessage);
                         //model.sendMessage(inMessage, inMessage.getReceiver());
+                        break;
                     }
                 }
             } catch (IOException e) {

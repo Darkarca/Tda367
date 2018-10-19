@@ -138,6 +138,10 @@ public class Service implements IService{
                 break;
             case Command: setMessageOut(m);
                 break;
+            case ArrayList: {
+                setMessageOut(m);
+                break;
+            }
             case File: setMessageOut(m);
                         byte[] sentFile = new byte[(int)model.getSelectedFile().length()];
                         FileInputStream fileInput = new FileInputStream(model.getSelectedFile());
@@ -170,6 +174,7 @@ public class Service implements IService{
 
     public void displayFriendList() throws IOException {
         controller.showOnlineFriends(model.getUserList());
+        //controller.
         System.out.println("New list of friends displayed");
     }
 
