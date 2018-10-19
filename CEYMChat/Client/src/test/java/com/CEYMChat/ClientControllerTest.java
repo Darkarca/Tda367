@@ -27,6 +27,7 @@ public class ClientControllerTest {
 
     @Test
     public void displayNewMessage() {
+
     }
 
     @Test
@@ -35,6 +36,7 @@ public class ClientControllerTest {
 
     @Test
     public void createFriendListItemList() {
+
     }
 
     @Test
