@@ -29,28 +29,28 @@ public class  ServerModel {
      */
     public void performCommand(Command c, String sender) {
         switch(c.getCommandName()){
-            case SET_USER: {
+            case SET_USER: {                // Sets the username of a user so that it can be identified uniformly between the client and server
                 userList.get(userList.size()-1).setUsername(c.getCommandData());
                 System.out.println("Command performed: 'setUser'" + c.getCommandData());
                 updateUserLists();
                 break;
             }
-            case REFRESH_FRIENDLIST:
+            case REFRESH_FRIENDLIST:        // Sends an update active userlist to all active clients, also merges the list with each users individual friendslist
                 User u = getUserByUsername(sender);
                 u.syncFriends(sendUserInfo());
-                u.sendInfo(u.checkFriends(sendUserInfo()));
+                u.sendMessage(u.checkFriends(sendUserInfo()));
                 System.out.println("Command performed: 'refreshFriendList '" + c.getCommandData());
                 break;
-            case DISCONNECT:
+            case DISCONNECT:                // Disconnects the user by removing it from the Servers userlist so that the server won't point to a null outputStream
                 User user = getUserByUsername(sender);
                 userList.remove(user);
                 updateUserLists();
                 break;
-            case REGISTER:
+            case REGISTER:                  // Not yet supported, supposed to create a new user in a Serverlocal file containing information about all users
                 break;
-            case ADD_FRIEND:
+            case ADD_FRIEND:                // Not yet supported, supposed to add a specific user to a specific users individual friendlist in a Serverlocal file containing information about all users
                 break;
-            case REQUEST_CHAT:
+            case REQUEST_CHAT:              // Not yet supported, supposed to initiate a chat between two (or more) users
         }
     }
 
@@ -80,7 +80,7 @@ public class  ServerModel {
     public void updateUserLists(){
         for (User u:userList) {
             //u.syncFriends(sendUserInfo());
-            u.sendInfo(u.checkFriends(sendUserInfo()));
+            u.sendMessage(u.checkFriends(sendUserInfo()));
         }
         System.out.println("Userlists updated!");
     }

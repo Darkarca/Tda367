@@ -5,7 +5,7 @@ import com.CEYMChat.Model.ServerModel;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-
+                /** SocketHandler is responsible for continuously allowing new users to connect to the Server**/
 public class SocketHandler{
     private ServerSocket serverSocket;
     private ServerModel model;
@@ -19,7 +19,7 @@ public class SocketHandler{
         new Thread(() -> {
             while (true) {
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(1000);             // Sleeps for a short ammount of time before connecting a new user
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -39,6 +39,6 @@ public class SocketHandler{
         User newUser = new User();
         model.addUser(newUser);
         newUser.initIO(s, model);
-        IReader reader = new Reader(model, s);
+        IReader reader = new Reader(model, s);          // Constructor for reader starts the Thread
     }
 }

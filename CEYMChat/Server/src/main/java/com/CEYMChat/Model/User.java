@@ -42,7 +42,7 @@ public class User {
         }
     }
 
-    public Message checkFriends(Message m) {
+    public Message checkFriends(Message m) {    // Merges this users friends with another list of users so that they can both be sent to a client
         List<UserDisplayInfo> listToSend = ((List<UserDisplayInfo>) (m.getData()));
         for (UserDisplayInfo friends : friends) {
             Boolean add = true;
@@ -58,11 +58,7 @@ public class User {
         }
         return MessageFactory.createFriendInfoList(listToSend, m.getSender(), m.getReceiver());
     }
-    public void sendMessage(Message m) {
-        writer.setOutMessage(m);
-    }
-
-    public void sendInfo(Message m) {
+    public void sendMessage(Message m) {    // Writes a message to the outputStream so that the client can read it from their inputStream
         writer.setOutMessage(m);
     }
 
