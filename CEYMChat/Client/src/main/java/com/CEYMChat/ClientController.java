@@ -108,6 +108,24 @@ public class ClientController implements IController {
     public void appInit() {
         model = new ClientModel();
         service = new Service(model, this);
+        mainPane.getScene().getWindow().setOnCloseRequest(Event -> {
+            try {
+                saveMessages();
+                service.sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.DISCONNECT, userName), userName));
+                service.stop();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        File received = new File("Client/messages/received.csv");
+        File sent = new File("Client/messages/received.csv");
+        if(received.exists() && sent.exists()) {
+            try {
+                loadSavedMessages();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void login() throws IOException {
@@ -118,20 +136,7 @@ public class ClientController implements IController {
         model.setUsername(userName);
 
 
-        File received = new File("Client/messages/received.csv");
-        File sent = new File("Client/messages/received.csv");
-        if(received.exists() && sent.exists()) {
-            loadSavedMessages();
-        }
-        mainPane.getScene().getWindow().setOnCloseRequest(Event -> {
-            try {
-                saveMessages();
-                service.sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.DISCONNECT, userName), userName));
-                service.stop();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+
     }
 
     public void sendString()throws IOException {
