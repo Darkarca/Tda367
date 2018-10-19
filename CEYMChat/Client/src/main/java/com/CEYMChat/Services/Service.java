@@ -42,6 +42,8 @@ public class Service implements IService{
             socket = new Socket("localhost", 9000);
             System.out.println("Thread started");
             messageOutStream = new ObjectOutputStream(socket.getOutputStream());
+            messageInStream = new ObjectInputStream(socket.getInputStream());
+
             System.out.println("Connection started");
             read();
 
@@ -55,7 +57,6 @@ public class Service implements IService{
         new Thread(() -> {
             try {
                 while (running) {
-                    messageInStream = new ObjectInputStream(socket.getInputStream());
                     messageIn = (Message) messageInStream.readObject();
                     if (messageIn != null) {
                         MessageType msgType = MessageType.valueOf(messageIn.getType().getSimpleName());
@@ -138,6 +139,10 @@ public class Service implements IService{
                 break;
             case Command: setMessageOut(m);
                 break;
+            case ArrayList: {
+                setMessageOut(m);
+                break;
+            }
             case File: setMessageOut(m);
                         byte[] sentFile = new byte[(int)model.getSelectedFile().length()];
                         FileInputStream fileInput = new FileInputStream(model.getSelectedFile());
@@ -170,6 +175,7 @@ public class Service implements IService{
 
     public void displayFriendList() throws IOException {
         controller.showOnlineFriends(model.getUserList());
+        //controller.
         System.out.println("New list of friends displayed");
     }
 

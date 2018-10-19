@@ -16,6 +16,7 @@ import javafx.stage.FileChooser;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -57,10 +58,12 @@ public class ClientController implements IController {
     private Button fileSend;
     @FXML
     private Text fileName;
+    private List<UserDisplayInfo> friendList = new ArrayList<>();
 
 
 
     /** FXML methods**/
+
 
     /**
      * Captures input from user and send makes use of model to send message
@@ -73,24 +76,7 @@ public class ClientController implements IController {
         toggleChatBox();
     }
 
-    @FXML
-    public void refreshFriendList() {
-        try {
-            System.out.println("Send refreshFriendList command");
-            service.sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.REFRESH_FRIENDLIST, userName), userName));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
-    @FXML
-    public void toggleChatBox () {
-        if (chatBox.isEditable())
-            chatBox.setEditable(false);
-        else {
-            chatBox.setEditable(true);
-        }
-    }
 
 
     /********************************/
@@ -146,6 +132,57 @@ public class ClientController implements IController {
         messageWindow.appendText("Me: "+toSend+"\n");
     }
 
+    @FXML
+    public void refreshFriendList() {
+        try {
+            System.out.println("Send refreshFriendList command");
+            service.sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.REFRESH_FRIENDLIST, userName), userName));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void toggleChatBox () {
+        if (chatBox.isEditable())
+            chatBox.setEditable(false);
+        else {
+            chatBox.setEditable(true);
+        }
+    }
+
+        public void checkFriends() throws IOException {
+        System.out.println("Checking friends");
+        int changes = 0;
+            for (UserDisplayInfo friendInfo : friendList) {
+                if (!friendInfo.getIsFriend()) {
+                    if(friendList.size()>0 && friendList.contains(friendInfo)) {
+                        friendList.remove(friendInfo);
+                        changes++;
+                    }
+                }
+            }
+            for (FriendListItem fL : friendItemList) {
+                Boolean add = true;
+                if (fL.getUInfo().getIsFriend()) {
+                    for (UserDisplayInfo friendInfo : friendList) {
+                        if (friendInfo.getUsername() == fL.getUInfo().getUsername()) {
+                            add = false;
+                        }
+                    }
+                    if (add) {
+                        friendList.add(fL.getUInfo());
+                        changes++;
+                    }
+                }
+            }
+            if (changes != 0) {
+                System.out.println("Sending list to server");
+                service.sendMessage(MessageFactory.createFriendInfoList(friendList, userName, userName));
+                return;
+            }
+        }
+
     public void requestChat(){
                             try {
                                 service.sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.REQUEST_CHAT, "user2"), userName));
@@ -167,11 +204,19 @@ public class ClientController implements IController {
                 if (!uInfo.getUsername().equals(model.getUsername())) {
                     FriendListItem userItem = new FriendListItem(uInfo.getUsername());
                     userItem.setUInfo(uInfo);
+                    if(uInfo.getIsFriend()){
+                        userItem.setFriend();
+                    }
                     friendItemList.add(userItem);
                     userItem.getFriendPane().setOnMouseClicked(Event -> {
                         currentChatName = userItem.getFriendUsername().getText();
                         currentChat.setText("Currently chatting with: " + currentChatName);
                         System.out.println("CurrentChat set to: " + currentChatName);
+                        try {
+                            checkFriends();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     });
                 }
             }
