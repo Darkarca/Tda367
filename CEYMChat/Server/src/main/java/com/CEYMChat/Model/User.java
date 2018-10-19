@@ -26,7 +26,7 @@ public class User {
         this.writer = new Writer(socket);
     }
 
-    public void syncFriends(Message m){
+    public void syncFriends(Message m){     // Syncs the users list of registered friends with a list received by its corresponding client
         List<UserDisplayInfo> receivedList = ((List<UserDisplayInfo>)(m.getData()));
         Boolean add = true;
         for(UserDisplayInfo uInfo : receivedList) {

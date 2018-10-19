@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 /**
  * Factory for creating Message(s) of predefined types.
+ * To make sure messages only hold certain types of data
  */
 public class MessageFactory {
 

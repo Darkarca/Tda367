@@ -13,6 +13,7 @@ public class Message<T> implements Serializable {
     private String receiver;
     private T data;
 
+    /** Potential constructors **/
     protected Message(T data, String sender, String receiver){
         this.data = data;
         this.sender = sender;
@@ -26,6 +27,7 @@ public class Message<T> implements Serializable {
     protected Message(T data){
         this.data = data;
     }
+    /** Getters and setters **/
     public String getSender() {
         return sender;
     }

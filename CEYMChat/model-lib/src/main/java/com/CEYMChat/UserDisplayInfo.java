@@ -2,7 +2,7 @@ package com.CEYMChat;
 
 import javafx.scene.image.ImageView;
 import java.io.Serializable;
-
+// A class containing information about a single user
 public class UserDisplayInfo implements Serializable {
 
     private String username;

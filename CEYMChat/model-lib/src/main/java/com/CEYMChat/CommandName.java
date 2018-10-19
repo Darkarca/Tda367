@@ -1,6 +1,6 @@
 package com.CEYMChat;
 
-public enum CommandName {
+public enum CommandName {   // A list of possible commands recognized by the Server
     SET_USER,
     REFRESH_FRIENDLIST,
     DISCONNECT,

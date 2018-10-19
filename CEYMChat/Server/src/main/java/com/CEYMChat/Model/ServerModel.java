@@ -56,7 +56,6 @@ public class  ServerModel {
 
     /**
      * Sends user information via UserDisplayInfo objects to the recipient.
-     * @return
      */
     public Message sendUserInfo(){
         List<UserDisplayInfo> list = new ArrayList<UserDisplayInfo>();
@@ -121,9 +120,9 @@ public class  ServerModel {
     }
 
     /**
-     * Sends a file.
+     * Sends a file to a clients device
      * @param s Name of file.
-     * @param m Message to send.
+     * @param m Message to send alongside the File containing things such as filesize, sender and receiver
      * @throws IOException
      */
     public void sendFile(String s, Message m) throws IOException {
