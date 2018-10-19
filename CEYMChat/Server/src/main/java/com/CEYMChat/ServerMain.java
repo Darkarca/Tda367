@@ -14,4 +14,7 @@ public class ServerMain{
         ServerMain main = new ServerMain();
         main.startHandler();
     }
+    public SocketHandler getHandler(){
+        return socketHandler;
+    }
 }

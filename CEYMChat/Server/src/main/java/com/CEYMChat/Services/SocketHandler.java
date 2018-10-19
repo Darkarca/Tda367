@@ -9,7 +9,6 @@ import java.net.Socket;
 public class SocketHandler{
     private ServerSocket serverSocket;
     private ServerModel model;
-
     public SocketHandler(ServerModel model){
         this.model = model;
         this.serverSocket = model.getServerSocket();

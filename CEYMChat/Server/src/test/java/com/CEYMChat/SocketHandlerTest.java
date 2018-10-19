@@ -14,7 +14,7 @@ public class SocketHandlerTest {
 
     @Test
     public void start() throws IOException {
-         testModel = new ServerModel();
+        testModel = new ServerModel();
          testHandler = new SocketHandler(testModel);
         int expected = java.lang.Thread.activeCount()+1;
         testHandler.start();
