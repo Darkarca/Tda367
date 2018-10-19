@@ -3,9 +3,7 @@ package com.CEYMChat;
 import com.CEYMChat.Services.SocketHandler;
 import com.CEYMChat.Model.ServerModel;
 
-
 public class ServerMain{
-
     private ServerModel model = new ServerModel();
     private SocketHandler socketHandler = new SocketHandler(model);
     public void startHandler(){

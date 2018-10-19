@@ -1,7 +1,6 @@
 package com.CEYMChat.Services;
 
 import com.CEYMChat.Message;
-import com.CEYMChat.Services.IWriter;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;

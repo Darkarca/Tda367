@@ -2,17 +2,12 @@ package com.CEYMChat.Services;
 
 import com.CEYMChat.ClientController;
 import com.CEYMChat.IController;
-import com.CEYMChat.Model.ClientModel;
-import org.junit.Assert;
 import org.junit.Test;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-
-import static org.junit.Assert.*;
 
 public class ServiceTest {
 

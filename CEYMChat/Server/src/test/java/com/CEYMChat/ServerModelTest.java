@@ -4,7 +4,6 @@ import com.CEYMChat.Model.ServerModel;
 import com.CEYMChat.Model.User;
 import com.CEYMChat.Services.SocketHandler;
 import org.junit.Test;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.Socket;

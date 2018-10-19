@@ -2,11 +2,8 @@ package com.CEYMChat.Model;
 
 import com.CEYMChat.Message;
 import com.CEYMChat.MessageFactory;
-import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import javax.validation.constraints.AssertTrue;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;

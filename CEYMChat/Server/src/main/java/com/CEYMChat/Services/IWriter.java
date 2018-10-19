@@ -1,7 +1,6 @@
 package com.CEYMChat.Services;
 
 import com.CEYMChat.Message;
-
 import java.net.Socket;
 
 public interface IWriter {

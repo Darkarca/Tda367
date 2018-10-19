@@ -210,7 +210,6 @@ public class ClientController implements IController {
                         }
 
     public void displayNewMessage (String s){
-
         System.out.println("displayNewMessage has been called with string: " + s);
         receiveWindow.appendText(s+"\n");
         sendWindow.appendText("\n");
