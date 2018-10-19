@@ -82,4 +82,7 @@ public class User {
             }
         }
     }
+    public List<UserDisplayInfo> getFriends(){
+        return friends;
+    }
 }
