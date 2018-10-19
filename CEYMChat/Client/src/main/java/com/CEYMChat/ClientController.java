@@ -284,7 +284,9 @@ public class ClientController implements IController {
             ArrayList<String> savedReceivedMessages = model.loadSavedMessages("Client/messages/received.csv");
             for (int i = 0; i < savedSentMessages.size(); i = i + 2) {
                 sendWindow.appendText(savedSentMessages.get(i) +": " + savedSentMessages.get(i+1)+ "\n");
+                receiveWindow.appendText("\n");
                 receiveWindow.appendText(savedReceivedMessages.get(i) +": " + savedReceivedMessages.get(i+1)+ "\n");
+                sendWindow.appendText("\n");
             }
         }
 }
