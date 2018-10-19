@@ -20,7 +20,7 @@ public class ClientModel {
     private File selectedFile;
 
 
-    /** Getters and setters **/
+    /** Getters, setters and adders**/
 
     public Socket getSocket() {
         return socket;
@@ -53,7 +53,7 @@ public class ClientModel {
         this.selectedFile = selectedFile;
     }
 
-
+    /** Saves all sent and received messages into a file **/
     public void saveArrayListToFile(ArrayList<Message> list, String filename) throws IOException {
         FileWriter writer = new FileWriter(filename);
 
@@ -68,6 +68,7 @@ public class ClientModel {
         writer.close();
     }
 
+    /** Calls saveArrayListToFile to save all Received messages **/
     public void saveReceivedMessages(String filename) {
         try {
             saveArrayListToFile(receivedMessages, filename);
@@ -75,7 +76,7 @@ public class ClientModel {
             e.printStackTrace();
         }
     }
-
+    /** Calls saveArrayListToFile to save all sent messages **/
     public void saveSendMessages(String filename) {
         try {
             saveArrayListToFile(sentMessages, filename);
@@ -83,7 +84,7 @@ public class ClientModel {
             e.printStackTrace();
         }
     }
-
+    /** Loads messages that were saved during the last session **/
     public ArrayList<String> loadSavedMessages(String filename) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(filename));
         String line = "";

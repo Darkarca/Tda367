@@ -33,9 +33,6 @@ public class Service implements IService{
         return messageInStream;
     }
 
-    /**
-     * Enum to decide what type of command is received.
-     */
     @Override
     public void connectToS(){
         try {
@@ -52,6 +49,10 @@ public class Service implements IService{
         }
     }
 
+            /** Starts a new thread constantly reading a inputstream from the Server.
+             * While it is running it continuously checks the stream,
+             * checks what type of message it has received and processes it appropriately
+             **/
     @Override
     public void read() {
         new Thread(() -> {
@@ -61,8 +62,8 @@ public class Service implements IService{
                     if (messageIn != null) {
                         MessageType msgType = MessageType.valueOf(messageIn.getType().getSimpleName());
                         switch (msgType) {
-                            case ArrayList: {
-                                if (messageIn != lastMsg && messageIn != null) {
+                            case ArrayList: {   // A message with an ArrayList contains information about currently active users
+                                if (messageIn != lastMsg && messageIn != null) {    // The Thread updates the models state
                                     comingFriendsList = (ArrayList) messageIn.getData();
                                     model.setUserList(comingFriendsList);
                                     System.out.println("A new list of friends has arrived");
@@ -79,17 +80,17 @@ public class Service implements IService{
                                 }
                                 break;
                             }
-                            case String: {
+                            case String: {  // A message with a String is a text message to be shown in the GUI
                                 if (messageIn != lastMsg && messageIn != null) {
-                                    model.addReceivedMessage(messageIn);
+                                    model.addReceivedMessage(messageIn);    // The Thread updates the models state
                                     System.out.println("Message received from " + messageIn.getSender() + ": " + messageIn.getData());
                                     lastMsg = messageIn;
                                     displayNewMessage(messageIn);
                                 }
                                 break;
                             }
-                            case File: {
-                                    if(messageIn != lastMsg && messageIn != null){
+                            case File: {    // A message with a File is intended to be saved to the users local device
+                                    if(messageIn != lastMsg && messageIn != null){  // The File within the message is corrupt so the Thread saves the File using a seperate stream of bytes
                                         byte [] receivedFile  = new byte [1073741824];
                                         InputStream inputStream = socket.getInputStream();
                                         FileOutputStream fileOut = new FileOutputStream("Client/messages/" + ((File)messageIn.getData()).getName());
@@ -114,13 +115,13 @@ public class Service implements IService{
         }).start();
     }
 
-    public void setMessageOut(Message m) throws IOException {
+    public void setMessageOut(Message m) throws IOException {   // Writes a message to the outStream so the Server or whatever else it is connected to can read from it
         System.out.println("MessageOutputStream: " + messageOutStream);
         messageOutStream.writeObject(m);
         System.out.println("Message sent: " + m.getData());
 
     }
-    public void stop(){
+    public void stop(){ // Safely stops all connections and stops the Thread
         running = false;
         try {
             messageOutStream = null;
@@ -132,7 +133,7 @@ public class Service implements IService{
         }
     }
 
-    public void sendMessage(Message m) throws IOException {
+    public void sendMessage(Message m) throws IOException { // Decides how messages are sent to the Server
         MessageType msgType = MessageType.valueOf(m.getType().getSimpleName());
         switch(msgType){
             case String: setMessageOut(m);

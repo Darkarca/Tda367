@@ -7,12 +7,11 @@ import java.io.IOException;
  */
 public interface IService {
 
-    void setMessageOut(Message m) throws IOException;
-    void read();
-    void connectToS();
-    void login(CommandName sCommand, String userName);
-    void sendMessage(Message stringMessage) throws IOException;
-
-    void stop();
+    void setMessageOut(Message m) throws IOException;   // Handles how the service sends a message to the Server
+    void read();        // Handles how the service starts a Thread to read notifications, messages etc from the Server
+    void connectToS(); // Handles how the service connects the IService to the ServerSocket
+    void login(CommandName sCommand, String userName);  // Handles how the service sends a command to the server letting it know a connection has been made so the Server can identify the user
+    void sendMessage(Message stringMessage) throws IOException; // Handles how the service sends a message to the Server
+    void stop();    // Handles how the service shuts off the connection between the service and the Server safely
 }
 
