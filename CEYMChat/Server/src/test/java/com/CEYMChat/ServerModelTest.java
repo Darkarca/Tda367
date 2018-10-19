@@ -4,6 +4,8 @@ import com.CEYMChat.Model.ServerModel;
 import com.CEYMChat.Model.User;
 import com.CEYMChat.Services.SocketHandler;
 import org.junit.Test;
+
+import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
 import static org.junit.Assert.*;
@@ -80,4 +82,18 @@ public class ServerModelTest {
         testModel.getServerSocket().close();
     }
 
+    @Test
+    public void sendFile() throws IOException, InterruptedException {
+        testModel = new ServerModel();
+        SocketHandler testHandler = new SocketHandler(testModel);
+        Socket socket = new Socket("localhost", 9000);
+        Thread.sleep(2000);
+        testHandler.start();
+        Thread.sleep(2000);
+        testModel.getUserList().get(0).setUsername("testUser");
+        File toSend = new File("pom.xml");
+        testModel.sendFile(toSend.getName(),MessageFactory.createFileMessage(toSend,testModel.getUserList().get(0).getUsername(),testModel.getUserList().get(0).getUsername()));
+        assertEquals(toSend,testModel.getUserList().get(0).getWriter().getOutMessage().getData());
+        testModel.getServerSocket().close();
+    }
 }
