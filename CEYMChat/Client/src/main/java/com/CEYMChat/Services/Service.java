@@ -164,7 +164,7 @@ public class Service implements IService{
     }
 
     public void displayNewMessage(Message m){       // Informs the controller that it should display a new message in the GUI
-        controller.displayNewMessage((String)m.getData());
+        controller.displayNewMessage(m);
     }
 
     public void displayFriendList() throws IOException {    // Informs the controller that it should update

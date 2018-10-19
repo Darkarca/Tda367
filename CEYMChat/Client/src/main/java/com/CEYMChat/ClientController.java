@@ -177,9 +177,9 @@ public class ClientController implements IController {
                             }
                         }
 
-    public void displayNewMessage (String s){                       // Updates the GUI with text from a new message
-        System.out.println("displayNewMessage has been called with string: " + s);
-        receiveWindow.appendText(s+"\n");
+    public void displayNewMessage (Message m){                       // Updates the GUI with text from a new message
+        System.out.println("displayNewMessage has been called with string: " + m.getData());
+        receiveWindow.appendText(m.getSender() + ": " + m.getData()+"\n");
         sendWindow.appendText("\n");
 
     }
