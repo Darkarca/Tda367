@@ -19,6 +19,9 @@ public class ClientModel {
     private ArrayList<Message> sentMessages = new ArrayList<>();
     private File selectedFile;
 
+
+    /** Getters and setters **/
+
     public Socket getSocket() {
         return socket;
     }
@@ -43,6 +46,12 @@ public class ClientModel {
     public void addSentMessage (Message m){
         sentMessages.add(m);
     }
+    public File getSelectedFile() {
+        return selectedFile;
+    }
+    public void setSelectedFile(File selectedFile) {
+        this.selectedFile = selectedFile;
+    }
 
 
     public void saveArrayListToFile(ArrayList<Message> list, String filename) throws IOException {
@@ -58,6 +67,7 @@ public class ClientModel {
         }
         writer.close();
     }
+
     public void saveReceivedMessages() {
         try {
             saveArrayListToFile(receivedMessages, "Client/messages/received.csv");
@@ -72,14 +82,6 @@ public class ClientModel {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public File getSelectedFile() {
-        return selectedFile;
-    }
-
-    public void setSelectedFile(File selectedFile) {
-        this.selectedFile = selectedFile;
     }
 
     public ArrayList<String> loadSavedSentMessage() throws IOException {

@@ -16,12 +16,19 @@ import javafx.stage.FileChooser;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+
+
 /**
  * Controller for the Client.
  */
 public class ClientController implements IController {
-    ClientModel model;
-    public IService service;
+
+    private ClientModel model;
+    private IService service;
+    private ArrayList<FriendListItem> friendItemList = new ArrayList<>();
+    private String currentChatName;
+    private String userName;
+
     @FXML
     AnchorPane loginPane;
     @FXML
@@ -50,9 +57,10 @@ public class ClientController implements IController {
     private Button fileSend;
     @FXML
     private Text fileName;
-    private ArrayList<FriendListItem> friendItemList = new ArrayList<>();
-    String currentChatName;
-    String userName;
+
+
+
+    /** FXML methods**/
 
     /**
      * Captures input from user and send makes use of model to send message
@@ -65,16 +73,51 @@ public class ClientController implements IController {
         toggleChatBox();
     }
 
+    @FXML
+    public void refreshFriendList() {
+        try {
+            System.out.println("Send refreshFriendList command");
+            service.sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.REFRESH_FRIENDLIST, userName), userName));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void toggleChatBox () {
+        if (chatBox.isEditable())
+            chatBox.setEditable(false);
+        else {
+            chatBox.setEditable(true);
+        }
+    }
+
+
+    /********************************/
+
+
+    /**Getters and Setters **/
+
+    public IService getService() {
+        return service;
+    }
+
+    /********************************/
+
+
     public void appInit() {
         model = new ClientModel();
         service = new Service(model, this);
     }
 
     public void login() throws IOException {
+
         appInit();
         service.connectToS();
         service.login(CommandName.SET_USER, userName);
         model.setUsername(userName);
+
+
         File received = new File("Client/messages/received.csv");
         File sent = new File("Client/messages/received.csv");
         if(received.exists() && sent.exists()) {
@@ -90,32 +133,13 @@ public class ClientController implements IController {
             }
         });
     }
+
     public void sendString()throws IOException {
         String toSend = chatBox.getText();
         chatBox.setText("");
         service.sendMessage(MessageFactory.createStringMessage(toSend, userName, currentChatName));
         messageWindow.appendText("Me: "+toSend+"\n");
     }
-
-    @FXML
-    public void refreshFriendList() {
-        try {
-            System.out.println("Send refreshFriendList command");
-            service.sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.REFRESH_FRIENDLIST, userName), userName));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-        @FXML
-        public void toggleChatBox () {
-            if (chatBox.isEditable())
-                chatBox.setEditable(false);
-            else {
-                chatBox.setEditable(true);
-            }
-        }
-
 
     public void requestChat(){
                             try {
@@ -124,13 +148,14 @@ public class ClientController implements IController {
                                 e.printStackTrace();
                             }
                         }
-        public void displayNewMessage (String s){
+
+    public void displayNewMessage (String s){
             System.out.println("displayNewMessage has been called with string: " + s);
             messageWindow.appendText(s + "\n");
 
         }
 
-        public void createFriendListItemList (ArrayList < UserDisplayInfo > friendList) throws IOException {
+    public void createFriendListItemList (ArrayList < UserDisplayInfo > friendList) throws IOException {
             System.out.println("New list of friendItems created");
             for (UserDisplayInfo uInfo : friendList) {
                 System.out.println("User added: " + uInfo.getUsername());
@@ -147,7 +172,7 @@ public class ClientController implements IController {
             }
         }
 
-        public void showOnlineFriends (ArrayList < UserDisplayInfo > friendList) throws IOException {
+    public void showOnlineFriends (ArrayList < UserDisplayInfo > friendList) throws IOException {
             friendItemList.clear();
             System.out.println("FriendListItems are being created");
             createFriendListItemList(friendList);
@@ -170,6 +195,7 @@ public class ClientController implements IController {
             fileName.setText("Current file: " + model.getSelectedFile().getName());
         }
     }
+
     public void sendFile() throws IOException {
         if (model.getSelectedFile() != null) {
             service.sendMessage(MessageFactory.createFileMessage(model.getSelectedFile(), userName, currentChatName));
@@ -177,12 +203,13 @@ public class ClientController implements IController {
         }
     }
 
-        public void saveMessages () {
+    public void saveMessages () {
             System.out.println("Messages saved.");
             model.saveReceivedMessages();
             model.saveSendMessages();
         }
-        public void loadSavedMessages () throws IOException {
+
+    public void loadSavedMessages () throws IOException {
             ArrayList<String> savedSentMessages = model.loadSavedSentMessage();
             ArrayList<String> savedReceivedMessages = model.loadSavedReceivedMessage();
             for (int i = 0; i < savedSentMessages.size(); i = i + 2) {
@@ -191,5 +218,5 @@ public class ClientController implements IController {
             }
         }
 
-    }
+}
 
