@@ -36,7 +36,7 @@ public class FriendListItem {
         this.friendUsername.setText(username);
     }
 
-    public void toggleFriend(){
+    public void toggleFriend(){     // Is called when you press the friendIndicator image
         uInfo.setIsFriend(!uInfo.getIsFriend());
         if(uInfo.getIsFriend()) {
             friendIndicator.setImage(new Image("friend.png"));
@@ -45,6 +45,15 @@ public class FriendListItem {
         }
     }
 
+    public void setFriend() {       // correctly sets the image of friendIndicator incase of a forced change in the isFriend variable
+        if(uInfo.getIsFriend()) {
+            friendIndicator.setImage(new Image("friend.png"));
+        }else if(!uInfo.getIsFriend()){
+            friendIndicator.setImage(new Image("notFriend.png"));
+        }
+    }
+
+    /** Getters and setters **/
     public Label getFriendUsername() {
         return friendUsername;
     }
@@ -59,13 +68,5 @@ public class FriendListItem {
 
     public UserDisplayInfo getUInfo(){
         return uInfo;
-    }
-
-    public void setFriend() {
-        if(uInfo.getIsFriend()) {
-            friendIndicator.setImage(new Image("friend.png"));
-        }else if(!uInfo.getIsFriend()){
-            friendIndicator.setImage(new Image("notFriend.png"));
-        }
     }
 }

@@ -136,52 +136,43 @@ public class Service implements IService{
     public void sendMessage(Message m) throws IOException { // Decides how messages are sent to the Server
         MessageType msgType = MessageType.valueOf(m.getType().getSimpleName());
         switch(msgType){
-            case String: setMessageOut(m);
-                model.addSentMessage(m);
+            case String: setMessageOut(m);  // Messages containing Strings are sent to the outputStream
+                model.addSentMessage(m);    // Changes the models state so that the message can be saved to the device later
                 break;
-            case Command: setMessageOut(m);
+            case Command: setMessageOut(m); // Commands are simply sent to the Server to let the Server perform said command
                 break;
             case ArrayList: {
-                setMessageOut(m);
+                setMessageOut(m);           // Sends an updated list of friends to the Server so that the Servers state can be updated
                 break;
             }
-            case File: setMessageOut(m);
-                        byte[] sentFile = new byte[(int)model.getSelectedFile().length()];
-                        FileInputStream fileInput = new FileInputStream(model.getSelectedFile());
+            case File: setMessageOut(m);    // Messages containing a File will be sent via the message object but arrives corrupt at the Server
+                        byte[] sentFile = new byte[(int)model.getSelectedFile().length()];  // Sending a File is instead done by sending an array of bytes
+                        FileInputStream fileInput = new FileInputStream(model.getSelectedFile());   // To a separate inputStream
                         BufferedInputStream bufferedInput = new BufferedInputStream(fileInput);
                         bufferedInput.read(sentFile,0,sentFile.length);
                         OutputStream outputStream = socket.getOutputStream();
                         outputStream.write(sentFile,0,sentFile.length);
                 try {
-                    Thread.sleep(10000);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 outputStream.flush();
-                model.setSelectedFile(null);
+                model.setSelectedFile(null);            // Removes the currently chosen File in order to prevent duplicate Files to be sent
                 break;
         }
     }
 
-    public void displayNewMessage(Message m){
-        String toDisplay;
-        toDisplay = processMessage(m);
-        controller.displayNewMessage(toDisplay);
+    public void displayNewMessage(Message m){       // Informs the controller that it should display a new message in the GUI
+        controller.displayNewMessage((String)m.getData());
     }
 
-    public String processMessage(Message m) {
-        String processedMessage;
-        processedMessage = m.getSender() + ": " + m.getData().toString();
-        return processedMessage;
-    }
-
-    public void displayFriendList() throws IOException {
-        controller.showOnlineFriends(model.getUserList());
-        //controller.
+    public void displayFriendList() throws IOException {    // Informs the controller that it should update
+        controller.showOnlineFriends(model.getUserList());  // the friendsList so that the Client correctly shows active users
         System.out.println("New list of friends displayed");
     }
 
-    public void login(CommandName sCommand, String userName){
+    public void login(CommandName sCommand, String userName){      // Informs the Server that a user has connected so that the Server can identify the user
         try {
             sendMessage(MessageFactory.createCommandMessage(new Command(sCommand,userName),userName));
         } catch (IOException e) {

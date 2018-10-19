@@ -8,13 +8,10 @@ public interface IController {
     @FXML
     public void login() throws IOException;
     @FXML
-    public void refreshFriendList();
-    @FXML
-    public void toggleChatBox();
-    public void displayNewMessage(String s);
-    public void requestChat();
-    public void createFriendListItemList (ArrayList<UserDisplayInfo> friendList) throws IOException;
-    public void showOnlineFriends (ArrayList<UserDisplayInfo> userDisplayInfos) throws IOException;
+    public void refreshFriendList();                // Handles how the controller asks the Server for an updated list of active users
+    public void displayNewMessage(String s);        // Handles how the controller displays a new message in the GUI
+    public void createFriendListItemList (ArrayList<UserDisplayInfo> friendList) throws IOException;    // Handles how the controller creates a new userlist for the GUI
+    public void showOnlineFriends (ArrayList<UserDisplayInfo> userDisplayInfos) throws IOException;     // Handles how the controller displays a new userlist in the GUI
 
 
 }
