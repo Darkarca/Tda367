@@ -32,7 +32,7 @@ public class ClientModelTest {
 
     }
     @Test
-    public void saveArrayListToFile() {
+    public void saveMessagesToFile() {
         try {
             model.saveArrayListToFile(testList,"messages/test.csv");
         } catch (IOException e) {
