@@ -68,24 +68,24 @@ public class ClientModel {
         writer.close();
     }
 
-    public void saveReceivedMessages() {
+    public void saveReceivedMessages(String filename) {
         try {
-            saveArrayListToFile(receivedMessages, "Client/messages/received.csv");
+            saveArrayListToFile(receivedMessages, filename);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void saveSendMessages() {
+    public void saveSendMessages(String filename) {
         try {
-            saveArrayListToFile(sentMessages, "Client/messages/sent.csv");
+            saveArrayListToFile(sentMessages, filename);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public ArrayList<String> loadSavedSentMessage() throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader("Client/messages/sent.csv"));
+    public ArrayList<String> loadSavedMessages(String filename) throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader(filename));
         String line = "";
         String cvsSplitBy = ",";
         String [] savedMessages = {};
@@ -100,19 +100,4 @@ public class ClientModel {
 
     }
 
-    public ArrayList<String> loadSavedReceivedMessage() throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader("Client/messages/received.csv"));
-        String line = "";
-        String cvsSplitBy = ",";
-        String [] savedMessages = {};
-        while((line = br.readLine())!=null){
-            savedMessages = line.split(cvsSplitBy);
-
-        }
-        ArrayList<String> savedMessagesList = new ArrayList<String>(Arrays.asList(savedMessages));
-        System.out.println(savedMessagesList.toString());
-        return savedMessagesList;
-
-
-    }
 }

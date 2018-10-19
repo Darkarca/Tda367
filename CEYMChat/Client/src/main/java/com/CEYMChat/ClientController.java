@@ -210,13 +210,13 @@ public class ClientController implements IController {
 
     public void saveMessages () {
             System.out.println("Messages saved.");
-            model.saveReceivedMessages();
-            model.saveSendMessages();
+            model.saveReceivedMessages("Client/messages/received.csv");
+            model.saveSendMessages("Client/messages/sent.csv");
         }
 
     public void loadSavedMessages () throws IOException {
-            ArrayList<String> savedSentMessages = model.loadSavedSentMessage();
-            ArrayList<String> savedReceivedMessages = model.loadSavedReceivedMessage();
+            ArrayList<String> savedSentMessages = model.loadSavedMessages("Client/messages/sent.csv");
+            ArrayList<String> savedReceivedMessages = model.loadSavedMessages("Client/messages/received.csv");
             for (int i = 0; i < savedSentMessages.size(); i = i + 2) {
                 messageWindow.appendText(savedSentMessages.get(i) +": " + savedSentMessages.get(i+1)+ "\n");
                 messageWindow.appendText(savedReceivedMessages.get(i) +": " + savedReceivedMessages.get(i+1)+ "\n");
