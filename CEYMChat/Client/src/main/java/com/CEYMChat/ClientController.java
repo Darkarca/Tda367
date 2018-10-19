@@ -12,6 +12,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import java.io.File;
@@ -99,7 +101,10 @@ public class ClientController implements IController {
         service = new Service(model, this);
         receiveWindow.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
         sendWindow.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
-        receiveWindow.setBorder(null);
+        receiveWindow.setStyle("-fx-focus-color: transparent; -fx-text-box-border: transparent;");
+        receiveWindow.setFont(Font.font("Verdana", FontWeight.MEDIUM,14 ));
+        sendWindow.setFont(Font.font("Verdana", FontWeight.MEDIUM,14 ));
+        sendWindow.setStyle("-fx-focus-color: transparent; -fx-text-box-border: transparent;");
         receiveWindow.setMouseTransparent(true);
         sendWindow.setMouseTransparent(true);
 
