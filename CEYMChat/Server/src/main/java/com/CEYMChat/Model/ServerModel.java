@@ -22,6 +22,11 @@ public class  ServerModel {
         }
     }
 
+    /**
+     *Performs a received command,
+     * @param c Command to be executed
+     * @param sender User that sent the command
+     */
     public void performCommand(Command c, String sender) {
         switch(c.getCommandName()){
             case SET_USER: {
@@ -49,6 +54,10 @@ public class  ServerModel {
         }
     }
 
+    /**
+     * Sends user information via UserDisplayInfo objects to the recipient.
+     * @return
+     */
     public Message sendUserInfo(){
         List<UserDisplayInfo> list = new ArrayList<UserDisplayInfo>();
         for (User u:userList) {
@@ -76,13 +85,32 @@ public class  ServerModel {
         }
         System.out.println("Userlists updated!");
     }
+
+    /**
+     * Displays a message on the server console.
+     * @param m Message to be displayed.
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public void displayMessage(Message m) throws IOException, ClassNotFoundException {
         System.out.println(m.getSender() + ": " + m.getData());
     }
+
+    /**
+     * Sends a message to the correct receiver.
+     * @param m Message to be sent.
+     * @param receiver Name of receiver.
+     */
     public void sendMessage(Message m, String receiver){
         User u = getUserByUsername(receiver);
         u.sendMessage(m);
     }
+
+    /**
+     * Retrieves a User by searching for a username String.
+     * @param username Username to search for
+     * @return
+     */
     public User getUserByUsername(String username){
         for (User u : userList){
             if (u.getUsername().equals(username)){
@@ -92,6 +120,12 @@ public class  ServerModel {
         return null;
     }
 
+    /**
+     * Sends a file.
+     * @param s Name of file.
+     * @param m Message to send.
+     * @throws IOException
+     */
     public void sendFile(String s, Message m) throws IOException {
         sendMessage(m,m.getReceiver());
         File toSend = new File(s);
