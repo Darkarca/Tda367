@@ -25,7 +25,7 @@ public class ServerModelTest {
         assertEquals("ArrayList",testModel.getUserList().get(0).getWriter().getOutMessage().getType().getSimpleName());
         testModel.performCommand(new Command(CommandName.DISCONNECT, testModel.getUserList().get(0).getUsername()),testModel.getUserList().get(0).getUsername());
         assertEquals(0,testModel.getUserList().size());
-        //socket.close();
+        socket.close();
         testModel.getServerSocket().close();
     }
 

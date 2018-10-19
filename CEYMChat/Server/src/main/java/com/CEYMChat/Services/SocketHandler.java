@@ -40,6 +40,6 @@ public class SocketHandler{
         User newUser = new User();
         model.addUser(newUser);
         newUser.initIO(s, model);
-
+        IReader reader = new Reader(model, s);
     }
 }

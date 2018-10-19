@@ -1,6 +1,7 @@
 package com.CEYMChat.Services;
 
 import com.CEYMChat.Command;
+import com.CEYMChat.CommandName;
 import com.CEYMChat.Message;
 import com.CEYMChat.MessageType;
 import com.CEYMChat.Model.ServerModel;
@@ -32,7 +33,10 @@ public class Reader implements Runnable, IReader {
                 System.out.println("No socket found");
             }
         }
+        Thread rThread = new Thread((Runnable) this);
+        rThread.start();
     }
+
     public void stop(){
         try {
             running = false;
@@ -54,6 +58,9 @@ public class Reader implements Runnable, IReader {
                     case Command: {
                         System.out.println("Message type: Command");
                         model.performCommand((Command) inMessage.getData(), inMessage.getSender());
+                        if(((Command)inMessage.getData()).getCommandName() == CommandName.DISCONNECT){
+                            this.stop();
+                        }
                         break;
                     }
                     case String: {
