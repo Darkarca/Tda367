@@ -42,7 +42,6 @@ public class Service implements IService{
             socket = new Socket("localhost", 9000);
             System.out.println("Thread started");
             messageOutStream = new ObjectOutputStream(socket.getOutputStream());
-            messageInStream = new ObjectInputStream(socket.getInputStream());
             System.out.println("Connection started");
             read();
 
@@ -56,6 +55,7 @@ public class Service implements IService{
         new Thread(() -> {
             try {
                 while (running) {
+                    messageInStream = new ObjectInputStream(socket.getInputStream());
                     messageIn = (Message) messageInStream.readObject();
                     if (messageIn != null) {
                         MessageType msgType = MessageType.valueOf(messageIn.getType().getSimpleName());
