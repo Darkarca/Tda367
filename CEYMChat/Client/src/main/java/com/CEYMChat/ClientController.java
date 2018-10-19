@@ -5,6 +5,7 @@ import com.CEYMChat.Services.IService;
 import com.CEYMChat.Services.Service;
 import com.CEYMChat.View.FriendListItem;
 import javafx.fxml.FXML;
+import javafx.geometry.NodeOrientation;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -45,7 +46,9 @@ public class ClientController implements IController {
     @FXML
     private Text currentChat;
     @FXML
-    private TextArea messageWindow;
+    private TextArea sendWindow;
+    @FXML
+    private TextArea receiveWindow;
     @FXML
     private TextField sendToTextField;
     @FXML
@@ -94,6 +97,14 @@ public class ClientController implements IController {
     public void appInit() {
         model = new ClientModel();
         service = new Service(model, this);
+        receiveWindow.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+        sendWindow.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+        receiveWindow.setBorder(null);
+        receiveWindow.setMouseTransparent(true);
+        sendWindow.setMouseTransparent(true);
+
+
+
         mainPane.getScene().getWindow().setOnCloseRequest(Event -> {
             try {
                 saveMessages();
@@ -129,7 +140,9 @@ public class ClientController implements IController {
         String toSend = chatBox.getText();
         chatBox.setText("");
         service.sendMessage(MessageFactory.createStringMessage(toSend, userName, currentChatName));
-        messageWindow.appendText("Me: "+toSend+"\n");
+        sendWindow.appendText("Me: "+toSend+"\n");
+        receiveWindow.appendText("\n");
+
     }
 
     @FXML
@@ -192,10 +205,12 @@ public class ClientController implements IController {
                         }
 
     public void displayNewMessage (String s){
-            System.out.println("displayNewMessage has been called with string: " + s);
-            messageWindow.appendText(s + "\n");
 
-        }
+        System.out.println("displayNewMessage has been called with string: " + s);
+        receiveWindow.appendText(s+"\n");
+        sendWindow.appendText("\n");
+
+    }
 
     public void createFriendListItemList (ArrayList < UserDisplayInfo > friendList) throws IOException {
             System.out.println("New list of friendItems created");
@@ -263,10 +278,9 @@ public class ClientController implements IController {
             ArrayList<String> savedSentMessages = model.loadSavedMessages("Client/messages/sent.csv");
             ArrayList<String> savedReceivedMessages = model.loadSavedMessages("Client/messages/received.csv");
             for (int i = 0; i < savedSentMessages.size(); i = i + 2) {
-                messageWindow.appendText(savedSentMessages.get(i) +": " + savedSentMessages.get(i+1)+ "\n");
-                messageWindow.appendText(savedReceivedMessages.get(i) +": " + savedReceivedMessages.get(i+1)+ "\n");
+                sendWindow.appendText(savedSentMessages.get(i) +": " + savedSentMessages.get(i+1)+ "\n");
+                receiveWindow.appendText(savedReceivedMessages.get(i) +": " + savedReceivedMessages.get(i+1)+ "\n");
             }
         }
-
 }
 
