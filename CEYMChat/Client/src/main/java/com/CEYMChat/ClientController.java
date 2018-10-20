@@ -4,11 +4,13 @@ import com.CEYMChat.Model.ClientModel;
 import com.CEYMChat.Services.IService;
 import com.CEYMChat.Services.Service;
 import com.CEYMChat.View.FriendListItem;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.NodeOrientation;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
@@ -61,6 +63,7 @@ public class ClientController implements IController {
     @FXML
     private Text fileName;
     private List<UserDisplayInfo> friendList = new ArrayList<>();
+    private List<FriendListItem> blockedFriends = new ArrayList<>();
     /** FXML methods**/
     /**
      * Captures input from user and send makes use of model to send message
@@ -195,29 +198,60 @@ public class ClientController implements IController {
                         userItem.setFriend();
                     }
                     friendItemList.add(userItem);
-                    userItem.getFriendPane().setOnMouseClicked(Event -> {
-                        currentChatName = userItem.getFriendUsername().getText();
-                        currentChat.setText("Currently chatting with: " + currentChatName);
-                        System.out.println("CurrentChat set to: " + currentChatName);
-                        try {
-                            checkFriends();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    });
+                    initFriendListItem(userItem);
                 }
             }
         }
 
-    public void showOnlineFriends (ArrayList < UserDisplayInfo > friendList) throws IOException {       // Updates the GUI with the new userList
+    public void showOnlineFriends (ArrayList <UserDisplayInfo> friendList) throws IOException {       // Updates the GUI with the new userList
             friendItemList.clear();
             System.out.println("FriendListItems are being created");
             createFriendListItemList(friendList);
             friendsFlowPane.getChildren().clear();
             for (FriendListItem friendListItem : friendItemList) {
-                friendsFlowPane.getChildren().add(friendListItem.getFriendPane());
+                if(!isBlocked(friendListItem)) {
+                    friendsFlowPane.getChildren().add(friendListItem.getFriendPane());
+                }
+            }
+    }
+    public boolean isBlocked(FriendListItem friendListItem){
+        for(FriendListItem b:blockedFriends){
+            if(b.getFriendUsername().getText().equals(friendListItem.getFriendUsername().getText())){
+                return true;
             }
         }
+        return false;
+    }
+
+    public void initFriendListItem(FriendListItem item){
+        item.getFriendPane().setOnMouseClicked(Event -> {
+            currentChatName = item.getFriendUsername().getText();
+            currentChat.setText("Currently chatting with: " + currentChatName);
+            System.out.println("CurrentChat set to: " + currentChatName);
+            try {
+                checkFriends();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        ContextMenu contextMenu = new ContextMenu();
+        MenuItem block = new MenuItem("Block");
+        contextMenu.getItems().add(block);
+        block.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                blockedFriends.add(item);
+                item.getFriendPane().setVisible(false);
+            }
+        });
+        item.getFriendPane().setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
+            @Override
+            public void handle(ContextMenuEvent event) {
+                contextMenu.show(item.getFriendPane(),event.getScreenX(),event.getScreenY());
+            }
+        });
+
+    }
 
     public void chooseFile() {                  // Opene a GUI window that lets the user choose a file, which is then cached as a File object so that it can be sent to the Server or another user later
         FileChooser fc = new FileChooser();
