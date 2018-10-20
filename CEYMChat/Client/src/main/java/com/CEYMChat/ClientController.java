@@ -281,11 +281,39 @@ public class ClientController implements IController {
     public void loadSavedMessages() throws IOException {   // Loads messages saved during previous sessions
         ArrayList<String> savedSentMessages = model.loadSavedMessages("Client/messages/sent.csv");
         ArrayList<String> savedReceivedMessages = model.loadSavedMessages("Client/messages/received.csv");
-        for (int i = 0; i < savedSentMessages.size(); i = i + 2) {
-            chatWindow.appendText(savedSentMessages.get(i) + ": " + savedSentMessages.get(i + 1) + "\n");
+        ArrayList<String> allSavedMessages = new ArrayList<>();
+        combineSavedLists(savedSentMessages,savedReceivedMessages,allSavedMessages);
+        for (int i = 0; i < allSavedMessages.size(); i=i+2) {
+            chatWindow.appendText(allSavedMessages.get(i) + ": " + allSavedMessages.get(i + 1) + "\n");
             chatWindow.appendText("\n");
-            chatWindow.appendText(savedReceivedMessages.get(i) + ": " + savedReceivedMessages.get(i + 1) + "\n");
-            chatWindow.appendText("\n");
+        }
+    }
+
+    public void combineSavedLists (ArrayList<String> savedSentMessages, ArrayList<String> savedReceivedMessages,ArrayList<String>allSavedMessages){
+        int min = Math.min(savedReceivedMessages.size(),savedSentMessages.size());
+        int index = 0;
+        int tmp = 0;
+
+        for (int i = 0; i < min/2; i++){
+            allSavedMessages.add(savedSentMessages.get(tmp));
+            allSavedMessages.add(savedSentMessages.get(tmp + 1));
+            allSavedMessages.add(savedReceivedMessages.get(tmp));
+            allSavedMessages.add(savedReceivedMessages.get(tmp + 1));
+            tmp = i + 2;
+            index = i;
+        }
+        index = index * 4;
+        if (min == savedSentMessages.size()){
+            addElementsAfterIndex(savedReceivedMessages,allSavedMessages,index);
+        }
+        else if (min == savedReceivedMessages.size()) {
+            addElementsAfterIndex(savedSentMessages,allSavedMessages,index);
+        }
+    }
+
+    public void addElementsAfterIndex(ArrayList<String> savedList,ArrayList<String>allSavedMessages,int index){
+        for (int i = index; i < savedList.size(); i++){
+            allSavedMessages.add(savedList.get(i));
         }
     }
 }
