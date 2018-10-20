@@ -29,11 +29,13 @@ import java.util.List;
  */
 public class ClientController implements IController {
 
+    private List<UserDisplayInfo> friendList = new ArrayList<>();
+    private ArrayList<FriendListItem> friendItemList = new ArrayList<>();
     private ClientModel model;
     private IService service;
-    private ArrayList<FriendListItem> friendItemList = new ArrayList<>();
     private String currentChatName;
     private String userName;
+
     @FXML
     AnchorPane loginPane;
     @FXML
@@ -64,9 +66,16 @@ public class ClientController implements IController {
     private Button fileSend;
     @FXML
     private Text fileName;
+<<<<<<< HEAD
     private List<UserDisplayInfo> friendList = new ArrayList<>();
     private List<FriendListItem> blockedFriends = new ArrayList<>();
+=======
+
+
+
+>>>>>>> voicemessaging
     /** FXML methods**/
+
     /**
      * Captures input from user and send makes use of model to send message
      */
@@ -76,15 +85,39 @@ public class ClientController implements IController {
         login();
         mainPane.toFront();
     }
+    @FXML
+    public void refreshFriendList() {               // Asks the Server for an updated active userlist, called when the Refresh button is pressed
+        try {
+            System.out.println("Send refreshFriendList command");
+            service.sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.REFRESH_FRIENDLIST, userName), userName));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     /********************************/
+<<<<<<< HEAD
     /**
      * Getters and Setters
      **/
+=======
+
+
+    /**Getters and Setters **/
+
+
+>>>>>>> voicemessaging
     public IService getService() {
         return service;
     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> voicemessaging
     /********************************/
+
     public void appInit() {     // Initiates the GUI
         model = new ClientModel();
         service = new Service(model, this);
@@ -134,6 +167,7 @@ public class ClientController implements IController {
 
     }
 
+<<<<<<< HEAD
     @FXML
     public void refreshFriendList() {               // Asks the Server for an updated active userlist, called when the Refresh button is pressed
         try {
@@ -144,6 +178,8 @@ public class ClientController implements IController {
         }
     }
 
+=======
+>>>>>>> voicemessaging
     public void checkFriends() throws IOException {             // Checks which users have been tagged as friends and notifies the Server if any new friends have been added
         System.out.println("Checking friends");
         int changes = 0;
@@ -191,6 +227,7 @@ public class ClientController implements IController {
 
     }
 
+<<<<<<< HEAD
     public void createFriendListItemList(ArrayList<UserDisplayInfo> friendList) throws IOException { // Creates a list of users for the GUI to show
         System.out.println("New list of friendItems created");
         for (UserDisplayInfo uInfo : friendList) {
@@ -200,6 +237,28 @@ public class ClientController implements IController {
                 userItem.setUInfo(uInfo);
                 if (uInfo.getIsFriend()) {
                     userItem.setFriend();
+=======
+    public void createFriendListItemList (ArrayList < UserDisplayInfo > friendList) throws IOException { // Creates a list of users for the GUI to show
+            System.out.println("New list of friendItems created");
+            for (UserDisplayInfo uInfo : friendList) {
+                System.out.println("User added: " + uInfo.getUsername());
+                if (!uInfo.getUsername().equals(model.getUsername())) {
+                    FriendListItem userItem = new FriendListItem(uInfo);
+                    if(uInfo.getIsFriend()){
+                        userItem.setFriend();
+                    }
+                    friendItemList.add(userItem);
+                    userItem.getFriendPane().setOnMouseClicked(Event -> {
+                        currentChatName = userItem.getFriendUsername().getText();
+                        currentChat.setText("Currently chatting with: " + currentChatName);
+                        System.out.println("CurrentChat set to: " + currentChatName);
+                        try {
+                            checkFriends();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
+>>>>>>> voicemessaging
                 }
                 friendItemList.add(userItem);
                 initFriendListItem(userItem);
@@ -294,6 +353,10 @@ public class ClientController implements IController {
             receiveWindow.appendText(savedReceivedMessages.get(i) + ": " + savedReceivedMessages.get(i + 1) + "\n");
             sendWindow.appendText("\n");
         }
+<<<<<<< HEAD
     }
+=======
+
+>>>>>>> voicemessaging
 }
 

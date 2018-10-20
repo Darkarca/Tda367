@@ -62,6 +62,7 @@ public class  ServerModel {
         for (User u:userList) {
             UserDisplayInfo u1 = new UserDisplayInfo();
             u1.setUsername(u.getUsername());
+            u1.setInetAddress(u.getSocket().getInetAddress());
             list.add(u1);
         }
         return MessageFactory.createFriendInfoList(list, null, null);

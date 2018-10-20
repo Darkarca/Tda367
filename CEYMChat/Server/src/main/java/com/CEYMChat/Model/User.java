@@ -5,6 +5,8 @@ import com.CEYMChat.MessageFactory;
 import com.CEYMChat.Services.IWriter;
 import com.CEYMChat.Services.Writer;
 import com.CEYMChat.UserDisplayInfo;
+
+import javax.jws.soap.SOAPBinding;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +14,8 @@ import java.util.List;
 public class User {
     private String username;
     private IWriter writer;
+    private Socket socket;
+
     private List<UserDisplayInfo> friends = new ArrayList();
 
     public void setUsername(String username) {
@@ -22,8 +26,13 @@ public class User {
         return username;
     }
 
+    public Socket getSocket() {
+        return socket;
+    }
+
     public void initIO(Socket socket, ServerModel model) {
         this.writer = new Writer(socket);
+        this.socket = socket;
     }
 
     public void syncFriends(Message m){     // Syncs the users list of registered friends with a list received by its corresponding client
