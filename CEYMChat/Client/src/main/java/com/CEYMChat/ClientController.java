@@ -18,10 +18,12 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * Controller for the Client.
  */
@@ -75,10 +77,13 @@ public class ClientController implements IController {
         mainPane.toFront();
     }
     /********************************/
-    /**Getters and Setters **/
+    /**
+     * Getters and Setters
+     **/
     public IService getService() {
         return service;
     }
+
     /********************************/
     public void appInit() {     // Initiates the GUI
         model = new ClientModel();
@@ -86,8 +91,8 @@ public class ClientController implements IController {
         receiveWindow.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
         sendWindow.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
         receiveWindow.setStyle("-fx-focus-color: transparent; -fx-text-box-border: transparent;");
-        receiveWindow.setFont(Font.font("Verdana", FontWeight.MEDIUM,14 ));
-        sendWindow.setFont(Font.font("Verdana", FontWeight.MEDIUM,14 ));
+        receiveWindow.setFont(Font.font("Verdana", FontWeight.MEDIUM, 14));
+        sendWindow.setFont(Font.font("Verdana", FontWeight.MEDIUM, 14));
         sendWindow.setStyle("-fx-focus-color: transparent; -fx-text-box-border: transparent;");
         receiveWindow.setMouseTransparent(true);
         sendWindow.setMouseTransparent(true);
@@ -102,7 +107,7 @@ public class ClientController implements IController {
         });
         File received = new File("Client/messages/received.csv");
         File sent = new File("Client/messages/received.csv");
-        if(received.exists() && sent.exists()) {
+        if (received.exists() && sent.exists()) {
             try {
                 loadSavedMessages();
             } catch (IOException e) {
@@ -118,14 +123,13 @@ public class ClientController implements IController {
         model.setUsername(userName);
 
 
-
     }
 
-    public void sendString()throws IOException {    // Sends the text in the chatBox to the Server together with whichever user you have chosen
+    public void sendString() throws IOException {    // Sends the text in the chatBox to the Server together with whichever user you have chosen
         String toSend = chatBox.getText();
         chatBox.setText("");
         service.sendMessage(MessageFactory.createStringMessage(toSend, userName, currentChatName));
-        sendWindow.appendText("Me: "+toSend+"\n");
+        sendWindow.appendText("Me: " + toSend + "\n");
         receiveWindow.appendText("\n");
 
     }
@@ -140,90 +144,91 @@ public class ClientController implements IController {
         }
     }
 
-        public void checkFriends() throws IOException {             // Checks which users have been tagged as friends and notifies the Server if any new friends have been added
+    public void checkFriends() throws IOException {             // Checks which users have been tagged as friends and notifies the Server if any new friends have been added
         System.out.println("Checking friends");
         int changes = 0;
-            for (UserDisplayInfo friendInfo : friendList) {         // Removes friends that have been deselected
-                if (!friendInfo.getIsFriend()) {
-                    if(friendList.size()>0 && friendList.contains(friendInfo)) {
-                        friendList.remove(friendInfo);
-                        changes++;
-                    }
+        for (UserDisplayInfo friendInfo : friendList) {         // Removes friends that have been deselected
+            if (!friendInfo.getIsFriend()) {
+                if (friendList.size() > 0 && friendList.contains(friendInfo)) {
+                    friendList.remove(friendInfo);
+                    changes++;
                 }
-            }
-            for (FriendListItem fL : friendItemList) {              // Adds all newly selected friends
-                Boolean add = true;
-                if (fL.getUInfo().getIsFriend()) {
-                    for (UserDisplayInfo friendInfo : friendList) {
-                        if (friendInfo.getUsername() == fL.getUInfo().getUsername()) {
-                            add = false;
-                        }
-                    }
-                    if (add) {
-                        friendList.add(fL.getUInfo());
-                        changes++;
-                    }
-                }
-            }
-            if (changes != 0) {                                     // Notifies the Server if any changes have been made to the friends list
-                System.out.println("Sending list to server");
-                service.sendMessage(MessageFactory.createFriendInfoList(friendList, userName, userName));
-                return;
             }
         }
+        for (FriendListItem fL : friendItemList) {              // Adds all newly selected friends
+            Boolean add = true;
+            if (fL.getUInfo().getIsFriend()) {
+                for (UserDisplayInfo friendInfo : friendList) {
+                    if (friendInfo.getUsername() == fL.getUInfo().getUsername()) {
+                        add = false;
+                    }
+                }
+                if (add) {
+                    friendList.add(fL.getUInfo());
+                    changes++;
+                }
+            }
+        }
+        if (changes != 0) {                                     // Notifies the Server if any changes have been made to the friends list
+            System.out.println("Sending list to server");
+            service.sendMessage(MessageFactory.createFriendInfoList(friendList, userName, userName));
+            return;
+        }
+    }
 
-    public void requestChat(){                                      // Currently unused, sends a command to the Server to notify it that the user wants to initiate a chat with someone, currently a message contains a String with the username of the intended receiver instead
-                            try {
-                                service.sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.REQUEST_CHAT, "user2"), userName));
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
+    public void requestChat() {                                      // Currently unused, sends a command to the Server to notify it that the user wants to initiate a chat with someone, currently a message contains a String with the username of the intended receiver instead
+        try {
+            service.sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.REQUEST_CHAT, "user2"), userName));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-    public void displayNewMessage (Message m){                       // Updates the GUI with text from a new message
+    public void displayNewMessage(Message m) {                       // Updates the GUI with text from a new message
         System.out.println("displayNewMessage has been called with string: " + m.getData());
-        receiveWindow.appendText(m.getSender() + ": " + m.getData()+"\n");
+        receiveWindow.appendText(m.getSender() + ": " + m.getData() + "\n");
         sendWindow.appendText("\n");
 
     }
 
-    public void createFriendListItemList (ArrayList < UserDisplayInfo > friendList) throws IOException { // Creates a list of users for the GUI to show
-            System.out.println("New list of friendItems created");
-            for (UserDisplayInfo uInfo : friendList) {
-                System.out.println("User added: " + uInfo.getUsername());
-                if (!uInfo.getUsername().equals(model.getUsername())) {
-                    FriendListItem userItem = new FriendListItem(uInfo.getUsername());
-                    userItem.setUInfo(uInfo);
-                    if(uInfo.getIsFriend()){
-                        userItem.setFriend();
-                    }
-                    friendItemList.add(userItem);
-                    initFriendListItem(userItem);
+    public void createFriendListItemList(ArrayList<UserDisplayInfo> friendList) throws IOException { // Creates a list of users for the GUI to show
+        System.out.println("New list of friendItems created");
+        for (UserDisplayInfo uInfo : friendList) {
+            System.out.println("User added: " + uInfo.getUsername());
+            if (!uInfo.getUsername().equals(model.getUsername())) {
+                FriendListItem userItem = new FriendListItem(uInfo.getUsername());
+                userItem.setUInfo(uInfo);
+                if (uInfo.getIsFriend()) {
+                    userItem.setFriend();
                 }
+                friendItemList.add(userItem);
+                initFriendListItem(userItem);
             }
         }
-
-    public void showOnlineFriends (ArrayList <UserDisplayInfo> friendList) throws IOException {       // Updates the GUI with the new userList
-            friendItemList.clear();
-            System.out.println("FriendListItems are being created");
-            createFriendListItemList(friendList);
-            friendsFlowPane.getChildren().clear();
-            for (FriendListItem friendListItem : friendItemList) {
-                if(!isBlocked(friendListItem)) {
-                    friendsFlowPane.getChildren().add(friendListItem.getFriendPane());
-                }
-            }
     }
-    public boolean isBlocked(FriendListItem friendListItem){
-        for(FriendListItem b:blockedFriends){
-            if(b.getFriendUsername().getText().equals(friendListItem.getFriendUsername().getText())){
+
+    public void showOnlineFriends(ArrayList<UserDisplayInfo> friendList) throws IOException {       // Updates the GUI with the new userList
+        friendItemList.clear();
+        System.out.println("FriendListItems are being created");
+        createFriendListItemList(friendList);
+        friendsFlowPane.getChildren().clear();
+        for (FriendListItem friendListItem : friendItemList) {
+            if (!isBlocked(friendListItem)) {
+                friendsFlowPane.getChildren().add(friendListItem.getFriendPane());
+            }
+        }
+    }
+
+    public boolean isBlocked(FriendListItem friendListItem) {
+        for (FriendListItem b : blockedFriends) {
+            if (b.getFriendUsername().getText().equals(friendListItem.getFriendUsername().getText())) {
                 return true;
             }
         }
         return false;
     }
 
-    public void initFriendListItem(FriendListItem item){
+    public void initFriendListItem(FriendListItem item) {
         item.getFriendPane().setOnMouseClicked(Event -> {
             currentChatName = item.getFriendUsername().getText();
             currentChat.setText("Currently chatting with: " + currentChatName);
@@ -247,7 +252,7 @@ public class ClientController implements IController {
         item.getFriendPane().setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
             @Override
             public void handle(ContextMenuEvent event) {
-                contextMenu.show(item.getFriendPane(),event.getScreenX(),event.getScreenY());
+                contextMenu.show(item.getFriendPane(), event.getScreenX(), event.getScreenY());
             }
         });
 
@@ -274,21 +279,21 @@ public class ClientController implements IController {
         }
     }
 
-    public void saveMessages () {                           // Saves messages locally so that they can be loaded the next time you load the client
-            System.out.println("Messages saved.");
-            model.saveReceivedMessages("Client/messages/received.csv");
-            model.saveSendMessages("Client/messages/sent.csv");
-        }
+    public void saveMessages() {                           // Saves messages locally so that they can be loaded the next time you load the client
+        System.out.println("Messages saved.");
+        model.saveReceivedMessages("Client/messages/received.csv");
+        model.saveSendMessages("Client/messages/sent.csv");
+    }
 
-    public void loadSavedMessages () throws IOException {   // Loads messages saved during previous sessions
-            ArrayList<String> savedSentMessages = model.loadSavedMessages("Client/messages/sent.csv");
-            ArrayList<String> savedReceivedMessages = model.loadSavedMessages("Client/messages/received.csv");
-            for (int i = 0; i < savedSentMessages.size(); i = i + 2) {
-                sendWindow.appendText(savedSentMessages.get(i) +": " + savedSentMessages.get(i+1)+ "\n");
-                receiveWindow.appendText("\n");
-                receiveWindow.appendText(savedReceivedMessages.get(i) +": " + savedReceivedMessages.get(i+1)+ "\n");
-                sendWindow.appendText("\n");
-            }
+    public void loadSavedMessages() throws IOException {   // Loads messages saved during previous sessions
+        ArrayList<String> savedSentMessages = model.loadSavedMessages("Client/messages/sent.csv");
+        ArrayList<String> savedReceivedMessages = model.loadSavedMessages("Client/messages/received.csv");
+        for (int i = 0; i < savedSentMessages.size(); i = i + 2) {
+            sendWindow.appendText(savedSentMessages.get(i) + ": " + savedSentMessages.get(i + 1) + "\n");
+            receiveWindow.appendText("\n");
+            receiveWindow.appendText(savedReceivedMessages.get(i) + ": " + savedReceivedMessages.get(i + 1) + "\n");
+            sendWindow.appendText("\n");
         }
+    }
 }
 
