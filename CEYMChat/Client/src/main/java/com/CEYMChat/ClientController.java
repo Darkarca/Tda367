@@ -25,11 +25,13 @@ import java.util.List;
  */
 public class ClientController implements IController {
 
+    private List<UserDisplayInfo> friendList = new ArrayList<>();
+    private ArrayList<FriendListItem> friendItemList = new ArrayList<>();
     private ClientModel model;
     private IService service;
-    private ArrayList<FriendListItem> friendItemList = new ArrayList<>();
     private String currentChatName;
     private String userName;
+
     @FXML
     AnchorPane loginPane;
     @FXML
@@ -60,8 +62,11 @@ public class ClientController implements IController {
     private Button fileSend;
     @FXML
     private Text fileName;
-    private List<UserDisplayInfo> friendList = new ArrayList<>();
+
+
+
     /** FXML methods**/
+
     /**
      * Captures input from user and send makes use of model to send message
      */
@@ -71,12 +76,30 @@ public class ClientController implements IController {
         login();
         mainPane.toFront();
     }
+    @FXML
+    public void refreshFriendList() {               // Asks the Server for an updated active userlist, called when the Refresh button is pressed
+        try {
+            System.out.println("Send refreshFriendList command");
+            service.sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.REFRESH_FRIENDLIST, userName), userName));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     /********************************/
+
+
     /**Getters and Setters **/
+
+
     public IService getService() {
         return service;
     }
+
+
     /********************************/
+
     public void appInit() {     // Initiates the GUI
         model = new ClientModel();
         service = new Service(model, this);
@@ -127,17 +150,7 @@ public class ClientController implements IController {
 
     }
 
-    @FXML
-    public void refreshFriendList() {               // Asks the Server for an updated active userlist, called when the Refresh button is pressed
-        try {
-            System.out.println("Send refreshFriendList command");
-            service.sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.REFRESH_FRIENDLIST, userName), userName));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-        public void checkFriends() throws IOException {             // Checks which users have been tagged as friends and notifies the Server if any new friends have been added
+    public void checkFriends() throws IOException {             // Checks which users have been tagged as friends and notifies the Server if any new friends have been added
         System.out.println("Checking friends");
         int changes = 0;
             for (UserDisplayInfo friendInfo : friendList) {         // Removes friends that have been deselected
@@ -189,8 +202,7 @@ public class ClientController implements IController {
             for (UserDisplayInfo uInfo : friendList) {
                 System.out.println("User added: " + uInfo.getUsername());
                 if (!uInfo.getUsername().equals(model.getUsername())) {
-                    FriendListItem userItem = new FriendListItem(uInfo.getUsername());
-                    userItem.setUInfo(uInfo);
+                    FriendListItem userItem = new FriendListItem(uInfo);
                     if(uInfo.getIsFriend()){
                         userItem.setFriend();
                     }
@@ -256,5 +268,6 @@ public class ClientController implements IController {
                 sendWindow.appendText("\n");
             }
         }
+
 }
 

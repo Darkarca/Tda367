@@ -23,9 +23,11 @@ public class FriendListItem {
     private ImageView friendImg;
     @FXML
     private ImageView friendIndicator;
-    private UserDisplayInfo uInfo;
 
-    public FriendListItem(String username) throws IOException {
+    private UserDisplayInfo uInfo = new UserDisplayInfo();
+
+
+    public FriendListItem(UserDisplayInfo uInfo) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("View/friendListItem.fxml"));
         loader.setController(this);
         try {
@@ -33,7 +35,7 @@ public class FriendListItem {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
-        this.friendUsername.setText(username);
+        this.friendUsername.setText(uInfo.getUsername());
     }
 
     public void toggleFriend(){     // Is called when you press the friendIndicator image
