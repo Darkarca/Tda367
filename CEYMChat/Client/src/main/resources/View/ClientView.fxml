@@ -13,19 +13,8 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane fx:id="programStackPane" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.CEYMChat.ClientController">
+<StackPane fx:id="programStackPane" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.CEYMChat.ClientController">
    <children>
-      <AnchorPane fx:id="loginPane" prefHeight="400.0" prefWidth="582.0" styleClass="logo-Backgroundanother-colour" stylesheets="@style/style.css">
-         <children>
-            <Text layoutX="263.0" layoutY="279.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login" wrappingWidth="86.63671875">
-               <font>
-                  <Font size="33.0" />
-               </font>
-            </Text>
-            <TextField fx:id="loginTextField" layoutX="217.0" layoutY="328.0" onAction="#onClick" prefHeight="37.0" prefWidth="178.0" promptText="Username" />
-            <Button fx:id="loginButton" layoutX="267.0" layoutY="397.0" mnemonicParsing="false" onAction="#onClick" onMouseClicked="#onClick" prefHeight="37.0" prefWidth="78.0" text="Login" />
-         </children>
-      </AnchorPane>
       <AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="1046.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="677.0" prefWidth="611.0" styleClass="back-colour" stylesheets="@style/style.css">
           <children>
               <SplitPane dividerPositions="0.42237061769616024" prefHeight="677.0" prefWidth="612.0">
@@ -67,6 +56,17 @@
                   </items>
               </SplitPane>
           </children>
+      </AnchorPane>
+      <AnchorPane fx:id="loginPane" prefHeight="400.0" prefWidth="582.0" styleClass="logo-Backgroundanother-colour" stylesheets="@style/style.css">
+         <children>
+            <Text layoutX="263.0" layoutY="279.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login" wrappingWidth="86.63671875">
+               <font>
+                  <Font size="33.0" />
+               </font>
+            </Text>
+            <TextField fx:id="loginTextField" layoutX="217.0" layoutY="328.0" onAction="#onClick" prefHeight="37.0" prefWidth="178.0" promptText="Username" />
+            <Button fx:id="loginButton" layoutX="267.0" layoutY="397.0" mnemonicParsing="false" onAction="#onClick" onMouseClicked="#onClick" prefHeight="37.0" prefWidth="78.0" text="Login" />
+         </children>
       </AnchorPane>
    </children>
 </StackPane>
