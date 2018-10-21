@@ -6,23 +6,16 @@ import java.net.Socket;
 public interface IWriter {
 
 
-    /**
-    *  Getters and setters
-    **/
+    /** Getters and setters **/
     Message getOutMessage();
     Socket getSocket();
 
 
-    /**
-    * Setting the message on outputstream of the socket
-    * @param m
-    */
+    /** Setting the message on outputstream of the socket */
     void setOutMessage(Message m);
 
 
-    /**
-    * Handles how the writer writes objects to its outputStream
-    */
+    /** Handles how the writer writes objects to its outputStream */
     void writeToStream();
 
 

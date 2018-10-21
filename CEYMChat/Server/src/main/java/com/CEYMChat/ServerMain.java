@@ -3,6 +3,8 @@ package com.CEYMChat;
 import com.CEYMChat.Services.SocketHandler;
 import com.CEYMChat.Model.ServerModel;
 
+// Class that starts the server
+
 public class ServerMain{
     private ServerModel model = new ServerModel();
     private SocketHandler socketHandler = new SocketHandler(model);
@@ -13,8 +15,5 @@ public class ServerMain{
         System.out.println("Server running");
         ServerMain main = new ServerMain();
         main.startHandler();
-    }
-    public SocketHandler getHandler(){
-        return socketHandler;
     }
 }

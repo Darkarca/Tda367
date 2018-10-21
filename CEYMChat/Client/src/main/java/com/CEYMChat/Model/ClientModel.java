@@ -1,14 +1,11 @@
 package com.CEYMChat.Model;
 import com.CEYMChat.*;
-
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-/**
- * Model for the client
- */
+/** Model for the client */
 public class ClientModel {
 
     private Socket socket;
@@ -19,11 +16,7 @@ public class ClientModel {
     private ArrayList<Message> sentMessages = new ArrayList<>();
     private File selectedFile;
 
-
-    /**
-     * Getters, setters and adders
-     **/
-
+    /** Getters, setters and adders **/
     public Socket getSocket() {
         return socket;
     }
@@ -55,14 +48,7 @@ public class ClientModel {
         this.selectedFile = selectedFile;
     }
 
-
-
-    /**
-     * Saves all sent and received messages into a file
-     * @param list
-     * @param filename
-     * @throws IOException
-     */
+    /** Saves all sent and received messages into a file */
     public void saveArrayListToFile(ArrayList<Message> list, String filename) throws IOException {
         FileWriter writer = new FileWriter(filename);
 
@@ -77,11 +63,7 @@ public class ClientModel {
         writer.close();
     }
 
-
-    /**
-     * Calls saveArrayListToFile to save all Received messages
-     * @param filename
-     */
+    /** Calls saveArrayListToFile to save all Received messages */
     public void saveReceivedMessages(String filename) {
         try {
             saveArrayListToFile(receivedMessages, filename);
@@ -90,10 +72,7 @@ public class ClientModel {
         }
     }
 
-    /**
-     * Calls saveArrayListToFile to save all sent messages
-     * @param filename
-     */
+    /** Calls saveArrayListToFile to save all sent messages */
     public void saveSendMessages(String filename) {
         try {
             saveArrayListToFile(sentMessages, filename);
@@ -102,12 +81,7 @@ public class ClientModel {
         }
     }
 
-    /**
-     * Loads messages that were saved during the last session
-     * @param filename
-     * @return
-     * @throws IOException
-     */
+    /** Loads messages that were saved during the last session */
     public ArrayList<String> loadSavedMessages(String filename) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(filename));
         String line = "";
@@ -115,12 +89,9 @@ public class ClientModel {
         String [] savedMessages = {};
         while((line = br.readLine())!=null){
             savedMessages = line.split(cvsSplitBy);
-
         }
         ArrayList<String> savedMessagesList = new ArrayList<String>(Arrays.asList(savedMessages));
         System.out.println(savedMessagesList.toString());
         return savedMessagesList;
-
     }
-
 }

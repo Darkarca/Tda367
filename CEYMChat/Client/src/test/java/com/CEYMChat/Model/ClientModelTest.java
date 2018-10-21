@@ -17,9 +17,7 @@ public class ClientModelTest {
    static private ArrayList<Message> testList = new ArrayList<>();
 
 
-    /**
-     * creats a vertual saved messages
-     */
+    /** creats a vertual saved messages */
     @BeforeClass
    static public void mockUpSavedMessages(){
         model.addReceivedMessage(MessageFactory.createStringMessage("Hello World","test1","test2"));
@@ -35,10 +33,7 @@ public class ClientModelTest {
 
     }
 
-
-    /**
-     * saves the vertual messages to a certain file locally
-     */
+    /** saves the vertual messages to a certain file locally */
     @Test
     public void saveMessagesToFile() {
         try {
@@ -52,9 +47,7 @@ public class ClientModelTest {
     }
 
 
-    /**
-     * saves the recived messages to a certain files
-     */
+    /** saves the recived messages to a certain files */
     @Test
     public void saveReceivedMessages() {
         model.saveReceivedMessages("messages/received.csv");
@@ -62,9 +55,7 @@ public class ClientModelTest {
     }
 
 
-    /**
-     * saves and sends the messages
-     */
+    /** saves and sends the messages */
     @Test
     public void saveSendMessages() {
         model.saveSendMessages("messages/sent.csv");
@@ -72,11 +63,7 @@ public class ClientModelTest {
 
     }
 
-
-    /**
-     * loads the saved sended messages
-     * @throws IOException
-     */
+    /** loads the saved sended messages */
     @Test
     public void loadSavedSentMessage() throws IOException {
         ArrayList<String> expected = new ArrayList<>();
@@ -89,10 +76,7 @@ public class ClientModelTest {
     }
 
 
-    /**
-     * loads the saved recieved messages
-     * @throws IOException
-     */
+    /** loads the saved recieved messages */
     @Test
     public void loadSavedReceivedMessage() throws IOException {
         ArrayList<String> expected = new ArrayList<>();

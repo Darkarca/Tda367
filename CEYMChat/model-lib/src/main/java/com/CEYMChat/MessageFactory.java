@@ -8,56 +8,23 @@ import java.util.List;
  */
 public class MessageFactory {
 
-    /**
-     *
-     * @param data
-     * @param user
-     * @param receiver
-     * @return
-     */
+
     public static Message<String> createStringMessage(String data, String user, String receiver){
         return new Message(data, user, receiver);
     }
 
-    /**
-     *
-     * @param data
-     * @param user
-     * @param receiver
-     * @return
-     */
     public static Message<Image> createImageMessage(Image data, String user, String receiver){
         return new Message(data, user, receiver);
     }
 
-    /**
-     *
-     * @param data
-     * @param user
-     * @param receiver
-     * @return
-     */
     public static Message<File> createFileMessage(File data, String user, String receiver) {
         return new Message(data, user, receiver);
     }
 
-    /**
-     *
-     * @param data
-     * @param user
-     * @return
-     */
     public static Message<Command> createCommandMessage(Command data, String user){
         return new Message(data, user);
     }
 
-    /**
-     *
-     * @param data
-     * @param user
-     * @param receiver
-     * @return
-     */
     public static Message<List> createFriendInfoList (List<UserDisplayInfo> data,String user, String receiver){
         return new Message(data, user, receiver);
     }

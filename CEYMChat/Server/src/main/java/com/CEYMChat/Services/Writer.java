@@ -10,7 +10,9 @@ public class Writer implements IWriter {
     private ObjectOutputStream outputStream;
     private Message outMessage;
 
-    public Writer(Socket socket) {
+    // Class that writes data to an outputStream connected to a specific client
+
+    public Writer(Socket socket) {  // Connects to the same socket as the client
         this.socket = socket;
         {
             try {
@@ -22,21 +24,23 @@ public class Writer implements IWriter {
         }
     }
 
-    public synchronized void setOutMessage(Message m){
+    public synchronized void setOutMessage(Message m){  // Sets message to be written and writes it to the stream
         outMessage = m;
         writeToStream();
     }
 
-    public Socket getSocket(){
-        return this.socket;
-    }
-
-    public void writeToStream(){
+    public void writeToStream(){                        // Writes message to the outputStream
         try {
             outputStream.writeObject(outMessage);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /** Getters and setters **/
+
+    public Socket getSocket(){
+        return this.socket;
     }
     public Message getOutMessage() {
         return outMessage;

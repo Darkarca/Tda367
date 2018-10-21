@@ -9,9 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 import java.io.IOException;
-/**
- * Creates a GUI element for friends.
- */
+/** GUI element for friends. */
 public class FriendListItem {
 
     private UserDisplayInfo uInfo = new UserDisplayInfo();
@@ -27,34 +25,21 @@ public class FriendListItem {
     @FXML
     private ImageView friendIndicator;
 
-
-
-    /**
-     *  Getters and setters
-     **/
+    /**  Getters and setters **/
     public Label getFriendUsername() {
         return friendUsername;
     }
-
     public AnchorPane getFriendPane() {
         return friendPane;
     }
-
     public void setUInfo(UserDisplayInfo uInfo){
         this.uInfo = uInfo;
     }
-
     public UserDisplayInfo getUInfo(){
         return uInfo;
     }
 
-
-
-    /**
-     * load a FXML friendListItem
-     * @param uInfo
-     * @throws IOException
-     */
+    /** Constructor creating the friendlistitem for the controller to show */
     public FriendListItem(UserDisplayInfo uInfo) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("View/friendListItem.fxml"));
         loader.setController(this);
@@ -66,9 +51,7 @@ public class FriendListItem {
         this.friendUsername.setText(uInfo.getUsername());
     }
 
-    /**
-     *  Is called when you press the friendIndicator image
-     */
+    /** Is called when you press the friendIndicator image */
     public void toggleFriend(){
         uInfo.setIsFriend(!uInfo.getIsFriend());
         if(uInfo.getIsFriend()) {
@@ -78,9 +61,7 @@ public class FriendListItem {
         }
     }
 
-    /**
-     * correctly sets the image of friendIndicator incase of a forced change in the isFriend variable
-     */
+    /** correctly sets the image of friendIndicator incase of a forced change in the isFriend variable */
     public void setFriend() {
         if(uInfo.getIsFriend()) {
             friendIndicator.setImage(new Image("friend.png"));

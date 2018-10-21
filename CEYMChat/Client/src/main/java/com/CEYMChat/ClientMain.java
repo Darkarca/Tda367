@@ -7,16 +7,10 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.net.URL;
 import java.nio.file.Paths;
-/**
- * This class should do nothing else than to launch the client application.
- */
+/** This class should do nothing else than to launch the client application. */
 public class ClientMain extends Application {
 
-    /**
-     * Runs the Client project as a main method
-     * @param primaryStage
-     * @throws Exception
-     */
+    /** Runs the Client project as a main method */
     @Override
     public void start(Stage primaryStage) throws Exception {
         URL url = Paths.get("Client/src/main/resources/View/ClientView.fxml").toUri().toURL();

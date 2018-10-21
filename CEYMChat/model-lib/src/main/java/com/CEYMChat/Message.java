@@ -2,11 +2,7 @@ package com.CEYMChat;
 
 import java.io.Serializable;
 
-
-/**
- * Generic class that works in conjunction with MessageFactory to create messages that are sent and received by the server/client.
- * @param <T>
- */
+/** Generic class that works in conjunction with MessageFactory to create messages that are sent and received by the server/client. */
 
 public class Message<T> implements Serializable {
     private String sender;
@@ -14,23 +10,14 @@ public class Message<T> implements Serializable {
     private T data;
 
 
-    /**
-     * Potential constructors
-     * @param data
-     * @param sender
-     * @param receiver
-     */
+    /** Potential constructors */
     protected Message(T data, String sender, String receiver){
         this.data = data;
         this.sender = sender;
         this.receiver = receiver;
     }
 
-    /**
-     *
-     * @param data
-     * @param sender
-     */
+
     protected Message(T data, String sender){
         this.data = data;
         this.sender = sender;
@@ -38,18 +25,12 @@ public class Message<T> implements Serializable {
     }
 
 
-    /**
-     *
-     * @param data
-     */
     protected Message(T data){
         this.data = data;
     }
 
 
-    /**
-     * Getters and setters
-     **/
+    /** Getters and setters **/
     public String getSender() {
         return sender;
     }

@@ -5,7 +5,6 @@ import com.CEYMChat.Services.IService;
 import com.CEYMChat.Services.Service;
 import com.CEYMChat.View.FriendListItem;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.NodeOrientation;
@@ -18,15 +17,12 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Controller for the Client and ClientMain .
- */
+/** Controller for the Client and ClientMain  */
 public class ClientController implements IController {
 
     private ClientModel model;
@@ -69,9 +65,7 @@ public class ClientController implements IController {
     private List<FriendListItem> blockedFriends = new ArrayList<>();
 
     /** FXML methods**/
-    /**
-     * Captures input from user and send makes use of model to send message
-     */
+    /** Called whenthe login button is clicked, updates the models state with desired login information */
     @FXML
     public void onClick() throws IOException {
         this.userName = userNameTextField.getText();
@@ -79,17 +73,13 @@ public class ClientController implements IController {
         mainPane.toFront();
     }
 
-    /**
-     * Getters and Setters
-     **/
+    /** Getters and Setters **/
     public IService getService() {
         return service;
     }
 
 
-    /**
-     *  Initiates the GUI
-     */
+    /* Initiates the GUI */
     public void appInit() {
         model = new ClientModel();
         service = new Service(model, this);
@@ -121,7 +111,6 @@ public class ClientController implements IController {
      * Called when a username has been chosen, notifies the
      * Server that someone has connected so that they can be
      * identified aswell as initiating the GUI
-     * @throws IOException
      */
     public void login() throws IOException {
         appInit();
@@ -136,7 +125,6 @@ public class ClientController implements IController {
     /**
      * Sends the text in the chatBox to the Server
      * together with whichever user you have chosen
-     * @throws IOException
      */
     public void sendString() throws IOException {
         String toSend = chatBox.getText();
@@ -162,10 +150,7 @@ public class ClientController implements IController {
     }
 
 
-    /**
-     *  Checks which users have been tagged as friends and notifies the Server if any new friends have been added
-     * @throws IOException
-     */
+    /** Checks which users have been tagged as friends and notifies the Server if any new friends have been added */
     public void checkFriends() throws IOException {
         System.out.println("Checking friends");
         int changes = 0;
@@ -213,10 +198,7 @@ public class ClientController implements IController {
         }
     }
 
-    /**
-     * Updates the GUI with text from a new message
-     * @param m
-     */
+    /** Updates the GUI with text from a new message*/
     public void displayNewMessage(Message m) {
         System.out.println("displayNewMessage has been called with string: " + m.getData());
         chatWindow.appendText(m.getSender() + ": " + m.getData() + "\n");
@@ -224,11 +206,7 @@ public class ClientController implements IController {
 
     }
 
-    /**
-     * Creates a list of users for the GUI to show
-     * @param friendList
-     * @throws IOException
-     */
+    /** Creates a list of users for the GUI to show */
     public void createFriendListItemList(ArrayList<UserDisplayInfo> friendList) throws IOException {
         System.out.println("New list of friendItems created");
         for (UserDisplayInfo uInfo : friendList) {
@@ -245,11 +223,7 @@ public class ClientController implements IController {
     }
 
 
-    /**
-     * Updates the GUI with the new userList
-     * @param friendList
-     * @throws IOException
-     */
+    /** Updates the GUI with the new userList */
     public void showOnlineFriends(ArrayList<UserDisplayInfo> friendList) throws IOException {
         friendItemList.clear();
         System.out.println("FriendListItems are being created");
@@ -262,11 +236,7 @@ public class ClientController implements IController {
         }
     }
 
-    /**
-     * checking if a friend is blocked
-     * @param friendListItem
-     * @return
-     */
+    /** checking if a friend is blocked */
     public boolean isBlocked(FriendListItem friendListItem) {
         for (FriendListItem b : blockedFriends) {
             if (b.getFriendUsername().getText().equals(friendListItem.getFriendUsername().getText())) {
@@ -277,10 +247,7 @@ public class ClientController implements IController {
     }
 
 
-    /**
-     * initialize the fxml friendListItem with data
-     * @param item
-     */
+    /** initialize the fxml friendListItem with data */
     public void initFriendListItem(FriendListItem item) {
         item.getFriendPane().setOnMouseClicked(Event -> {
             currentChatName = item.getFriendUsername().getText();
@@ -334,7 +301,6 @@ public class ClientController implements IController {
     /**
      * Sends a specific File via the service to the
      * Server (and potentially to another user)
-     * @throws IOException
      */
     public void sendFile() throws IOException {
         if (model.getSelectedFile() != null) {
@@ -355,10 +321,7 @@ public class ClientController implements IController {
     }
 
 
-    /**
-     * Loads messages saved during previous sessions
-     * @throws IOException
-     */
+    /** Loads messages saved during previous sessions */
     public void loadSavedMessages() throws IOException {
         ArrayList<String> savedSentMessages = model.loadSavedMessages("Client/messages/sent.csv");
         ArrayList<String> savedReceivedMessages = model.loadSavedMessages("Client/messages/received.csv");
@@ -371,12 +334,7 @@ public class ClientController implements IController {
     }
 
 
-    /**
-     * Combines two saved lists of messages in one list
-     * @param savedSentMessages
-     * @param savedReceivedMessages
-     * @param allSavedMessages
-     */
+    /** Combines two saved lists of messages in one list */
     public void combineSavedLists (ArrayList<String> savedSentMessages, ArrayList<String> savedReceivedMessages,ArrayList<String>allSavedMessages){
         int min = Math.min(savedReceivedMessages.size(),savedSentMessages.size());
         int index = 0;
@@ -400,12 +358,7 @@ public class ClientController implements IController {
     }
 
 
-    /**
-     * adds elements of a list to another list and begin from a given index
-     * @param savedList
-     * @param allSavedMessages
-     * @param index
-     */
+    /** adds elements of a list to another list and begin from a given index */
     public void addElementsAfterIndex(ArrayList<String> savedList,ArrayList<String>allSavedMessages,int index){
         for (int i = index; i < savedList.size(); i++){
             allSavedMessages.add(savedList.get(i));

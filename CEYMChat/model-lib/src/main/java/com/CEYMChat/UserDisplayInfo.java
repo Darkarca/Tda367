@@ -3,11 +3,7 @@ package com.CEYMChat;
 import javafx.scene.image.ImageView;
 import java.io.Serializable;
 import java.net.InetAddress;
-
-
-/**
- * A class containing information about a single user
- */
+/** A class containing information about a single user */
 public class UserDisplayInfo implements Serializable {
 
     private String username;
@@ -16,10 +12,7 @@ public class UserDisplayInfo implements Serializable {
     private Boolean isFriend = false;
     private InetAddress inetAddress;
 
-
-    /**
-     *Getters and Setters
-     */
+    /** Getters and Setters */
     public String getUsername() {
         return username;
     }

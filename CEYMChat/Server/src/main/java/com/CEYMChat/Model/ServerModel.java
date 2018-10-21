@@ -1,6 +1,5 @@
 package com.CEYMChat.Model;
 
-
 import com.CEYMChat.Command;
 import com.CEYMChat.Message;
 import com.CEYMChat.MessageFactory;
@@ -9,10 +8,7 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.util.ArrayList;
 import java.util.List;
-
-/**
- * Server model class
- */
+/** Server model class */
 public class  ServerModel {
     private ServerSocket serverSocket;
     private List<User> userList = new ArrayList<>();
@@ -26,9 +22,7 @@ public class  ServerModel {
     }
 
 
-    /**
-     * Getters and setters
-     */
+    /** Getters and setters */
     public ServerSocket getServerSocket() {
         return serverSocket;
     }
@@ -67,10 +61,7 @@ public class  ServerModel {
         }
     }
 
-    /**
-     * Sets the username of a user so that it can be identified uniformly between the client and server
-     * @param c
-     */
+    /** Sets the username of a user so that it can be identified uniformly between the client and server */
     public void setUser(Command c){
         userList.get(userList.size()-1).setUsername(c.getCommandData());
         System.out.println("Command performed: 'setUser'" + c.getCommandData());
@@ -78,11 +69,7 @@ public class  ServerModel {
     }
 
 
-    /**
-     * Sends an update active userlist to all active clients, also merges the list with each users individual friendslist
-     * @param c
-     * @param sender
-     */
+    /** Sends an update active userlist to all active clients, also merges the list with each users individual friendslist */
     public void refreshFreindList (Command c, String sender){
         User u = getUserByUsername(sender);
         u.syncFriends(sendUserInfo());
@@ -91,10 +78,7 @@ public class  ServerModel {
     }
 
 
-    /**
-     * // Disconnects the user by removing it from the Servers userlist so that the server won't point to a null outputStream
-     * @param sender
-     */
+    /** Disconnects the user by removing it from the Servers userlist so that the server won't point to a null outputStream */
     public void disconnect (String sender){
         User user = getUserByUsername(sender);
         userList.remove(user);
@@ -102,9 +86,7 @@ public class  ServerModel {
     }
 
 
-    /**
-     * Sends user information via UserDisplayInfo objects to the recipient.
-     */
+    /** Sends user information via UserDisplayInfo objects to the recipient. */
     public Message sendUserInfo(){
         List<UserDisplayInfo> list = new ArrayList<UserDisplayInfo>();
         for (User u:userList) {
@@ -119,9 +101,7 @@ public class  ServerModel {
 
 
 
-    /**
-     * Updates user lists
-     */
+    /** Updates user lists */
     public void updateUserLists(){
         for (User u:userList) {
             //u.syncFriends(sendUserInfo());
@@ -133,8 +113,6 @@ public class  ServerModel {
     /**
      * Displays a message on the server console.
      * @param m Message to be displayed.
-     * @throws IOException
-     * @throws ClassNotFoundException
      */
     public void displayMessage(Message m) throws IOException, ClassNotFoundException {
         System.out.println(m.getSender() + ": " + m.getData());
@@ -153,7 +131,6 @@ public class  ServerModel {
     /**
      * Retrieves a User by searching for a username String.
      * @param username Username to search for
-     * @return
      */
     public User getUserByUsername(String username){
         for (User u : userList){
@@ -168,7 +145,6 @@ public class  ServerModel {
      * Sends a file to a clients device
      * @param s Name of file.
      * @param m Message to send alongside the File containing things such as filesize, sender and receiver
-     * @throws IOException
      */
     public void sendFile(String s, Message m) throws IOException {
         sendMessage(m,m.getReceiver());
