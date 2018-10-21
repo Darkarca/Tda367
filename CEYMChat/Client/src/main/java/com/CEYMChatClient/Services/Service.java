@@ -27,8 +27,8 @@ public class Service implements IService{
 
     /**
      * Constructor
-     * @param model
-     * @param c
+     * @param model the client model
+     * @param c the controller
      */
     public Service(ClientModel model, IController c)
     {
@@ -48,7 +48,6 @@ public class Service implements IService{
 
     /**
      * Connect client to the server
->>>>>>> 19ed17da08f7539dad7be467d28506ad6de0ad4f
      */
     @Override
     public void connectToS(){
@@ -162,8 +161,7 @@ public class Service implements IService{
 
     /**
      * Setting the message in the outputstream of the socket
->>>>>>> 19ed17da08f7539dad7be467d28506ad6de0ad4f
-     * @param m
+     * @param m the message
      * @throws IOException
      */
     public void setMessageOut(Message m) throws IOException {   // Writes a message to the outStream so the Server or whatever else it is connected to can read from it
@@ -190,7 +188,7 @@ public class Service implements IService{
 
     /**
      * Decides how messages are sent to the Server
-     * @param m
+     * @param m the sent message
      * @throws IOException
      */
     public void sendMessage(Message m) throws IOException {
@@ -224,7 +222,11 @@ public class Service implements IService{
     }
 
 
-    /* Informs the controller that it should display a new message in the GUI */
+    /**
+     * Informs the controller that it should display a new message in the GUI
+     * @param m the message to display
+     * @throws IOException
+     */
     public void displayNewMessage(Message m) throws IOException {
         controller.displayNewMessage(m);
     }
@@ -241,8 +243,8 @@ public class Service implements IService{
 
     /**
      * Informs the Server that a user has connected so that the Server can identify the user
-     * @param sCommand
-     * @param userName
+     * @param sCommand the sent command
+     * @param userName  the username of the user who sends the command
      */
     public void login(CommandName sCommand, String userName){
         try {
