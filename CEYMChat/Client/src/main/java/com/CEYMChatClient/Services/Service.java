@@ -7,7 +7,9 @@ import javafx.application.Platform;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
-/** This class implements the IService interface. It communicates via Sockets to the server. */
+/**
+ * This class implements the IService interface. It communicates via Sockets to the server.
+ */
 
 public class Service implements IService{
     private Socket socket;
@@ -23,7 +25,11 @@ public class Service implements IService{
     private boolean running = true;
     String serverIP;
 
-    /** Constructor */
+    /**
+     * Constructor
+     * @param model
+     * @param c
+     */
     public Service(ClientModel model, IController c)
     {
         this.model = model;
@@ -31,13 +37,19 @@ public class Service implements IService{
         this.serverIP = model.getServerIP();
     }
 
-    /** Getters and setters */
+    /**
+     *
+     * Getters and setters
+     */
     public ObjectInputStream getMessageInStream() {
         return messageInStream;
     }
 
 
-    /** Connect client to the server */
+    /**
+     * Connect client to the server
+>>>>>>> 19ed17da08f7539dad7be467d28506ad6de0ad4f
+     */
     @Override
     public void connectToS(){
         try {
@@ -101,7 +113,10 @@ public class Service implements IService{
         }).start();
     }
 
-    /** handling the received array list */
+    /**
+     *
+     * handling the recieved array list
+     */
     public void receiveArrayList(){
         comingFriendsList = (ArrayList) messageIn.getData();
         model.setUserList(comingFriendsList);
@@ -118,15 +133,20 @@ public class Service implements IService{
         );
     }
 
-    /** handling the receive String */
-    public void receiveString(){
+    /**
+     * handling the recieved String
+     */
+    public void receiveString() throws IOException {
         model.addReceivedMessage(messageIn);    // The Thread updates the models state
         System.out.println("Message received from " + messageIn.getSender() + ": " + messageIn.getData());
         lastMsg = messageIn;
         displayNewMessage(messageIn);
     }
 
-    /** handling the receive file */
+    /**
+     * handling the recieved file
+     * @throws IOException
+     */
     public void receiveFile() throws IOException {
 
         byte [] receivedFile  = new byte [1073741824];
@@ -140,7 +160,12 @@ public class Service implements IService{
 
     }
 
-    /** Setting the message in the outputstream of the socket*/
+    /**
+     * Setting the message in the outputstream of the socket
+>>>>>>> 19ed17da08f7539dad7be467d28506ad6de0ad4f
+     * @param m
+     * @throws IOException
+     */
     public void setMessageOut(Message m) throws IOException {   // Writes a message to the outStream so the Server or whatever else it is connected to can read from it
         System.out.println("MessageOutputStream: " + messageOutStream);
         messageOutStream.writeObject(m);
@@ -148,7 +173,26 @@ public class Service implements IService{
 
     }
 
-    /** Decides how messages are sent to the Server */
+    /**
+     * Safely stops all connections and stops the Thread
+     */
+    public void stop(){
+        running = false;
+        try {
+            messageOutStream = null;
+            messageInStream = null;
+            socket.shutdownOutput();
+            socket.shutdownInput();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Decides how messages are sent to the Server
+     * @param m
+     * @throws IOException
+     */
     public void sendMessage(Message m) throws IOException {
         MessageType msgType = MessageType.valueOf(m.getType().getSimpleName());
         switch(msgType){
@@ -179,27 +223,27 @@ public class Service implements IService{
         }
     }
 
-    /**
-     * Stops the clientside connection
-     */
-    @Override
-    public void stop() {
-        running = false;
-    }
 
     /* Informs the controller that it should display a new message in the GUI */
-    public void displayNewMessage(Message m){
+    public void displayNewMessage(Message m) throws IOException {
         controller.displayNewMessage(m);
     }
 
 
-    /** Informs the controller that it should update */
+    /**
+     * Informs the controller that it should update
+     * @throws IOException
+     */
     public void displayFriendList() throws IOException {
         controller.showOnlineFriends(model.getUserList());  // the friendsList so that the Client correctly shows active users
         System.out.println("New list of friends displayed");
     }
 
-    /** Informs the Server that a user has connected so that the Server can identify the user */
+    /**
+     * Informs the Server that a user has connected so that the Server can identify the user
+     * @param sCommand
+     * @param userName
+     */
     public void login(CommandName sCommand, String userName){
         try {
             sendMessage(MessageFactory.createCommandMessage(new Command(sCommand,userName),userName));

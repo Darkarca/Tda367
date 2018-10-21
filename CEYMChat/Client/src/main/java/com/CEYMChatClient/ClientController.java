@@ -1,10 +1,16 @@
 package com.CEYMChatClient;
+
+
+import com.CEYMChatClient.View.RecivedTextMessage;
+import com.CEYMChatClient.View.SentTextMessage;
+import javafx.application.Platform;
 import com.CEYMChatClient.Model.ClientModel;
 import com.CEYMChatClient.Services.IService;
 import com.CEYMChatClient.View.FriendListItem;
 import com.CEYMChatLib.*;
 import com.CEYMChatClient.Services.Service;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.NodeOrientation;
@@ -16,13 +22,17 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.FileChooser;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/** Controller for the Client and ClientMain  */
+/**
+ * Controller for the Client and ClientMain .
+ */
 public class ClientController implements IController {
 
     private ClientModel model;
@@ -45,7 +55,7 @@ public class ClientController implements IController {
     @FXML
     private Text currentChat;
     @FXML
-    private TextArea chatWindow;
+    private FlowPane chatPane;
     @FXML
     private TextField sendToTextField;
     @FXML
@@ -62,11 +72,15 @@ public class ClientController implements IController {
     private TextField ipField;
 
     private Text fileName;
+
+
     private List<UserDisplayInfo> friendList = new ArrayList<>();
     private List<FriendListItem> blockedFriends = new ArrayList<>();
 
     /** FXML methods**/
-    /** Called when the login button is clicked, updates the models state with desired login information */
+    /**
+     * Captures input from user and send makes use of model to send message
+     */
     @FXML
     public void onClick() throws IOException {
         this.userName = userNameTextField.getText();
@@ -74,20 +88,24 @@ public class ClientController implements IController {
         mainPane.toFront();
     }
 
-    /** Getters and Setters **/
+    /**
+     * Getters and Setters
+     **/
     public IService getService() {
         return service;
     }
 
 
-    /* Initiates the GUI */
+    /**
+     *  Initiates the GUI
+     */
     public void appInit() {
         model = new ClientModel();
         service = new Service(model, this);
-        chatWindow.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
-        chatWindow.setFont(Font.font("Verdana", FontWeight.MEDIUM, 14));
-        chatWindow.setStyle("-fx-focus-color: transparent; -fx-text-box-border: transparent;");
-        chatWindow.setMouseTransparent(true);
+        //chatWindow.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+        //chatWindow.setFont(Font.font("Verdana", FontWeight.MEDIUM, 14));
+        //chatWindow.setStyle("-fx-focus-color: transparent; -fx-text-box-border: transparent;");
+        //chatWindow.setMouseTransparent(true);
         mainPane.getScene().getWindow().setOnCloseRequest(Event -> {    // Makes sure the client sends a notification to the Server that it has disconnected if the client is terminated
             try {
                 saveMessages();
@@ -112,6 +130,7 @@ public class ClientController implements IController {
      * Called when a username has been chosen, notifies the
      * Server that someone has connected so that they can be
      * identified aswell as initiating the GUI
+     * @throws IOException
      */
     public void login() throws IOException {
         appInit();
@@ -125,14 +144,43 @@ public class ClientController implements IController {
     /**
      * Sends the text in the chatBox to the Server
      * together with whichever user you have chosen
+     * @throws IOException
      */
     public void sendString() throws IOException {
         String toSend = chatBox.getText();
         chatBox.setText("");
         service.sendMessage(MessageFactory.createStringMessage(toSend, userName, currentChatName));
-        chatWindow.appendText("Me: " + toSend + "\n");
-        chatWindow.appendText("\n");
+        createAddSendMessagePane("Me: " + toSend );
+    }
 
+    /**
+     * creates a new Message AnchorPane and adds it to the chat flow pane
+     * as a Send message
+     * @param sMessage the String which will be sent
+     */
+    public void createAddSendMessagePane (String sMessage) throws IOException {
+        SentTextMessage sentTextMessage = new SentTextMessage(sMessage);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                chatPane.getChildren().add(sentTextMessage.SmessagePane);
+            }
+        });
+    }
+
+    /**
+     * creates a new Message AnchorPane and adds it to the chat flow pane
+     * as a received message
+     * @param rMessage the String which will be received
+     */
+    public void createAddReceiveMessagePane (String rMessage) throws IOException {
+        RecivedTextMessage recivedTextMessage = new RecivedTextMessage(rMessage);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                chatPane.getChildren().add(recivedTextMessage.RmessagePane);
+            }
+        });
     }
 
     /**
@@ -150,7 +198,10 @@ public class ClientController implements IController {
     }
 
 
-    /** Checks which users have been tagged as friends and notifies the Server if any new friends have been added */
+    /**
+     *  Checks which users have been tagged as friends and notifies the Server if any new friends have been added
+     * @throws IOException
+     */
     public void checkFriends() throws IOException {
         System.out.println("Checking friends");
         int changes = 0;
@@ -198,15 +249,20 @@ public class ClientController implements IController {
         }
     }
 
-    /** Updates the GUI with text from a new message*/
-    public void displayNewMessage(Message m) {
+    /**
+     * Updates the GUI with text from a new message
+     * @param m
+     */
+    public void displayNewMessage(Message m) throws IOException {
         System.out.println("displayNewMessage has been called with string: " + m.getData());
-        chatWindow.appendText(m.getSender() + ": " + m.getData() + "\n");
-        chatWindow.appendText("\n");
-
+        createAddReceiveMessagePane(m.getSender() + ": " + m.getData());
     }
 
-    /** Creates a list of users for the GUI to show */
+    /**
+     * Creates a list of users for the GUI to show
+     * @param friendList
+     * @throws IOException
+     */
     public void createFriendListItemList(ArrayList<UserDisplayInfo> friendList) throws IOException {
         System.out.println("New list of friendItems created");
         for (UserDisplayInfo uInfo : friendList) {
@@ -223,7 +279,11 @@ public class ClientController implements IController {
     }
 
 
-    /** Updates the GUI with the new userList */
+    /**
+     * Updates the GUI with the new userList
+     * @param friendList
+     * @throws IOException
+     */
     public void showOnlineFriends(ArrayList<UserDisplayInfo> friendList) throws IOException {
         friendItemList.clear();
         System.out.println("FriendListItems are being created");
@@ -236,7 +296,11 @@ public class ClientController implements IController {
         }
     }
 
-    /** checking if a friend is blocked */
+    /**
+     * checking if a friend is blocked
+     * @param friendListItem
+     * @return
+     */
     public boolean isBlocked(FriendListItem friendListItem) {
         for (FriendListItem b : blockedFriends) {
             if (b.getFriendUsername().getText().equals(friendListItem.getFriendUsername().getText())) {
@@ -247,7 +311,10 @@ public class ClientController implements IController {
     }
 
 
-    /** initialize the fxml friendListItem with data */
+    /**
+     * initialize the fxml friendListItem with data
+     * @param item
+     */
     public void initFriendListItem(FriendListItem item) {
         item.getFriendPane().setOnMouseClicked(Event -> {
             currentChatName = item.getFriendUsername().getText();
@@ -301,6 +368,7 @@ public class ClientController implements IController {
     /**
      * Sends a specific File via the service to the
      * Server (and potentially to another user)
+     * @throws IOException
      */
     public void sendFile() throws IOException {
         if (model.getSelectedFile() != null) {
@@ -328,8 +396,13 @@ public class ClientController implements IController {
         ArrayList<String> allSavedMessages = new ArrayList<>();
         combineSavedLists(savedSentMessages,savedReceivedMessages,allSavedMessages);
         for (int i = 0; i < allSavedMessages.size(); i=i+2) {
-            chatWindow.appendText(allSavedMessages.get(i) + ": " + allSavedMessages.get(i + 1) + "\n");
-            chatWindow.appendText("\n");
+            if (allSavedMessages.get(i).equals("Me")) {
+                createAddSendMessagePane(allSavedMessages.get(i) + ": " + allSavedMessages.get(i + 1));
+            }
+            else{
+                createAddReceiveMessagePane(allSavedMessages.get(i) + ": " + allSavedMessages.get(i + 1));
+            }
+
         }
     }
 
