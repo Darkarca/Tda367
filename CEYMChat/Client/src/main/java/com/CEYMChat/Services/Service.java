@@ -24,7 +24,7 @@ public class Service implements IService{
     private boolean running = true;
 
     /**
-     *
+     * Constructor
      * @param model
      * @param c
      */
@@ -36,14 +36,16 @@ public class Service implements IService{
 
     /**
      *
-     * @return
+     * Getters and setters
      */
     public ObjectInputStream getMessageInStream() {
         return messageInStream;
     }
 
+
     /**
-     *
+     * Connect client to the server
+>>>>>>> 19ed17da08f7539dad7be467d28506ad6de0ad4f
      */
     @Override
     public void connectToS(){
@@ -61,10 +63,13 @@ public class Service implements IService{
         }
     }
 
-    /** Starts a new thread constantly reading a inputstream from the Server.
-    * While it is running it continuously checks the stream,
-    * checks what type of message it has received and processes it appropriately
-    **/
+
+
+    /**
+     * Starts a new thread constantly reading a inputstream from the Server.
+     * While it is running it continuously checks the stream,
+     * checks what type of message it has received and processes it appropriately
+     */
     @Override
     public void read() {
         new Thread(() -> {
@@ -76,43 +81,21 @@ public class Service implements IService{
                         switch (msgType) {
                             case ArrayList: {   // A message with an ArrayList contains information about currently active users
                                 if (messageIn != lastMsg && messageIn != null) {    // The Thread updates the models state
-                                    comingFriendsList = (ArrayList) messageIn.getData();
-                                    model.setUserList(comingFriendsList);
-                                    System.out.println("A new list of friends has arrived");
-                                    lastMsg = messageIn;
-                                    Platform.runLater(
-                                            () -> {
-                                                try {
-                                                    displayFriendList();
-                                                } catch (IOException e) {
-                                                    e.printStackTrace();
-                                                }
-                                            }
-                                     );
+                                    recieveArrayList();
                                 }
                                 break;
                             }
                             case String: {  // A message with a String is a text message to be shown in the GUI
                                 if (messageIn != lastMsg && messageIn != null) {
-                                    model.addReceivedMessage(messageIn);    // The Thread updates the models state
-                                    System.out.println("Message received from " + messageIn.getSender() + ": " + messageIn.getData());
-                                    lastMsg = messageIn;
-                                    displayNewMessage(messageIn);
+                                    recieveString();
                                 }
                                 break;
                             }
                             case File: {    // A message with a File is intended to be saved to the users local device
                                     if(messageIn != lastMsg && messageIn != null){  // The File within the message is corrupt so the Thread saves the File using a seperate stream of bytes
-                                        byte [] receivedFile  = new byte [1073741824];
-                                        InputStream inputStream = socket.getInputStream();
-                                        FileOutputStream fileOut = new FileOutputStream("Client/messages/" + ((File)messageIn.getData()).getName());
-                                        BufferedOutputStream bufferedOut = new BufferedOutputStream(fileOut);
-                                        int bytesRead = inputStream.read(receivedFile,0,receivedFile.length);
-                                        int current = bytesRead;
-                                        bufferedOut.write(receivedFile, 0 , current);
-                                        bufferedOut.flush();
-                                        break;
+                                        recieveFile();
                                     }
+                                break;
                                 }
                              }
                          }
@@ -129,6 +112,54 @@ public class Service implements IService{
 
     /**
      *
+     * handling the recieved array list
+     */
+    public void recieveArrayList(){
+        comingFriendsList = (ArrayList) messageIn.getData();
+        model.setUserList(comingFriendsList);
+        System.out.println("A new list of friends has arrived");
+        lastMsg = messageIn;
+        Platform.runLater(
+                () -> {
+                    try {
+                        displayFriendList();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+        );
+    }
+
+    /**
+     * handling the recieved String
+     */
+    public void recieveString(){
+        model.addReceivedMessage(messageIn);    // The Thread updates the models state
+        System.out.println("Message received from " + messageIn.getSender() + ": " + messageIn.getData());
+        lastMsg = messageIn;
+        displayNewMessage(messageIn);
+    }
+
+    /**
+     * handling the recieved file
+     * @throws IOException
+     */
+    public void recieveFile() throws IOException {
+
+        byte [] receivedFile  = new byte [1073741824];
+        InputStream inputStream = socket.getInputStream();
+        FileOutputStream fileOut = new FileOutputStream("Client/messages/" + ((File)messageIn.getData()).getName());
+        BufferedOutputStream bufferedOut = new BufferedOutputStream(fileOut);
+        int bytesRead = inputStream.read(receivedFile,0,receivedFile.length);
+        int current = bytesRead;
+        bufferedOut.write(receivedFile, 0 , current);
+        bufferedOut.flush();
+
+    }
+
+    /**
+     * Setting the message in the outputstream of the socket
+>>>>>>> 19ed17da08f7539dad7be467d28506ad6de0ad4f
      * @param m
      * @throws IOException
      */
@@ -140,9 +171,9 @@ public class Service implements IService{
     }
 
     /**
-     *
+     * Safely stops all connections and stops the Thread
      */
-    public void stop(){ // Safely stops all connections and stops the Thread
+    public void stop(){
         running = false;
         try {
             messageOutStream = null;
@@ -155,11 +186,11 @@ public class Service implements IService{
     }
 
     /**
-     *
+     * Decides how messages are sent to the Server
      * @param m
      * @throws IOException
      */
-    public void sendMessage(Message m) throws IOException { // Decides how messages are sent to the Server
+    public void sendMessage(Message m) throws IOException {
         MessageType msgType = MessageType.valueOf(m.getType().getSimpleName());
         switch(msgType){
             case String: setMessageOut(m);  // Messages containing Strings are sent to the outputStream
@@ -189,20 +220,30 @@ public class Service implements IService{
         }
     }
 
-    /**
-     *
+    /*
+     * Informs the controller that it should display a new message in the GUI
      * @param m
      */
-    public void displayNewMessage(Message m){       // Informs the controller that it should display a new message in the GUI
+    public void displayNewMessage(Message m){
         controller.displayNewMessage(m);
     }
 
-    public void displayFriendList() throws IOException {    // Informs the controller that it should update
+
+    /**
+     * Informs the controller that it should update
+     * @throws IOException
+     */
+    public void displayFriendList() throws IOException {
         controller.showOnlineFriends(model.getUserList());  // the friendsList so that the Client correctly shows active users
         System.out.println("New list of friends displayed");
     }
 
-    public void login(CommandName sCommand, String userName){      // Informs the Server that a user has connected so that the Server can identify the user
+    /**
+     * Informs the Server that a user has connected so that the Server can identify the user
+     * @param sCommand
+     * @param userName
+     */
+    public void login(CommandName sCommand, String userName){
         try {
             sendMessage(MessageFactory.createCommandMessage(new Command(sCommand,userName),userName));
         } catch (IOException e) {

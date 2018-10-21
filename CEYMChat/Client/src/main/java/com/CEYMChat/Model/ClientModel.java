@@ -20,7 +20,9 @@ public class ClientModel {
     private File selectedFile;
 
 
-    /** Getters, setters and adders**/
+    /**
+     * Getters, setters and adders
+     **/
 
     public Socket getSocket() {
         return socket;
@@ -53,7 +55,14 @@ public class ClientModel {
         this.selectedFile = selectedFile;
     }
 
-    /** Saves all sent and received messages into a file **/
+
+
+    /**
+     * Saves all sent and received messages into a file
+     * @param list
+     * @param filename
+     * @throws IOException
+     */
     public void saveArrayListToFile(ArrayList<Message> list, String filename) throws IOException {
         FileWriter writer = new FileWriter(filename);
 
@@ -68,10 +77,11 @@ public class ClientModel {
         writer.close();
     }
 
-    /*
+
+    /**
      * Calls saveArrayListToFile to save all Received messages
-     *
-     * **/
+     * @param filename
+     */
     public void saveReceivedMessages(String filename) {
         try {
             saveArrayListToFile(receivedMessages, filename);
@@ -79,7 +89,11 @@ public class ClientModel {
             e.printStackTrace();
         }
     }
-    /** Calls saveArrayListToFile to save all sent messages **/
+
+    /**
+     * Calls saveArrayListToFile to save all sent messages
+     * @param filename
+     */
     public void saveSendMessages(String filename) {
         try {
             saveArrayListToFile(sentMessages, filename);
@@ -87,7 +101,13 @@ public class ClientModel {
             e.printStackTrace();
         }
     }
-    /** Loads messages that were saved during the last session **/
+
+    /**
+     * Loads messages that were saved during the last session
+     * @param filename
+     * @return
+     * @throws IOException
+     */
     public ArrayList<String> loadSavedMessages(String filename) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(filename));
         String line = "";
@@ -100,7 +120,6 @@ public class ClientModel {
         ArrayList<String> savedMessagesList = new ArrayList<String>(Arrays.asList(savedMessages));
         System.out.println(savedMessagesList.toString());
         return savedMessagesList;
-
 
     }
 
