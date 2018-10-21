@@ -3,9 +3,11 @@ package com.CEYMChat;
 import com.CEYMChat.Model.ClientModel;
 import com.CEYMChat.Services.IService;
 import com.CEYMChat.Services.Service;
+import com.CEYMChat.View.*;
 import com.CEYMChat.View.FriendListItem;
 import com.CEYMChat.View.RecivedTextMessage;
 import com.CEYMChat.View.SentTextMessage;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -146,7 +148,7 @@ public class ClientController implements IController {
         String toSend = chatBox.getText();
         chatBox.setText("");
         service.sendMessage(MessageFactory.createStringMessage(toSend, userName, currentChatName));
-        createAddSendMessagePane("Me: " + toSend + "\n");
+        createAddSendMessagePane("Me: " + toSend );
     }
 
     /**
@@ -156,7 +158,12 @@ public class ClientController implements IController {
      */
     public void createAddSendMessagePane (String sMessage) throws IOException {
         SentTextMessage sentTextMessage = new SentTextMessage(sMessage);
-        chatPane.getChildren().add(sentTextMessage.getSmessagePane());
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                chatPane.getChildren().add(sentTextMessage.SmessagePane);
+            }
+        });
     }
 
     /**
@@ -166,7 +173,12 @@ public class ClientController implements IController {
      */
     public void createAddReceiveMessagePane (String rMessage) throws IOException {
         RecivedTextMessage recivedTextMessage = new RecivedTextMessage(rMessage);
-        chatPane.getChildren().add(recivedTextMessage.getRmessagePane());
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                chatPane.getChildren().add(recivedTextMessage.RmessagePane);
+            }
+        });
     }
 
     /**
@@ -241,9 +253,7 @@ public class ClientController implements IController {
      */
     public void displayNewMessage(Message m) throws IOException {
         System.out.println("displayNewMessage has been called with string: " + m.getData());
-        createAddReceiveMessagePane(m.getSender() + ": " + m.getData() + "\n");
-        createAddReceiveMessagePane("\n");
-
+        createAddReceiveMessagePane(m.getSender() + ": " + m.getData());
     }
 
     /**
@@ -388,12 +398,10 @@ public class ClientController implements IController {
         combineSavedLists(savedSentMessages,savedReceivedMessages,allSavedMessages);
         for (int i = 0; i < allSavedMessages.size(); i=i+2) {
             if (allSavedMessages.get(i).equals("Me")) {
-                createAddSendMessagePane(allSavedMessages.get(i) + ": " + allSavedMessages.get(i + 1) + "\n");
-                createAddSendMessagePane("\n");
+                createAddSendMessagePane(allSavedMessages.get(i) + ": " + allSavedMessages.get(i + 1));
             }
             else{
-                createAddReceiveMessagePane(allSavedMessages.get(i) + ": " + allSavedMessages.get(i + 1) + "\n");
-                createAddReceiveMessagePane("\n");
+                createAddReceiveMessagePane(allSavedMessages.get(i) + ": " + allSavedMessages.get(i + 1));
             }
 
         }

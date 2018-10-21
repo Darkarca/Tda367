@@ -18,10 +18,11 @@ import java.nio.file.Paths;
 public class RecivedTextMessage {
 
 
+
     @FXML
-    Label RmessageTextLabel;
+    public AnchorPane RmessagePane;
     @FXML
-    AnchorPane RmessagePane;
+    public Label RmessageTextLabel;
 
 
 

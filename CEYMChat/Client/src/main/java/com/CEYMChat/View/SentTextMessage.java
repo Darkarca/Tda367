@@ -22,9 +22,9 @@ public class SentTextMessage {
 
 
     @FXML
-    Label SmessageTextLabel;
+    public Label SmessageTextLabel;
     @FXML
-    AnchorPane SmessagePane;
+    public AnchorPane SmessagePane;
 
 
     public SentTextMessage( String sMessage) throws IOException {

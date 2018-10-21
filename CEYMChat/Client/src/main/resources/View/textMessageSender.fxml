@@ -4,9 +4,9 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="SmessagePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="72.0" prefWidth="331.0" stylesheets="@style/style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="SmessagePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="331.0" stylesheets="@style/style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="SmessageTextLabel" layoutX="22.0" layoutY="16.0" prefHeight="33.0" prefWidth="287.0" text="message" textAlignment="RIGHT" />
+      <Label fx:id="SmessageTextLabel" layoutX="261.0" layoutY="1.0" prefHeight="44.0" prefWidth="70.0" text="message" textAlignment="RIGHT" />
    </children>
    <rotationAxis>
       <Point3D />
