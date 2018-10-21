@@ -1,6 +1,6 @@
 package com.CEYMChatClient.Model;
-import com.CEYMChatLib.Message;
-import com.CEYMChatLib.UserDisplayInfo;
+
+import com.CEYMChatLib.*;
 
 import java.io.*;
 import java.net.Socket;

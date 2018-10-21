@@ -1,5 +1,4 @@
 package com.CEYMChatClient;
-
 import com.CEYMChatClient.Model.ClientModel;
 import com.CEYMChatClient.Services.IService;
 import com.CEYMChatClient.View.FriendListItem;
