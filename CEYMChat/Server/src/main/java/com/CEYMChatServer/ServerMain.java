@@ -17,7 +17,7 @@ public class ServerMain{
     public static void main(String[] args) throws Exception {
         System.out.println("Server running");
         ServerMain main = new ServerMain();
-        System.out.println("Enter a port number to use. To use default port 9000 will be used, hit enter without typing a port");
+        System.out.println("Enter a port number to use. To use default port '9000', hit enter without typing a number");
         String port;
         Scanner scanner = new Scanner(System.in);
         port = scanner.nextLine();
