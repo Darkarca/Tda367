@@ -1,3 +1,2 @@
 cd Client/Target
-java -jar Client-1.jar
-pause
+java -jar Client-1-jar-with-dependencies.jar

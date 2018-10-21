@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import com.CEYMChatLib.*;
 
 import java.io.IOException;
 import java.net.URL;
@@ -26,10 +25,10 @@ public class RecivedTextMessage {
 
     public RecivedTextMessage(String rMessage) throws IOException {
 
-        URL url = Paths.get("Client/src/main/resources/View/textMessageReciever.fxml").toUri().toURL();
-        FXMLLoader fxmlLoader = new FXMLLoader(url);
+        URL url = Paths.get("View/textMessageReciever.fxml").toUri().toURL();
+        FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setController(this);
-        fxmlLoader.load();
+        fxmlLoader.load((getClass().getClassLoader().getResource("View/textMessageReciever.fxml")));
 
         this.RmessageTextLabel.setText(rMessage);
     }

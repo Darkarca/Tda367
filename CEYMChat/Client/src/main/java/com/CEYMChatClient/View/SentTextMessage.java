@@ -24,10 +24,10 @@ public class SentTextMessage {
 
     public SentTextMessage( String sMessage) throws IOException {
 
-        URL url = Paths.get("Client/src/main/resources/View/textMessageSender.fxml").toUri().toURL();
-        FXMLLoader fxmlLoader = new FXMLLoader(url);
+        URL url = Paths.get("View/textMessageSender.fxml").toUri().toURL();
+        FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setController(this);
-        fxmlLoader.load();
+        fxmlLoader.load((getClass().getClassLoader().getResource("View/textMessageSender.fxml")));
 
         this.SmessageTextLabel.setText(sMessage);
     }

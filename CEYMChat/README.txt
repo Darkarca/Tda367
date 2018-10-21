@@ -4,7 +4,7 @@ To run the server:
 To run the client:
 	Run the RunClient.sh or RunServer.bat file
 To build the project with Maven:
-	Run mvn clean package
+	Run the Assembly plugin with lifecycle:assembly
 
 
 
