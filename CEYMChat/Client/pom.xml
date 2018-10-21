@@ -23,16 +23,17 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.CEYMChatLib</groupId>
+            <artifactId>model-lib</artifactId>
+            <version>model</version>
+        </dependency>
+        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>com.CEYMChat</groupId>
-            <artifactId>model-lib</artifactId>
-            <version>model</version>
-        </dependency>
+
         <dependency>
             <groupId>org.glassfish.ozark</groupId>
             <artifactId>ozark</artifactId>
@@ -43,6 +44,11 @@
             <artifactId>junit</artifactId>
             <version>RELEASE</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.CEYMChatLib</groupId>
+            <artifactId>model-lib</artifactId>
+            <version>model</version>
         </dependency>
     </dependencies>
     <build>
@@ -64,8 +70,8 @@
         <archive>
           <manifest>
             <addClasspath>true</addClasspath>
-            <classpathPrefix>lib/</classpathPrefix>
-            <mainClass>com.CEYMChat.ClientMain</mainClass>
+            <classpathPrefix>Client/</classpathPrefix>
+            <mainClass>com.CEYMChatClient.ClientMain</mainClass>
           </manifest>
         </archive>
       </configuration>
