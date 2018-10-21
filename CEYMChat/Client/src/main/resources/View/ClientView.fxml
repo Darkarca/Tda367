@@ -19,7 +19,7 @@
    <children>
       <AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="1046.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="677.0" prefWidth="611.0" styleClass="logo-Backgroundanother-colour" stylesheets="@style/style.css">
           <children>
-              <SplitPane dividerPositions="0.3329015544041451" prefHeight="677.0" prefWidth="774.0" styleClass="logo-Backgroundanother-colour">
+              <SplitPane dividerPositions="0.25647668393782386" prefHeight="677.0" prefWidth="774.0" styleClass="logo-Backgroundanother-colour">
                   <items>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="484.0" prefWidth="121.0" styleClass="logo-Backgroundanother-colour">
                           <children>
@@ -32,9 +32,9 @@
                               <String fx:value="loginText" />
                            </styleClass>
                               </Text>
-                              <ScrollPane layoutX="-5.0" layoutY="49.0" prefHeight="626.0" prefWidth="258.0">
+                              <ScrollPane layoutX="-5.0" layoutY="49.0" prefHeight="626.0" prefWidth="202.0">
                                   <content>
-                                      <FlowPane fx:id="friendsFlowPane" prefHeight="624.0" prefWidth="255.0" styleClass="logo-Backgroundanother-colour" />
+                                      <FlowPane fx:id="friendsFlowPane" prefHeight="624.0" prefWidth="199.0" styleClass="logo-Backgroundanother-colour" />
                                   </content>
                               </ScrollPane>
                         <ImageView fitHeight="40.0" fitWidth="74.0" layoutX="14.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
@@ -46,29 +46,29 @@
                       </AnchorPane>
                       <AnchorPane maxWidth="900.0" minHeight="0.0" minWidth="0.0" prefHeight="675.0" prefWidth="721.0">
                           <children>
-                              <TextField fx:id="chatBox" editable="true" layoutX="21.0" layoutY="559.0" onAction="#sendString" prefHeight="49.0" prefWidth="239.0" promptText="Type here to chat!" />
-                              <Button fx:id="sendButton" layoutX="260.0" layoutY="559.0" mnemonicParsing="false" onAction="#sendString" prefHeight="49.0" prefWidth="65.0" text="Send" />
+                              <TextField fx:id="chatBox" editable="true" layoutX="14.0" layoutY="542.0" onAction="#sendString" prefHeight="49.0" prefWidth="473.0" promptText="Type here to chat!" />
+                              <Button fx:id="sendButton" layoutX="492.0" layoutY="542.0" mnemonicParsing="false" onAction="#sendString" prefHeight="49.0" prefWidth="65.0" text="Send" />
                         <Text fx:id="currentChat" layoutX="21.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Currently chatting with: Nobody" wrappingWidth="175.611328125" />
-                        <ImageView fx:id="fileChooser" fitHeight="57.0" fitWidth="78.0" layoutX="25.0" layoutY="607.0" onMouseClicked="#chooseFile" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="fileChooser" fitHeight="57.0" fitWidth="78.0" layoutX="41.0" layoutY="595.0" onMouseClicked="#chooseFile" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../attached_icon.png" />
                            </image>
                         </ImageView>
       
-                        <Button fx:id="fileSend" layoutX="260.0" layoutY="611.0" mnemonicParsing="false" onAction="#sendFile" prefHeight="49.0" prefWidth="65.0" text="Send File" />
-                        <Text fx:id="fileName" layoutX="91.0" layoutY="640.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current file: none" />
+                        <Button fx:id="fileSend" layoutX="492.0" layoutY="599.0" mnemonicParsing="false" onAction="#sendFile" prefHeight="49.0" prefWidth="65.0" text="Send File" />
+                        <Text fx:id="fileName" layoutX="116.0" layoutY="628.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current file: none" />
       
-                        <Button layoutX="215.0" layoutY="623.0" mnemonicParsing="false" onAction="#saveMessages" prefHeight="25.0" prefWidth="34.0" text="S" />
-                        <ScrollPane layoutY="50.0" prefHeight="482.0" prefWidth="512.0">
+                        <Button layoutX="453.0" layoutY="611.0" mnemonicParsing="false" onAction="#saveMessages" prefHeight="25.0" prefWidth="34.0" text="S" />
+                        <ScrollPane layoutY="50.0" prefHeight="482.0" prefWidth="571.0">
                           <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="413.0" prefWidth="351.0">
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="480.0" prefWidth="568.0">
                                  <children>
-                                    <ImageView fitHeight="417.0" fitWidth="239.0" layoutX="4.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" scaleX="2.2" scaleY="1.15" translateX="133.0" translateY="30.0">
+                                    <ImageView fitHeight="417.0" fitWidth="239.0" layoutX="4.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" scaleX="2.42" scaleY="1.15" translateX="163.0" translateY="30.0">
                                        <image>
                                           <Image url="@../BackgroundPic/1.jpg" />
                                        </image>
                                     </ImageView>
-                                    <FlowPane fx:id="chatPane" prefHeight="482.0" prefWidth="512.0" AnchorPane.bottomAnchor="-69.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-161.0" AnchorPane.topAnchor="0.0" />
+                                    <FlowPane fx:id="chatPane" layoutX="-3.0" layoutY="-1.0" prefHeight="482.0" prefWidth="571.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="-3.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0" />
                                  </children>
                               </AnchorPane>
                           </content>
