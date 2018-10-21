@@ -1,4 +1,4 @@
-package com.CEYMChatClient;
+package com.CEYMChatClient.Controller;
 
 
 import com.CEYMChatClient.View.RecivedTextMessage;
@@ -10,19 +10,14 @@ import com.CEYMChatClient.View.FriendListItem;
 import com.CEYMChatLib.*;
 import com.CEYMChatClient.Services.Service;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.geometry.NodeOrientation;
 import javafx.scene.control.*;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
 import javafx.stage.FileChooser;
 
 import java.io.File;
@@ -347,7 +342,7 @@ public class ClientController implements IController {
 
 
     /**
-     * Opene a GUI window that lets the user choose a file,
+     * Opens a GUI window that lets the user choose a file,
      * which is then cached as a File object so that it can
      * be sent to the Server or another user later
      */

@@ -1,4 +1,4 @@
-package com.CEYMChatClient;
+package com.CEYMChatClient.Controller;
 
 import com.CEYMChatLib.Message;
 import com.CEYMChatLib.UserDisplayInfo;

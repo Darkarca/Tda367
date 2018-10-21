@@ -1,9 +1,10 @@
 package com.CEYMChatClient.Services;
 
-import com.CEYMChatClient.IController;
+import com.CEYMChatClient.Controller.IController;
 import com.CEYMChatClient.Model.ClientModel;
 import com.CEYMChatLib.*;
 import javafx.application.Platform;
+
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -20,8 +21,7 @@ public class Service implements IService{
     private Message lastMsg;
     private ArrayList<UserDisplayInfo> comingFriendsList = new ArrayList();
     private IController controller;
-    DataOutputStream dataOut;
-    DataInputStream dataIn;
+
     private boolean running = true;
     String serverIP;
 

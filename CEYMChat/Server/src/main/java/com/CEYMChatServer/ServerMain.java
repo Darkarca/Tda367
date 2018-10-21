@@ -9,8 +9,8 @@ import java.util.Scanner;
  * Class that starts the server
  */
 public class ServerMain{
-   static private ServerModel model;
-   static private SocketHandler socketHandler;
+    static private ServerModel model;
+    static private SocketHandler socketHandler;
     public void startHandler(){
         socketHandler.start();
     }
