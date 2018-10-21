@@ -1,4 +1,4 @@
-package com.CEYMChatServer.Services;
+package com.CEYMChatClient.Services;
 
 import com.CEYMChatClient.ClientController;
 import com.CEYMChatClient.IController;

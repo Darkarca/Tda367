@@ -1,4 +1,4 @@
-package com.CEYMChatServer.Model;
+package com.CEYMChatClient.Model;
 
 import com.CEYMChatClient.Model.ClientModel;
 import com.CEYMChatLib.Message;
@@ -18,7 +18,7 @@ public class ClientModelTest {
    static private ArrayList<Message> testList = new ArrayList<>();
 
 
-    /** creats a vertual saved messages */
+    /** creates a virtual saved messages */
     @BeforeClass
    static public void mockUpSavedMessages(){
         model.addReceivedMessage(MessageFactory.createStringMessage("Hello World","test1","test2"));
@@ -34,7 +34,7 @@ public class ClientModelTest {
 
     }
 
-    /** saves the vertual messages to a certain file locally */
+    /** saves the virtual messages to a certain file locally */
     @Test
     public void saveMessagesToFile() {
         try {
@@ -48,7 +48,7 @@ public class ClientModelTest {
     }
 
 
-    /** saves the recived messages to a certain files */
+    /** saves the received messages to a certain files */
     @Test
     public void saveReceivedMessages() {
         model.saveReceivedMessages("messages/received.csv");
