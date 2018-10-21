@@ -17,69 +17,6 @@
 
 <StackPane fx:id="programStackPane" prefHeight="685.0" prefWidth="774.0" stylesheets="@style/style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.CEYMChatClient.Controller.ClientController">
    <children>
-      <AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="1046.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="677.0" prefWidth="611.0" styleClass="logo-Backgroundanother-colour" stylesheets="@style/style.css">
-          <children>
-              <SplitPane dividerPositions="0.25647668393782386" prefHeight="677.0" prefWidth="774.0" styleClass="logo-Backgroundanother-colour">
-                  <items>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="484.0" prefWidth="121.0" styleClass="logo-Backgroundanother-colour">
-                          <children>
-                              <Text fill="#5dbcd2" layoutX="79.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chatta" wrappingWidth="104.162109375">
-                                  <font>
-                                      <Font size="29.0" />
-                                  </font>
-                           <styleClass>
-                              <String fx:value="text-kategory" />
-                              <String fx:value="loginText" />
-                           </styleClass>
-                              </Text>
-                              <ScrollPane layoutX="-5.0" layoutY="49.0" prefHeight="626.0" prefWidth="202.0">
-                                  <content>
-                                      <FlowPane fx:id="friendsFlowPane" prefHeight="624.0" prefWidth="199.0" styleClass="logo-Backgroundanother-colour" />
-                                  </content>
-                              </ScrollPane>
-                        <ImageView fitHeight="40.0" fitWidth="74.0" layoutX="14.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Logo.png" />
-                           </image>
-                        </ImageView>
-                          </children>
-                      </AnchorPane>
-                      <AnchorPane maxWidth="900.0" minHeight="0.0" minWidth="0.0" prefHeight="675.0" prefWidth="721.0">
-                          <children>
-                              <TextField fx:id="chatBox" editable="true" layoutX="14.0" layoutY="542.0" onAction="#sendString" prefHeight="49.0" prefWidth="473.0" promptText="Type here to chat!" />
-                              <Button fx:id="sendButton" layoutX="492.0" layoutY="542.0" mnemonicParsing="false" onAction="#sendString" prefHeight="49.0" prefWidth="65.0" text="Send" />
-                        <Text fx:id="currentChat" layoutX="21.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Currently chatting with: Nobody" wrappingWidth="175.611328125" />
-                        <ImageView fx:id="fileChooser" fitHeight="57.0" fitWidth="78.0" layoutX="41.0" layoutY="595.0" onMouseClicked="#chooseFile" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../attached_icon.png" />
-                           </image>
-                        </ImageView>
-      
-                        <Button fx:id="fileSend" layoutX="492.0" layoutY="599.0" mnemonicParsing="false" onAction="#sendFile" prefHeight="49.0" prefWidth="65.0" text="Send File" />
-                        <Text fx:id="fileName" layoutX="116.0" layoutY="628.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current file: none" />
-      
-                        <Button layoutX="453.0" layoutY="611.0" mnemonicParsing="false" onAction="#saveMessages" prefHeight="25.0" prefWidth="34.0" text="S" />
-                        <ScrollPane layoutY="50.0" prefHeight="482.0" prefWidth="571.0">
-                          <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="480.0" prefWidth="568.0">
-                                 <children>
-                                    <ImageView fitHeight="417.0" fitWidth="239.0" layoutX="4.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" scaleX="2.42" scaleY="1.15" translateX="163.0" translateY="30.0">
-                                       <image>
-                                          <Image url="@../BackgroundPic/1.jpg" />
-                                       </image>
-                                    </ImageView>
-                                    <FlowPane fx:id="chatPane" layoutX="-3.0" layoutY="-1.0" prefHeight="482.0" prefWidth="571.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="-3.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0" />
-                                 </children>
-                              </AnchorPane>
-                          </content>
-                        </ScrollPane>
-      
-                          </children>
-                      </AnchorPane>
-                  </items>
-              </SplitPane>
-          </children>
-      </AnchorPane>
       <AnchorPane fx:id="loginPane" prefHeight="400.0" prefWidth="582.0" styleClass="logo-Backgroundanother-colour" stylesheets="@style/style.css">
          <children>
             <Text fill="#5dbcd2" layoutX="355.0" layoutY="273.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login" wrappingWidth="86.63671875">
@@ -113,6 +50,94 @@
             </TextField>
             <Text layoutX="375.0" layoutY="452.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Server IP" />
          </children>
+      </AnchorPane>
+      <AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="1046.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="677.0" prefWidth="611.0" styleClass="logo-Backgroundanother-colour" stylesheets="@style/style.css">
+          <children>
+              <SplitPane dividerPositions="0.25647668393782386" prefHeight="677.0" prefWidth="774.0" styleClass="logo-Backgroundanother-colour">
+                  <items>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="484.0" prefWidth="121.0" styleClass="logo-Backgroundanother-colour">
+                          <children>
+                              <Text fill="#5dbcd2" layoutX="79.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chatta" wrappingWidth="104.162109375">
+                                  <font>
+                                      <Font size="29.0" />
+                                  </font>
+                           <styleClass>
+                              <String fx:value="text-kategory" />
+                              <String fx:value="loginText" />
+                           </styleClass>
+                              </Text>
+                              <ScrollPane layoutX="-5.0" layoutY="49.0" prefHeight="626.0" prefWidth="202.0">
+                                  <content>
+                                      <FlowPane fx:id="friendsFlowPane" prefHeight="624.0" prefWidth="199.0" styleClass="logo-Backgroundanother-colour" />
+                                  </content>
+                              </ScrollPane>
+                        <ImageView fitHeight="40.0" fitWidth="74.0" layoutX="14.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Logo.png" />
+                           </image>
+                        </ImageView>
+                          </children>
+                      </AnchorPane>
+                      <AnchorPane maxWidth="900.0" minHeight="0.0" minWidth="0.0" prefHeight="675.0" prefWidth="721.0">
+                          <children>
+                              <TextField fx:id="chatBox" editable="true" layoutX="14.0" layoutY="566.0" onAction="#sendString" prefHeight="51.0" prefWidth="419.0" promptText="Type here to chat!" />
+                              <Button fx:id="sendButton" layoutX="492.0" layoutY="566.0" mnemonicParsing="false" onAction="#sendString" prefHeight="51.0" prefWidth="65.0">
+                           <graphic>
+                              <ImageView fitHeight="43.0" fitWidth="153.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../send.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Text fx:id="currentChat" layoutX="21.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Currently chatting with: Nobody" wrappingWidth="175.611328125" />
+                        <ImageView fx:id="fileChooser" fitHeight="40.0" fitWidth="40.0" layoutX="402.0" layoutY="5.0" onMouseClicked="#chooseFile" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../attached_icon.png" />
+                           </image>
+                        </ImageView>
+      
+                              <Button fx:id="fileSend" layoutX="447.0" layoutY="10.0" mnemonicParsing="false" onAction="#sendFile" prefHeight="29.0" prefWidth="65.0" text="Send File" />
+                        <Text fx:id="fileName" layoutX="365.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="36.999994575977325" />
+                        <ScrollPane layoutY="50.0" prefHeight="482.0" prefWidth="571.0">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="480.0" prefWidth="568.0">
+                                 <children>
+                                    <ImageView fitHeight="417.0" fitWidth="239.0" layoutX="4.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" scaleX="2.42" scaleY="1.15" translateX="163.0" translateY="30.0">
+                                       <image>
+                                          <Image url="@../BackgroundPic/1.jpg" />
+                                       </image>
+                                    </ImageView>
+                                    <FlowPane fx:id="chatPane" layoutX="-3.0" layoutY="-1.0" prefHeight="482.0" prefWidth="571.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="-3.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0" />
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </ScrollPane>
+      
+                                                <Button layoutX="524.0" layoutY="10.0" mnemonicParsing="false" onAction="#saveMessages" prefHeight="29.0" prefWidth="29.0">
+                           <graphic>
+                              <ImageView fitHeight="21.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../download.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button layoutX="440.0" layoutY="566.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="46.0">
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../mic.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+      
+                                </children>
+                      </AnchorPane>
+                  </items>
+              </SplitPane>
+          </children>
       </AnchorPane>
    </children>
 </StackPane>
