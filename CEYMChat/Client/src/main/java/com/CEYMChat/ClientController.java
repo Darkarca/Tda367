@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Controller for the Client.
+ * Controller for the Client and ClientMain .
  */
 public class ClientController implements IController {
 
@@ -67,6 +67,7 @@ public class ClientController implements IController {
     private Text fileName;
     private List<UserDisplayInfo> friendList = new ArrayList<>();
     private List<FriendListItem> blockedFriends = new ArrayList<>();
+
     /** FXML methods**/
     /**
      * Captures input from user and send makes use of model to send message
@@ -77,7 +78,7 @@ public class ClientController implements IController {
         login();
         mainPane.toFront();
     }
-    /********************************/
+
     /**
      * Getters and Setters
      **/
@@ -85,8 +86,11 @@ public class ClientController implements IController {
         return service;
     }
 
-    /********************************/
-    public void appInit() {     // Initiates the GUI
+
+    /**
+     *  Initiates the GUI
+     */
+    public void appInit() {
         model = new ClientModel();
         service = new Service(model, this);
         chatWindow.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
@@ -113,8 +117,14 @@ public class ClientController implements IController {
         }
     }
 
-    public void login() throws IOException {    // Called when a username has been chosen, notifies the
-        appInit();                              // Server that someone has connected so that they can be identified aswell as initiating the GUI
+    /**
+     * Called when a username has been chosen, notifies the
+     * Server that someone has connected so that they can be
+     * identified aswell as initiating the GUI
+     * @throws IOException
+     */
+    public void login() throws IOException {
+        appInit();
         service.connectToS();
         service.login(CommandName.SET_USER, userName);
         model.setUsername(userName);
@@ -122,7 +132,13 @@ public class ClientController implements IController {
 
     }
 
-    public void sendString() throws IOException {    // Sends the text in the chatBox to the Server together with whichever user you have chosen
+
+    /**
+     * Sends the text in the chatBox to the Server
+     * together with whichever user you have chosen
+     * @throws IOException
+     */
+    public void sendString() throws IOException {
         String toSend = chatBox.getText();
         chatBox.setText("");
         service.sendMessage(MessageFactory.createStringMessage(toSend, userName, currentChatName));
@@ -131,8 +147,12 @@ public class ClientController implements IController {
 
     }
 
+    /**
+     * Asks the Server for an updated active
+     * userlist, called when the Refresh button is pressed
+     */
     @FXML
-    public void refreshFriendList() {               // Asks the Server for an updated active userlist, called when the Refresh button is pressed
+    public void refreshFriendList() {
         try {
             System.out.println("Send refreshFriendList command");
             service.sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.REFRESH_FRIENDLIST, userName), userName));
@@ -141,7 +161,12 @@ public class ClientController implements IController {
         }
     }
 
-    public void checkFriends() throws IOException {             // Checks which users have been tagged as friends and notifies the Server if any new friends have been added
+
+    /**
+     *  Checks which users have been tagged as friends and notifies the Server if any new friends have been added
+     * @throws IOException
+     */
+    public void checkFriends() throws IOException {
         System.out.println("Checking friends");
         int changes = 0;
         for (UserDisplayInfo friendInfo : friendList) {         // Removes friends that have been deselected
@@ -173,7 +198,14 @@ public class ClientController implements IController {
         }
     }
 
-    public void requestChat() {                                      // Currently unused, sends a command to the Server to notify it that the user wants to initiate a chat with someone, currently a message contains a String with the username of the intended receiver instead
+
+    /**
+     * Currently unused, sends a command to the Server
+     * to notify it that the user wants to initiate a
+     * chat with someone, currently a message contains
+     * a String with the username of the intended receiver instead
+     */
+    public void requestChat() {
         try {
             service.sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.REQUEST_CHAT, "user2"), userName));
         } catch (IOException e) {
@@ -181,14 +213,23 @@ public class ClientController implements IController {
         }
     }
 
-    public void displayNewMessage(Message m) {                       // Updates the GUI with text from a new message
+    /**
+     * Updates the GUI with text from a new message
+     * @param m
+     */
+    public void displayNewMessage(Message m) {
         System.out.println("displayNewMessage has been called with string: " + m.getData());
         chatWindow.appendText(m.getSender() + ": " + m.getData() + "\n");
         chatWindow.appendText("\n");
 
     }
 
-    public void createFriendListItemList(ArrayList<UserDisplayInfo> friendList) throws IOException { // Creates a list of users for the GUI to show
+    /**
+     * Creates a list of users for the GUI to show
+     * @param friendList
+     * @throws IOException
+     */
+    public void createFriendListItemList(ArrayList<UserDisplayInfo> friendList) throws IOException {
         System.out.println("New list of friendItems created");
         for (UserDisplayInfo uInfo : friendList) {
             System.out.println("User added: " + uInfo.getUsername());
@@ -203,7 +244,13 @@ public class ClientController implements IController {
         }
     }
 
-    public void showOnlineFriends(ArrayList<UserDisplayInfo> friendList) throws IOException {       // Updates the GUI with the new userList
+
+    /**
+     * Updates the GUI with the new userList
+     * @param friendList
+     * @throws IOException
+     */
+    public void showOnlineFriends(ArrayList<UserDisplayInfo> friendList) throws IOException {
         friendItemList.clear();
         System.out.println("FriendListItems are being created");
         createFriendListItemList(friendList);
@@ -215,6 +262,11 @@ public class ClientController implements IController {
         }
     }
 
+    /**
+     * checking if a friend is blocked
+     * @param friendListItem
+     * @return
+     */
     public boolean isBlocked(FriendListItem friendListItem) {
         for (FriendListItem b : blockedFriends) {
             if (b.getFriendUsername().getText().equals(friendListItem.getFriendUsername().getText())) {
@@ -224,6 +276,11 @@ public class ClientController implements IController {
         return false;
     }
 
+
+    /**
+     * initialize the fxml friendListItem with data
+     * @param item
+     */
     public void initFriendListItem(FriendListItem item) {
         item.getFriendPane().setOnMouseClicked(Event -> {
             currentChatName = item.getFriendUsername().getText();
@@ -254,7 +311,13 @@ public class ClientController implements IController {
 
     }
 
-    public void chooseFile() {                  // Opene a GUI window that lets the user choose a file, which is then cached as a File object so that it can be sent to the Server or another user later
+
+    /**
+     * Opene a GUI window that lets the user choose a file,
+     * which is then cached as a File object so that it can
+     * be sent to the Server or another user later
+     */
+    public void chooseFile() {
         FileChooser fc = new FileChooser();
         fc.setTitle("Choose a file to send with your message");
         fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text Files", "*.txt"),
@@ -268,20 +331,35 @@ public class ClientController implements IController {
         }
     }
 
-    public void sendFile() throws IOException {             // Sends a specific File via the service to the Server (and potentially to another user)
+    /**
+     * Sends a specific File via the service to the
+     * Server (and potentially to another user)
+     * @throws IOException
+     */
+    public void sendFile() throws IOException {
         if (model.getSelectedFile() != null) {
             service.sendMessage(MessageFactory.createFileMessage(model.getSelectedFile(), userName, currentChatName));
             fileName.setText("Current file: none");
         }
     }
 
-    public void saveMessages() {                           // Saves messages locally so that they can be loaded the next time you load the client
+
+    /**
+     * Saves messages locally so that they can
+     * be loaded the next time you load the client
+     */
+    public void saveMessages() {
         System.out.println("Messages saved.");
         model.saveReceivedMessages("Client/messages/received.csv");
         model.saveSendMessages("Client/messages/sent.csv");
     }
 
-    public void loadSavedMessages() throws IOException {   // Loads messages saved during previous sessions
+
+    /**
+     * Loads messages saved during previous sessions
+     * @throws IOException
+     */
+    public void loadSavedMessages() throws IOException {
         ArrayList<String> savedSentMessages = model.loadSavedMessages("Client/messages/sent.csv");
         ArrayList<String> savedReceivedMessages = model.loadSavedMessages("Client/messages/received.csv");
         ArrayList<String> allSavedMessages = new ArrayList<>();
@@ -292,6 +370,13 @@ public class ClientController implements IController {
         }
     }
 
+
+    /**
+     * Combines two saved lists of messages in one list
+     * @param savedSentMessages
+     * @param savedReceivedMessages
+     * @param allSavedMessages
+     */
     public void combineSavedLists (ArrayList<String> savedSentMessages, ArrayList<String> savedReceivedMessages,ArrayList<String>allSavedMessages){
         int min = Math.min(savedReceivedMessages.size(),savedSentMessages.size());
         int index = 0;
@@ -314,6 +399,13 @@ public class ClientController implements IController {
         }
     }
 
+
+    /**
+     * adds elements of a list to another list and begin from a given index
+     * @param savedList
+     * @param allSavedMessages
+     * @param index
+     */
     public void addElementsAfterIndex(ArrayList<String> savedList,ArrayList<String>allSavedMessages,int index){
         for (int i = index; i < savedList.size(); i++){
             allSavedMessages.add(savedList.get(i));

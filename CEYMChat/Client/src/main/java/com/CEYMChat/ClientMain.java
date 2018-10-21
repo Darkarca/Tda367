@@ -12,6 +12,11 @@ import java.nio.file.Paths;
  */
 public class ClientMain extends Application {
 
+    /**
+     * Runs the Client project as a main method
+     * @param primaryStage
+     * @throws Exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
         URL url = Paths.get("Client/src/main/resources/View/ClientView.fxml").toUri().toURL();

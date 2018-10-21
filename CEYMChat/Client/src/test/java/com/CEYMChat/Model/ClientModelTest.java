@@ -12,10 +12,14 @@ import java.util.Arrays;
 import static org.junit.Assert.*;
 
 public class ClientModelTest {
-   static ClientModel model = new ClientModel();
+
+    static ClientModel model = new ClientModel();
    static private ArrayList<Message> testList = new ArrayList<>();
 
 
+    /**
+     * creats a vertual saved messages
+     */
     @BeforeClass
    static public void mockUpSavedMessages(){
         model.addReceivedMessage(MessageFactory.createStringMessage("Hello World","test1","test2"));
@@ -29,8 +33,12 @@ public class ClientModelTest {
         model.saveSendMessages("messages/sent.csv");
         model.saveReceivedMessages("messages/received.csv");
 
-
     }
+
+
+    /**
+     * saves the vertual messages to a certain file locally
+     */
     @Test
     public void saveMessagesToFile() {
         try {
@@ -43,12 +51,20 @@ public class ClientModelTest {
         assertTrue(exists);
     }
 
+
+    /**
+     * saves the recived messages to a certain files
+     */
     @Test
     public void saveReceivedMessages() {
         model.saveReceivedMessages("messages/received.csv");
         //Passes if no exception
     }
 
+
+    /**
+     * saves and sends the messages
+     */
     @Test
     public void saveSendMessages() {
         model.saveSendMessages("messages/sent.csv");
@@ -56,6 +72,11 @@ public class ClientModelTest {
 
     }
 
+
+    /**
+     * loads the saved sended messages
+     * @throws IOException
+     */
     @Test
     public void loadSavedSentMessage() throws IOException {
         ArrayList<String> expected = new ArrayList<>();
@@ -65,10 +86,13 @@ public class ClientModelTest {
         actual = model.loadSavedMessages("messages/sent.csv");
         assertEquals(expected,actual);
 
-
-
     }
 
+
+    /**
+     * loads the saved recieved messages
+     * @throws IOException
+     */
     @Test
     public void loadSavedReceivedMessage() throws IOException {
         ArrayList<String> expected = new ArrayList<>();
