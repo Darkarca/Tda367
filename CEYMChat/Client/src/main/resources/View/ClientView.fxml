@@ -16,13 +16,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane fx:id="programStackPane" stylesheets="@style/style.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.CEYMChatClient.ClientController">
+<StackPane fx:id="programStackPane" prefHeight="685.0" prefWidth="774.0" stylesheets="@style/style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.CEYMChatClient.ClientController">
    <children>
       <AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="1046.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="677.0" prefWidth="611.0" styleClass="logo-Backgroundanother-colour" stylesheets="@style/style.css">
           <children>
-              <SplitPane dividerPositions="0.41475409836065574" prefHeight="677.0" prefWidth="612.0" styleClass="logo-Backgroundanother-colour">
+              <SplitPane dividerPositions="0.32642487046632124" prefHeight="677.0" prefWidth="774.0" styleClass="logo-Backgroundanother-colour">
                   <items>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="484.0" prefWidth="121.0" style="-fx-background-color: grey;">
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="149.0" prefWidth="273.0" styleClass="back-colour">
                           <children>
                               <Text fill="WHITE" layoutX="69.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-kategory" text="Friends" wrappingWidth="96.162109375">
                                   <font>
@@ -31,7 +31,7 @@
                               </Text>
                               <ScrollPane layoutX="-5.0" layoutY="138.0" prefHeight="537.0" prefWidth="258.0">
                                   <content>
-                                      <FlowPane fx:id="friendsFlowPane" prefHeight="535.0" prefWidth="255.0" styleClass="logo-Backgroundanother-colour" />
+                                      <FlowPane fx:id="friendsFlowPane" prefHeight="522.0" prefWidth="246.0" styleClass="logo-Backgroundanother-colour" />
                                   </content>
                               </ScrollPane>
                         <Button fx:id="refreshButton" layoutX="59.0" layoutY="34.0" mnemonicParsing="false" onMouseClicked="#refreshFriendList" prefHeight="39.0" prefWidth="116.0" text="Refresh" />
@@ -48,12 +48,12 @@
                               <Image url="@../attached_icon.png" />
                            </image>
                         </ImageView>
-
+            
                         <Button fx:id="fileSend" layoutX="260.0" layoutY="611.0" mnemonicParsing="false" onAction="#sendFile" prefHeight="49.0" prefWidth="65.0" text="Send File" />
                         <Text fx:id="fileName" layoutX="91.0" layoutY="640.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current file: none" />
-
+            
                         <Button layoutX="53.0" layoutY="21.0" mnemonicParsing="false" onAction="#saveMessages" prefHeight="25.0" prefWidth="239.0" text="Save conversation to file" />
-
+            
                           </children>
                       </AnchorPane>
                   </items>
@@ -62,31 +62,32 @@
       </AnchorPane>
       <AnchorPane fx:id="loginPane" prefHeight="400.0" prefWidth="582.0" styleClass="logo-Backgroundanother-colour" stylesheets="@style/style.css">
          <children>
-            <Text fill="#5dbcd2" layoutX="263.0" layoutY="269.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="loginText-colour" text="Login" wrappingWidth="86.63671875">
+            <Text fill="#5dbcd2" layoutX="356.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="loginText-colour" text="Login" wrappingWidth="86.63671875">
                <font>
                   <Font size="33.0" />
                </font>
             </Text>
-            <TextField fx:id="userNameTextField" layoutX="190.0" layoutY="320.0" onAction="#onClick" prefHeight="37.0" prefWidth="231.0" promptText="Username" />
-            <Button fx:id="loginButton" layoutX="191.0" layoutY="527.0" mnemonicParsing="false" onAction="#onClick" onMouseClicked="#onClick" prefHeight="37.0" prefWidth="231.0" text="Login" textFill="WHITE">
+            <TextField fx:id="userNameTextField" layoutX="284.0" layoutY="314.0" onAction="#onClick" prefHeight="37.0" prefWidth="231.0" promptText="Username" />
+            <Button fx:id="loginButton" layoutX="283.0" layoutY="504.0" mnemonicParsing="false" onAction="#onClick" onMouseClicked="#onClick" prefHeight="37.0" prefWidth="231.0" text="Login" textFill="WHITE">
                <styleClass>
                   <String fx:value="back-colour" />
                   <String fx:value="static-hinting" />
                   <String fx:value="text-larger" />
-               </styleClass></Button>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="231.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
+               </styleClass>
+            </Button>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="325.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Logo.png" />
                </image>
             </ImageView>
-            <TextField fx:id="passwordTextField" layoutX="191.0" layoutY="369.0" onAction="#onClick" prefHeight="37.0" prefWidth="231.0" promptText="Password" />
-            <Label layoutX="191.0" layoutY="411.0" prefHeight="17.0" prefWidth="126.0" text="Forgut your password?" textFill="#5dbcd2" />
-            <TextField fx:id="ipField" layoutX="190.0" layoutY="470.0" prefHeight="37.0" prefWidth="231.0" text="localhost">
+            <TextField fx:id="passwordTextField" layoutX="285.0" layoutY="364.0" onAction="#onClick" prefHeight="37.0" prefWidth="231.0" promptText="Password" />
+            <Label layoutX="336.0" layoutY="401.0" prefHeight="17.0" prefWidth="126.0" text="Forgot your password?" textFill="#5dbcd2" />
+            <TextField fx:id="ipField" layoutX="284.0" layoutY="456.0" prefHeight="37.0" prefWidth="231.0" text="localhost">
                <tooltip>
-                  <Tooltip text="Use localhost if server is run locally" />
+                  <Tooltip text="Use &quot;localhost&quot; if server is run locally" />
                </tooltip>
             </TextField>
-            <Text layoutX="284.0" layoutY="458.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Server IP" />
+            <Text layoutX="375.0" layoutY="452.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Server IP" />
          </children>
       </AnchorPane>
    </children>

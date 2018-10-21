@@ -6,8 +6,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.net.InetAddress;
-
 /** This class should do nothing else than to launch the client application. */
 public class ClientMain extends Application {
 
@@ -18,6 +16,5 @@ public class ClientMain extends Application {
         primaryStage.setTitle("CEYMChatServer");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
-        System.out.println(InetAddress.getLocalHost().getHostAddress().toString());
     }
 }

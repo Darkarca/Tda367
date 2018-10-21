@@ -179,6 +179,9 @@ public class Service implements IService{
         }
     }
 
+    /**
+     * Stops the clientside connection
+     */
     @Override
     public void stop() {
         running = false;
