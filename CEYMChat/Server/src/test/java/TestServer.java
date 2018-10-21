@@ -1,5 +1,5 @@
-import com.CEYMChat.Model.ServerModel;
-import com.CEYMChat.Services.SocketHandler;
+import com.CEYMChatServer.Model.ServerModel;
+import com.CEYMChatServer.Services.SocketHandler;
 import org.junit.*;
 
 public class TestServer {

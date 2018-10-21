@@ -23,7 +23,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.CEYMChat</groupId>
+            <groupId>com.CEYMChatLib</groupId>
             <artifactId>model-lib</artifactId>
             <version>model</version>
         </dependency>
@@ -44,6 +44,12 @@
             <version>RELEASE</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.CEYMChatLib</groupId>
+            <artifactId> model-lib </artifactId>
+            <version>model</version>
+        </dependency>
+
     </dependencies>
     <build>
         <plugins>
@@ -64,8 +70,8 @@
         <archive>
           <manifest>
             <addClasspath>true</addClasspath>
-            <classpathPrefix>lib/</classpathPrefix>
-            <mainClass>com.CEYMChat.Server</mainClass>
+            <classpathPrefix>Server/</classpathPrefix>
+            <mainClass>com.CEYMChatServer.ServerMain</mainClass>
           </manifest>
         </archive>
       </configuration>
