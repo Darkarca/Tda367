@@ -23,16 +23,29 @@ public class Service implements IService{
     DataInputStream dataIn;
     private boolean running = true;
 
+    /**
+     * Constructor
+     * @param model
+     * @param c
+     */
     public Service(ClientModel model, IController c)
     {
         this.model = model;
         this.controller = c;
     }
 
+    /**
+     *
+     * Getters and setters
+     */
     public ObjectInputStream getMessageInStream() {
         return messageInStream;
     }
 
+
+    /**
+     * Connect client to the server
+     */
     @Override
     public void connectToS(){
         try {
@@ -49,10 +62,13 @@ public class Service implements IService{
         }
     }
 
-            /** Starts a new thread constantly reading a inputstream from the Server.
-             * While it is running it continuously checks the stream,
-             * checks what type of message it has received and processes it appropriately
-             **/
+
+
+    /**
+     * Starts a new thread constantly reading a inputstream from the Server.
+     * While it is running it continuously checks the stream,
+     * checks what type of message it has received and processes it appropriately
+     */
     @Override
     public void read() {
         new Thread(() -> {
@@ -92,6 +108,10 @@ public class Service implements IService{
             }
         }).start();
     }
+
+    /**
+     * handling the recieved array list
+     */
     public void recieveArrayList(){
         comingFriendsList = (ArrayList) messageIn.getData();
         model.setUserList(comingFriendsList);
@@ -108,6 +128,9 @@ public class Service implements IService{
         );
     }
 
+    /**
+     * handling the recieved String
+     */
     public void recieveString(){
         model.addReceivedMessage(messageIn);    // The Thread updates the models state
         System.out.println("Message received from " + messageIn.getSender() + ": " + messageIn.getData());
@@ -115,6 +138,10 @@ public class Service implements IService{
         displayNewMessage(messageIn);
     }
 
+    /**
+     * handling the recieved file
+     * @throws IOException
+     */
     public void recieveFile() throws IOException {
 
         byte [] receivedFile  = new byte [1073741824];
@@ -128,13 +155,22 @@ public class Service implements IService{
 
     }
 
+    /**
+     * Setting the message in the outputstream of the socket
+     * @param m
+     * @throws IOException
+     */
     public void setMessageOut(Message m) throws IOException {   // Writes a message to the outStream so the Server or whatever else it is connected to can read from it
         System.out.println("MessageOutputStream: " + messageOutStream);
         messageOutStream.writeObject(m);
         System.out.println("Message sent: " + m.getData());
 
     }
-    public void stop(){ // Safely stops all connections and stops the Thread
+
+    /**
+     * Safely stops all connections and stops the Thread
+     */
+    public void stop(){
         running = false;
         try {
             messageOutStream = null;
@@ -146,7 +182,12 @@ public class Service implements IService{
         }
     }
 
-    public void sendMessage(Message m) throws IOException { // Decides how messages are sent to the Server
+    /**
+     *  Decides how messages are sent to the Server
+     * @param m
+     * @throws IOException
+     */
+    public void sendMessage(Message m) throws IOException {
         MessageType msgType = MessageType.valueOf(m.getType().getSimpleName());
         switch(msgType){
             case String: setMessageOut(m);  // Messages containing Strings are sent to the outputStream
@@ -176,16 +217,30 @@ public class Service implements IService{
         }
     }
 
-    public void displayNewMessage(Message m){       // Informs the controller that it should display a new message in the GUI
+    /**
+     * Informs the controller that it should display a new message in the GUI
+     * @param m
+     */
+    public void displayNewMessage(Message m){
         controller.displayNewMessage(m);
     }
 
-    public void displayFriendList() throws IOException {    // Informs the controller that it should update
+
+    /**
+     * Informs the controller that it should update
+     * @throws IOException
+     */
+    public void displayFriendList() throws IOException {
         controller.showOnlineFriends(model.getUserList());  // the friendsList so that the Client correctly shows active users
         System.out.println("New list of friends displayed");
     }
 
-    public void login(CommandName sCommand, String userName){      // Informs the Server that a user has connected so that the Server can identify the user
+    /**
+     * Informs the Server that a user has connected so that the Server can identify the user
+     * @param sCommand
+     * @param userName
+     */
+    public void login(CommandName sCommand, String userName){
         try {
             sendMessage(MessageFactory.createCommandMessage(new Command(sCommand,userName),userName));
         } catch (IOException e) {
