@@ -7,18 +7,28 @@ import java.io.Serializable;
  */
 
 public class Command implements Serializable {
+
     private CommandName commandName;
     private String commandData;
 
+
+    /**
+     *
+     * @param commandName
+     * @param commandData
+     */
     public Command(CommandName commandName, String commandData) {
         this.commandName = commandName;
         this.commandData = commandData;
     }
 
-    /** Getters and setters **/
+    /**
+     *  Getters and setters
+     **/
     public CommandName getCommandName() {
         return commandName;
     }
+
     public String getCommandData() {
         return commandData;
     }

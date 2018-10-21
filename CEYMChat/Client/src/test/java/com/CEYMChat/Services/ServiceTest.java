@@ -20,6 +20,10 @@ public class ServiceTest {
     boolean serverOn = false;
     int sent = 2;
 
+    /**
+     *
+     * @throws IOException
+     */
     public void setUpServer() throws IOException {
         {
             serverSocket = new ServerSocket(9000);
@@ -39,6 +43,11 @@ public class ServiceTest {
         }
     }
 
+
+    /**
+     *
+     * @throws IOException
+     */
     public void inIt() throws IOException {
         setUpServer();
         clientController = new ClientController();
@@ -46,6 +55,12 @@ public class ServiceTest {
         service = (Service) ((ClientController) clientController).getService();
     }
 
+
+    /**
+     *
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     @Test
     public void connectToS() throws IOException, ClassNotFoundException {
         /*
@@ -61,30 +76,58 @@ public class ServiceTest {
         */
     }
 
+
+    /**
+     *
+     */
     @Test
     public void read() {
     }
 
+
+    /**
+     *
+     */
     @Test
     public void setMessageOut() {
     }
 
+
+    /**
+     *
+     */
     @Test
     public void stop() {
     }
 
+
+    /**
+     *
+     */
     @Test
     public void sendMessage() {
     }
 
+
+    /**
+     *
+     */
     @Test
     public void displayNewMessage() {
     }
 
+
+    /**
+     *
+     */
     @Test
     public void processMessage() {
     }
 
+
+    /**
+     *
+     */
     @Test
     public void displayFriendList() {
     }

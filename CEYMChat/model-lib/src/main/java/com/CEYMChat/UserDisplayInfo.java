@@ -4,7 +4,10 @@ import javafx.scene.image.ImageView;
 import java.io.Serializable;
 import java.net.InetAddress;
 
-// A class containing information about a single user
+
+/**
+ * A class containing information about a single user
+ */
 public class UserDisplayInfo implements Serializable {
 
     private String username;
@@ -13,6 +16,10 @@ public class UserDisplayInfo implements Serializable {
     private Boolean isFriend = false;
     private InetAddress inetAddress;
 
+
+    /**
+     *Getters and Setters
+     */
     public String getUsername() {
         return username;
     }
@@ -32,7 +39,9 @@ public class UserDisplayInfo implements Serializable {
     public void setStatus(String status) {
         this.status = status;
     }
-    public void setIsFriend(Boolean isFriend){this.isFriend=isFriend;}
+    public void setIsFriend(Boolean isFriend){
+        this.isFriend=isFriend;
+    }
     public void setInetAddress(InetAddress inetAddress) {
         this.inetAddress = inetAddress;
     }

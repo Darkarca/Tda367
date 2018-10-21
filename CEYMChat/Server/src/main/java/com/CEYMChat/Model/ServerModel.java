@@ -10,6 +10,9 @@ import java.net.ServerSocket;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Server model class
+ */
 public class  ServerModel {
     private ServerSocket serverSocket;
     private List<User> userList = new ArrayList<>();
@@ -22,6 +25,21 @@ public class  ServerModel {
         }
     }
 
+
+    /**
+     * Getters and setters
+     */
+    public ServerSocket getServerSocket() {
+        return serverSocket;
+    }
+    public List<User> getUserList() {
+        return userList;
+    }
+    public void addUser(User user) {
+        userList.add(user);
+    }
+
+
     /**
      *Performs a received command,
      * @param c Command to be executed
@@ -29,22 +47,17 @@ public class  ServerModel {
      */
     public void performCommand(Command c, String sender) {
         switch(c.getCommandName()){
-            case SET_USER: {                // Sets the username of a user so that it can be identified uniformly between the client and server
-                userList.get(userList.size()-1).setUsername(c.getCommandData());
-                System.out.println("Command performed: 'setUser'" + c.getCommandData());
-                updateUserLists();
-                break;
+            case SET_USER: {
+               setUser(c);
             }
-            case REFRESH_FRIENDLIST:        // Sends an update active userlist to all active clients, also merges the list with each users individual friendslist
-                User u = getUserByUsername(sender);
-                u.syncFriends(sendUserInfo());
-                u.sendMessage(u.checkFriends(sendUserInfo()));
-                System.out.println("Command performed: 'refreshFriendList '" + c.getCommandData());
                 break;
-            case DISCONNECT:                // Disconnects the user by removing it from the Servers userlist so that the server won't point to a null outputStream
-                User user = getUserByUsername(sender);
-                userList.remove(user);
-                updateUserLists();
+            case REFRESH_FRIENDLIST: {
+                refreshFreindList(c, sender);
+            }
+                break;
+            case DISCONNECT: {
+                disconnect(sender);
+            }
                 break;
             case REGISTER:                  // Not yet supported, supposed to create a new user in a Serverlocal file containing information about all users
                 break;
@@ -53,6 +66,41 @@ public class  ServerModel {
             case REQUEST_CHAT:              // Not yet supported, supposed to initiate a chat between two (or more) users
         }
     }
+
+    /**
+     * Sets the username of a user so that it can be identified uniformly between the client and server
+     * @param c
+     */
+    public void setUser(Command c){
+        userList.get(userList.size()-1).setUsername(c.getCommandData());
+        System.out.println("Command performed: 'setUser'" + c.getCommandData());
+        updateUserLists();
+    }
+
+
+    /**
+     * Sends an update active userlist to all active clients, also merges the list with each users individual friendslist
+     * @param c
+     * @param sender
+     */
+    public void refreshFreindList (Command c, String sender){
+        User u = getUserByUsername(sender);
+        u.syncFriends(sendUserInfo());
+        u.sendMessage(u.checkFriends(sendUserInfo()));
+        System.out.println("Command performed: 'refreshFriendList '" + c.getCommandData());
+    }
+
+
+    /**
+     * // Disconnects the user by removing it from the Servers userlist so that the server won't point to a null outputStream
+     * @param sender
+     */
+    public void disconnect (String sender){
+        User user = getUserByUsername(sender);
+        userList.remove(user);
+        updateUserLists();
+    }
+
 
     /**
      * Sends user information via UserDisplayInfo objects to the recipient.
@@ -68,16 +116,12 @@ public class  ServerModel {
         return MessageFactory.createFriendInfoList(list, null, null);
     }
 
-    public ServerSocket getServerSocket() {
-        return serverSocket;
-    }
-    public List<User> getUserList() {
-        return userList;
-    }
-    public void addUser(User user) {
-        userList.add(user);
-    }
 
+
+
+    /**
+     * Updates user lists
+     */
     public void updateUserLists(){
         for (User u:userList) {
             //u.syncFriends(sendUserInfo());

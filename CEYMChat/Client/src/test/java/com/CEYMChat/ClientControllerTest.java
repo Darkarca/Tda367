@@ -9,36 +9,68 @@ public class ClientControllerTest {
 
     ClientController testController = new ClientController();
 
+
+    /**
+     *
+     * @throws IOException
+     */
     @Test
     public void sendString() throws IOException {
     }
 
+    /**
+     *
+     */
     @Test
     public void connectToServer() {
     }
 
+
+    /**
+     *
+     */
     @Test
     public void login() {
     }
 
+
+    /**
+     *
+     */
     @Test
     public void toggleChatBox() {
     }
 
+
+    /**
+     *
+     */
     @Test
     public void displayNewMessage() {
 
     }
 
+
+    /**
+     *
+     */
     @Test
     public void requestChat() {
     }
 
+
+    /**
+     *
+     */
     @Test
     public void createFriendListItemList() {
 
     }
 
+
+    /**
+     *
+     */
     @Test
     public void showOnlineFriends() {
     }
