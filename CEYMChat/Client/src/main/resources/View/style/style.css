@@ -89,3 +89,10 @@
     /*-fx-background-color:transparent;*/
     /*-fx-background: url("../../BackgroundPic/1.jpg");*/
 }
+
+.chatTextStyle {
+    -fx-font-family: "Comic Sans MS";
+    -fx-font-size: 22px;
+    -fx-font-color:#dd119c;
+
+}
