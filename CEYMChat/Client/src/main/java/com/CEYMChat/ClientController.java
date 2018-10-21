@@ -4,6 +4,8 @@ import com.CEYMChat.Model.ClientModel;
 import com.CEYMChat.Services.IService;
 import com.CEYMChat.Services.Service;
 import com.CEYMChat.View.FriendListItem;
+import com.CEYMChat.View.RecivedTextMessage;
+import com.CEYMChat.View.SentTextMessage;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -17,6 +19,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.FileChooser;
 
 import java.io.File;
@@ -49,7 +52,7 @@ public class ClientController implements IController {
     @FXML
     private Text currentChat;
     @FXML
-    private TextArea chatWindow;
+    private FlowPane chatPane;
     @FXML
     private TextField sendToTextField;
     @FXML
@@ -63,8 +66,9 @@ public class ClientController implements IController {
     @FXML
     private Button fileSend;
     @FXML
-
     private Text fileName;
+
+
     private List<UserDisplayInfo> friendList = new ArrayList<>();
     private List<FriendListItem> blockedFriends = new ArrayList<>();
 
@@ -93,10 +97,10 @@ public class ClientController implements IController {
     public void appInit() {
         model = new ClientModel();
         service = new Service(model, this);
-        chatWindow.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
-        chatWindow.setFont(Font.font("Verdana", FontWeight.MEDIUM, 14));
-        chatWindow.setStyle("-fx-focus-color: transparent; -fx-text-box-border: transparent;");
-        chatWindow.setMouseTransparent(true);
+        //chatWindow.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+        //chatWindow.setFont(Font.font("Verdana", FontWeight.MEDIUM, 14));
+        //chatWindow.setStyle("-fx-focus-color: transparent; -fx-text-box-border: transparent;");
+        //chatWindow.setMouseTransparent(true);
         mainPane.getScene().getWindow().setOnCloseRequest(Event -> {    // Makes sure the client sends a notification to the Server that it has disconnected if the client is terminated
             try {
                 saveMessages();
@@ -142,9 +146,27 @@ public class ClientController implements IController {
         String toSend = chatBox.getText();
         chatBox.setText("");
         service.sendMessage(MessageFactory.createStringMessage(toSend, userName, currentChatName));
-        chatWindow.appendText("Me: " + toSend + "\n");
-        chatWindow.appendText("\n");
+        createAddSendMessagePane("Me: " + toSend + "\n");
+    }
 
+    /**
+     * creates a new Message AnchorPane and adds it to the chat flow pane
+     * as a Send message
+     * @param sMessage the String which will be sent
+     */
+    public void createAddSendMessagePane (String sMessage) throws IOException {
+        SentTextMessage sentTextMessage = new SentTextMessage(sMessage);
+        chatPane.getChildren().add(sentTextMessage.getSmessagePane());
+    }
+
+    /**
+     * creates a new Message AnchorPane and adds it to the chat flow pane
+     * as a received message
+     * @param rMessage the String which will be received
+     */
+    public void createAddReceiveMessagePane (String rMessage) throws IOException {
+        RecivedTextMessage recivedTextMessage = new RecivedTextMessage(rMessage);
+        chatPane.getChildren().add(recivedTextMessage.getRmessagePane());
     }
 
     /**
@@ -217,10 +239,10 @@ public class ClientController implements IController {
      * Updates the GUI with text from a new message
      * @param m
      */
-    public void displayNewMessage(Message m) {
+    public void displayNewMessage(Message m) throws IOException {
         System.out.println("displayNewMessage has been called with string: " + m.getData());
-        chatWindow.appendText(m.getSender() + ": " + m.getData() + "\n");
-        chatWindow.appendText("\n");
+        createAddReceiveMessagePane(m.getSender() + ": " + m.getData() + "\n");
+        createAddReceiveMessagePane("\n");
 
     }
 
@@ -365,8 +387,15 @@ public class ClientController implements IController {
         ArrayList<String> allSavedMessages = new ArrayList<>();
         combineSavedLists(savedSentMessages,savedReceivedMessages,allSavedMessages);
         for (int i = 0; i < allSavedMessages.size(); i=i+2) {
-            chatWindow.appendText(allSavedMessages.get(i) + ": " + allSavedMessages.get(i + 1) + "\n");
-            chatWindow.appendText("\n");
+            if (allSavedMessages.get(i).equals("Me")) {
+                createAddSendMessagePane(allSavedMessages.get(i) + ": " + allSavedMessages.get(i + 1) + "\n");
+                createAddSendMessagePane("\n");
+            }
+            else{
+                createAddReceiveMessagePane(allSavedMessages.get(i) + ": " + allSavedMessages.get(i + 1) + "\n");
+                createAddReceiveMessagePane("\n");
+            }
+
         }
     }
 

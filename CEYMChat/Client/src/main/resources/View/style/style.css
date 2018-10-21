@@ -81,4 +81,11 @@
 }
 .loginText{
     -fx-font-color:#5DBCD2;
+    -fx-font-family: "Comic Sans MS";
+}
+
+.textBox {
+    -fx-control-inner-background: url("../../BackgroundPic/1.jpg");
+    /*-fx-background-color:transparent;*/
+    /*-fx-background: url("../../BackgroundPic/1.jpg");*/
 }

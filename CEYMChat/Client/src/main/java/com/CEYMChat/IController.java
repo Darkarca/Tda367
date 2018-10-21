@@ -34,7 +34,7 @@ public interface IController {
      * Handles how the controller displays a new message in the GUI
      * @param m
      */
-    public void displayNewMessage(Message m);
+    public void displayNewMessage(Message m) throws IOException;
 
 
     /**

@@ -133,7 +133,7 @@ public class Service implements IService{
     /**
      * handling the recieved String
      */
-    public void recieveString(){
+    public void recieveString() throws IOException {
         model.addReceivedMessage(messageIn);    // The Thread updates the models state
         System.out.println("Message received from " + messageIn.getSender() + ": " + messageIn.getData());
         lastMsg = messageIn;
@@ -224,7 +224,7 @@ public class Service implements IService{
      * Informs the controller that it should display a new message in the GUI
      * @param m
      */
-    public void displayNewMessage(Message m){
+    public void displayNewMessage(Message m) throws IOException {
         controller.displayNewMessage(m);
     }
 
