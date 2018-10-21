@@ -1,8 +1,7 @@
 package com.CEYMChatClient.Services;
 
-import com.CEYMChatClient.ClientController;
-import com.CEYMChatClient.IController;
-import com.CEYMChatClient.Services.Service;
+import com.CEYMChatClient.Controller.ClientController;
+import com.CEYMChatClient.Controller.IController;
 import org.junit.Test;
 import java.io.IOException;
 import java.io.InputStream;

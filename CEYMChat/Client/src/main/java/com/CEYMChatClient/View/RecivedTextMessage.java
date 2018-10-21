@@ -1,14 +1,11 @@
 package com.CEYMChatClient.View;
 
-import com.CEYMChatClient.ClientController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import sun.font.TextLabel;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Paths;
 
