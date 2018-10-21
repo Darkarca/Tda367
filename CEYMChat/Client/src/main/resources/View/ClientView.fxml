@@ -17,9 +17,9 @@
 
 <StackPane fx:id="programStackPane" stylesheets="@style/style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.CEYMChat.ClientController">
    <children>
-      <AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="1046.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="677.0" prefWidth="611.0" styleClass="back-colour" stylesheets="@style/style.css">
+      <AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="1046.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="677.0" prefWidth="611.0" styleClass="logo-Backgroundanother-colour" stylesheets="@style/style.css">
           <children>
-              <SplitPane dividerPositions="0.41475409836065574" prefHeight="677.0" prefWidth="612.0">
+              <SplitPane dividerPositions="0.41475409836065574" prefHeight="677.0" prefWidth="612.0" styleClass="logo-Backgroundanother-colour">
                   <items>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="484.0" prefWidth="121.0" style="-fx-background-color: grey;">
                           <children>
@@ -30,7 +30,7 @@
                               </Text>
                               <ScrollPane layoutX="-5.0" layoutY="138.0" prefHeight="537.0" prefWidth="258.0">
                                   <content>
-                                      <FlowPane fx:id="friendsFlowPane" prefHeight="535.0" prefWidth="255.0" />
+                                      <FlowPane fx:id="friendsFlowPane" prefHeight="535.0" prefWidth="255.0" styleClass="logo-Backgroundanother-colour" />
                                   </content>
                               </ScrollPane>
                         <Button fx:id="refreshButton" layoutX="59.0" layoutY="34.0" mnemonicParsing="false" onMouseClicked="#refreshFriendList" prefHeight="39.0" prefWidth="116.0" text="Refresh" />

@@ -68,7 +68,10 @@ public class ClientModel {
         writer.close();
     }
 
-    /** Calls saveArrayListToFile to save all Received messages **/
+    /*
+     * Calls saveArrayListToFile to save all Received messages
+     *
+     * **/
     public void saveReceivedMessages(String filename) {
         try {
             saveArrayListToFile(receivedMessages, filename);

@@ -23,16 +23,28 @@ public class Service implements IService{
     DataInputStream dataIn;
     private boolean running = true;
 
+    /**
+     *
+     * @param model
+     * @param c
+     */
     public Service(ClientModel model, IController c)
     {
         this.model = model;
         this.controller = c;
     }
 
+    /**
+     *
+     * @return
+     */
     public ObjectInputStream getMessageInStream() {
         return messageInStream;
     }
 
+    /**
+     *
+     */
     @Override
     public void connectToS(){
         try {
@@ -49,10 +61,10 @@ public class Service implements IService{
         }
     }
 
-            /** Starts a new thread constantly reading a inputstream from the Server.
-             * While it is running it continuously checks the stream,
-             * checks what type of message it has received and processes it appropriately
-             **/
+    /** Starts a new thread constantly reading a inputstream from the Server.
+    * While it is running it continuously checks the stream,
+    * checks what type of message it has received and processes it appropriately
+    **/
     @Override
     public void read() {
         new Thread(() -> {
@@ -115,12 +127,21 @@ public class Service implements IService{
         }).start();
     }
 
+    /**
+     *
+     * @param m
+     * @throws IOException
+     */
     public void setMessageOut(Message m) throws IOException {   // Writes a message to the outStream so the Server or whatever else it is connected to can read from it
         System.out.println("MessageOutputStream: " + messageOutStream);
         messageOutStream.writeObject(m);
         System.out.println("Message sent: " + m.getData());
 
     }
+
+    /**
+     *
+     */
     public void stop(){ // Safely stops all connections and stops the Thread
         running = false;
         try {
@@ -133,6 +154,11 @@ public class Service implements IService{
         }
     }
 
+    /**
+     *
+     * @param m
+     * @throws IOException
+     */
     public void sendMessage(Message m) throws IOException { // Decides how messages are sent to the Server
         MessageType msgType = MessageType.valueOf(m.getType().getSimpleName());
         switch(msgType){
@@ -163,6 +189,10 @@ public class Service implements IService{
         }
     }
 
+    /**
+     *
+     * @param m
+     */
     public void displayNewMessage(Message m){       // Informs the controller that it should display a new message in the GUI
         controller.displayNewMessage(m);
     }
