@@ -34,7 +34,10 @@ public class Reader implements Runnable, IReader {
         rThread.start();
     }
 
-    public void stop(){     // Safely disconnects the socket and stops the Thread
+    /**
+     * Safely disconnects the socket and stops the Thread
+     */
+    public void stop(){
         try {
             running = false;
             socket.shutdownInput();

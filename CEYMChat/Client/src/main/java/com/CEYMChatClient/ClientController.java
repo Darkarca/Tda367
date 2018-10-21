@@ -91,7 +91,7 @@ public class ClientController implements IController {
             try {
                 saveMessages();
                 service.sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.DISCONNECT, userName), userName));
-                service.stop();
+                System.out.println("DISCONNECTING");
             } catch (IOException e) {
                 e.printStackTrace();
             }

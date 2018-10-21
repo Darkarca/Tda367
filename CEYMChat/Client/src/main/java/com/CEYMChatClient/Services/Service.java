@@ -70,19 +70,19 @@ public class Service implements IService{
                         switch (msgType) {
                             case ArrayList: {   // A message with an ArrayList contains information about currently active users
                                 if (messageIn != lastMsg && messageIn != null) {    // The Thread updates the models state
-                                    recieveArrayList();
+                                    receiveArrayList();
                                 }
                                 break;
                             }
                             case String: {  // A message with a String is a text message to be shown in the GUI
                                 if (messageIn != lastMsg && messageIn != null) {
-                                    recieveString();
+                                    receiveString();
                                 }
                                 break;
                             }
                             case File: {    // A message with a File is intended to be saved to the users local device
                                     if(messageIn != lastMsg && messageIn != null){  // The File within the message is corrupt so the Thread saves the File using a seperate stream of bytes
-                                        recieveFile();
+                                        receiveFile();
                                     }
                                 break;
                                 }
@@ -99,8 +99,8 @@ public class Service implements IService{
         }).start();
     }
 
-    /** handling the recieved array list */
-    public void recieveArrayList(){
+    /** handling the received array list */
+    public void receiveArrayList(){
         comingFriendsList = (ArrayList) messageIn.getData();
         model.setUserList(comingFriendsList);
         System.out.println("A new list of friends has arrived");
@@ -116,16 +116,16 @@ public class Service implements IService{
         );
     }
 
-    /** handling the recieved String */
-    public void recieveString(){
+    /** handling the receive String */
+    public void receiveString(){
         model.addReceivedMessage(messageIn);    // The Thread updates the models state
         System.out.println("Message received from " + messageIn.getSender() + ": " + messageIn.getData());
         lastMsg = messageIn;
         displayNewMessage(messageIn);
     }
 
-    /** handling the recieved file */
-    public void recieveFile() throws IOException {
+    /** handling the receive file */
+    public void receiveFile() throws IOException {
 
         byte [] receivedFile  = new byte [1073741824];
         InputStream inputStream = socket.getInputStream();
@@ -144,19 +144,6 @@ public class Service implements IService{
         messageOutStream.writeObject(m);
         System.out.println("Message sent: " + m.getData());
 
-    }
-
-    /** Safely stops all connections and stops the Thread */
-    public void stop(){
-        running = false;
-        try {
-            messageOutStream = null;
-            messageInStream = null;
-            socket.shutdownOutput();
-            socket.shutdownInput();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     /** Decides how messages are sent to the Server */
@@ -188,6 +175,11 @@ public class Service implements IService{
                 model.setSelectedFile(null);            // Removes the currently chosen File in order to prevent duplicate Files to be sent
                 break;
         }
+    }
+
+    @Override
+    public void stop() {
+        running = false;
     }
 
     /* Informs the controller that it should display a new message in the GUI */

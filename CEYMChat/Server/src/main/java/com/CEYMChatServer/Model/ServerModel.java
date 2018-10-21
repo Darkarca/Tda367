@@ -46,7 +46,7 @@ public class  ServerModel {
             }
                 break;
             case REFRESH_FRIENDLIST: {
-                refreshFreindList(c, sender);
+                refreshFriendList(c, sender);
             }
                 break;
             case DISCONNECT: {
@@ -70,7 +70,7 @@ public class  ServerModel {
 
 
     /** Sends an update active userlist to all active clients, also merges the list with each users individual friendslist */
-    public void refreshFreindList (Command c, String sender){
+    public void refreshFriendList(Command c, String sender){
         User u = getUserByUsername(sender);
         u.syncFriends(sendUserInfo());
         u.sendMessage(u.checkFriends(sendUserInfo()));
