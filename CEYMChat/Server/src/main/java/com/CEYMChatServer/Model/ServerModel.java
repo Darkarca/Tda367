@@ -21,6 +21,12 @@ public class  ServerModel {
         }
     }
 
+    public ServerModel(Integer port) {
+        this.port = port;
+    }
+    public ServerModel() {
+    }
+
 
     /** Getters and setters */
     public ServerSocket getServerSocket() {
