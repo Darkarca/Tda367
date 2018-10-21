@@ -7,10 +7,10 @@ import javafx.application.Platform;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
+
 /**
  * This class implements the IService interface. It communicates via Sockets to the server.
  */
-
 public class Service implements IService{
     private Socket socket;
     private ObjectOutputStream messageOutStream;

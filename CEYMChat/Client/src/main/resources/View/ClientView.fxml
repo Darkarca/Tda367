@@ -19,11 +19,11 @@
    <children>
       <AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="1046.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="677.0" prefWidth="611.0" styleClass="logo-Backgroundanother-colour" stylesheets="@style/style.css">
           <children>
-              <SplitPane dividerPositions="0.41475409836065574" prefHeight="677.0" prefWidth="612.0" styleClass="logo-Backgroundanother-colour">
+              <SplitPane dividerPositions="0.3329015544041451" prefHeight="677.0" prefWidth="774.0" styleClass="logo-Backgroundanother-colour">
                   <items>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="484.0" prefWidth="121.0" styleClass="logo-Backgroundanother-colour">
                           <children>
-                              <Text fill="#5dbcd2" layoutX="104.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chatta" wrappingWidth="104.162109375">
+                              <Text fill="#5dbcd2" layoutX="79.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chatta" wrappingWidth="104.162109375">
                                   <font>
                                       <Font size="29.0" />
                                   </font>
@@ -32,12 +32,12 @@
                               <String fx:value="loginText" />
                            </styleClass>
                               </Text>
-                              <ScrollPane layoutX="-5.0" layoutY="114.0" prefHeight="561.0" prefWidth="258.0">
+                              <ScrollPane layoutX="-5.0" layoutY="49.0" prefHeight="626.0" prefWidth="258.0">
                                   <content>
-                                      <FlowPane fx:id="friendsFlowPane" prefHeight="535.0" prefWidth="255.0" styleClass="logo-Backgroundanother-colour" />
+                                      <FlowPane fx:id="friendsFlowPane" prefHeight="624.0" prefWidth="255.0" styleClass="logo-Backgroundanother-colour" />
                                   </content>
                               </ScrollPane>
-                        <ImageView fitHeight="74.0" fitWidth="112.0" layoutX="13.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="40.0" fitWidth="74.0" layoutX="14.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../Logo.png" />
                            </image>
@@ -48,32 +48,32 @@
                           <children>
                               <TextField fx:id="chatBox" editable="true" layoutX="21.0" layoutY="559.0" onAction="#sendString" prefHeight="49.0" prefWidth="239.0" promptText="Type here to chat!" />
                               <Button fx:id="sendButton" layoutX="260.0" layoutY="559.0" mnemonicParsing="false" onAction="#sendString" prefHeight="49.0" prefWidth="65.0" text="Send" />
-                        <Text fx:id="currentChat" layoutX="73.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Currently chatting with: Nobody" wrappingWidth="175.611328125" />
+                        <Text fx:id="currentChat" layoutX="21.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Currently chatting with: Nobody" wrappingWidth="175.611328125" />
                         <ImageView fx:id="fileChooser" fitHeight="57.0" fitWidth="78.0" layoutX="25.0" layoutY="607.0" onMouseClicked="#chooseFile" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../attached_icon.png" />
                            </image>
                         </ImageView>
-
+      
                         <Button fx:id="fileSend" layoutX="260.0" layoutY="611.0" mnemonicParsing="false" onAction="#sendFile" prefHeight="49.0" prefWidth="65.0" text="Send File" />
                         <Text fx:id="fileName" layoutX="91.0" layoutY="640.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current file: none" />
-
+      
                         <Button layoutX="215.0" layoutY="623.0" mnemonicParsing="false" onAction="#saveMessages" prefHeight="25.0" prefWidth="34.0" text="S" />
-                        <ScrollPane layoutY="116.0" prefHeight="416.0" prefWidth="354.0">
+                        <ScrollPane layoutY="50.0" prefHeight="482.0" prefWidth="512.0">
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="413.0" prefWidth="351.0">
                                  <children>
-                                    <ImageView fitHeight="417.0" fitWidth="231.0" layoutX="4.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" scaleX="1.55" translateX="55.0">
+                                    <ImageView fitHeight="417.0" fitWidth="239.0" layoutX="4.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" scaleX="2.2" scaleY="1.15" translateX="133.0" translateY="30.0">
                                        <image>
                                           <Image url="@../BackgroundPic/1.jpg" />
                                        </image>
                                     </ImageView>
-                                    <FlowPane fx:id="chatPane" prefHeight="416.0" prefWidth="354.0" />
+                                    <FlowPane fx:id="chatPane" prefHeight="482.0" prefWidth="512.0" AnchorPane.bottomAnchor="-69.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-161.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                           </content>
                         </ScrollPane>
-
+      
                           </children>
                       </AnchorPane>
                   </items>
@@ -82,7 +82,7 @@
       </AnchorPane>
       <AnchorPane fx:id="loginPane" prefHeight="400.0" prefWidth="582.0" styleClass="logo-Backgroundanother-colour" stylesheets="@style/style.css">
          <children>
-            <Text fill="#5dbcd2" layoutX="263.0" layoutY="269.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login" wrappingWidth="86.63671875">
+            <Text fill="#5dbcd2" layoutX="355.0" layoutY="273.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login" wrappingWidth="86.63671875">
                <font>
                   <Font size="33.0" />
                </font>
@@ -92,7 +92,7 @@
                </styleClass>
             </Text>
             <TextField fx:id="userNameTextField" layoutX="284.0" layoutY="314.0" onAction="#onClick" prefHeight="37.0" prefWidth="231.0" promptText="Username" />
-            <Button fx:id="loginButton" layoutX="283.0" layoutY="504.0" mnemonicParsing="false" onAction="#onClick" onMouseClicked="#onClick" prefHeight="37.0" prefWidth="231.0" text="Login" textFill="WHITE">
+            <Button fx:id="loginButton" layoutX="285.0" layoutY="509.0" mnemonicParsing="false" onAction="#onClick" onMouseClicked="#onClick" prefHeight="37.0" prefWidth="231.0" text="Login" textFill="WHITE">
                <styleClass>
                   <String fx:value="back-colour" />
                   <String fx:value="static-hinting" />

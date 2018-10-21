@@ -3,10 +3,14 @@
 <?import javafx.geometry.Point3D?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="SmessagePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="331.0" stylesheets="@style/style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="SmessagePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="512.0" stylesheets="@style/style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="SmessageTextLabel" layoutX="261.0" layoutY="1.0" prefHeight="44.0" prefWidth="70.0" text="message" textAlignment="RIGHT" />
+      <Label fx:id="SmessageTextLabel" layoutX="357.0" prefHeight="44.0" prefWidth="154.0" text="message" textAlignment="RIGHT" textFill="#13a92c">
+         <font>
+            <Font name="Comic Sans MS" size="22.0" />
+         </font></Label>
    </children>
    <rotationAxis>
       <Point3D />
