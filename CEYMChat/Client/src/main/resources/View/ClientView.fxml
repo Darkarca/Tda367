@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextArea?>
@@ -13,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane fx:id="programStackPane" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.CEYMChat.ClientController">
+<StackPane fx:id="programStackPane" stylesheets="@style/style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.CEYMChat.ClientController">
    <children>
       <AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="1046.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="677.0" prefWidth="611.0" styleClass="back-colour" stylesheets="@style/style.css">
           <children>
@@ -59,13 +61,25 @@
       </AnchorPane>
       <AnchorPane fx:id="loginPane" prefHeight="400.0" prefWidth="582.0" styleClass="logo-Backgroundanother-colour" stylesheets="@style/style.css">
          <children>
-            <Text layoutX="263.0" layoutY="279.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login" wrappingWidth="86.63671875">
+            <Text fill="#5dbcd2" layoutX="263.0" layoutY="269.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="loginText-colour" text="Login" wrappingWidth="86.63671875">
                <font>
                   <Font size="33.0" />
                </font>
             </Text>
-            <TextField fx:id="loginTextField" layoutX="217.0" layoutY="328.0" onAction="#onClick" prefHeight="37.0" prefWidth="178.0" promptText="Username" />
-            <Button fx:id="loginButton" layoutX="267.0" layoutY="397.0" mnemonicParsing="false" onAction="#onClick" onMouseClicked="#onClick" prefHeight="37.0" prefWidth="78.0" text="Login" />
+            <TextField fx:id="userNameTextField" layoutX="190.0" layoutY="320.0" onAction="#onClick" prefHeight="37.0" prefWidth="231.0" promptText="Username" />
+            <Button fx:id="loginButton" layoutX="191.0" layoutY="454.0" mnemonicParsing="false" onAction="#onClick" onMouseClicked="#onClick" prefHeight="37.0" prefWidth="231.0" text="Login" textFill="WHITE">
+               <styleClass>
+                  <String fx:value="back-colour" />
+                  <String fx:value="static-hinting" />
+                  <String fx:value="text-larger" />
+               </styleClass></Button>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="231.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Logo.png" />
+               </image>
+            </ImageView>
+            <TextField fx:id="passwordTextField" layoutX="191.0" layoutY="369.0" onAction="#onClick" prefHeight="37.0" prefWidth="231.0" promptText="Password" />
+            <Label layoutX="191.0" layoutY="411.0" prefHeight="17.0" prefWidth="126.0" text="Forgut your password?" textFill="#5dbcd2" />
          </children>
       </AnchorPane>
    </children>

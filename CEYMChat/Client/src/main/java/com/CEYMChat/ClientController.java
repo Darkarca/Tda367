@@ -55,12 +55,15 @@ public class ClientController implements IController {
     @FXML
     private FlowPane friendsFlowPane;
     @FXML
-    private TextField loginTextField;
+    private TextField userNameTextField;
+    @FXML
+    private TextField passwordTextField;
     @FXML
     private Button loginButton;
     @FXML
     private Button fileSend;
     @FXML
+
     private Text fileName;
     private List<UserDisplayInfo> friendList = new ArrayList<>();
     private List<FriendListItem> blockedFriends = new ArrayList<>();
@@ -70,7 +73,7 @@ public class ClientController implements IController {
      */
     @FXML
     public void onClick() throws IOException {
-        this.userName = loginTextField.getText();
+        this.userName = userNameTextField.getText();
         login();
         mainPane.toFront();
     }

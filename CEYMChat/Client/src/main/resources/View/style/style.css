@@ -50,7 +50,7 @@
 }
 
 .back-colour{
-    -fx-background-color: rgba(100, 90, 0.2, 0.50);
+    -fx-background-color: #5DBCD2;
 }
 
 .back-colour-original{
@@ -78,4 +78,7 @@
     -fx-border-color: #999999;
     -fx-border-radius: 1px;
     -fx-background-radius: 1px;
+}
+.loginText{
+    -fx-font-color:#5DBCD2;
 }
