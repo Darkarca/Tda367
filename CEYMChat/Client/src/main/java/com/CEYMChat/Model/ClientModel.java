@@ -119,7 +119,7 @@ public class ClientModel {
         ArrayList<String> savedMessagesList = new ArrayList<String>(Arrays.asList(savedMessages));
         System.out.println(savedMessagesList.toString());
         return savedMessagesList;
-        
+
     }
 
 }
