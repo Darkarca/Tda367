@@ -17,8 +17,6 @@ public class ClientModel {
     private ArrayList<Message> receivedMessages = new ArrayList<>();
     private ArrayList<Message> sentMessages = new ArrayList<>();
     private File selectedFile;
-
-
     private String serverIP;
 
     /** Getters, setters and adders **/
