@@ -59,6 +59,7 @@ public class ClientController implements IController {
     @FXML
     private Button fileSend;
     @FXML
+    private TextField ipField;
 
     private Text fileName;
     private List<UserDisplayInfo> friendList = new ArrayList<>();
@@ -117,6 +118,7 @@ public class ClientController implements IController {
         service.connectToS();
         service.login(CommandName.SET_USER, userName);
         model.setUsername(userName);
+        model.setServerIP(ipField.getText());
     }
 
 

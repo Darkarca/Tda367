@@ -21,12 +21,14 @@ public class Service implements IService{
     DataOutputStream dataOut;
     DataInputStream dataIn;
     private boolean running = true;
+    String serverIP;
 
     /** Constructor */
     public Service(ClientModel model, IController c)
     {
         this.model = model;
         this.controller = c;
+        this.serverIP = model.getServerIP();
     }
 
     /** Getters and setters */
@@ -39,7 +41,7 @@ public class Service implements IService{
     @Override
     public void connectToS(){
         try {
-            socket = new Socket("localhost", 9000);
+            socket = new Socket(serverIP, 9000);
             System.out.println("Thread started");
             messageOutStream = new ObjectOutputStream(socket.getOutputStream());
             messageInStream = new ObjectInputStream(socket.getInputStream());

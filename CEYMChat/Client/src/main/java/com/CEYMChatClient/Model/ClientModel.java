@@ -18,6 +18,9 @@ public class ClientModel {
     private ArrayList<Message> sentMessages = new ArrayList<>();
     private File selectedFile;
 
+
+    private String serverIP;
+
     /** Getters, setters and adders **/
     public Socket getSocket() {
         return socket;
@@ -95,5 +98,13 @@ public class ClientModel {
         ArrayList<String> savedMessagesList = new ArrayList<String>(Arrays.asList(savedMessages));
         System.out.println(savedMessagesList.toString());
         return savedMessagesList;
+    }
+
+    public void setServerIP(String serverIP) {
+        this.serverIP = serverIP;
+    }
+
+    public String getServerIP() {
+        return serverIP;
     }
 }
