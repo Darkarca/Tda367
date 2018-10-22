@@ -29,6 +29,18 @@ public class RecordThread implements Runnable{
     private long maxRecordingTime;
 
     /**
+     * Constructor
+     * @param c
+     * @param mic
+     * @param maxRecordingTime
+     */
+    public RecordThread(IController c, TargetDataLine mic, long maxRecordingTime){
+        this. c = c;
+        this.mic = mic;
+        this.maxRecordingTime = maxRecordingTime;
+    }
+
+    /**
      * This method makes an audio stream from the mic and write it to a specified file directory
      */
     @Override
@@ -71,6 +83,6 @@ public class RecordThread implements Runnable{
             }
 
         });
-        wait.start(); 
+        wait.start();
     }
 }
