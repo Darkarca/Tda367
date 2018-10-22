@@ -36,5 +36,39 @@
       "smile",
       "happy"
     ]
+  },
+  {
+    "emojiChar": "😊",
+    "emoji": "\uD83D\uDE0A",
+    "description": "smiling face with smiling eyes",
+    "aliases": [
+      "blush"
+    ],
+    "tags": [
+      "proud"
+    ]
+  },
+  {
+    "emojiChar": "☺",
+    "emoji": "\u263A",
+    "description": "white smiling face",
+    "aliases": [
+      "relaxed"
+    ],
+    "tags": [
+      "blush",
+      "pleased"
+    ]
+  },
+  {
+    "emojiChar": "😉",
+    "emoji": "\uD83D\uDE09",
+    "description": "winking face",
+    "aliases": [
+      "wink"
+    ],
+    "tags": [
+      "flirt"
+    ]
   }
 ]
