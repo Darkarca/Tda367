@@ -14,7 +14,7 @@ import java.net.Socket;
 import static org.junit.Assert.*;
 
 public class ServerModelTest {
-    ServerModel testModel;
+    private ServerModel testModel;
 
     @Test
     public void performCommand() throws IOException, InterruptedException {
@@ -27,7 +27,7 @@ public class ServerModelTest {
         testModel.performCommand(new Command(CommandName.SET_USER, "true"), testModel.getUserList().get(0).getUsername());
         assertEquals(testModel.getUserList().get(0).getUsername(), "true");
         testModel.performCommand(new Command(CommandName.REFRESH_FRIENDLIST, testModel.getUserList().get(0).getUsername()),testModel.getUserList().get(0).getUsername());
-        assertEquals("ArrayList",testModel.getUserList().get(0).getWriter().getOutMessage().getType().getSimpleName());
+        assertEquals("ARRAYLIST",testModel.getUserList().get(0).getWriter().getOutMessage().getType().getSimpleName());
         testModel.performCommand(new Command(CommandName.DISCONNECT, testModel.getUserList().get(0).getUsername()),testModel.getUserList().get(0).getUsername());
         assertEquals(0,testModel.getUserList().size());
         socket.close();
@@ -60,7 +60,7 @@ public class ServerModelTest {
     }
 
     @Test
-    public void getUserByUsername() throws IOException {
+    public void findUserByUsername() throws IOException {
         testModel = new ServerModel();
         User testUser = new User();
         testUser.setUsername("testUser");
@@ -80,7 +80,7 @@ public class ServerModelTest {
         Thread.sleep(2000);
         testModel.getUserList().get(0).setUsername("testUser");
         testModel.updateUserLists();
-        assertEquals("ArrayList", testModel.getUserList().get(0).getWriter().getOutMessage().getType().getSimpleName());
+        assertEquals("ARRAYLIST", testModel.getUserList().get(0).getWriter().getOutMessage().getType().getSimpleName());
         //socket.close();
         testModel.getServerSocket().close();
     }

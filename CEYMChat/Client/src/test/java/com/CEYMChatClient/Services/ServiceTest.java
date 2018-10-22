@@ -11,14 +11,14 @@ import java.net.Socket;
 
 public class ServiceTest {
 
-    ServerSocket serverSocket;
-    OutputStream outputStream;
-    InputStream inputStream;
-    Socket socket;
-    Service service;
-    IController clientController;
-    boolean serverOn = false;
-    int sent = 2;
+    private ServerSocket serverSocket;
+    private OutputStream outputStream;
+    private InputStream inputStream;
+    private Socket socket;
+    private Service service;
+    private IController clientController;
+    private boolean serverOn = false;
+    private int sent = 2;
 
     public void setUpServer() throws IOException {
         {

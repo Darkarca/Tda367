@@ -28,17 +28,17 @@ public class UserTest {
     public void checkFriends() {
         List<UserDisplayInfo> testList = new ArrayList<>();
         UserDisplayInfo testUInfo = new UserDisplayInfo();
-        UserDisplayInfo willAddInfo = new UserDisplayInfo();
+        UserDisplayInfo shouldAddInfo = new UserDisplayInfo();
         testUInfo.setUsername("true");
-        willAddInfo.setUsername("false");
+        shouldAddInfo.setUsername("false");
         testList.add(testUInfo);
         //testList.add(willNotAddInfo);
         Message testMessage = MessageFactory.createFriendInfoList(testList, "testUser", "testUser");
         User testUser = new User();
         testUser.setUsername("testUser");
-        testUser.addFriends(willAddInfo);
+        testUser.addFriends(shouldAddInfo);
         assertEquals(testUInfo,((List<UserDisplayInfo>)testUser.checkFriends(testMessage).getData()).get(0));
-        assertEquals(willAddInfo,((List<UserDisplayInfo>)testUser.checkFriends(testMessage).getData()).get(1));
+        assertEquals(shouldAddInfo,((List<UserDisplayInfo>)testUser.checkFriends(testMessage).getData()).get(1));
         assertEquals(2,((List<UserDisplayInfo>)testUser.checkFriends(testMessage).getData()).size());
 
 

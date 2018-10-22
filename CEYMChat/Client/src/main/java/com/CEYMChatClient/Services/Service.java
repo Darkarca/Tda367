@@ -8,6 +8,7 @@ import javafx.application.Platform;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class implements the IService interface. It communicates via Sockets to the server.
@@ -19,11 +20,11 @@ public class Service implements IService{
     private ClientModel model;
     private Message messageIn;
     private Message lastMsg;
-    private ArrayList<UserDisplayInfo> comingFriendsList = new ArrayList();
+    private List<UserDisplayInfo> comingFriendsList = new ArrayList();
     private IController controller;
 
     private boolean running = true;
-    String serverIP;
+    private String serverIP;
 
     /**
      * Constructor
@@ -81,20 +82,20 @@ public class Service implements IService{
                     if (messageIn != null) {
                         MessageType msgType = MessageType.valueOf(messageIn.getType().getSimpleName());
                         switch (msgType) {
-                            case ArrayList: {   // A message with an ArrayList contains information about currently active users
+                            case ARRAYLIST: {   // A message with an ARRAYLIST contains information about currently active users
                                 if (messageIn != lastMsg && messageIn != null) {    // The Thread updates the models state
                                     receiveArrayList();
                                 }
                                 break;
                             }
-                            case String: {  // A message with a String is a text message to be shown in the GUI
+                            case STRING: {  // A message with a STRING is a text message to be shown in the GUI
                                 if (messageIn != lastMsg && messageIn != null) {
                                     receiveString();
                                 }
                                 break;
                             }
-                            case File: {    // A message with a File is intended to be saved to the users local device
-                                    if(messageIn != lastMsg && messageIn != null){  // The File within the message is corrupt so the Thread saves the File using a seperate stream of bytes
+                            case FILE: {    // A message with a FILE is intended to be saved to the users local device
+                                    if(messageIn != lastMsg && messageIn != null){  // The FILE within the message is corrupt so the Thread saves the FILE using a seperate stream of bytes
                                         receiveFile();
                                     }
                                 break;
@@ -102,11 +103,7 @@ public class Service implements IService{
                              }
                          }
                     }
-                } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
+                } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
         }).start();
@@ -133,7 +130,7 @@ public class Service implements IService{
     }
 
     /**
-     * handling the recieved String
+     * handling the recieved STRING
      */
     public void receiveString() throws IOException {
         model.addReceivedMessage(messageIn);    // The Thread updates the models state
@@ -194,17 +191,17 @@ public class Service implements IService{
     public void sendMessage(Message m) throws IOException {
         MessageType msgType = MessageType.valueOf(m.getType().getSimpleName());
         switch(msgType){
-            case String: setMessageOut(m);  // Messages containing Strings are sent to the outputStream
+            case STRING: setMessageOut(m);  // Messages containing Strings are sent to the outputStream
                 model.addSentMessage(m);    // Changes the models state so that the message can be saved to the device later
                 break;
-            case Command: setMessageOut(m); // Commands are simply sent to the Server to let the Server perform said command
+            case COMMAND: setMessageOut(m); // Commands are simply sent to the Server to let the Server perform said command
                 break;
-            case ArrayList: {
+            case ARRAYLIST: {
                 setMessageOut(m);           // Sends an updated list of friends to the Server so that the Servers state can be updated
                 break;
             }
-            case File: setMessageOut(m);    // Messages containing a File will be sent via the message object but arrives corrupt at the Server
-                        byte[] sentFile = new byte[(int)model.getSelectedFile().length()];  // Sending a File is instead done by sending an array of bytes
+            case FILE: setMessageOut(m);    // Messages containing a FILE will be sent via the message object but arrives corrupt at the Server
+                        byte[] sentFile = new byte[(int)model.getSelectedFile().length()];  // Sending a FILE is instead done by sending an array of bytes
                         FileInputStream fileInput = new FileInputStream(model.getSelectedFile());   // To a separate inputStream
                         BufferedInputStream bufferedInput = new BufferedInputStream(fileInput);
                         bufferedInput.read(sentFile,0,sentFile.length);
@@ -216,7 +213,7 @@ public class Service implements IService{
                     e.printStackTrace();
                 }
                 outputStream.flush();
-                model.setSelectedFile(null);            // Removes the currently chosen File in order to prevent duplicate Files to be sent
+                model.setSelectedFile(null);            // Removes the currently chosen FILE in order to prevent duplicate Files to be sent
                 break;
         }
     }

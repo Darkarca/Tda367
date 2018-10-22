@@ -9,16 +9,16 @@ import static org.junit.Assert.*;
 
 public class SocketHandlerTest {
 
-    ServerModel testModel;
-    SocketHandler testHandler;
+    private ServerModel testModel;
+    private SocketHandler testHandler;
 
     @Test
     public void start() throws IOException {
         testModel = new ServerModel();
          testHandler = new SocketHandler(testModel);
-        int expected = java.lang.Thread.activeCount()+1;
+        int expected = Thread.activeCount()+1;
         testHandler.start();
-        assertEquals(expected,java.lang.Thread.activeCount());
+        assertEquals(expected,Thread.activeCount());
         testModel.getServerSocket().close();
     }
 

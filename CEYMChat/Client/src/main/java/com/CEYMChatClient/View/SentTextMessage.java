@@ -3,11 +3,7 @@ package com.CEYMChatClient.View;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Circle;
-import sun.font.TextLabel;
 
 import java.io.IOException;
 import java.net.URL;
@@ -20,9 +16,9 @@ public class SentTextMessage {
 
 
     @FXML
-    public Label SmessageTextLabel;
+    public Label sMessageTextLabel;
     @FXML
-    public AnchorPane SmessagePane;
+    public AnchorPane sMessagePane;
 
 
     public SentTextMessage( String sMessage) throws IOException {
@@ -32,10 +28,10 @@ public class SentTextMessage {
         fxmlLoader.setController(this);
         fxmlLoader.load();
 
-        this.SmessageTextLabel.setText(sMessage);
+        this.sMessageTextLabel.setText(sMessage);
     }
 
-    public AnchorPane getSmessagePane() {
-        return SmessagePane;
+    public AnchorPane getsMessagePane() {
+        return sMessagePane;
     }
 }
