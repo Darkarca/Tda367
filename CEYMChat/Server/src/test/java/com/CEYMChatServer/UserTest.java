@@ -17,11 +17,11 @@ public class UserTest {
         UserDisplayInfo testUInfo = new UserDisplayInfo();
         testUInfo.setUsername("true");
         testList.add(testUInfo);
-        Message testMessage = MessageFactory.createFriendInfoList(testList,"testUser","testUser");
+        Message<List> testMessage = MessageFactory.createFriendInfoList(testList,"testUser","testUser");
         User testUser = new User();
         testUser.setUsername("testUser");
         testUser.syncFriends(testMessage);
-        assertEquals("true",testUser.getFriends().get(0).getUsername());
+        assertEquals("User added to friendslist","true",testUser.getFriends().get(0).getUsername());
     }
 
     @Test
@@ -33,23 +33,15 @@ public class UserTest {
         shouldAddInfo.setUsername("false");
         testList.add(testUInfo);
         //testList.add(willNotAddInfo);
-        Message testMessage = MessageFactory.createFriendInfoList(testList, "testUser", "testUser");
+        Message<List> testMessage = MessageFactory.createFriendInfoList(testList, "testUser", "testUser");
         User testUser = new User();
         testUser.setUsername("testUser");
         testUser.addFriends(shouldAddInfo);
-        assertEquals(testUInfo,((List<UserDisplayInfo>)testUser.checkFriends(testMessage).getData()).get(0));
-        assertEquals(shouldAddInfo,((List<UserDisplayInfo>)testUser.checkFriends(testMessage).getData()).get(1));
-        assertEquals(2,((List<UserDisplayInfo>)testUser.checkFriends(testMessage).getData()).size());
+        assertEquals("User sent in message found in friendslist",testUInfo,((List<UserDisplayInfo>)testUser.checkFriends(testMessage).getData()).get(0));
+        assertEquals("User added manually added successfully",shouldAddInfo,((List<UserDisplayInfo>)testUser.checkFriends(testMessage).getData()).get(1));
+        assertEquals("User already in list was not added",2,((List<UserDisplayInfo>)testUser.checkFriends(testMessage).getData()).size());
 
 
     }
 
-    @Test
-    public void addFriends() {
-    }
-
-    @Test
-    public void removeFriends() {
-
-    }
 }

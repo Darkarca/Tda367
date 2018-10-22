@@ -73,7 +73,9 @@ public class  ServerModel {
         }
     }
 
-    /** Sets the username of a user so that it can be identified uniformly between the client and server */
+    /** Sets the username of a user so that it can be
+     * identified uniformly between the client and server
+     */
     public void setUser(Command c){
         userList.get(userList.size()-1).setUsername(c.getCommandData());
         System.out.println("COMMAND performed: 'setUser'" + c.getCommandData());
@@ -81,7 +83,9 @@ public class  ServerModel {
     }
 
 
-    /** Sends an update active userlist to all active clients, also merges the list with each users individual friendslist */
+    /** Sends an update active userlist to all active clients,
+     * also merges the list with each users individual friendslist
+     */
     public void refreshFriendList(Command c, String sender){
         User u = getUserByUsername(sender);
         u.syncFriends(sendUserInfo());
@@ -90,7 +94,9 @@ public class  ServerModel {
     }
 
 
-    /** Disconnects the user by removing it from the Servers userlist so that the server won't point to a null outputStream */
+    /** Disconnects the user by removing it from the Servers
+     * userlist so that the server won't point to a null outputStream
+     */
     public void disconnect (String sender){
         User user = getUserByUsername(sender);
         user.setOnline(false);
@@ -159,7 +165,8 @@ public class  ServerModel {
     /**
      * Sends a file to a clients device
      * @param s Name of file.
-     * @param m Message to send alongside the FILE containing things such as filesize, sender and receiver
+     * @param m Message to send alongside the FILE
+     *          containing things such as filesize, sender and receiver
      */
     public void sendFile(String s, Message m) throws IOException {
         sendMessage(m,m.getReceiver());

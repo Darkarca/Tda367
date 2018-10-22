@@ -20,14 +20,14 @@ public class SocketHandler{
         new Thread(() -> {
             while (true) {
                 try {
-                    Thread.sleep(1000);             // Sleeps for a short ammount of time before connecting a new user
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                try {
                     System.out.println("Looking for socket");
                     this.connectSocket();
                 } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    Thread.sleep(1000);             // Sleeps for a short ammount of time before connecting a new user
+                } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
@@ -36,7 +36,6 @@ public class SocketHandler{
 
     public synchronized void connectSocket() throws IOException {
         Socket s = serverSocket.accept();
-        System.out.println(s.isConnected());
         User newUser = new User();
         newUser.setOnline(true);
         model.addUser(newUser);

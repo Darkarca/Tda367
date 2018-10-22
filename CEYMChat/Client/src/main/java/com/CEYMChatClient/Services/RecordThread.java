@@ -13,18 +13,18 @@ import java.io.IOException;
 public class RecordThread implements Runnable{
 
     // Filepath
-    File directory = new File("Client/Messages/RAudio.wav");
+    private File directory = new File("Client/Messages/RAudio.wav");
 
     // determine the audio format
-    AudioFileFormat.Type fileType = AudioFileFormat.Type.WAVE;
+    private AudioFileFormat.Type fileType = AudioFileFormat.Type.WAVE;
 
-    IController c;
+    private IController controller;
 
     // The audio data is captured from the microphone
-    TargetDataLine mic;
+    private TargetDataLine mic;
 
     // to decide when to stop recording
-    boolean stopRecord;
+    private boolean recording;
 
     private long maxRecordingTime;
 
@@ -35,18 +35,18 @@ public class RecordThread implements Runnable{
      * @param maxRecordingTime
      */
     public RecordThread(IController c, TargetDataLine mic, long maxRecordingTime){
-        this. c = c;
+        this. controller = c;
         this.mic = mic;
         this.maxRecordingTime = maxRecordingTime;
     }
 
     /**
-     * This method makes an audio stream from the mic and write it to a specified file directory
+     * This method makes an audio stream from the
+     * mic and write it to a specified file directory
      */
     @Override
     public void run() {
         try {
-            System.out.println("Capturing Audio...");
             AudioInputStream ais = new AudioInputStream(mic);
 
             // start recording
@@ -67,7 +67,8 @@ public class RecordThread implements Runnable{
     }
 
     /**
-     * This method waits for a specified period of time before it calls the method that stops recording
+     * This method waits for a specified period of
+     * time before it calls the method that stops recording
      * @param maxRecordingTime
      */
     public void maxRecordingTime(long maxRecordingTime){

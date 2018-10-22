@@ -105,7 +105,6 @@ public class ClientController implements IController {
             try {
                 saveMessages();
                 service.sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.DISCONNECT, userName), userName));
-                System.out.println("DISCONNECTING");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -175,20 +174,18 @@ public class ClientController implements IController {
     @FXML
     public void refreshFriendList() {
         try {
-            System.out.println("Send refreshFriendList command");
             service.sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.REFRESH_FRIENDLIST, userName), userName));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-
     /**
-     *  Checks which users have been tagged as friends and notifies the Server if any new friends have been added
+     *  Checks which users have been tagged as friends
+     *  and notifies the Server if any new friends have been added
      * @throws IOException
      */
     public void checkFriends() throws IOException {
-        System.out.println("Checking friends");
         int changes = 0;
         for (UserDisplayInfo friendInfo : friendList) {         // Removes friends that have been deselected
             if (!friendInfo.getIsFriend() && !friendList.isEmpty() && friendList.contains(friendInfo)) {
@@ -211,7 +208,6 @@ public class ClientController implements IController {
             }
         }
         if (changes != 0) {                                     // Notifies the Server if any changes have been made to the friends list
-            System.out.println("Sending list to server");
             service.sendMessage(MessageFactory.createFriendInfoList(friendList, userName, userName));
             return;
         }
@@ -249,9 +245,7 @@ public class ClientController implements IController {
      * @throws IOException
      */
     public void createFriendListItemList(List<UserDisplayInfo> friendList) throws IOException {
-        System.out.println("New list of friendItems created");
         for (UserDisplayInfo uInfo : friendList) {
-            System.out.println("User added: " + uInfo.getUsername());
             if (!uInfo.getUsername().equals(model.getUsername())) {
                 FriendListItem userItem = new FriendListItem(uInfo);
                 if (uInfo.getIsFriend()) {
@@ -271,7 +265,6 @@ public class ClientController implements IController {
      */
     public void showOnlineFriends(List<UserDisplayInfo> friendList) throws IOException {
         friendItemList.clear();
-        System.out.println("FriendListItems are being created");
         createFriendListItemList(friendList);
         friendsFlowPane.getChildren().clear();
         for (FriendListItem friendListItem : friendItemList) {
@@ -296,7 +289,6 @@ public class ClientController implements IController {
         item.getFriendPane().setOnMouseClicked(Event -> {
             currentChatName = item.getFriendUsername().getText();
             currentChat.setText("Currently chatting with: " + currentChatName);
-            System.out.println("CurrentChat set to: " + currentChatName);
             try {
                 checkFriends();
             } catch (IOException e) {
@@ -379,7 +371,6 @@ public class ClientController implements IController {
      * be loaded the next time you load the client
      */
     public void saveMessages() {
-        System.out.println("Messages saved.");
         model.saveReceivedMessages("Client/messages/received.csv");
         model.saveSendMessages("Client/messages/sent.csv");
     }

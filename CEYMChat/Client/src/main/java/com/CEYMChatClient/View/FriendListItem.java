@@ -68,7 +68,9 @@ public class FriendListItem {
         }
     }
 
-    /** correctly sets the image of friendIndicator incase of a forced change in the isFriend variable */
+    /** correctly sets the image of friendIndicator
+     * incase of a forced change in the isFriend variable
+     */
     public void setFriend() {
         if(uInfo.getIsFriend()) {
             friendIndicator.setImage(new Image("friend.png"));

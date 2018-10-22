@@ -25,11 +25,11 @@ public class ServerModelTest {
         testHandler.start();
         Thread.sleep(2000);
         testModel.performCommand(new Command(CommandName.SET_USER, "true"), testModel.getUserList().get(0).getUsername());
-        assertEquals(testModel.getUserList().get(0).getUsername(), "true");
+        assertEquals("Username correctly set for user",testModel.getUserList().get(0).getUsername(), "true");
         testModel.performCommand(new Command(CommandName.REFRESH_FRIENDLIST, testModel.getUserList().get(0).getUsername()),testModel.getUserList().get(0).getUsername());
-        assertEquals("ArrayList",testModel.getUserList().get(0).getWriter().getOutMessage().getType().getSimpleName());
+        assertEquals("Message of type 'ARRAYLIST' received","ARRAYLIST",testModel.getUserList().get(0).getWriter().getOutMessage().getType().getSimpleName());
         testModel.performCommand(new Command(CommandName.DISCONNECT, testModel.getUserList().get(0).getUsername()),testModel.getUserList().get(0).getUsername());
-        assertEquals(0,testModel.getUserList().size());
+        assertEquals("User successfully disconnected",0,testModel.getUserList().size());
         socket.close();
         testModel.getServerSocket().close();
     }
@@ -39,7 +39,7 @@ public class ServerModelTest {
         testModel = new ServerModel();
         User testUser = new User();
         testModel.addUser(testUser);
-        assertEquals(testModel.getUserList().get(0), testUser);
+        assertEquals("Correct user added to userlist",testModel.getUserList().get(0), testUser);
         testModel.getServerSocket().close();
     }
 
@@ -54,7 +54,7 @@ public class ServerModelTest {
         testModel.getUserList().get(0).setUsername("testUser");
         Message testMessage = MessageFactory.createStringMessage("Hello world!", "testUser", "testUser");
         testModel.sendMessage(testMessage,"testUser");
-        assertEquals(testModel.getUserByUsername("testUser").getWriter().getOutMessage(),testMessage);
+        assertEquals("Message on outstream match expected value",testMessage,testModel.getUserByUsername("testUser").getWriter().getOutMessage());
         //socket.close();
         testModel.getServerSocket().close();
     }
@@ -65,7 +65,7 @@ public class ServerModelTest {
         User testUser = new User();
         testUser.setUsername("testUser");
         testModel.addUser(testUser);
-        assertEquals(testUser, testModel.getUserByUsername(testUser.getUsername()));
+        assertEquals("Retrieved user from list match expected value",testUser, testModel.getUserByUsername(testUser.getUsername()));
         testModel.getServerSocket().close();
 
     }
@@ -80,7 +80,7 @@ public class ServerModelTest {
         Thread.sleep(2000);
         testModel.getUserList().get(0).setUsername("testUser");
         testModel.updateUserLists();
-        assertEquals("ArrayList", testModel.getUserList().get(0).getWriter().getOutMessage().getType().getSimpleName());
+        assertEquals("A new userlist has been put on the ooutstream","ARRAYLIST", testModel.getUserList().get(0).getWriter().getOutMessage().getType().getSimpleName());
         //socket.close();
         testModel.getServerSocket().close();
     }
@@ -96,7 +96,7 @@ public class ServerModelTest {
         testModel.getUserList().get(0).setUsername("testUser");
         File toSend = new File("pom.xml");
         testModel.sendFile(toSend.getName(),MessageFactory.createFileMessage(toSend,testModel.getUserList().get(0).getUsername(),testModel.getUserList().get(0).getUsername()));
-        assertEquals(toSend,testModel.getUserList().get(0).getWriter().getOutMessage().getData());
+        assertEquals("File to be sent matches expected value",toSend,testModel.getUserList().get(0).getWriter().getOutMessage().getData());
         testModel.getServerSocket().close();
     }
 }

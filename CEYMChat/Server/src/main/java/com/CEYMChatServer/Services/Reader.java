@@ -86,7 +86,6 @@ public class Reader implements Runnable, IReader {
                             bufferedOut.flush();
 
                         System.out.println("Message type: FILE");
-                        System.out.println("Filename: " + ((File)inMessage.getData()).getName());
                         model.sendFile("Server/messages/" + ((File)inMessage.getData()).getName(), inMessage);
                         break;
                     }
