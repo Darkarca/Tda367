@@ -1,6 +1,8 @@
 package com.CEYMChatClient.Model;
 
+import com.CEYMChatClient.View.FriendListItem;
 import com.CEYMChatLib.*;
+import javafx.scene.control.Label;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -17,6 +19,10 @@ public class ClientModel {
     private List<Message> sentMessages = new ArrayList<>();
     private File selectedFile;
     private String serverIP;
+    private List<String> mutedFriends = new ArrayList<>();
+    private List<FriendListItem> blockedFriends = new ArrayList<>();
+
+
 
     /** Getters, setters and adders **/
     public Socket getSocket() {
@@ -102,5 +108,41 @@ public class ClientModel {
 
     public String getServerIP() {
         return serverIP;
+    }
+
+    public void addMuted(String friendUsername) {
+        mutedFriends.add(friendUsername);
+    }
+
+    public List<String> getMutedFriends() {
+        return this.mutedFriends;
+    }
+
+    public void removeMuted(String text) {
+        mutedFriends.remove(text);
+    }
+    public boolean isMuted(String userName ) {
+        for (String s : getMutedFriends()) {
+            if (s.equals(userName)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public List<FriendListItem> getBlockedFriends() {
+        return this.blockedFriends;
+    }
+    public boolean isBlocked(FriendListItem friendListItem) {
+        for (FriendListItem b :getBlockedFriends()) {
+            if (b.getFriendUsername().getText().equals(friendListItem.getFriendUsername().getText())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void addBlockedFriend(FriendListItem item) {
+        blockedFriends.add(item);
     }
 }

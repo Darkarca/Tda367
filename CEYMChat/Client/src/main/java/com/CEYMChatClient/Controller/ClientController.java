@@ -1,7 +1,7 @@
 package com.CEYMChatClient.Controller;
 
 
-import com.CEYMChatClient.View.RecivedTextMessage;
+import com.CEYMChatClient.View.ReceivedTestMessage;
 import com.CEYMChatClient.View.SentTextMessage;
 import javafx.application.Platform;
 import com.CEYMChatClient.Model.ClientModel;
@@ -13,6 +13,9 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
@@ -75,12 +78,8 @@ public class ClientController implements IController {
 
 
     private List<UserDisplayInfo> friendList = new ArrayList<>();
-    private List<FriendListItem> blockedFriends = new ArrayList<>();
 
     /** FXML methods**/
-    /**
-     * Captures input from user and send makes use of model to send message
-     */
     @FXML
     public void onClick() throws IOException {
         this.userName = userNameTextField.getText();
@@ -155,12 +154,7 @@ public class ClientController implements IController {
      */
     public void createAddSendMessagePane (String sMessage) throws IOException {
         SentTextMessage sentTextMessage = new SentTextMessage(sMessage);
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                chatPane.getChildren().add(sentTextMessage.sMessagePane);
-            }
-        });
+        Platform.runLater(() -> chatPane.getChildren().add(sentTextMessage.sMessagePane));
     }
 
     /**
@@ -169,8 +163,8 @@ public class ClientController implements IController {
      * @param rMessage the STRING which will be received
      */
     public void createAddReceiveMessagePane (String rMessage) throws IOException {
-        RecivedTextMessage recivedTextMessage = new RecivedTextMessage(rMessage);
-        Platform.runLater(() -> chatPane.getChildren().add(recivedTextMessage.rMessagePane));
+        ReceivedTestMessage receivedTextMessage = new ReceivedTestMessage(rMessage);
+        Platform.runLater(() -> chatPane.getChildren().add(receivedTextMessage.rMessagePane));
     }
 
     /**
@@ -240,7 +234,9 @@ public class ClientController implements IController {
      */
     public void displayNewMessage(Message m) throws IOException {
         System.out.println("displayNewMessage has been called with string: " + m.getData());
-        createAddReceiveMessagePane(m.getSender() + ": " + m.getData());
+        if(!model.isMuted(m.getSender())) {
+            createAddReceiveMessagePane(m.getSender() + ": " + m.getData());
+        }
     }
 
     /**
@@ -272,7 +268,7 @@ public class ClientController implements IController {
         createFriendListItemList(friendList);
         friendsFlowPane.getChildren().clear();
         for (FriendListItem friendListItem : friendItemList) {
-            if (!isBlocked(friendListItem)) {
+            if (!model.isBlocked(friendListItem)) {
                 friendsFlowPane.getChildren().add(friendListItem.getFriendPane());
             }
         }
@@ -283,14 +279,8 @@ public class ClientController implements IController {
      * @param friendListItem
      * @return
      */
-    public boolean isBlocked(FriendListItem friendListItem) {
-        for (FriendListItem b : blockedFriends) {
-            if (b.getFriendUsername().getText().equals(friendListItem.getFriendUsername().getText())) {
-                return true;
-            }
-        }
-        return false;
-    }
+
+
     /**
      * initialize the fxml friendListItem with data
      * @param item
@@ -306,12 +296,31 @@ public class ClientController implements IController {
             }
         });
         ContextMenu contextMenu = new ContextMenu();
-        MenuItem block = new MenuItem("Block");
-        contextMenu.getItems().add(block);
-        block.setOnAction(new EventHandler<ActionEvent>() {
+        MenuItem remove = new MenuItem("Remove");
+        MenuItem mute = new MenuItem("Mute");
+        MenuItem unmute = new MenuItem("Unmute");
+        contextMenu.getItems().add(remove);
+        contextMenu.getItems().add(mute);
+        contextMenu.getItems().add(unmute);
+        mute.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                blockedFriends.add(item);
+                model.addMuted(item.getFriendUsername().getText());
+                item.getFriendPane().setStyle("-fx-background-color: crimson");
+            }
+        });
+        unmute.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                model.removeMuted(item.getFriendUsername().getText());
+                item.getFriendPane().setStyle("-fx-background-color: white");
+                               }
+        });
+
+        remove.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                model.addBlockedFriend(item);
                 item.getFriendPane().setVisible(false);
             }
         });
