@@ -7,15 +7,12 @@ import com.CEYMChatLib.MessageType;
 import com.CEYMChatServer.Model.ServerModel;
 import java.io.*;
 import java.net.Socket;
-/** Thread that reads user input and send it to the server. */
+/** Thread that reads user input and send it to the server implementing the IReader interface. */
 public class Reader implements Runnable, IReader {
     private ServerModel model;
     private Socket socket;
     private ObjectInputStream inputStream;
     private Message inMessage;
-
-    private File receivedFile;
-
     private boolean running = true;
 
 
@@ -30,7 +27,7 @@ public class Reader implements Runnable, IReader {
                 System.out.println("No socket found");
             }
         }
-        Thread rThread = new Thread((Runnable) this);
+        Thread rThread = new Thread(this);
         rThread.start();
     }
 
@@ -89,7 +86,6 @@ public class Reader implements Runnable, IReader {
                         System.out.println("Message type: FILE");
                         System.out.println("Filename: " + ((File)inMessage.getData()).getName());
                         model.sendFile("Server/messages/" + ((File)inMessage.getData()).getName(), inMessage);
-                        //model.sendMessage(inMessage, inMessage.getReceiver());
                         break;
                     }
                 }

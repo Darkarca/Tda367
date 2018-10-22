@@ -35,6 +35,7 @@ public class ClientController implements IController {
     private List<FriendListItem> friendItemList = new ArrayList<>();
     private String currentChatName;
     private String userName;
+
     @FXML
     private AnchorPane loginPane;
     @FXML
@@ -65,6 +66,10 @@ public class ClientController implements IController {
     private Button fileSend;
     @FXML
     private TextField ipField;
+    @FXML
+    private Button recordStopButton;
+    @FXML
+    private Button recordPlayButton;
     private Text fileName;
 
 

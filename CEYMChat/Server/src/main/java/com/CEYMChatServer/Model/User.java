@@ -9,6 +9,9 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a user connected to the server.
+ */
 public class User {
 
     private String username;
@@ -49,7 +52,7 @@ public class User {
      * a list received by its corresponding client
      */
     public void syncFriends(Message m){
-        List<UserDisplayInfo> receivedList = (List<UserDisplayInfo>)(m.getData());
+        List<UserDisplayInfo> receivedList = (List<UserDisplayInfo>) m.getData();
         Boolean add = true;
         for(UserDisplayInfo uInfo : receivedList) {
             for(UserDisplayInfo friends:friends){
@@ -70,7 +73,7 @@ public class User {
      * of users so that they can both be sent to a client
      */
     public Message checkFriends(Message m) {
-        List<UserDisplayInfo> listToSend = (List<UserDisplayInfo>) (m.getData());
+        List<UserDisplayInfo> listToSend = (List<UserDisplayInfo>) m.getData();
         for (UserDisplayInfo friends : friends) {
             Boolean add = true;
             for (UserDisplayInfo uInfo : listToSend) {

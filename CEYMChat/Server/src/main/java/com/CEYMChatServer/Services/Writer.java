@@ -4,13 +4,15 @@ import com.CEYMChatLib.Message;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-
+/**
+ *   Class that writes data to an outputStream connected to a specific client implementing the IWriter interface.
+ */
 public class Writer implements IWriter {
     private Socket socket;
     private ObjectOutputStream outputStream;
     private Message outMessage;
 
-    // Class that writes data to an outputStream connected to a specific client
+
 
     public Writer(Socket socket) {  // Connects to the same socket as the client
         this.socket = socket;

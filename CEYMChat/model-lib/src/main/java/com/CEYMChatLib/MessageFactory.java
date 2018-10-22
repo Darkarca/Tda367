@@ -6,7 +6,7 @@ import java.util.List;
  * Factory for creating Message(s) of predefined types.
  * To make sure messages only hold certain types of data
  */
-public class MessageFactory {
+public abstract  class MessageFactory {
 
 
     public static Message<String> createStringMessage(String data, String user, String receiver){
