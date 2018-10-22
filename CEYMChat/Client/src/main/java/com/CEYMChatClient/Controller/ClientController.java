@@ -13,17 +13,23 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 
 /**
  * Controller for the Client and ClientMain .
@@ -236,7 +242,9 @@ public class ClientController implements IController {
      */
     public void displayNewMessage(Message m) throws IOException {
         System.out.println("displayNewMessage has been called with string: " + m.getData());
-        createAddReceiveMessagePane(m.getSender() + ": " + m.getData());
+        if(!isMuted(m.getSender())) {
+            createAddReceiveMessagePane(m.getSender() + ": " + m.getData());
+        }
     }
 
     /**
@@ -290,6 +298,14 @@ public class ClientController implements IController {
         }
         return false;
     }
+    public boolean isMuted(String userName ) {
+        for (String s : model.getMutedFriends()) {
+            if (s.equals(userName)){
+                return true;
+            }
+        }
+        return false;
+    }
     /**
      * initialize the fxml friendListItem with data
      * @param item
@@ -306,9 +322,28 @@ public class ClientController implements IController {
             }
         });
         ContextMenu contextMenu = new ContextMenu();
-        MenuItem block = new MenuItem("Block");
-        contextMenu.getItems().add(block);
-        block.setOnAction(new EventHandler<ActionEvent>() {
+        MenuItem remove = new MenuItem("Remove");
+        MenuItem mute = new MenuItem("Mute");
+        MenuItem unmute = new MenuItem("Unmute");
+        contextMenu.getItems().add(remove);
+        contextMenu.getItems().add(mute);
+        contextMenu.getItems().add(unmute);
+        mute.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                model.addMuted(item.getFriendUsername().getText());
+                item.getFriendPane().setStyle("-fx-background-color: crimson");
+            }
+        });
+        unmute.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                model.removeMuted(item.getFriendUsername().getText());
+                item.getFriendPane().setStyle("-fx-background-color: white");
+                               }
+        });
+
+        remove.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 blockedFriends.add(item);

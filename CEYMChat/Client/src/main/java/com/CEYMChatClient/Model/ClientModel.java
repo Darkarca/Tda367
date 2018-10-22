@@ -1,6 +1,8 @@
 package com.CEYMChatClient.Model;
 
+import com.CEYMChatClient.View.FriendListItem;
 import com.CEYMChatLib.*;
+import javafx.scene.control.Label;
 
 import java.io.*;
 import java.net.Socket;
@@ -18,6 +20,8 @@ public class ClientModel {
     private List<Message> sentMessages = new ArrayList<>();
     private File selectedFile;
     private String serverIP;
+    private List<String> mutedFriends = new ArrayList<>();
+
 
     /** Getters, setters and adders **/
     public Socket getSocket() {
@@ -104,5 +108,17 @@ public class ClientModel {
 
     public String getServerIP() {
         return serverIP;
+    }
+
+    public void addMuted(String friendUsername) {
+        mutedFriends.add(friendUsername);
+    }
+
+    public List<String> getMutedFriends() {
+        return this.mutedFriends;
+    }
+
+    public void removeMuted(String text) {
+        mutedFriends.remove(text);
     }
 }
