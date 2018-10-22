@@ -27,7 +27,7 @@ public class ServerModelTest {
         testModel.performCommand(new Command(CommandName.SET_USER, "true"), testModel.getUserList().get(0).getUsername());
         assertEquals("Username correctly set for user",testModel.getUserList().get(0).getUsername(), "true");
         testModel.performCommand(new Command(CommandName.REFRESH_FRIENDLIST, testModel.getUserList().get(0).getUsername()),testModel.getUserList().get(0).getUsername());
-        assertEquals("Message of type 'ARRAYLIST' received","ARRAYLIST",testModel.getUserList().get(0).getWriter().getOutMessage().getType().getSimpleName().toUpperCase());
+        assertEquals("Message of type 'ARRAYLIST' received","ARRAYLIST",testModel.getUserList().get(0).getWriter().getOutMessage().getType().getSimpleName());
         testModel.performCommand(new Command(CommandName.DISCONNECT, testModel.getUserList().get(0).getUsername()),testModel.getUserList().get(0).getUsername());
         assertEquals("User successfully disconnected",0,testModel.getUserList().size());
         socket.close();
@@ -80,7 +80,7 @@ public class ServerModelTest {
         Thread.sleep(2000);
         testModel.getUserList().get(0).setUsername("testUser");
         testModel.updateUserLists();
-        assertEquals("A new userlist has been put on the ooutstream","ARRAYLIST", testModel.getUserList().get(0).getWriter().getOutMessage().getType().getSimpleName().toUpperCase());
+        assertEquals("A new userlist has been put on the ooutstream","ARRAYLIST", testModel.getUserList().get(0).getWriter().getOutMessage().getType().getSimpleName());
         //socket.close();
         testModel.getServerSocket().close();
     }
