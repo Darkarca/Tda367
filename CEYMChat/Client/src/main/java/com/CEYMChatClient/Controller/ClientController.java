@@ -1,7 +1,7 @@
 package com.CEYMChatClient.Controller;
 
 
-import com.CEYMChatClient.View.RecivedTextMessage;
+import com.CEYMChatClient.View.ReceivedTestMessage;
 import com.CEYMChatClient.View.SentTextMessage;
 import javafx.application.Platform;
 import com.CEYMChatClient.Model.ClientModel;
@@ -170,7 +170,7 @@ public class ClientController implements IController {
      * @param rMessage the STRING which will be received
      */
     public void createAddReceiveMessagePane (String rMessage) throws IOException {
-        RecivedTextMessage recivedTextMessage = new RecivedTextMessage(rMessage);
+        ReceivedTestMessage recivedTextMessage = new ReceivedTestMessage(rMessage);
         Platform.runLater(() -> chatPane.getChildren().add(recivedTextMessage.rMessagePane));
     }
 
