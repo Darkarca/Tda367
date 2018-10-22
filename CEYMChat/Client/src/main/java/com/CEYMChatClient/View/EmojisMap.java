@@ -212,6 +212,168 @@ public class EmojisMap {
                         "\uD83D\uDE29",
                         "weary face",
                         "tired"
+                },
+
+                {
+                        "😥",
+                        "\uD83D\uDE25",
+                        "disappointed but relieved face",
+                        "phew"
+
+                },
+                {
+                        "😰",
+                        "\uD83D\uDE30",
+                        "face with open mouth and cold sweat",
+                        "cold_sweat"
+
+                },
+                {
+                        "😅",
+                        "\uD83D\uDE05",
+                        "smiling face with open mouth and cold sweat",
+                        "sweat_smile"
+                },
+                {
+                        "😓",
+                        "\uD83D\uDE13",
+                        "face with cold sweat",
+                        "sweat"
+                },
+                {
+                        "😩",
+                        "\uD83D\uDE29",
+                        "weary face",
+                        "weary"
+
+
+                },
+                {
+                        "😫",
+                        "\uD83D\uDE2B",
+                        "tired face",
+                        "tired_face"
+
+
+                },
+                {
+                        "😨",
+                        "\uD83D\uDE28",
+                        "fearful face",
+                        "fearful"
+                },
+                {
+                        "😱",
+                        "\uD83D\uDE31",
+                        "face screaming in fear",
+                        "scream"
+                },
+                {
+                        "😠",
+                        "\uD83D\uDE20",
+                        "angry face",
+                        "angry"
+
+                },
+                {
+                        "😡",
+                        "\uD83D\uDE21",
+                        "pouting face",
+                        "rage"
+                },
+                {
+                        "😤",
+                        "\uD83D\uDE24",
+                        "face with look of triumph",
+                        "triumph"
+
+                },
+                {
+                        "😖",
+                        "\uD83D\uDE16",
+                        "confounded face",
+                        "confounded"
+
+                },
+                {
+                        "😆",
+                        "\uD83D\uDE06",
+                        "smiling face with open mouth and tightly-closed eyes",
+                        "laughing"
+                },
+                {
+                        "😋",
+                        "\uD83D\uDE0B",
+                        "face savouring delicious food",
+                        "yum"
+
+                },
+                {
+                        "😷",
+                        "\uD83D\uDE37",
+                        "face with medical mask",
+                        "mask"
+
+                },
+                {
+                        "😎",
+                        "\uD83D\uDE0E",
+                        "smiling face with sunglasses",
+                        "sunglasses"
+                },
+                {
+                        "😴",
+                        "\uD83D\uDE34",
+                        "sleeping face",
+                        "sleeping"
+                },
+                {
+                        "😵",
+                        "\uD83D\uDE35",
+                        "dizzy face",
+                        "dizzy_face"
+                },
+                {
+                        "😲",
+                        "\uD83D\uDE32",
+                        "astonished face",
+                        "astonished"
+                },
+                {
+                        "😟",
+                        "\uD83D\uDE1F",
+                        "worried face",
+                        "worried"
+                },
+                {
+                        "😦",
+                        "\uD83D\uDE26",
+                        "frowning face with open mouth",
+                        "frowning"
+                },
+                {
+                        "😧",
+                        "\uD83D\uDE27",
+                        "anguished face",
+                        "anguished"
+                },
+                {
+                        "😈",
+                        "\uD83D\uDE08",
+                        "smiling face with horns",
+                        "smiling_imp"
+                },
+                {
+                        "👿",
+                        "\uD83D\uDC7F",
+                        "imp",
+                        "imp"
+                },
+                {
+                        "😮",
+                        "\uD83D\uDE2E",
+                        "face with open mouth",
+                        "open_mouth"
                 }
 
         };
