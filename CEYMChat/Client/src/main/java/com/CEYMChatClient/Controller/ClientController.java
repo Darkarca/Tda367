@@ -16,6 +16,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
@@ -75,7 +76,10 @@ public class ClientController implements IController {
     private Button recordPlayButton;
     @FXML
     private Text fileName;
-
+    @FXML
+    private ImageView emojis;
+    @FXML
+    private FlowPane emojisFlowPane;
 
     private List<UserDisplayInfo> friendList = new ArrayList<>();
 
