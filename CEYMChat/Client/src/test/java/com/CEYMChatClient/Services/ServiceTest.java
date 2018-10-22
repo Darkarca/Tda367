@@ -18,7 +18,6 @@ public class ServiceTest {
     private Service service;
     private IController clientController;
     private boolean serverOn = false;
-    private int sent = 2;
 
     public void setUpServer() throws IOException {
         {
@@ -30,7 +29,7 @@ public class ServiceTest {
                         socket = serverSocket.accept();
                         System.out.println("Connected socket");
                         outputStream = socket.getOutputStream();
-                        outputStream.write(sent);
+                        outputStream.write(2);
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -47,28 +46,12 @@ public class ServiceTest {
     }
 
     @Test
-    public void connectToS() throws IOException, ClassNotFoundException {
-        /*
-        inIt();
-
-        // Test send-receive
-
-
-        inputStream = service.getMessageInStream();
-        int received = inputStream.read();
-        Assert.assertEquals(sent, received);
-        serverOn = false;
-        */
+    public void connectToS() {
     }
 
 
     @Test
     public void read() {
-    }
-
-
-    @Test
-    public void setMessageOut() {
     }
 
     @Test

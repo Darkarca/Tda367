@@ -29,7 +29,6 @@ public class SentTextMessage {
         FXMLLoader fxmlLoader = new FXMLLoader(url);
         fxmlLoader.setController(this);
         fxmlLoader.load();
-
         this.sMessageTextLabel.setText(sMessage);
     }
 

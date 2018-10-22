@@ -24,7 +24,7 @@ public class Service implements IService{
     private IController controller;
 
     private boolean running = true;
-    private String serverIP;
+    private final String serverIP;
 
     /**
      * Constructor
@@ -80,7 +80,7 @@ public class Service implements IService{
                 while (running) {
                     messageIn = (Message) messageInStream.readObject();
                     if (messageIn != null) {
-                        MessageType msgType = MessageType.valueOf(messageIn.getType().getSimpleName());
+                        MessageType msgType = MessageType.valueOf(messageIn.getType().getSimpleName().toUpperCase());
                         switch (msgType) {
                             case ARRAYLIST: {   // A message with an ARRAYLIST contains information about currently active users
                                 if (messageIn != lastMsg && messageIn != null) {    // The Thread updates the models state
@@ -189,7 +189,7 @@ public class Service implements IService{
      * @throws IOException
      */
     public void sendMessage(Message m) throws IOException {
-        MessageType msgType = MessageType.valueOf(m.getType().getSimpleName());
+        MessageType msgType = MessageType.valueOf(m.getType().getSimpleName().toUpperCase());
         switch(msgType){
             case STRING: setMessageOut(m);  // Messages containing Strings are sent to the outputStream
                 model.addSentMessage(m);    // Changes the models state so that the message can be saved to the device later

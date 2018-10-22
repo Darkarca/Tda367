@@ -5,7 +5,9 @@ import com.CEYMChatServer.Model.ServerModel;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-                /** SocketHandler is responsible for continuously allowing new users to connect to the Server**/
+                /** SocketHandler is responsible for
+                 * continuously allowing new users to connect to the Server
+                 */
 public class SocketHandler{
     private ServerSocket serverSocket;
     private ServerModel model;

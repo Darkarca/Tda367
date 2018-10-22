@@ -30,7 +30,6 @@ public class RecivedTextMessage {
         FXMLLoader fxmlLoader = new FXMLLoader(url);
         fxmlLoader.setController(this);
         fxmlLoader.load();
-
         this.rMessageTextLabel.setText(rMessage);
     }
 

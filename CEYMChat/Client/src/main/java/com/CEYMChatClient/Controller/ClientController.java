@@ -101,10 +101,6 @@ public class ClientController implements IController {
     public void appInit() {
         model = new ClientModel();
         service = new Service(model, this);
-        //chatWindow.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
-        //chatWindow.setFont(Font.font("Verdana", FontWeight.MEDIUM, 14));
-        //chatWindow.setStyle("-fx-focus-color: transparent; -fx-text-box-border: transparent;");
-        //chatWindow.setMouseTransparent(true);
         mainPane.getScene().getWindow().setOnCloseRequest(Event -> {    // Makes sure the client sends a notification to the Server that it has disconnected if the client is terminated
             try {
                 saveMessages();
@@ -200,11 +196,9 @@ public class ClientController implements IController {
         System.out.println("Checking friends");
         int changes = 0;
         for (UserDisplayInfo friendInfo : friendList) {         // Removes friends that have been deselected
-            if (!friendInfo.getIsFriend()) {
-                if (!friendList.isEmpty() && friendList.contains(friendInfo)) {
+            if (!friendInfo.getIsFriend() && !friendList.isEmpty() && friendList.contains(friendInfo)) {
                     friendList.remove(friendInfo);
                     changes++;
-                }
             }
         }
         for (FriendListItem fL : friendItemList) {              // Adds all newly selected friends

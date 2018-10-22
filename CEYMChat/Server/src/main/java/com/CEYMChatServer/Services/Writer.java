@@ -5,7 +5,8 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 /**
- *   Class that writes data to an outputStream connected to a specific client implementing the IWriter interface.
+ *   Class that writes data to an outputStream
+ *   connected to a specific client implementing the IWriter interface.
  */
 public class Writer implements IWriter {
     private Socket socket;
