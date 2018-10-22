@@ -13,15 +13,6 @@ public class  ServerModel {
 
     private int port = 9000;
 
-    {
-        try {
-            serverSocket = new ServerSocket(port);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
     public ServerModel(Integer port) {
         this.port = port;
         {
@@ -108,6 +99,7 @@ public class  ServerModel {
      */
     public void disconnect (String sender){
         User user = getUserByUsername(sender);
+        user.setOnline(false);
         userList.remove(user);
         updateUserLists();
     }
@@ -120,6 +112,9 @@ public class  ServerModel {
             UserDisplayInfo u1 = new UserDisplayInfo();
             u1.setUsername(u.getUsername());
             u1.setInetAddress(u.getSocket().getInetAddress());
+            if(u.isOnline()) {
+                u1.setOnlineIndicator(true);
+            }
             list.add(u1);
         }
         return MessageFactory.createFriendInfoList(list, null, null);

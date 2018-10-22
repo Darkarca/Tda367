@@ -13,11 +13,10 @@ public class ServiceTest {
 
     private ServerSocket serverSocket;
     private OutputStream outputStream;
-   // private InputStream inputStream;
     private Socket socket;
     private Service service;
     private IController clientController;
-    private boolean serverOn = false;
+    private boolean serverOn;
 
     public void setUpServer() throws IOException {
         {
