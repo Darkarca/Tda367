@@ -322,7 +322,7 @@ public class ClientController implements IController {
             public void handle(ActionEvent event) {
                 model.removeMuted(item.getFriendUsername().getText());
                 item.getFriendPane().setStyle("-fx-background-color: white");
-                               }
+                }
         });
 
         remove.setOnAction(new EventHandler<ActionEvent>() {

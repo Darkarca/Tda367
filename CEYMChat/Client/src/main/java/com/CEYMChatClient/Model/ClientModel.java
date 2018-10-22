@@ -136,14 +136,13 @@ public class ClientModel {
         return this.blockedFriends;
     }
     public boolean isBlocked(FriendListItem friendListItem) {
-        for (FriendListItem b :getBlockedFriends()) {
+        for (FriendListItem b : getBlockedFriends()) {
             if (b.getFriendUsername().getText().equals(friendListItem.getFriendUsername().getText())) {
                 return true;
             }
         }
         return false;
     }
-
     public void addBlockedFriend(FriendListItem item) {
         blockedFriends.add(item);
     }
