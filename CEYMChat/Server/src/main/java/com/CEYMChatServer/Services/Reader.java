@@ -50,7 +50,7 @@ public class Reader implements Runnable, IReader {
         while (running) {
             try {
                 inMessage = (Message) inputStream.readObject();         // Constantly check the inputStream and casts its object to a message
-                MessageType msgType = MessageType.valueOf(inMessage.getType().getSimpleName());
+                MessageType msgType = MessageType.valueOf(inMessage.getType().getSimpleName().toUpperCase());
                 switch (msgType) {
                     case COMMAND: {                                     // A message containing a command is sent to the model so that is can be performed, we stop the thread if the command tells us to disconnect
                         System.out.println("Message type: COMMAND");
