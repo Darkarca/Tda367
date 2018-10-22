@@ -29,6 +29,7 @@ public class ReceivedTestMessage {
         URL url = Paths.get("Client/src/main/resources/View/textMessageReciever.fxml").toUri().toURL();
         FXMLLoader fxmlLoader = new FXMLLoader(url);
         fxmlLoader.setController(this);
+       // fxmlLoader.load(getClass().getClassLoader().getResource("View/textMessageReciever.fxml"));
         fxmlLoader.load();
         this.rMessageTextLabel.setText(rMessage);
     }
