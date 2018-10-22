@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import com.CEYMChatLib.*;
 
 /** This class should do nothing else than to launch the client application. */
 public class ClientMain extends Application {
