@@ -26,6 +26,8 @@ public class RecordThread implements Runnable{
     // to decide when to stop recording
     boolean stopRecord;
 
+    private long maxRecordingTime;
+
     /**
      * This method makes an audio stream from the mic and write it to a specified file directory
      */
@@ -37,9 +39,38 @@ public class RecordThread implements Runnable{
 
             // start recording
             System.out.println("Recording...");
+            maxRecordingTime(maxRecordingTime);
             AudioSystem.write(ais, fileType, directory);
         }  catch (IOException ioe) {
             ioe.printStackTrace();
         }
+    }
+
+    /**
+     * This method is called to stop recording
+     */
+    public void stop(){
+        mic.stop();
+        mic.close();
+    }
+
+    /**
+     * This method waits for a specified period of time before it calls the method that stops recording
+     * @param maxRecordingTime
+     */
+    public void maxRecordingTime(long maxRecordingTime){
+        Thread wait = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(maxRecordingTime);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                stop();
+            }
+
+        });
+        wait.start(); 
     }
 }
