@@ -41,13 +41,6 @@
     -fx-background-color: #D0D0D0;
 }
 
-.emojiItem:hover{
-    -fx-background-color: #FCFCFC;
-}
-
-.emojiItem:pressed{
-    -fx-background-color: #D0D0D0;
-}
 
 .text-area-light-green {
     -fx-background-color: #46c02a;
@@ -91,8 +84,17 @@
 .emojiItem{
     -fx-text-alignment: center;
     -fx-font-size: 16px;
-
 }
+
+
+.emojiItem:hover{
+    -fx-background-color: #FCFCFC;
+}
+
+.emojiItem:pressed{
+    -fx-background-color: #D0D0D0;
+}
+
 .loginText{
     -fx-font-color:#5DBCD2;
     -fx-font-family: "Comic Sans MS";
