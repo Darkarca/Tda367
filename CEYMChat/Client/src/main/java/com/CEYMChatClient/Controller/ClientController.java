@@ -80,6 +80,12 @@ public class ClientController implements IController {
     private ImageView emojis;
     @FXML
     private FlowPane emojisFlowPane;
+    @FXML
+    private AnchorPane emojiPane;
+    @FXML
+    private Label emojiCharLabel;
+
+
 
     private List<UserDisplayInfo> friendList = new ArrayList<>();
 
