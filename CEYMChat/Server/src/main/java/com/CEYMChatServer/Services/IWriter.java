@@ -2,7 +2,9 @@ package com.CEYMChatServer.Services;
 
 import com.CEYMChatLib.Message;
 import java.net.Socket;
-        // Interface for classes intending to write objects to an outputStream
+/**
+ * Interface for classes intending to write objects to an outputStream
+  */
 public interface IWriter {
 
 

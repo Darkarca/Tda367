@@ -9,6 +9,9 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a user connected to the server.
+ */
 public class User {
 
     private String username;
