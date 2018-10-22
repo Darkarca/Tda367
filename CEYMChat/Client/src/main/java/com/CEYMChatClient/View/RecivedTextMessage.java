@@ -25,10 +25,10 @@ public class RecivedTextMessage {
 
     public RecivedTextMessage(String rMessage) throws IOException {
 
-        URL url = Paths.get("View/textMessageReciever.fxml").toUri().toURL();
-        FXMLLoader fxmlLoader = new FXMLLoader();
+        URL url = Paths.get("Client/src/main/resources/View/textMessageReciever.fxml").toUri().toURL();
+        FXMLLoader fxmlLoader = new FXMLLoader(url);
         fxmlLoader.setController(this);
-        fxmlLoader.load((getClass().getClassLoader().getResource("View/textMessageReciever.fxml")));
+        fxmlLoader.load();
 
         this.RmessageTextLabel.setText(rMessage);
     }

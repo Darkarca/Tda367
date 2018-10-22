@@ -1,6 +1,6 @@
 package com.CEYMChatClient.View;
 
-import com.CEYMChatLib.*;
+import com.CEYMChatLib.UserDisplayInfo;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
