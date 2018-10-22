@@ -1,7 +1,7 @@
 package com.CEYMChatClient.Services;
 
-import com.CEYMChatLib.*;
-
+import com.CEYMChatLib.CommandName;
+import com.CEYMChatLib.Message;
 import java.io.IOException;
 /** Interface for communicating with the server. */
 public interface IService {
