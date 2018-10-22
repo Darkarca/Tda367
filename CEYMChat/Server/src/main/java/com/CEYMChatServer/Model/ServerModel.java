@@ -13,15 +13,6 @@ public class  ServerModel {
 
     private int port = 9000;
 
-    {
-        try {
-            serverSocket = new ServerSocket(port);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
     public ServerModel(Integer port) {
         this.port = port;
         {
