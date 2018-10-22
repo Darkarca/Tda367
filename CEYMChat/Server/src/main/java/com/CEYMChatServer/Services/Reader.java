@@ -13,9 +13,6 @@ public class Reader implements Runnable, IReader {
     private Socket socket;
     private ObjectInputStream inputStream;
     private Message inMessage;
-
-    private File receivedFile;
-
     private boolean running = true;
 
 
@@ -30,7 +27,7 @@ public class Reader implements Runnable, IReader {
                 System.out.println("No socket found");
             }
         }
-        Thread rThread = new Thread((Runnable) this);
+        Thread rThread = new Thread(this);
         rThread.start();
     }
 
@@ -89,7 +86,6 @@ public class Reader implements Runnable, IReader {
                         System.out.println("Message type: File");
                         System.out.println("Filename: " + ((File)inMessage.getData()).getName());
                         model.sendFile("Server/messages/" + ((File)inMessage.getData()).getName(), inMessage);
-                        //model.sendMessage(inMessage, inMessage.getReceiver());
                         break;
                     }
                 }
