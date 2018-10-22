@@ -38,8 +38,6 @@ public interface IController {
      * @param friendList
      * @throws IOException
      */
-    void createFriendListItemList(List<UserDisplayInfo> friendList) throws IOException;
-
 
     /**
      * Handles how the controller displays a new userlist in the GUI

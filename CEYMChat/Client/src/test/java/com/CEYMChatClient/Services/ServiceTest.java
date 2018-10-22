@@ -13,7 +13,7 @@ public class ServiceTest {
 
     private ServerSocket serverSocket;
     private OutputStream outputStream;
-    private InputStream inputStream;
+   // private InputStream inputStream;
     private Socket socket;
     private Service service;
     private IController clientController;
@@ -27,7 +27,6 @@ public class ServiceTest {
                 try {
                     while (serverOn){
                         socket = serverSocket.accept();
-                        System.out.println("Connected socket");
                         outputStream = socket.getOutputStream();
                         outputStream.write(2);
                     }
@@ -48,7 +47,6 @@ public class ServiceTest {
     @Test
     public void connectToS() {
     }
-
 
     @Test
     public void read() {

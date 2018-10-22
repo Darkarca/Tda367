@@ -18,7 +18,7 @@ public class SocketHandlerTest {
          testHandler = new SocketHandler(testModel);
         int expected = Thread.activeCount()+1;
         testHandler.start();
-        assertEquals(expected,Thread.activeCount());
+        assertEquals("A new thread has been started",expected,Thread.activeCount());
         testModel.getServerSocket().close();
     }
 
@@ -30,7 +30,7 @@ public class SocketHandlerTest {
         Thread.sleep(2000);
         testHandler.start();
         Thread.sleep(2000);
-        assertEquals(1, testModel.getUserList().size());
+        assertEquals("User added to userlist in model",1, testModel.getUserList().size());
         testModel.getServerSocket().close();
     }
 }

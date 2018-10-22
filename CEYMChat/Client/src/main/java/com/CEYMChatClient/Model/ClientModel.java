@@ -1,7 +1,6 @@
 package com.CEYMChatClient.Model;
 
 import com.CEYMChatLib.*;
-
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -94,7 +93,6 @@ public class ClientModel {
             savedMessages = line.split(cvsSplitBy);
         }
         ArrayList<String> savedMessagesList = new ArrayList<String>(Arrays.asList(savedMessages));
-        System.out.println(savedMessagesList.toString());
         return savedMessagesList;
     }
 

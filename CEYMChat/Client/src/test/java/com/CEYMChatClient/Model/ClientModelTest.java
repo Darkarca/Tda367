@@ -45,7 +45,7 @@ public class ClientModelTest {
         }
         File testFile = new File("messages/test.csv");
         boolean exists = testFile.exists();
-        assertTrue(exists);
+        assertTrue("File created successfully", exists);
     }
 
 
@@ -73,7 +73,7 @@ public class ClientModelTest {
         String[] expectedArray = {"test2", "Hello World3", "test2", "Hello World4"};
         expected.addAll(Arrays.asList(expectedArray));
         actual = model.loadSavedMessages("messages/sent.csv");
-        assertEquals(expected,actual);
+        assertEquals("Loaded messages match expected value",expected,actual);
 
     }
 
@@ -86,7 +86,7 @@ public class ClientModelTest {
         String[] expectedArray = {"test1", "Hello World", "test1", "Hello World2"};
         expected.addAll(Arrays.asList(expectedArray));
         actual = model.loadSavedMessages("messages/received.csv");
-        assertEquals(expected,actual);
+        assertEquals("Loaded messages match expected value",expected,actual);
 
     }
 }

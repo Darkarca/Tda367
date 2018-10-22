@@ -4,14 +4,14 @@ import com.CEYMChatClient.Controller.IController;
 import com.CEYMChatClient.Model.ClientModel;
 import com.CEYMChatLib.*;
 import javafx.application.Platform;
-
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class implements the IService interface. It communicates via Sockets to the server.
+ * This class implements the IService interface.
+ * It communicates via Sockets to the server.
  */
 public class Service implements IService{
     private Socket socket;
@@ -54,10 +54,8 @@ public class Service implements IService{
     public void connectToS(){
         try {
             socket = new Socket(serverIP, 9000);
-            System.out.println("Thread started");
             messageOutStream = new ObjectOutputStream(socket.getOutputStream());
             messageInStream = new ObjectInputStream(socket.getInputStream());
-
             System.out.println("Connection started");
             read();
 
@@ -100,6 +98,7 @@ public class Service implements IService{
                                     }
                                 break;
                                 }
+
                              }
                          }
                     }
@@ -116,7 +115,6 @@ public class Service implements IService{
     public void receiveArrayList(){
         comingFriendsList = (ArrayList) messageIn.getData();
         model.setUserList(comingFriendsList);
-        System.out.println("A new list of friends has arrived");
         lastMsg = messageIn;
         Platform.runLater(
                 () -> {
@@ -134,7 +132,6 @@ public class Service implements IService{
      */
     public void receiveString() throws IOException {
         model.addReceivedMessage(messageIn);    // The Thread updates the models state
-        System.out.println("Message received from " + messageIn.getSender() + ": " + messageIn.getData());
         lastMsg = messageIn;
         displayNewMessage(messageIn);
     }
@@ -162,7 +159,6 @@ public class Service implements IService{
      * @throws IOException
      */
     public void setMessageOut(Message m) throws IOException {   // Writes a message to the outStream so the Server or whatever else it is connected to can read from it
-        System.out.println("MessageOutputStream: " + messageOutStream);
         messageOutStream.writeObject(m);
         System.out.println("Message sent: " + m.getData());
 
@@ -235,11 +231,11 @@ public class Service implements IService{
      */
     public void displayFriendList() throws IOException {
         controller.showOnlineFriends(model.getUserList());  // the friendsList so that the Client correctly shows active users
-        System.out.println("New list of friends displayed");
     }
 
     /**
-     * Informs the Server that a user has connected so that the Server can identify the user
+     * Informs the Server that a user has connected
+     * so that the Server can identify the user
      * @param sCommand the sent command
      * @param userName  the username of the user who sends the command
      */
