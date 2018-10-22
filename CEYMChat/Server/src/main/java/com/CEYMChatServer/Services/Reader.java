@@ -7,7 +7,7 @@ import com.CEYMChatLib.MessageType;
 import com.CEYMChatServer.Model.ServerModel;
 import java.io.*;
 import java.net.Socket;
-/** Thread that reads user input and send it to the server. */
+/** Thread that reads user input and send it to the server implementing the IReader interface. */
 public class Reader implements Runnable, IReader {
     private ServerModel model;
     private Socket socket;
