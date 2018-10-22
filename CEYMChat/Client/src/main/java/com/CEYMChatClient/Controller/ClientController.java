@@ -70,6 +70,7 @@ public class ClientController implements IController {
     private Button recordStopButton;
     @FXML
     private Button recordPlayButton;
+    @FXML
     private Text fileName;
 
 

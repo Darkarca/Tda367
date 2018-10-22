@@ -10,7 +10,16 @@ import java.util.List;
 public class  ServerModel {
     private ServerSocket serverSocket;
     private List<User> userList = new ArrayList<>();
+
     private int port = 9000;
+
+    {
+        try {
+            serverSocket = new ServerSocket(port);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     public ServerModel(Integer port) {
@@ -116,7 +125,6 @@ public class  ServerModel {
     /** Updates user lists */
     public void updateUserLists(){
         for (User u:userList) {
-            //u.syncFriends(sendUserInfo());
             u.sendMessage(u.checkFriends(sendUserInfo()));
         }
         System.out.println("Userlists updated!");

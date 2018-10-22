@@ -14,7 +14,7 @@ public class ServerMain{
     public void startHandler(){
         socketHandler.start();
     }
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args){
         System.out.println("Server running");
         ServerMain main = new ServerMain();
         System.out.println("Enter a port number to use. To use default port '9000', hit enter without typing a number");
