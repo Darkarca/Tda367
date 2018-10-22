@@ -93,6 +93,7 @@ public class  ServerModel {
     /** Disconnects the user by removing it from the Servers userlist so that the server won't point to a null outputStream */
     public void disconnect (String sender){
         User user = getUserByUsername(sender);
+        user.setOnline(false);
         userList.remove(user);
         updateUserLists();
     }
@@ -105,6 +106,9 @@ public class  ServerModel {
             UserDisplayInfo u1 = new UserDisplayInfo();
             u1.setUsername(u.getUsername());
             u1.setInetAddress(u.getSocket().getInetAddress());
+            if(u.isOnline()) {
+                u1.setOnlineIndicator(true);
+            }
             list.add(u1);
         }
         return MessageFactory.createFriendInfoList(list, null, null);

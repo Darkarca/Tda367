@@ -18,6 +18,7 @@ public class User {
     private IWriter writer;
     private Socket socket;
     private List<UserDisplayInfo> friends = new ArrayList();
+    private boolean online;
 
 
     /** Getters and setters */
@@ -112,5 +113,11 @@ public class User {
     }
 
 
+    public boolean isOnline() {
+       return this.online;
+    }
 
+    public void setOnline(boolean online) {
+        this.online = online;
+    }
 }

@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import java.io.IOException;
 /** GUI element for friends. */
@@ -49,6 +50,12 @@ public class FriendListItem {
             throw new RuntimeException(exception);
         }
         this.friendUsername.setText(uInfo.getUsername());
+        if(uInfo.getOnline()) {
+            this.onlineIndicator.setFill(Color.GREEN);
+        }
+        else{
+            this.onlineIndicator.setFill(Color.RED);
+        }
     }
 
     /** Is called when you press the friendIndicator image */

@@ -38,6 +38,7 @@ public class SocketHandler{
         Socket s = serverSocket.accept();
         System.out.println(s.isConnected());
         User newUser = new User();
+        newUser.setOnline(true);
         model.addUser(newUser);
         newUser.initIO(s, model);
         IReader reader = new Reader(model, s);          // Constructor for reader starts the Thread

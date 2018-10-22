@@ -11,6 +11,7 @@ public class UserDisplayInfo implements Serializable {
     private String status;
     private Boolean isFriend = false;
     private InetAddress inetAddress;
+    private Boolean online;
 
     /** Getters and Setters */
     public String getUsername() {
@@ -42,4 +43,10 @@ public class UserDisplayInfo implements Serializable {
         return inetAddress;
     }
 
+    public void setOnlineIndicator(Boolean online) {
+        this.online = online;
+    }
+    public Boolean getOnline(){
+        return this.online;
+    }
 }
