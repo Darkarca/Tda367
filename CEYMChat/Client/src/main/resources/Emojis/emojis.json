@@ -70,5 +70,260 @@
     "tags": [
       "flirt"
     ]
+  },
+  {
+    "emojiChar": "😍",
+    "emoji": "\uD83D\uDE0D",
+    "description": "smiling face with heart-shaped eyes",
+    "aliases": [
+      "heart_eyes"
+    ],
+    "tags": [
+      "love",
+      "crush"
+    ]
+  },
+  {
+    "emojiChar": "😘",
+    "emoji": "\uD83D\uDE18",
+    "description": "face throwing a kiss",
+    "aliases": [
+      "kissing_heart"
+    ],
+    "tags": [
+      "flirt"
+    ]
+  },
+  {
+    "emojiChar": "😚",
+    "emoji": "\uD83D\uDE1A",
+    "description": "kissing face with closed eyes",
+    "aliases": [
+      "kissing_closed_eyes"
+    ],
+    "tags": []
+  },
+  {
+    "emojiChar": "😗",
+    "emoji": "\uD83D\uDE17",
+    "description": "kissing face",
+    "aliases": [
+      "kissing"
+    ],
+    "tags": []
+  },
+  {
+    "emojiChar": "😙",
+    "emoji": "\uD83D\uDE19",
+    "description": "kissing face with smiling eyes",
+    "aliases": [
+      "kissing_smiling_eyes"
+    ],
+    "tags": []
+  },
+  {
+    "emojiChar": "😜",
+    "emoji": "\uD83D\uDE1C",
+    "description": "face with stuck-out tongue and winking eye",
+    "aliases": [
+      "stuck_out_tongue_winking_eye"
+    ],
+    "tags": [
+      "prank",
+      "silly"
+    ]
+  },
+  {
+    "emojiChar": "😝",
+    "emoji": "\uD83D\uDE1D",
+    "description": "face with stuck-out tongue and tightly-closed eyes",
+    "aliases": [
+      "stuck_out_tongue_closed_eyes"
+    ],
+    "tags": [
+      "prank"
+    ]
+  },
+  {
+    "emojiChar": "😛",
+    "emoji": "\uD83D\uDE1B",
+    "description": "face with stuck-out tongue",
+    "aliases": [
+      "stuck_out_tongue"
+    ],
+    "tags": []
+  },
+  {
+    "emojiChar": "😳",
+    "emoji": "\uD83D\uDE33",
+    "description": "flushed face",
+    "aliases": [
+      "flushed"
+    ],
+    "tags": []
+  },
+  {
+    "emojiChar": "😁",
+    "emoji": "\uD83D\uDE01",
+    "description": "grinning face with smiling eyes",
+    "aliases": [
+      "grin"
+    ],
+    "tags": []
+  },
+  {
+    "emojiChar": "😔",
+    "emoji": "\uD83D\uDE14",
+    "description": "pensive face",
+    "aliases": [
+      "pensive"
+    ],
+    "tags": []
+  },
+  {
+    "emojiChar": "😌",
+    "emoji": "\uD83D\uDE0C",
+    "description": "relieved face",
+    "aliases": [
+      "relieved"
+    ],
+    "tags": [
+      "whew"
+    ]
+  },
+  {
+    "emojiChar": "😒",
+    "emoji": "\uD83D\uDE12",
+    "description": "unamused face",
+    "aliases": [
+      "unamused"
+    ],
+    "tags": [
+      "meh"
+    ]
+  },
+  {
+    "emojiChar": "😞",
+    "emoji": "\uD83D\uDE1E",
+    "description": "disappointed face",
+    "aliases": [
+      "disappointed"
+    ],
+    "tags": [
+      "sad"
+    ]
+  },
+  {
+    "emojiChar": "😣",
+    "emoji": "\uD83D\uDE23",
+    "description": "persevering face",
+    "aliases": [
+      "persevere"
+    ],
+    "tags": [
+      "struggling"
+    ]
+  },
+  {
+    "emojiChar": "😢",
+    "emoji": "\uD83D\uDE22",
+    "description": "crying face",
+    "aliases": [
+      "cry"
+    ],
+    "tags": [
+      "sad",
+      "tear"
+    ]
+  },
+  {
+    "emojiChar": "😂",
+    "emoji": "\uD83D\uDE02",
+    "description": "face with tears of joy",
+    "aliases": [
+      "joy"
+    ],
+    "tags": [
+      "tears"
+    ]
+  },
+  {
+    "emojiChar": "😭",
+    "emoji": "\uD83D\uDE2D",
+    "description": "loudly crying face",
+    "aliases": [
+      "sob"
+    ],
+    "tags": [
+      "sad",
+      "cry",
+      "bawling"
+    ]
+  },
+  {
+    "emojiChar": "😪",
+    "emoji": "\uD83D\uDE2A",
+    "description": "sleepy face",
+    "aliases": [
+      "sleepy"
+    ],
+    "tags": [
+      "tired"
+    ]
+  },
+  {
+    "emojiChar": "😥",
+    "emoji": "\uD83D\uDE25",
+    "description": "disappointed but relieved face",
+    "aliases": [
+      "disappointed_relieved"
+    ],
+    "tags": [
+      "phew",
+      "sweat",
+      "nervous"
+    ]
+  },
+  {
+    "emojiChar": "😰",
+    "emoji": "\uD83D\uDE30",
+    "description": "face with open mouth and cold sweat",
+    "aliases": [
+      "cold_sweat"
+    ],
+    "tags": [
+      "nervous"
+    ]
+  },
+  {
+    "emojiChar": "😅",
+    "emoji": "\uD83D\uDE05",
+    "description": "smiling face with open mouth and cold sweat",
+    "aliases": [
+      "sweat_smile"
+    ],
+    "tags": [
+      "hot"
+    ]
+  },
+  {
+    "emojiChar": "😓",
+    "emoji": "\uD83D\uDE13",
+    "description": "face with cold sweat",
+    "aliases": [
+      "sweat"
+    ],
+    "tags": []
+  },
+  {
+    "emojiChar": "😩",
+    "emoji": "\uD83D\uDE29",
+    "description": "weary face",
+    "aliases": [
+      "weary"
+    ],
+    "tags": [
+      "tired"
+    ]
   }
 ]
