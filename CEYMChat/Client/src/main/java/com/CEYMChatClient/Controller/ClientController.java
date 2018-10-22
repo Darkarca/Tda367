@@ -78,9 +78,6 @@ public class ClientController implements IController {
     private List<FriendListItem> blockedFriends = new ArrayList<>();
 
     /** FXML methods**/
-    /**
-     * Captures input from user and send makes use of model to send message
-     */
     @FXML
     public void onClick() throws IOException {
         this.userName = userNameTextField.getText();
