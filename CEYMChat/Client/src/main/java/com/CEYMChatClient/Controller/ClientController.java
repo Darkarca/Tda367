@@ -20,16 +20,13 @@ import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Queue;
 
 /**
  * Controller for the Client and ClientMain .
@@ -81,7 +78,6 @@ public class ClientController implements IController {
 
 
     private List<UserDisplayInfo> friendList = new ArrayList<>();
-    private List<FriendListItem> blockedFriends = new ArrayList<>();
 
     /** FXML methods**/
     @FXML
@@ -242,7 +238,7 @@ public class ClientController implements IController {
      */
     public void displayNewMessage(Message m) throws IOException {
         System.out.println("displayNewMessage has been called with string: " + m.getData());
-        if(!isMuted(m.getSender())) {
+        if(!model.isMuted(m.getSender())) {
             createAddReceiveMessagePane(m.getSender() + ": " + m.getData());
         }
     }
@@ -279,7 +275,7 @@ public class ClientController implements IController {
         createFriendListItemList(friendList);
         friendsFlowPane.getChildren().clear();
         for (FriendListItem friendListItem : friendItemList) {
-            if (!isBlocked(friendListItem)) {
+            if (!model.isBlocked(friendListItem)) {
                 friendsFlowPane.getChildren().add(friendListItem.getFriendPane());
             }
         }
@@ -290,22 +286,8 @@ public class ClientController implements IController {
      * @param friendListItem
      * @return
      */
-    public boolean isBlocked(FriendListItem friendListItem) {
-        for (FriendListItem b : blockedFriends) {
-            if (b.getFriendUsername().getText().equals(friendListItem.getFriendUsername().getText())) {
-                return true;
-            }
-        }
-        return false;
-    }
-    public boolean isMuted(String userName ) {
-        for (String s : model.getMutedFriends()) {
-            if (s.equals(userName)){
-                return true;
-            }
-        }
-        return false;
-    }
+
+
     /**
      * initialize the fxml friendListItem with data
      * @param item
@@ -346,7 +328,7 @@ public class ClientController implements IController {
         remove.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                blockedFriends.add(item);
+                model.addBlockedFriend(item);
                 item.getFriendPane().setVisible(false);
             }
         });

@@ -21,6 +21,8 @@ public class ClientModel {
     private File selectedFile;
     private String serverIP;
     private List<String> mutedFriends = new ArrayList<>();
+    private List<FriendListItem> blockedFriends = new ArrayList<>();
+
 
 
     /** Getters, setters and adders **/
@@ -120,5 +122,29 @@ public class ClientModel {
 
     public void removeMuted(String text) {
         mutedFriends.remove(text);
+    }
+    public boolean isMuted(String userName ) {
+        for (String s : getMutedFriends()) {
+            if (s.equals(userName)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public List<FriendListItem> getBlockedFriends() {
+        return this.blockedFriends;
+    }
+    public boolean isBlocked(FriendListItem friendListItem) {
+        for (FriendListItem b :getBlockedFriends()) {
+            if (b.getFriendUsername().getText().equals(friendListItem.getFriendUsername().getText())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void addBlockedFriend(FriendListItem item) {
+        blockedFriends.add(item);
     }
 }
