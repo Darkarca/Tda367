@@ -116,7 +116,6 @@ public class  ServerModel {
     /** Updates user lists */
     public void updateUserLists(){
         for (User u:userList) {
-            //u.syncFriends(sendUserInfo());
             u.sendMessage(u.checkFriends(sendUserInfo()));
         }
         System.out.println("Userlists updated!");
