@@ -14,9 +14,9 @@ import java.nio.file.Paths;
 public class SentTextMessage {
 
     @FXML
-    public Label SmessageTextLabel;
+    public Label sMessageTextLabel;
     @FXML
-    public AnchorPane SmessagePane;
+    public AnchorPane sMessagePane;
 
     /**
      * constructor with initialized the sent message
@@ -30,7 +30,10 @@ public class SentTextMessage {
         fxmlLoader.setController(this);
         fxmlLoader.load();
 
-        this.SmessageTextLabel.setText(sMessage);
+        this.sMessageTextLabel.setText(sMessage);
     }
 
+    public AnchorPane getsMessagePane() {
+        return sMessagePane;
+    }
 }

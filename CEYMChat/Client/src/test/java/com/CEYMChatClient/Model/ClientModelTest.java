@@ -9,13 +9,14 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
 public class ClientModelTest {
 
-    static ClientModel model = new ClientModel();
-   static private ArrayList<Message> testList = new ArrayList<>();
+    private static ClientModel model = new ClientModel();
+   static private List<Message> testList = new ArrayList<>();
 
 
     /** creates a virtual saved messages */
@@ -67,8 +68,8 @@ public class ClientModelTest {
     /** loads the saved sended messages */
     @Test
     public void loadSavedSentMessage() throws IOException {
-        ArrayList<String> expected = new ArrayList<>();
-        ArrayList<String> actual = new ArrayList<>();
+        List<String> expected = new ArrayList<>();
+        List<String> actual = new ArrayList<>();
         String[] expectedArray = {"test2", "Hello World3", "test2", "Hello World4"};
         expected.addAll(Arrays.asList(expectedArray));
         actual = model.loadSavedMessages("messages/sent.csv");
@@ -80,8 +81,8 @@ public class ClientModelTest {
     /** loads the saved recieved messages */
     @Test
     public void loadSavedReceivedMessage() throws IOException {
-        ArrayList<String> expected = new ArrayList<>();
-        ArrayList<String> actual = new ArrayList<>();
+        List<String> expected = new ArrayList<>();
+        List<String> actual = new ArrayList<>();
         String[] expectedArray = {"test1", "Hello World", "test1", "Hello World2"};
         expected.addAll(Arrays.asList(expectedArray));
         actual = model.loadSavedMessages("messages/received.csv");

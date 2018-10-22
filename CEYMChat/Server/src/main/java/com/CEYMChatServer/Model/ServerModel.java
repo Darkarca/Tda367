@@ -57,7 +57,7 @@ public class  ServerModel {
 
     /**
      *Performs a received command,
-     * @param c Command to be executed
+     * @param c COMMAND to be executed
      * @param sender User that sent the command
      */
     public void performCommand(Command c, String sender) {
@@ -85,7 +85,7 @@ public class  ServerModel {
     /** Sets the username of a user so that it can be identified uniformly between the client and server */
     public void setUser(Command c){
         userList.get(userList.size()-1).setUsername(c.getCommandData());
-        System.out.println("Command performed: 'setUser'" + c.getCommandData());
+        System.out.println("COMMAND performed: 'setUser'" + c.getCommandData());
         updateUserLists();
     }
 
@@ -95,7 +95,7 @@ public class  ServerModel {
         User u = getUserByUsername(sender);
         u.syncFriends(sendUserInfo());
         u.sendMessage(u.checkFriends(sendUserInfo()));
-        System.out.println("Command performed: 'refreshFriendList '" + c.getCommandData());
+        System.out.println("COMMAND performed: 'refreshFriendList '" + c.getCommandData());
     }
 
 
@@ -125,7 +125,6 @@ public class  ServerModel {
     /** Updates user lists */
     public void updateUserLists(){
         for (User u:userList) {
-            //u.syncFriends(sendUserInfo());
             u.sendMessage(u.checkFriends(sendUserInfo()));
         }
         System.out.println("Userlists updated!");
@@ -150,7 +149,7 @@ public class  ServerModel {
     }
 
     /**
-     * Retrieves a User by searching for a username String.
+     * Retrieves a User by searching for a username STRING.
      * @param username Username to search for
      */
     public User getUserByUsername(String username){
@@ -165,7 +164,7 @@ public class  ServerModel {
     /**
      * Sends a file to a clients device
      * @param s Name of file.
-     * @param m Message to send alongside the File containing things such as filesize, sender and receiver
+     * @param m Message to send alongside the FILE containing things such as filesize, sender and receiver
      */
     public void sendFile(String s, Message m) throws IOException {
         sendMessage(m,m.getReceiver());

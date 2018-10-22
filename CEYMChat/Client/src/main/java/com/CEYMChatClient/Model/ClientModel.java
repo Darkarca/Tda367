@@ -6,16 +6,16 @@ import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /** Model for the client */
 public class ClientModel {
 
     private Socket socket;
     private String username;
-    private ArrayList<UserDisplayInfo> userList = new ArrayList<>();
-    private ArrayList<UserDisplayInfo> friendList = new ArrayList<>();
-    private ArrayList<Message> receivedMessages = new ArrayList<>();
-    private ArrayList<Message> sentMessages = new ArrayList<>();
+    private List<UserDisplayInfo> userList = new ArrayList<>();
+    private List<Message> receivedMessages = new ArrayList<>();
+    private List<Message> sentMessages = new ArrayList<>();
     private File selectedFile;
     private String serverIP;
 
@@ -26,10 +26,10 @@ public class ClientModel {
     public void setSocket(Socket socket) {
         this.socket = socket;
     }
-    public void setUserList(ArrayList<UserDisplayInfo> userList) {
+    public void setUserList(List<UserDisplayInfo> userList) {
         this.userList = userList;
     }
-    public ArrayList<UserDisplayInfo> getUserList() {
+    public List<UserDisplayInfo> getUserList() {
         return userList;
     }
     public void setUsername(String user){
@@ -52,7 +52,7 @@ public class ClientModel {
     }
 
     /** Saves all sent and received messages into a file */
-    public void saveArrayListToFile(ArrayList<Message> list, String filename) throws IOException {
+    public void saveArrayListToFile(List<Message> list, String filename) throws IOException {
         FileWriter writer = new FileWriter(filename);
 
         for(Message m: list) {
@@ -85,7 +85,7 @@ public class ClientModel {
     }
 
     /** Loads messages that were saved during the last session */
-    public ArrayList<String> loadSavedMessages(String filename) throws IOException {
+    public List<String> loadSavedMessages(String filename) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(filename));
         String line = "";
         String cvsSplitBy = ",";

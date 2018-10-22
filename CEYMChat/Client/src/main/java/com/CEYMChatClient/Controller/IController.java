@@ -4,7 +4,8 @@ import com.CEYMChatLib.Message;
 import com.CEYMChatLib.UserDisplayInfo;
 import javafx.fxml.FXML;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
+
 public interface IController {
 
     /**
@@ -14,7 +15,7 @@ public interface IController {
      * @throws IOException
      */
     @FXML
-    public void login() throws IOException;
+    void login() throws IOException;
 
 
     /**
@@ -23,20 +24,13 @@ public interface IController {
      * @throws IOException
      */
     @FXML
-    public void sendString() throws IOException;
-
-
-    /**
-     * Handles how the controller asks the Server for an updated list of active users
-     */
-    public void refreshFriendList();
-
+    void sendString() throws IOException;
 
     /**
      * Handles how the controller displays a new message in the GUI
      * @param m
      */
-    public void displayNewMessage(Message m) throws IOException;
+    void displayNewMessage(Message m) throws IOException;
 
 
     /**
@@ -44,7 +38,7 @@ public interface IController {
      * @param friendList
      * @throws IOException
      */
-    public void createFriendListItemList (ArrayList<UserDisplayInfo> friendList) throws IOException;
+    void createFriendListItemList(List<UserDisplayInfo> friendList) throws IOException;
 
 
     /**
@@ -52,7 +46,7 @@ public interface IController {
      * @param userDisplayInfos
      * @throws IOException
      */
-    public void showOnlineFriends (ArrayList<UserDisplayInfo> userDisplayInfos) throws IOException;
+    void showOnlineFriends(List<UserDisplayInfo> userDisplayInfos) throws IOException;
 
 
 }

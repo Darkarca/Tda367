@@ -1,3 +1,5 @@
+package com.CEYMChatServer;
+
 import com.CEYMChatServer.Model.ServerModel;
 import com.CEYMChatServer.Services.SocketHandler;
 import org.junit.*;
@@ -9,7 +11,6 @@ public class TestServer {
 
     @Test
     public void checkUser(){
-        ServerModel sm = new ServerModel();
     }
 
     @Test

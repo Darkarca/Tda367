@@ -15,9 +15,9 @@ import java.nio.file.Paths;
 public class RecivedTextMessage {
 
     @FXML
-    public AnchorPane RmessagePane;
+    public AnchorPane rMessagePane;
     @FXML
-    public Label RmessageTextLabel;
+    public Label rMessageTextLabel;
 
     /**
      * constructor with initialized the received message
@@ -31,7 +31,11 @@ public class RecivedTextMessage {
         fxmlLoader.setController(this);
         fxmlLoader.load();
 
-        this.RmessageTextLabel.setText(rMessage);
+        this.rMessageTextLabel.setText(rMessage);
     }
 
+
+    public AnchorPane getrMessagePane() {
+        return rMessagePane;
+    }
 }

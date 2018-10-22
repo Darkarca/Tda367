@@ -52,28 +52,28 @@ public class Reader implements Runnable, IReader {
                 inMessage = (Message) inputStream.readObject();         // Constantly check the inputStream and casts its object to a message
                 MessageType msgType = MessageType.valueOf(inMessage.getType().getSimpleName());
                 switch (msgType) {
-                    case Command: {                                     // A message containing a command is sent to the model so that is can be performed, we stop the thread if the command tells us to disconnect
-                        System.out.println("Message type: Command");
+                    case COMMAND: {                                     // A message containing a command is sent to the model so that is can be performed, we stop the thread if the command tells us to disconnect
+                        System.out.println("Message type: COMMAND");
                         model.performCommand((Command) inMessage.getData(), inMessage.getSender());
                         if(((Command)inMessage.getData()).getCommandName() == CommandName.DISCONNECT){
                             this.stop();
                         }
                         break;
                     }
-                    case String: {                                      // A string message is simply sent to the model and redistributed to the correct client
-                        System.out.println("Message type: String");
+                    case STRING: {                                      // A string message is simply sent to the model and redistributed to the correct client
+                        System.out.println("Message type: STRING");
                         model.displayMessage(inMessage);
                         model.sendMessage(inMessage, inMessage.getReceiver());
                         break;
                     }
-                    case ArrayList: {                                   // An arrayList is sent to the model so that the friendlist of a specific user can be updated
+                    case ARRAYLIST: {                                   // An arrayList is sent to the model so that the friendlist of a specific user can be updated
                         System.out.println("Updating friendslist for: " + inMessage.getSender());
                         model.getUserByUsername(inMessage.getSender()).syncFriends(inMessage);
                         model.performCommand(new Command(CommandName.REFRESH_FRIENDLIST,inMessage.getSender()),inMessage.getSender());
                         break;
                     }
-                    case File: {                                        // A a message containing a File is received and redistributed, the File will be corrupt so it needs to be received via a separate inputStream.
-                        byte [] receivedFile  = new byte [1073741824];  // The message with the original File still contains information such as filesize and filename
+                    case FILE: {                                        // A a message containing a FILE is received and redistributed, the FILE will be corrupt so it needs to be received via a separate inputStream.
+                        byte [] receivedFile  = new byte [1073741824];  // The message with the original FILE still contains information such as filesize and filename
                         InputStream inputStream = socket.getInputStream();
                         FileOutputStream fileOut = new FileOutputStream("Server/messages/" + ((File)inMessage.getData()).getName());
                         BufferedOutputStream bufferedOut = new BufferedOutputStream(fileOut);
@@ -83,15 +83,13 @@ public class Reader implements Runnable, IReader {
                             bufferedOut.write(receivedFile, 0 , current);
                             bufferedOut.flush();
 
-                        System.out.println("Message type: File");
+                        System.out.println("Message type: FILE");
                         System.out.println("Filename: " + ((File)inMessage.getData()).getName());
                         model.sendFile("Server/messages/" + ((File)inMessage.getData()).getName(), inMessage);
                         break;
                     }
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
+            } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
         }

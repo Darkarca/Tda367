@@ -21,7 +21,7 @@ public class ServerMain{
         String port;
         Scanner scanner = new Scanner(System.in);
         port = scanner.nextLine();
-        if(port.equals("")){
+        if("".equals(port)){
             model = new ServerModel();
             System.out.println("Default port used");
         }
