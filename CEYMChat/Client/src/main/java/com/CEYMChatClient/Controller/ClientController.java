@@ -156,12 +156,7 @@ public class ClientController implements IController {
      */
     public void createAddSendMessagePane (String sMessage) throws IOException {
         SentTextMessage sentTextMessage = new SentTextMessage(sMessage);
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                chatPane.getChildren().add(sentTextMessage.sMessagePane);
-            }
-        });
+        Platform.runLater(() -> chatPane.getChildren().add(sentTextMessage.sMessagePane));
     }
 
     /**
@@ -170,8 +165,8 @@ public class ClientController implements IController {
      * @param rMessage the STRING which will be received
      */
     public void createAddReceiveMessagePane (String rMessage) throws IOException {
-        ReceivedTestMessage recivedTextMessage = new ReceivedTestMessage(rMessage);
-        Platform.runLater(() -> chatPane.getChildren().add(recivedTextMessage.rMessagePane));
+        ReceivedTestMessage receivedTextMessage = new ReceivedTestMessage(rMessage);
+        Platform.runLater(() -> chatPane.getChildren().add(receivedTextMessage.rMessagePane));
     }
 
     /**
