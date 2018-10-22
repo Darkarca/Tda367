@@ -46,7 +46,7 @@
                       </AnchorPane>
                       <AnchorPane maxWidth="900.0" minHeight="0.0" minWidth="0.0" prefHeight="675.0" prefWidth="721.0">
                           <children>
-                              <TextField fx:id="chatBox" editable="true" layoutX="30.0" layoutY="595.0" onAction="#sendString" prefHeight="69.0" prefWidth="378.0" promptText="Type here to chat!" />
+                              <TextField fx:id="chatBox" editable="true" layoutX="30.0" layoutY="604.0" onAction="#sendString" prefHeight="69.0" prefWidth="378.0" promptText="Type here to chat!" />
                         <Text fx:id="currentChat" layoutX="21.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Currently chatting with: Nobody" wrappingWidth="175.611328125" />
                         <ImageView fx:id="fileChooser" fitHeight="40.0" fitWidth="40.0" layoutX="402.0" layoutY="5.0" onMouseClicked="#chooseFile" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -70,7 +70,7 @@
                               </AnchorPane>
                           </content>
                         </ScrollPane>
-                              <Button fx:id="sendButton" layoutX="484.0" layoutY="595.0" mnemonicParsing="false" onAction="#sendString" prefHeight="69.0" prefWidth="65.0">
+                              <Button fx:id="sendButton" layoutX="484.0" layoutY="604.0" mnemonicParsing="false" onAction="#sendString" prefHeight="69.0" prefWidth="65.0">
                            <graphic>
                               <ImageView fitHeight="54.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -89,7 +89,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button layoutX="411.0" layoutY="595.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="72.0">
+                        <Button layoutX="411.0" layoutY="604.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="72.0">
                            <graphic>
                               <ImageView fitHeight="30.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -98,7 +98,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="recordStopButton" layoutX="447.0" layoutY="634.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="36.0">
+                        <Button fx:id="recordStopButton" layoutX="447.0" layoutY="643.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="36.0">
                            <graphic>
                               <ImageView fitHeight="63.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -107,7 +107,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="recordPlayButton" layoutX="411.0" layoutY="634.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="37.0">
+                        <Button fx:id="recordPlayButton" layoutX="411.0" layoutY="643.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="37.0">
                            <graphic>
                               <ImageView fitHeight="19.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -116,16 +116,16 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <ScrollPane layoutX="-1.0" layoutY="538.0" prefHeight="46.0" prefWidth="571.0">
+                        <ScrollPane layoutX="-1.0" layoutY="540.0" prefHeight="56.0" prefWidth="571.0">
                           <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="43.0" prefWidth="568.0">
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="84.0" prefWidth="556.0">
                                  <children>
-                                    <FlowPane fx:id="emojisFlowPane" prefHeight="46.0" prefWidth="571.0" />
+                                    <FlowPane fx:id="emojisFlowPane" layoutX="-1.0" layoutY="-1.0" prefHeight="84.0" prefWidth="556.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                           </content>
                         </ScrollPane>
-                        <ImageView fx:id="emojis" fitHeight="37.0" fitWidth="36.0" layoutX="533.0" layoutY="543.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="emojis" fitHeight="29.0" fitWidth="26.0" layoutX="545.0" layoutY="520.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../emojis.png" />
                            </image>

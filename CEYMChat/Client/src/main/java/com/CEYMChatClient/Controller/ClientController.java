@@ -1,12 +1,10 @@
 package com.CEYMChatClient.Controller;
 
 
-import com.CEYMChatClient.View.ReceivedTestMessage;
-import com.CEYMChatClient.View.SentTextMessage;
+import com.CEYMChatClient.View.*;
 import javafx.application.Platform;
 import com.CEYMChatClient.Model.ClientModel;
 import com.CEYMChatClient.Services.IService;
-import com.CEYMChatClient.View.FriendListItem;
 import com.CEYMChatLib.*;
 import com.CEYMChatClient.Services.Service;
 import javafx.event.ActionEvent;
@@ -27,7 +25,9 @@ import javafx.stage.FileChooser;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Controller for the Client and ClientMain .
@@ -80,10 +80,7 @@ public class ClientController implements IController {
     private ImageView emojis;
     @FXML
     private FlowPane emojisFlowPane;
-    @FXML
-    private AnchorPane emojiPane;
-    @FXML
-    private Label emojiCharLabel;
+
 
 
 
@@ -128,6 +125,8 @@ public class ClientController implements IController {
                 e.printStackTrace();
             }
         }
+
+        fillEmojis();
     }
 
     /**
@@ -432,6 +431,16 @@ public class ClientController implements IController {
     public void addElementsAfterIndex(List<String> savedList,List<String>allSavedMessages,int index){
         for (int i = index; i < savedList.size(); i++){
             allSavedMessages.add(savedList.get(i));
+        }
+    }
+
+    public void fillEmojis () {
+        EmojisMap emojisMap = new EmojisMap();
+        Map<String, Emoji> emojiHashMap = emojisMap.createEmojiHashMap();
+
+        for (Map.Entry<String, Emoji> entry : emojiHashMap.entrySet()) {
+            EmojiItem emojiItem = new EmojiItem(entry.getValue().getEmojiChar());
+            emojisFlowPane.getChildren().add(emojiItem.getEmojiPane());
         }
     }
 }

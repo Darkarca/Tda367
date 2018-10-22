@@ -28,7 +28,6 @@ public class SentTextMessage {
         URL url = Paths.get("Client/src/main/resources/View/textMessageSender.fxml").toUri().toURL();
         FXMLLoader fxmlLoader = new FXMLLoader(url);
         fxmlLoader.setController(this);
-        //fxmlLoader.load(getClass().getClassLoader().getResource("View/textMessageSender.fxml"));
         fxmlLoader.load();
         this.sMessageTextLabel.setText(sMessage);
     }
