@@ -14,17 +14,20 @@ import java.net.URL;
 import java.nio.file.Paths;
 
 /**
- * Creates a GUI element for friends.
+ * Creates a GUI element for a sent text message.
  */
 public class SentTextMessage {
-
 
     @FXML
     public Label SmessageTextLabel;
     @FXML
     public AnchorPane SmessagePane;
 
-
+    /**
+     * constructor with initialized the sent message
+     * @param sMessage the sent message
+     * @throws IOException
+     */
     public SentTextMessage( String sMessage) throws IOException {
 
         URL url = Paths.get("Client/src/main/resources/View/textMessageSender.fxml").toUri().toURL();
@@ -35,7 +38,4 @@ public class SentTextMessage {
         this.SmessageTextLabel.setText(sMessage);
     }
 
-    public AnchorPane getSmessagePane() {
-        return SmessagePane;
-    }
 }

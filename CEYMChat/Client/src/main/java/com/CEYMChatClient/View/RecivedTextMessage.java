@@ -10,19 +10,20 @@ import java.net.URL;
 import java.nio.file.Paths;
 
 /**
- * Creates a GUI element for friends.
+ * Creates a GUI element for a received text message.
  */
 public class RecivedTextMessage {
-
-
 
     @FXML
     public AnchorPane RmessagePane;
     @FXML
     public Label RmessageTextLabel;
 
-
-
+    /**
+     * constructor with initialized the received message
+     * @param rMessage the received message
+     * @throws IOException
+     */
     public RecivedTextMessage(String rMessage) throws IOException {
 
         URL url = Paths.get("Client/src/main/resources/View/textMessageReciever.fxml").toUri().toURL();
@@ -33,7 +34,4 @@ public class RecivedTextMessage {
         this.RmessageTextLabel.setText(rMessage);
     }
 
-    public AnchorPane getRmessagePane() {
-        return RmessagePane;
-    }
 }
