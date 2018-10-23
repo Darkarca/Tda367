@@ -187,5 +187,13 @@ public class  ServerModel {
         OutputStream outputStream = getUserByUsername(message.getReceiver()).getWriter().getSocket().getOutputStream();
         outputStream.write(sentFile,0,sentFile.length);
     }
+
+    public void closeSocket() {
+        try {
+            serverSocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
 

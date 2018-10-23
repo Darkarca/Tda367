@@ -62,6 +62,10 @@ public class Service implements IService{
         new Thread(() -> {
             try {
                 while (running) {
+                    if(!socket.isConnected()){
+                        System.out.println("DISCONNECTED FROM SERVER");
+
+                    }
                     messageIn = (Message) messageInStream.readObject();
                     if (messageIn != null) {
                         MessageType msgType = MessageType.valueOf(messageIn.getType().getSimpleName().toUpperCase());
@@ -84,7 +88,6 @@ public class Service implements IService{
                                     }
                                 break;
                                 }
-
                              }
                          }
                     }
