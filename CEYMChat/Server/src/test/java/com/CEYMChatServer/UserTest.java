@@ -21,7 +21,7 @@ public class UserTest {
         User testUser = new User();
         testUser.setUsername("testUser");
         testUser.syncFriends(testMessage);
-        assertEquals("User added to friendslist","true",testUser.getFriends().get(0).getUsername());
+        assertEquals("User added to friendslist","true",testUser.getFriendsInfo().get(0).getUsername());
     }
 
     @Test

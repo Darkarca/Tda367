@@ -39,7 +39,7 @@ public class SocketHandler{
         User newUser = new User();
         newUser.setOnline(true);
         model.addUser(newUser);
-        newUser.initIO(acceptedSocket, model);
+        newUser.initIO(acceptedSocket);
         IReader reader = new Reader(model, acceptedSocket);          // Constructor for reader starts the Thread
     }
 }

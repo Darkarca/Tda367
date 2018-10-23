@@ -67,10 +67,15 @@ public class  ServerModel {
                 break;
             case REGISTER:                  // Not yet supported, supposed to create a new user in a Serverlocal file containing information about all users
                 break;
-            case ADD_FRIEND:                // Not yet supported, supposed to add a specific user to a specific users individual friendlist in a Serverlocal file containing information about all users
+            case ADD_FRIEND:
+                addFriend(getUserByUsername(sender),getUserByUsername(command.getCommandData()));
                 break;
             case REQUEST_CHAT:              // Not yet supported, supposed to initiate a chat between two (or more) users
         }
+    }
+
+    private void addFriend(User adder, User toBeAdded) {
+        adder.addFriend(toBeAdded);
     }
 
     /** Sets the username of a user so that it can be

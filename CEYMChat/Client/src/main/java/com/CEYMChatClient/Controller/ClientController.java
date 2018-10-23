@@ -295,6 +295,12 @@ public class ClientController implements IController {
             @Override
             public void handle(ActionEvent event) {
                 item.toggleFriend();
+                try {
+                    service.sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.ADD_FRIEND, item.getFriendUsername().getText()), userName));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
 
             }
         });

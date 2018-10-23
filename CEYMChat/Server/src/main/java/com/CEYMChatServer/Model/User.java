@@ -17,8 +17,9 @@ public class User {
     private String username;
     private IWriter writer;
     private Socket socket;
-    private List<UserDisplayInfo> friends = new ArrayList();
+    private List<UserDisplayInfo> friendsInfo = new ArrayList();
     private boolean online;
+    private List<User> friends = new ArrayList();
 
 
     /** Getters and setters */
@@ -38,44 +39,44 @@ public class User {
         return writer;
     }
 
-    public List<UserDisplayInfo> getFriends(){
-        return friends;
+    public List<UserDisplayInfo> getFriendsInfo(){
+        return friendsInfo;
     }
 
-    public void initIO(Socket socket, ServerModel model) {
+    public void initIO(Socket socket) {
         this.writer = new Writer(socket);
         this.socket = socket;
     }
 
 
     /**
-     * Syncs the users list of registered friends with
+     * Syncs the users list of registered friendsInfo with
      * a list received by its corresponding client
      */
     public void syncFriends(Message message){
         List<UserDisplayInfo> receivedList = (List<UserDisplayInfo>) message.getData();
         Boolean add = true;
         for(UserDisplayInfo uInfo : receivedList) {
-            for(UserDisplayInfo friends:friends){
+            for(UserDisplayInfo friends: friendsInfo){
                 if(uInfo.getUsername().equals(friends.getUsername())){
                     add = false;
                 }
             }
             if(add){
                 uInfo.setIsFriend(true);
-                friends.add(uInfo);
+                friendsInfo.add(uInfo);
             }
         }
     }
 
 
     /**
-     * Merges this users friends with another list
+     * Merges this users friendsInfo with another list
      * of users so that they can both be sent to a client
      */
     public Message checkFriends(Message message) {
         List<UserDisplayInfo> listToSend = (List<UserDisplayInfo>) message.getData();
-        for (UserDisplayInfo friends : friends) {
+        for (UserDisplayInfo friends : friendsInfo) {
             Boolean add = true;
             for (UserDisplayInfo uInfo : listToSend) {
                 if (uInfo.getUsername().equals(friends.getUsername())) {
@@ -100,13 +101,13 @@ public class User {
     }
 
     public void addFriends(UserDisplayInfo uInfo) {
-        friends.add(uInfo);
+        friendsInfo.add(uInfo);
     }
 
     public void removeFriends(UserDisplayInfo toRemove) {
-        for (UserDisplayInfo uInfo : friends) {
+        for (UserDisplayInfo uInfo : friendsInfo) {
             if (toRemove.getUsername() == uInfo.getUsername()) {
-                friends.remove(uInfo);
+                friendsInfo.remove(uInfo);
                 return;
             }
         }
@@ -119,5 +120,10 @@ public class User {
 
     public void setOnline(boolean online) {
         this.online = online;
+    }
+
+    public void addFriend(User toBeAdded) {
+        friends.add(toBeAdded);
+        System.out.println("Friend added" + toBeAdded.getUsername());
     }
 }
