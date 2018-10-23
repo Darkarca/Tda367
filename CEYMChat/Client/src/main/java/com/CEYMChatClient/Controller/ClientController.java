@@ -101,7 +101,6 @@ public class ClientController implements IController {
         return service;
     }
 
-
     /**
      *  Initiates the GUI
      */
@@ -439,9 +438,15 @@ public class ClientController implements IController {
         Map<String, Emoji> emojiHashMap = emojisMap.createEmojiHashMap();
 
         for (Map.Entry<String, Emoji> entry : emojiHashMap.entrySet()) {
-            EmojiItem emojiItem = new EmojiItem(entry.getValue().getEmojiChar());
+            EmojiItem emojiItem = new EmojiItem(entry.getValue().getEmojiChar(), this);
             emojisFlowPane.getChildren().add(emojiItem.getEmojiPane());
         }
+    }
+
+    public void chatBoxAppendText(String s){
+        StringBuilder stringBuilder = new StringBuilder(chatBox.getText());
+        stringBuilder.append(s);
+        chatBox.setText(stringBuilder.toString());
     }
 }
 
