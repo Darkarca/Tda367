@@ -106,7 +106,7 @@ public class User {
 
     public void removeFriends(UserDisplayInfo toRemove) {
         for (UserDisplayInfo uInfo : friendsInfo) {
-            if (toRemove.getUsername() == uInfo.getUsername()) {
+            if (uInfo.getIsFriend() && toRemove.getUsername() == uInfo.getUsername()) {
                 friendsInfo.remove(uInfo);
                 return;
             }

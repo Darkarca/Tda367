@@ -1,11 +1,11 @@
 package com.CEYMChatClient.View;
 
 import com.CEYMChatClient.Controller.ClientController;
+import com.CEYMChatClient.Controller.IController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
@@ -15,8 +15,7 @@ import java.nio.file.Paths;
  */
 public class EmojiItem {
 
-
-    ClientController clientController;
+    private IController clientController;
 
     @FXML
     private Label emojiCharLabel;

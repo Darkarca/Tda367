@@ -1,20 +1,14 @@
 package com.CEYMChatClient.Controller;
 
-
-import com.CEYMChatClient.View.ReceivedTextMessage;
-import com.CEYMChatClient.View.SentTextMessage;
 import com.CEYMChatClient.View.*;
 import javafx.application.Platform;
 import com.CEYMChatClient.Model.ClientModel;
 import com.CEYMChatClient.Services.IService;
 import com.CEYMChatLib.*;
 import com.CEYMChatClient.Services.Service;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
@@ -24,7 +18,6 @@ import javafx.stage.FileChooser;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -80,23 +73,12 @@ public class ClientController implements IController {
     @FXML
     private FlowPane emojisFlowPane;
 
-
-
-
-
     /** FXML methods**/
     @FXML
     public void loginClick() throws IOException {
         this.userName = userNameTextField.getText();
         login();
         mainPane.toFront();
-    }
-
-    /**
-     * Getters and Setters
-     **/
-    public IService getService() {
-        return service;
     }
 
     /**
@@ -140,7 +122,6 @@ public class ClientController implements IController {
         model.setServerIP(ipField.getText());
     }
 
-
     /**
      * Sends the text in the chatBox to the Server
      * together with whichever user you have chosen
@@ -158,7 +139,7 @@ public class ClientController implements IController {
      * as a Send message
      * @param sMessage the STRING which will be sent
      */
-    public void createAddSendMessagePane (String sMessage) throws IOException {
+    public void createAddSendMessagePane (final String sMessage) throws IOException {
         SentTextMessage sentTextMessage = new SentTextMessage(sMessage);
         Platform.runLater(() -> chatPane.getChildren().add(sentTextMessage.sMessagePane));
     }
@@ -168,7 +149,7 @@ public class ClientController implements IController {
      * as a received message
      * @param rMessage the STRING which will be received
      */
-    public void createAddReceiveMessagePane (String rMessage) throws IOException {
+    public void createAddReceiveMessagePane (final String rMessage) throws IOException {
         ReceivedTextMessage receivedMessage = new ReceivedTextMessage(rMessage);
         Platform.runLater(() -> chatPane.getChildren().add(receivedMessage.rMessagePane));
     }
@@ -200,21 +181,6 @@ public class ClientController implements IController {
         }
         service.sendMessage(MessageFactory.createFriendInfoList(model.getFriendList(), userName, userName)); // Notifies the Server about any changes have been made to the friends list
         }
-
-
-    /**
-     * Currently unused, sends a command to the Server
-     * to notify it that the user wants to initiate a
-     * chat with someone, currently a message contains
-     * a STRING with the username of the intended receiver instead
-     */
-    public void requestChat() {
-        try {
-            service.sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.REQUEST_CHAT, "user2"), userName));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     /**
      * Updates the GUI with text from a new message
@@ -261,7 +227,6 @@ public class ClientController implements IController {
         }
     }
 
-
     /**
      * initialize the fxml friendListItem with data
      * @param item
@@ -270,7 +235,6 @@ public class ClientController implements IController {
         item.getFriendPane().setOnMouseClicked(MouseEvent -> {
             MouseButton button = MouseEvent.getButton();
             if(button==MouseButton.PRIMARY) {
-                //item.getFriendPane().setStyle("-fx-background-color: green");
                 currentChatName = item.getFriendUsername().getText();
                 currentChat.setText("Currently chatting with: " + currentChatName);
                 try {
@@ -290,48 +254,28 @@ public class ClientController implements IController {
         contextMenu.getItems().add(mute);
         contextMenu.getItems().add(unmute);
         contextMenu.getItems().add(toggleFriend);
-
-        toggleFriend.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                item.toggleFriend();
-                try {
-                    service.sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.ADD_FRIEND, item.getFriendUsername().getText()), userName));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-
+        toggleFriend.setOnAction(event -> {
+            item.toggleFriend();
+            try {
+                service.sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.ADD_FRIEND, item.getFriendUsername().getText()), userName));
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         });
-        mute.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                model.addMuted(item.getFriendUsername().getText());
-                item.getFriendPane().setStyle("-fx-background-color: crimson");
-            }
+        mute.setOnAction(event -> {
+            model.addMuted(item.getFriendUsername().getText());
+            item.getFriendPane().setStyle("-fx-background-color: crimson");
         });
-        unmute.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                model.removeMuted(item.getFriendUsername().getText());
-                item.getFriendPane().setStyle("-fx-background-color: white");
-                }
-        });
+        unmute.setOnAction(event -> {
+            model.removeMuted(item.getFriendUsername().getText());
+            item.getFriendPane().setStyle("-fx-background-color: white");
+            });
 
-        remove.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                model.addBlockedFriend(item);
-                item.getFriendPane().setVisible(false);
-            }
+        remove.setOnAction(event -> {
+            model.addBlockedFriend(item);
+            item.getFriendPane().setVisible(false);
         });
-        item.getFriendPane().setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
-            @Override
-            public void handle(ContextMenuEvent event) {
-                contextMenu.show(item.getFriendPane(), event.getScreenX(), event.getScreenY());
-            }
-        });
+        item.getFriendPane().setOnContextMenuRequested(event -> contextMenu.show(item.getFriendPane(), event.getScreenX(), event.getScreenY()));
 
     }
 

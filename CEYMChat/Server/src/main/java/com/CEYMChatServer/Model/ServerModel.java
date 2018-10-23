@@ -45,7 +45,6 @@ public class  ServerModel {
         userList.add(user);
     }
 
-
     /**
      *Performs a received command,
      * @param command COMMAND to be executed
@@ -65,12 +64,9 @@ public class  ServerModel {
                 disconnect(sender);
             }
                 break;
-            case REGISTER:                  // Not yet supported, supposed to create a new user in a Serverlocal file containing information about all users
-                break;
             case ADD_FRIEND:
                 addFriend(getUserByUsername(sender),getUserByUsername(command.getCommandData()));
                 break;
-            case REQUEST_CHAT:              // Not yet supported, supposed to initiate a chat between two (or more) users
         }
     }
 
@@ -87,6 +83,9 @@ public class  ServerModel {
         updateUserLists();
     }
 
+    public void friendSync(Message message){
+        getUserByUsername(message.getSender()).syncFriends(message);
+    }
 
     /** Sends an update active userlist to all active clients,
      * also merges the list with each users individual friendslist

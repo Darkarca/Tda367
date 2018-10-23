@@ -388,10 +388,10 @@ public class EmojisMap {
          * fills the emojiHashMap with all the emojis as Emojis object
          * @param emojisArray an array with all of emojis object
          */
-    public void fillEmojisHashMap(String[][] emojisArray) {
-        for (int i = 0; i < emojisArray.length; i++) {
-            emojiHashMap.put(emojisArray[i][3], new Emoji(emojisArray[i][0], emojisArray[i][1], emojisArray[i][2], emojisArray[i][3]));
-        }
+    public void fillEmojisHashMap(String[]... emojisArray) {
+            for (String[] anEmojisArray : emojisArray) {
+                    emojiHashMap.put(anEmojisArray[3], new Emoji(anEmojisArray[0], anEmojisArray[1], anEmojisArray[2], anEmojisArray[3]));
+            }
     }
 }
 

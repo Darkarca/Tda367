@@ -22,7 +22,6 @@ public class Service implements IService{
     private Message lastMsg;
     private List<UserDisplayInfo> comingFriendsList = new ArrayList();
     private IController controller;
-
     private boolean running = true;
     private final String serverIP;
 
@@ -37,16 +36,6 @@ public class Service implements IService{
         this.controller = controller;
         this.serverIP = model.getServerIP();
     }
-
-    /**
-     *
-     * Getters and setters
-     */
-    public ObjectInputStream getMessageInStream() {
-        return messageInStream;
-    }
-
-
     /**
      * Connect client to the server
      */
@@ -63,9 +52,6 @@ public class Service implements IService{
             e.printStackTrace();
         }
     }
-
-
-
     /**
      * Starts a new thread constantly reading a inputstream from the Server.
      * While it is running it continuously checks the stream,
@@ -141,7 +127,6 @@ public class Service implements IService{
      * @throws IOException
      */
     public void receiveFile() throws IOException {
-
         byte [] receivedFile  = new byte [1073741824];
         InputStream inputStream = socket.getInputStream();
         FileOutputStream fileOut = new FileOutputStream("Client/messages/" + ((File)messageIn.getData()).getName());
@@ -214,7 +199,6 @@ public class Service implements IService{
         }
     }
 
-
     /**
      * Informs the controller that it should display a new message in the GUI
      * @param message the message to display
@@ -223,7 +207,6 @@ public class Service implements IService{
     public void displayNewMessage(Message message) throws IOException {
         controller.displayNewMessage(message);
     }
-
 
     /**
      * Informs the controller that it should update

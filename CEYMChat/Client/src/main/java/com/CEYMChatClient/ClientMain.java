@@ -1,6 +1,5 @@
 package com.CEYMChatClient;
 
-import com.CEYMChatClient.View.EmojisMap;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,8 +11,8 @@ public class ClientMain extends Application {
 
     /** Runs the Client module as a main method */
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("View/ClientView.fxml"));
+    public void start(final Stage primaryStage) throws Exception {
+        final Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("View/ClientView.fxml"));
         primaryStage.setTitle("CEYMChat");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();

@@ -47,4 +47,5 @@ public interface IController {
     void showOnlineFriends(List<UserDisplayInfo> userDisplayInfos) throws IOException;
 
 
+    void chatBoxAppendText(String s);
 }

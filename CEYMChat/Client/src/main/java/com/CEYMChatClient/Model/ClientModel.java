@@ -2,7 +2,6 @@ package com.CEYMChatClient.Model;
 
 import com.CEYMChatClient.View.FriendListItem;
 import com.CEYMChatLib.*;
-import javafx.scene.control.Label;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -23,15 +22,7 @@ public class ClientModel {
     private List<FriendListItem> blockedFriends = new ArrayList<>();
     private List<UserDisplayInfo> friendList = new ArrayList<>();
 
-
-
     /** Getters, setters and adders **/
-    public Socket getSocket() {
-        return socket;
-    }
-    public void setSocket(Socket socket) {
-        this.socket = socket;
-    }
     public void setUserList(List<UserDisplayInfo> userList) {
         this.userList = userList;
     }

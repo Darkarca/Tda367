@@ -32,7 +32,4 @@ public class SentTextMessage {
         this.sMessageTextLabel.setText(sMessage);
     }
 
-    public AnchorPane getsMessagePane() {
-        return sMessagePane;
-    }
 }

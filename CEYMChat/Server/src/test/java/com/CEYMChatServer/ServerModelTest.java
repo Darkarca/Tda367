@@ -55,7 +55,6 @@ public class ServerModelTest {
         Message testMessage = MessageFactory.createStringMessage("Hello world!", "testUser", "testUser");
         testModel.sendMessage(testMessage,"testUser");
         assertEquals("Message on outstream match expected value",testMessage,testModel.getUserByUsername("testUser").getWriter().getOutMessage());
-        //socket.close();
         testModel.getServerSocket().close();
     }
 
@@ -67,7 +66,6 @@ public class ServerModelTest {
         testModel.addUser(testUser);
         assertEquals("Retrieved user from list match expected value",testUser, testModel.getUserByUsername(testUser.getUsername()));
         testModel.getServerSocket().close();
-
     }
 
     @Test
@@ -81,7 +79,6 @@ public class ServerModelTest {
         testModel.getUserList().get(0).setUsername("testUser");
         testModel.updateUserLists();
         assertEquals("A new userlist has been put on the ooutstream","ArrayList", testModel.getUserList().get(0).getWriter().getOutMessage().getType().getSimpleName());
-        //socket.close();
         testModel.getServerSocket().close();
     }
 

@@ -2,7 +2,6 @@ package com.CEYMChatServer;
 
 import com.CEYMChatServer.Services.SocketHandler;
 import com.CEYMChatServer.Model.ServerModel;
-
 import java.util.Scanner;
 
 /**
