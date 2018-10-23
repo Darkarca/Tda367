@@ -1,7 +1,9 @@
 package com.CEYMChatClient.View;
 
-import java.util.ArrayList;
 
+/**
+ * Objects of this emoji class uses in Emojis map as elements
+ */
 public class Emoji {
 
     private String emojiChar;

@@ -7,10 +7,12 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Paths;
 
+/**
+ * emojiItem is a controller to emojiItem fxml file
+ */
 public class EmojiItem {
 
 
@@ -40,6 +42,9 @@ public class EmojiItem {
         return emojiPane;
     }
 
+    /**
+     * handles click event on an emoji. Sets the clicked emoji in the text box
+     */
     @FXML
     public void onClick(){
         clientController.chatBoxAppendText(emojiCharLabel.getText());

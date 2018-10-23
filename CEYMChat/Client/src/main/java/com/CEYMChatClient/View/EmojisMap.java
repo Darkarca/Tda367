@@ -3,6 +3,9 @@ package com.CEYMChatClient.View;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * creates and handles a hash map with emojis (the key is the name of the emoji and the value is the emoji object)
+ */
 public class EmojisMap {
 
     private Map<String, Emoji> emojiHashMap = new HashMap<String, Emoji>();
@@ -381,6 +384,10 @@ public class EmojisMap {
         return emojiHashMap;
     }
 
+        /**
+         * fills the emojiHashMap with all the emojis as Emojis object
+         * @param emojisArray an array with all of emojis object
+         */
     public void fillEmojisHashMap(String[][] emojisArray) {
         for (int i = 0; i < emojisArray.length; i++) {
             emojiHashMap.put(emojisArray[i][3], new Emoji(emojisArray[i][0], emojisArray[i][1], emojisArray[i][2], emojisArray[i][3]));
