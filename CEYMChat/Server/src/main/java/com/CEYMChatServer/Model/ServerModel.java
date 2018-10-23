@@ -70,6 +70,11 @@ public class  ServerModel {
         }
     }
 
+    /**
+     * Adds a User(toBeAdded) to the User's(adder) friendlist
+     * @param adder
+     * @param toBeAdded
+     */
     private void addFriend(User adder, User toBeAdded) {
         adder.addFriend(toBeAdded);
     }
