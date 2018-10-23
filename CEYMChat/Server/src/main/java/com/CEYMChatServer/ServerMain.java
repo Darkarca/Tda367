@@ -31,5 +31,14 @@ public class ServerMain{
         }
         socketHandler = new SocketHandler(model);
         main.startHandler();
+        System.out.println("To stop the server, type 'quit'");
+        while(true) {
+            if (scanner.nextLine().equals("quit")) {
+                break;
+
+            }
+        }
+        System.exit(0);
+
     }
 }
