@@ -338,9 +338,11 @@ public class ClientController implements IController {
     public void chooseFile() {
         FileChooser chooser = new FileChooser();
         chooser.setTitle("Choose a file to send with your message");
-        chooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text Files", "*.txt"),
+        chooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"),
                 new FileChooser.ExtensionFilter("Audio Files", "*.wav", "*.mp3", "*.aac"),
+                new FileChooser.ExtensionFilter("Text Files","*.pdf","*.doc","*.docx"),
+                new FileChooser.ExtensionFilter("Document Files", "*.xlsx","*.xls","*.csv"),
                 new FileChooser.ExtensionFilter("All Files", "*.*"));
         File selectedFile = chooser.showOpenDialog(chatBox.getScene().getWindow());
         if (selectedFile != null) {
