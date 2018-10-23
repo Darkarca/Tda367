@@ -16,7 +16,7 @@ public class SocketHandler{
         this.serverSocket = model.getServerSocket();
     }
 
-    public synchronized void start() {
+    public void start() {
         new Thread(() -> {
             while (true) {
                 try {
@@ -34,12 +34,12 @@ public class SocketHandler{
         }).start();
     }
 
-    public synchronized void connectSocket() throws IOException {
-        Socket s = serverSocket.accept();
+    public void connectSocket() throws IOException {
+        Socket acceptedSocket = serverSocket.accept();
         User newUser = new User();
         newUser.setOnline(true);
         model.addUser(newUser);
-        newUser.initIO(s, model);
-        IReader reader = new Reader(model, s);          // Constructor for reader starts the Thread
+        newUser.initIO(acceptedSocket, model);
+        IReader reader = new Reader(model, acceptedSocket);          // Constructor for reader starts the Thread
     }
 }

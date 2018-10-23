@@ -14,7 +14,6 @@ public class Reader implements Runnable, IReader {
     private ServerModel model;
     private Socket socket;
     private ObjectInputStream inputStream;
-    private Message inMessage;
     private boolean running = true;
 
 
@@ -51,7 +50,7 @@ public class Reader implements Runnable, IReader {
     public void run() {
         while (running) {
             try {
-                inMessage = (Message) inputStream.readObject();         // Constantly check the inputStream and casts its object to a message
+                Message inMessage = (Message) inputStream.readObject();         // Constantly check the inputStream and casts its object to a message
                 MessageType msgType = MessageType.valueOf(inMessage.getType().getSimpleName().toUpperCase());
                 switch (msgType) {
                     case COMMAND: {                                     // A message containing a command is sent to the model so that is can be performed, we stop the thread if the command tells us to disconnect

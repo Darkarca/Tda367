@@ -27,8 +27,8 @@ public class Writer implements IWriter {
         }
     }
 
-    public synchronized void setOutMessage(Message m){  // Sets message to be written and writes it to the stream
-        outMessage = m;
+    public void setOutMessage(Message outMessage){  // Sets message to be written and writes it to the stream
+        this.outMessage = outMessage;
         writeToStream();
     }
 

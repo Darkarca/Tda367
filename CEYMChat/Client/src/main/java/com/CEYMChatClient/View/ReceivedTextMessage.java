@@ -12,7 +12,7 @@ import java.nio.file.Paths;
 /**
  * Creates a GUI element for a received text message.
  */
-public class ReceivedTestMessage {
+public class ReceivedTextMessage {
 
     @FXML
     public AnchorPane rMessagePane;
@@ -24,7 +24,7 @@ public class ReceivedTestMessage {
      * @param rMessage the received message
      * @throws IOException
      */
-    public ReceivedTestMessage(String rMessage) throws IOException {
+    public ReceivedTextMessage(String rMessage) throws IOException {
 
         URL url = Paths.get("Client/src/main/resources/View/textMessageReciever.fxml").toUri().toURL();
         FXMLLoader fxmlLoader = new FXMLLoader(url);

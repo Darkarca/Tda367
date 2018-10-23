@@ -52,8 +52,8 @@ public class User {
      * Syncs the users list of registered friends with
      * a list received by its corresponding client
      */
-    public void syncFriends(Message m){
-        List<UserDisplayInfo> receivedList = (List<UserDisplayInfo>) m.getData();
+    public void syncFriends(Message message){
+        List<UserDisplayInfo> receivedList = (List<UserDisplayInfo>) message.getData();
         Boolean add = true;
         for(UserDisplayInfo uInfo : receivedList) {
             for(UserDisplayInfo friends:friends){
@@ -73,8 +73,8 @@ public class User {
      * Merges this users friends with another list
      * of users so that they can both be sent to a client
      */
-    public Message checkFriends(Message m) {
-        List<UserDisplayInfo> listToSend = (List<UserDisplayInfo>) m.getData();
+    public Message checkFriends(Message message) {
+        List<UserDisplayInfo> listToSend = (List<UserDisplayInfo>) message.getData();
         for (UserDisplayInfo friends : friends) {
             Boolean add = true;
             for (UserDisplayInfo uInfo : listToSend) {
@@ -87,7 +87,7 @@ public class User {
                 listToSend.add(friends);
             }
         }
-        return MessageFactory.createFriendInfoList(listToSend, m.getSender(), m.getReceiver());
+        return MessageFactory.createFriendInfoList(listToSend, message.getSender(), message.getReceiver());
     }
 
 
@@ -95,12 +95,12 @@ public class User {
      *  Writes a message to the outputStream so
      *  that the client can read it from their inputStream
      */
-    public void sendMessage(Message m) {
-        writer.setOutMessage(m);
+    public void sendMessage(Message message) {
+        writer.setOutMessage(message);
     }
 
-    public void addFriends(UserDisplayInfo u) {
-        friends.add(u);
+    public void addFriends(UserDisplayInfo uInfo) {
+        friends.add(uInfo);
     }
 
     public void removeFriends(UserDisplayInfo toRemove) {

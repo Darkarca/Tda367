@@ -29,12 +29,12 @@ public class Service implements IService{
     /**
      * Constructor
      * @param model the client model
-     * @param c the controller
+     * @param controller the controller
      */
-    public Service(ClientModel model, IController c)
+    public Service(ClientModel model, IController controller)
     {
         this.model = model;
-        this.controller = c;
+        this.controller = controller;
         this.serverIP = model.getServerIP();
     }
 
@@ -81,19 +81,19 @@ public class Service implements IService{
                         MessageType msgType = MessageType.valueOf(messageIn.getType().getSimpleName().toUpperCase());
                         switch (msgType) {
                             case ARRAYLIST: {   // A message with an ARRAYLIST contains information about currently active users
-                                if (messageIn != lastMsg && messageIn != null) {    // The Thread updates the models state
+                                if (!messageIn.equals(lastMsg) && messageIn != null) {    // The Thread updates the models state
                                     receiveArrayList();
                                 }
                                 break;
                             }
                             case STRING: {  // A message with a STRING is a text message to be shown in the GUI
-                                if (messageIn != lastMsg && messageIn != null) {
+                                if (!messageIn.equals(lastMsg) && messageIn != null) {
                                     receiveString();
                                 }
                                 break;
                             }
                             case FILE: {    // A message with a FILE is intended to be saved to the users local device
-                                    if(messageIn != lastMsg && messageIn != null){  // The FILE within the message is corrupt so the Thread saves the FILE using a seperate stream of bytes
+                                    if(!messageIn.equals(lastMsg) && messageIn != null){  // The FILE within the message is corrupt so the Thread saves the FILE using a seperate stream of bytes
                                         receiveFile();
                                     }
                                 break;
@@ -155,12 +155,12 @@ public class Service implements IService{
 
     /**
      * Setting the message in the outputstream of the socket
-     * @param m the message
+     * @param messageOut the message
      * @throws IOException
      */
-    public void setMessageOut(Message m) throws IOException {   // Writes a message to the outStream so the Server or whatever else it is connected to can read from it
-        messageOutStream.writeObject(m);
-        System.out.println("Message sent: " + m.getData());
+    public void setMessageOut(Message messageOut) throws IOException {   // Writes a message to the outStream so the Server or whatever else it is connected to can read from it
+        messageOutStream.writeObject(messageOut);
+        System.out.println("Message sent: " + messageOut.getData());
 
     }
 
@@ -170,8 +170,8 @@ public class Service implements IService{
     public void stop(){
         running = false;
         try {
-            messageOutStream = null;
-            messageInStream = null;
+            messageOutStream.close();
+            messageInStream.close();
             socket.shutdownOutput();
             socket.shutdownInput();
         } catch (IOException e) {
@@ -181,22 +181,22 @@ public class Service implements IService{
 
     /**
      * Decides how messages are sent to the Server
-     * @param m the sent message
+     * @param message the sent message
      * @throws IOException
      */
-    public void sendMessage(Message m) throws IOException {
-        MessageType msgType = MessageType.valueOf(m.getType().getSimpleName().toUpperCase());
+    public void sendMessage(Message message) throws IOException {
+        MessageType msgType = MessageType.valueOf(message.getType().getSimpleName().toUpperCase());
         switch(msgType){
-            case STRING: setMessageOut(m);  // Messages containing Strings are sent to the outputStream
-                model.addSentMessage(m);    // Changes the models state so that the message can be saved to the device later
+            case STRING: setMessageOut(message);  // Messages containing Strings are sent to the outputStream
+                model.addSentMessage(message);    // Changes the models state so that the message can be saved to the device later
                 break;
-            case COMMAND: setMessageOut(m); // Commands are simply sent to the Server to let the Server perform said command
+            case COMMAND: setMessageOut(message); // Commands are simply sent to the Server to let the Server perform said command
                 break;
             case ARRAYLIST: {
-                setMessageOut(m);           // Sends an updated list of friends to the Server so that the Servers state can be updated
+                setMessageOut(message);           // Sends an updated list of friends to the Server so that the Servers state can be updated
                 break;
             }
-            case FILE: setMessageOut(m);    // Messages containing a FILE will be sent via the message object but arrives corrupt at the Server
+            case FILE: setMessageOut(message);    // Messages containing a FILE will be sent via the message object but arrives corrupt at the Server
                         byte[] sentFile = new byte[(int)model.getSelectedFile().length()];  // Sending a FILE is instead done by sending an array of bytes
                         FileInputStream fileInput = new FileInputStream(model.getSelectedFile());   // To a separate inputStream
                         BufferedInputStream bufferedInput = new BufferedInputStream(fileInput);
@@ -217,11 +217,11 @@ public class Service implements IService{
 
     /**
      * Informs the controller that it should display a new message in the GUI
-     * @param m the message to display
+     * @param message the message to display
      * @throws IOException
      */
-    public void displayNewMessage(Message m) throws IOException {
-        controller.displayNewMessage(m);
+    public void displayNewMessage(Message message) throws IOException {
+        controller.displayNewMessage(message);
     }
 
 

@@ -3,20 +3,14 @@ import javax.sound.sampled.AudioFormat;
 
 /** The Class that Describe The audio format of the file bring sent and recieved */
 public class AudioMessage {
-    private float sRate;
-    private int sInbits;
-    private int channels;
-    private boolean signed;
-    private boolean bigEndian;
-
 
     /** get the sound file format */
     public AudioFormat getAudioFormat() {
-        sRate = 16000.0F;
-        sInbits = 16;
-        channels = 1;
-        signed = true;
-        bigEndian = false;
+        float sRate = 16000.0F;
+        int sInbits = 16;
+        int channels = 1;
+        boolean signed = true;
+        boolean bigEndian = false;
         return new AudioFormat(sRate, sInbits, channels, signed, bigEndian);
     }
 }

@@ -48,17 +48,17 @@ public class  ServerModel {
 
     /**
      *Performs a received command,
-     * @param c COMMAND to be executed
+     * @param command COMMAND to be executed
      * @param sender User that sent the command
      */
-    public void performCommand(Command c, String sender) {
-        switch(c.getCommandName()){
+    public void performCommand(Command command, String sender) {
+        switch(command.getCommandName()){
             case SET_USER: {
-               setUser(c);
+               setUser(command);
             }
                 break;
             case REFRESH_FRIENDLIST: {
-                refreshFriendList(c, sender);
+                refreshFriendList(command, sender);
             }
                 break;
             case DISCONNECT: {
@@ -76,9 +76,9 @@ public class  ServerModel {
     /** Sets the username of a user so that it can be
      * identified uniformly between the client and server
      */
-    public void setUser(Command c){
-        userList.get(userList.size()-1).setUsername(c.getCommandData());
-        System.out.println("COMMAND performed: 'setUser'" + c.getCommandData());
+    public void setUser(Command command){
+        userList.get(userList.size()-1).setUsername(command.getCommandData());
+        System.out.println("COMMAND performed: 'setUser'" + command.getCommandData());
         updateUserLists();
     }
 
@@ -86,11 +86,11 @@ public class  ServerModel {
     /** Sends an update active userlist to all active clients,
      * also merges the list with each users individual friendslist
      */
-    public void refreshFriendList(Command c, String sender){
-        User u = getUserByUsername(sender);
-        u.syncFriends(sendUserInfo());
-        u.sendMessage(u.checkFriends(sendUserInfo()));
-        System.out.println("COMMAND performed: 'refreshFriendList '" + c.getCommandData());
+    public void refreshFriendList(Command command, String sender){
+        User user = getUserByUsername(sender);
+        user.syncFriends(sendUserInfo());
+        user.sendMessage(user.checkFriends(sendUserInfo()));
+        System.out.println("COMMAND performed: 'refreshFriendList '" + command.getCommandData());
     }
 
 
@@ -108,14 +108,14 @@ public class  ServerModel {
     /** Sends user information via UserDisplayInfo objects to the recipient. */
     public Message sendUserInfo(){
         List<UserDisplayInfo> list = new ArrayList<UserDisplayInfo>();
-        for (User u:userList) {
-            UserDisplayInfo u1 = new UserDisplayInfo();
-            u1.setUsername(u.getUsername());
-            u1.setInetAddress(u.getSocket().getInetAddress());
-            if(u.isOnline()) {
-                u1.setOnlineIndicator(true);
+        for (User user:userList) {
+            UserDisplayInfo uInfo = new UserDisplayInfo();
+            uInfo.setUsername(user.getUsername());
+            uInfo.setInetAddress(user.getSocket().getInetAddress());
+            if(user.isOnline()) {
+                uInfo.setOnlineIndicator(true);
             }
-            list.add(u1);
+            list.add(uInfo);
         }
         return MessageFactory.createFriendInfoList(list, null, null);
     }
@@ -133,20 +133,20 @@ public class  ServerModel {
 
     /**
      * Displays a message on the server console.
-     * @param m Message to be displayed.
+     * @param message Message to be displayed.
      */
-    public void displayMessage(Message m) throws IOException, ClassNotFoundException {
-        System.out.println(m.getSender() + ": " + m.getData());
+    public void displayMessage(Message message) throws IOException, ClassNotFoundException {
+        System.out.println(message.getSender() + ": " + message.getData());
     }
 
     /**
      * Sends a message to the correct receiver.
-     * @param m Message to be sent.
+     * @param message Message to be sent.
      * @param receiver Name of receiver.
      */
-    public void sendMessage(Message m, String receiver){
-        User u = getUserByUsername(receiver);
-        u.sendMessage(m);
+    public void sendMessage(Message message, String receiver){
+        User user = getUserByUsername(receiver);
+        user.sendMessage(message);
     }
 
     /**
@@ -165,17 +165,17 @@ public class  ServerModel {
     /**
      * Sends a file to a clients device
      * @param s Name of file.
-     * @param m Message to send alongside the FILE
+     * @param message Message to send alongside the FILE
      *          containing things such as filesize, sender and receiver
      */
-    public void sendFile(String s, Message m) throws IOException {
-        sendMessage(m,m.getReceiver());
+    public void sendFile(String s, Message message) throws IOException {
+        sendMessage(message,message.getReceiver());
         File toSend = new File(s);
         byte[] sentFile = new byte[(int)toSend.length()];
         FileInputStream fileInput = new FileInputStream(toSend);
         BufferedInputStream bufferedInput = new BufferedInputStream(fileInput);
         bufferedInput.read(sentFile,0,sentFile.length);
-        OutputStream outputStream = getUserByUsername(m.getReceiver()).getWriter().getSocket().getOutputStream();
+        OutputStream outputStream = getUserByUsername(message.getReceiver()).getWriter().getSocket().getOutputStream();
         outputStream.write(sentFile,0,sentFile.length);
     }
 }

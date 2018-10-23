@@ -14,7 +14,7 @@ public interface IWriter {
 
 
     /** Setting the message on outputstream of the socket */
-    void setOutMessage(Message m);
+    void setOutMessage(Message outMessage);
 
 
     /** Handles how the writer writes objects to its outputStream */

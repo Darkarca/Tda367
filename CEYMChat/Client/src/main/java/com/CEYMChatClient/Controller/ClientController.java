@@ -1,7 +1,7 @@
 package com.CEYMChatClient.Controller;
 
 
-import com.CEYMChatClient.View.ReceivedTestMessage;
+import com.CEYMChatClient.View.ReceivedTextMessage;
 import com.CEYMChatClient.View.SentTextMessage;
 import javafx.application.Platform;
 import com.CEYMChatClient.Model.ClientModel;
@@ -13,9 +13,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
@@ -77,7 +74,6 @@ public class ClientController implements IController {
     private Text fileName;
 
 
-    private List<UserDisplayInfo> friendList = new ArrayList<>();
 
     /** FXML methods**/
     @FXML
@@ -163,8 +159,8 @@ public class ClientController implements IController {
      * @param rMessage the STRING which will be received
      */
     public void createAddReceiveMessagePane (String rMessage) throws IOException {
-        ReceivedTestMessage receivedTextMessage = new ReceivedTestMessage(rMessage);
-        Platform.runLater(() -> chatPane.getChildren().add(receivedTextMessage.rMessagePane));
+        ReceivedTextMessage receivedMessage = new ReceivedTextMessage(rMessage);
+        Platform.runLater(() -> chatPane.getChildren().add(receivedMessage.rMessagePane));
     }
 
     /**
@@ -186,32 +182,14 @@ public class ClientController implements IController {
      * @throws IOException
      */
     public void checkFriends() throws IOException {
-        int changes = 0;
-        for (UserDisplayInfo friendInfo : friendList) {         // Removes friends that have been deselected
-            if (!friendInfo.getIsFriend() && !friendList.isEmpty() && friendList.contains(friendInfo)) {
-                    friendList.remove(friendInfo);
-                    changes++;
-            }
+        for (UserDisplayInfo friendInfo : model.getFriendList()) {         // Removes friends that have been deselected
+            model.removeFriends(friendInfo);
         }
         for (FriendListItem fL : friendItemList) {              // Adds all newly selected friends
-            Boolean add = true;
-            if (fL.getUInfo().getIsFriend()) {
-                for (UserDisplayInfo friendInfo : friendList) {
-                    if (friendInfo.getUsername() == fL.getUInfo().getUsername()) {
-                        add = false;
-                    }
-                }
-                if (add) {
-                    friendList.add(fL.getUInfo());
-                    changes++;
-                }
-            }
+            model.addFriends(fL.getUInfo());
         }
-        if (changes != 0) {                                     // Notifies the Server if any changes have been made to the friends list
-            service.sendMessage(MessageFactory.createFriendInfoList(friendList, userName, userName));
-            return;
+        service.sendMessage(MessageFactory.createFriendInfoList(model.getFriendList(), userName, userName)); // Notifies the Server about any changes have been made to the friends list
         }
-    }
 
 
     /**
@@ -230,12 +208,11 @@ public class ClientController implements IController {
 
     /**
      * Updates the GUI with text from a new message
-     * @param m
+     * @param message
      */
-    public void displayNewMessage(Message m) throws IOException {
-        System.out.println("displayNewMessage has been called with string: " + m.getData());
-        if(!model.isMuted(m.getSender())) {
-            createAddReceiveMessagePane(m.getSender() + ": " + m.getData());
+    public void displayNewMessage(Message message) throws IOException {
+        if(!model.isMuted(message.getSender())) {
+            createAddReceiveMessagePane(message.getSender() + ": " + message.getData());
         }
     }
 
@@ -273,12 +250,6 @@ public class ClientController implements IController {
             }
         }
     }
-
-    /**
-     * checking if a friend is blocked
-     * @param friendListItem
-     * @return
-     */
 
 
     /**
@@ -340,13 +311,13 @@ public class ClientController implements IController {
      * be sent to the Server or another user later
      */
     public void chooseFile() {
-        FileChooser fc = new FileChooser();
-        fc.setTitle("Choose a file to send with your message");
-        fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text Files", "*.txt"),
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle("Choose a file to send with your message");
+        chooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text Files", "*.txt"),
                 new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"),
                 new FileChooser.ExtensionFilter("Audio Files", "*.wav", "*.mp3", "*.aac"),
                 new FileChooser.ExtensionFilter("All Files", "*.*"));
-        File selectedFile = fc.showOpenDialog(chatBox.getScene().getWindow());
+        File selectedFile = chooser.showOpenDialog(chatBox.getScene().getWindow());
         if (selectedFile != null) {
             model.setSelectedFile(selectedFile);
             fileName.setText("Current file: " + model.getSelectedFile().getName());

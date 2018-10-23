@@ -20,6 +20,7 @@ public class ClientModel {
     private String serverIP;
     private List<String> mutedFriends = new ArrayList<>();
     private List<FriendListItem> blockedFriends = new ArrayList<>();
+    private List<UserDisplayInfo> friendList = new ArrayList<>();
 
 
 
@@ -42,11 +43,11 @@ public class ClientModel {
     public String getUsername(){
         return username;
     }
-    public void addReceivedMessage(Message m){
-        receivedMessages.add(m);
+    public void addReceivedMessage(Message message){
+        receivedMessages.add(message);
     }
-    public void addSentMessage (Message m){
-        sentMessages.add(m);
+    public void addSentMessage (Message message){
+        sentMessages.add(message);
     }
     public File getSelectedFile() {
         return selectedFile;
@@ -59,12 +60,12 @@ public class ClientModel {
     public void saveArrayListToFile(List<Message> list, String filename) throws IOException {
         FileWriter writer = new FileWriter(filename);
 
-        for(Message m: list) {
-            if(m.getSender().equals(username)) {
-                writer.write("Me: " + "," + m.getData().toString() + ",");
+        for(Message message: list) {
+            if(message.getSender().equals(username)) {
+                writer.write("Me: " + "," + message.getData().toString() + ",");
             }
             else{
-                writer.write(m.getSender() + "," + m.getData().toString() + ",");
+                writer.write(message.getSender() + "," + message.getData().toString() + ",");
             }
         }
         writer.close();
@@ -90,15 +91,14 @@ public class ClientModel {
 
     /** Loads messages that were saved during the last session */
     public List<String> loadSavedMessages(String filename) throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader(filename));
+        BufferedReader reader = new BufferedReader(new FileReader(filename));
         String line = "";
         String cvsSplitBy = ",";
         String [] savedMessages = {};
-        while((line = br.readLine())!=null){
+        while((line = reader.readLine())!=null){
             savedMessages = line.split(cvsSplitBy);
         }
-        ArrayList<String> savedMessagesList = new ArrayList<String>(Arrays.asList(savedMessages));
-        return savedMessagesList;
+        return new ArrayList<String>(Arrays.asList(savedMessages));
     }
 
     public void setServerIP(String serverIP) {
@@ -133,8 +133,8 @@ public class ClientModel {
         return this.blockedFriends;
     }
     public boolean isBlocked(FriendListItem friendListItem) {
-        for (FriendListItem b : getBlockedFriends()) {
-            if (b.getFriendUsername().getText().equals(friendListItem.getFriendUsername().getText())) {
+        for (FriendListItem blocked : getBlockedFriends()) {
+            if (blocked.getFriendUsername().getText().equals(friendListItem.getFriendUsername().getText())) {
                 return true;
             }
         }
@@ -142,5 +142,22 @@ public class ClientModel {
     }
     public void addBlockedFriend(FriendListItem item) {
         blockedFriends.add(item);
+    }
+
+
+    public void removeFriends(UserDisplayInfo uInfo){
+        if(!uInfo.getIsFriend() && friendList.contains(uInfo)){
+            friendList.remove(uInfo);
+        }
+    }
+
+    public void addFriends(UserDisplayInfo uInfo){
+        if (uInfo.getIsFriend() && !friendList.contains(uInfo)){
+            friendList.add(uInfo);
+        }
+    }
+
+    public List<UserDisplayInfo> getFriendList() {
+        return friendList;
     }
 }

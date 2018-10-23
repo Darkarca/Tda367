@@ -30,12 +30,12 @@ public class RecordThread implements Runnable{
 
     /**
      * Constructor
-     * @param c
+     * @param controller
      * @param mic
      * @param maxRecordingTime
      */
-    public RecordThread(IController c, TargetDataLine mic, long maxRecordingTime){
-        this. controller = c;
+    public RecordThread(IController controller, TargetDataLine mic, long maxRecordingTime){
+        this.controller = controller;
         this.mic = mic;
         this.maxRecordingTime = maxRecordingTime;
     }
@@ -51,7 +51,7 @@ public class RecordThread implements Runnable{
 
             // start recording
             System.out.println("Recording...");
-            maxRecordingTime(maxRecordingTime);
+            sleepMaxRecordingTime(maxRecordingTime);
             AudioSystem.write(ais, fileType, directory);
         }  catch (IOException ioe) {
             ioe.printStackTrace();
@@ -71,7 +71,7 @@ public class RecordThread implements Runnable{
      * time before it calls the method that stops recording
      * @param maxRecordingTime
      */
-    public void maxRecordingTime(long maxRecordingTime){
+    public void sleepMaxRecordingTime(long maxRecordingTime){
         Thread wait = new Thread(new Runnable() {
             @Override
             public void run() {

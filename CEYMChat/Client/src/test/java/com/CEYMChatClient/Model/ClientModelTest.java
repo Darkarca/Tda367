@@ -1,6 +1,5 @@
 package com.CEYMChatClient.Model;
 
-import com.CEYMChatClient.Model.ClientModel;
 import com.CEYMChatLib.Message;
 import com.CEYMChatLib.MessageFactory;
 import org.junit.BeforeClass;

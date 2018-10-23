@@ -7,7 +7,7 @@ import java.io.IOException;
 public interface IService {
 
     /** Handles how the service sends a message to the Server */
-    void setMessageOut(Message m) throws IOException;
+    void setMessageOut(Message messageOut) throws IOException;
 
     /** Handles how the service starts a Thread
      *  to read notifications, messages etc from the Server

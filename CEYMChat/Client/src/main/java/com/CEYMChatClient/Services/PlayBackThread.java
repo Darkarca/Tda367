@@ -2,7 +2,6 @@ package com.CEYMChatClient.Services;
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -10,9 +9,8 @@ import java.io.InputStream;
  * This class represent the task of playing a previously recorded audio file
  */
 public class PlayBackThread implements Runnable {
-    InputStream inputStream;
-    AudioStream audioStream;
-    String fileName;
+    private AudioStream audioStream;
+    private String fileName;
 
     /**
      * Constructor
@@ -31,10 +29,8 @@ public class PlayBackThread implements Runnable {
 
         // Make an audio stream from a source audio file
         try {
-            inputStream = new FileInputStream(directory);
+            InputStream inputStream = new FileInputStream(directory);
             audioStream = new AudioStream(inputStream);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

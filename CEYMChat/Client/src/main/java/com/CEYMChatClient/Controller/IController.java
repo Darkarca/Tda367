@@ -28,9 +28,9 @@ public interface IController {
 
     /**
      * Handles how the controller displays a new message in the GUI
-     * @param m
+     * @param message
      */
-    void displayNewMessage(Message m) throws IOException;
+    void displayNewMessage(Message message) throws IOException;
 
 
     /**

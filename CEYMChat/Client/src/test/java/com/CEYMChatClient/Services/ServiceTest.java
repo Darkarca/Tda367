@@ -4,7 +4,6 @@ import com.CEYMChatClient.Controller.ClientController;
 import com.CEYMChatClient.Controller.IController;
 import org.junit.Test;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -14,7 +13,7 @@ public class ServiceTest {
     private ServerSocket serverSocket;
     private OutputStream outputStream;
     private Socket socket;
-    private Service service;
+    private IService service;
     private IController clientController;
     private boolean serverOn;
 
@@ -40,7 +39,7 @@ public class ServiceTest {
         setUpServer();
         clientController = new ClientController();
         clientController.login();
-        service = (Service) ((ClientController) clientController).getService();
+        service = ((ClientController) clientController).getService();
     }
 
     @Test

@@ -15,8 +15,8 @@ public class TestServer {
 
     @Test
     public void testSocketHandlerStart(){
-        SocketHandler sh = new SocketHandler(new ServerModel());
-        sh.start();
+        SocketHandler handler = new SocketHandler(new ServerModel());
+        handler.start();
 
     }
     @Test
