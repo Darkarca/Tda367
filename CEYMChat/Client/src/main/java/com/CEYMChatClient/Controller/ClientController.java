@@ -3,27 +3,29 @@ package com.CEYMChatClient.Controller;
 
 import com.CEYMChatClient.View.ReceivedTextMessage;
 import com.CEYMChatClient.View.SentTextMessage;
+import com.CEYMChatClient.View.*;
 import javafx.application.Platform;
 import com.CEYMChatClient.Model.ClientModel;
 import com.CEYMChatClient.Services.IService;
-import com.CEYMChatClient.View.FriendListItem;
 import com.CEYMChatLib.*;
 import com.CEYMChatClient.Services.Service;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Controller for the Client and ClientMain .
@@ -72,6 +74,12 @@ public class ClientController implements IController {
     private Button recordPlayButton;
     @FXML
     private Text fileName;
+    @FXML
+    private ImageView emojis;
+    @FXML
+    private FlowPane emojisFlowPane;
+
+
 
 
 
@@ -89,7 +97,6 @@ public class ClientController implements IController {
     public IService getService() {
         return service;
     }
-
 
     /**
      *  Initiates the GUI
@@ -114,6 +121,8 @@ public class ClientController implements IController {
                 e.printStackTrace();
             }
         }
+
+        fillEmojis();
     }
 
     /**
@@ -394,6 +403,22 @@ public class ClientController implements IController {
         for (int i = index; i < savedList.size(); i++){
             allSavedMessages.add(savedList.get(i));
         }
+    }
+
+    public void fillEmojis () {
+        EmojisMap emojisMap = new EmojisMap();
+        Map<String, Emoji> emojiHashMap = emojisMap.createEmojiHashMap();
+
+        for (Map.Entry<String, Emoji> entry : emojiHashMap.entrySet()) {
+            EmojiItem emojiItem = new EmojiItem(entry.getValue().getEmojiChar(), this);
+            emojisFlowPane.getChildren().add(emojiItem.getEmojiPane());
+        }
+    }
+
+    public void chatBoxAppendText(String s){
+        StringBuilder stringBuilder = new StringBuilder(chatBox.getText());
+        stringBuilder.append(s);
+        chatBox.setText(stringBuilder.toString());
     }
 }
 

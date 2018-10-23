@@ -2,6 +2,7 @@ package com.CEYMChatClient.Model;
 
 import com.CEYMChatClient.View.FriendListItem;
 import com.CEYMChatLib.*;
+import javafx.scene.control.Label;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
