@@ -148,8 +148,8 @@
                   <String fx:value="loginText" />
                </styleClass>
             </Text>
-            <TextField fx:id="userNameTextField" layoutX="284.0" layoutY="314.0" onAction="#onClick" prefHeight="37.0" prefWidth="231.0" promptText="Username" />
-            <Button fx:id="loginButton" layoutX="285.0" layoutY="509.0" mnemonicParsing="false" onAction="#onClick" onMouseClicked="#onClick" prefHeight="37.0" prefWidth="231.0" text="Login" textFill="WHITE">
+            <TextField fx:id="userNameTextField" layoutX="284.0" layoutY="314.0" onAction="#loginClick" prefHeight="37.0" prefWidth="231.0" promptText="Username" />
+            <Button fx:id="loginButton" layoutX="285.0" layoutY="509.0" mnemonicParsing="false" onAction="#loginClick" onMouseClicked="#loginClick" prefHeight="37.0" prefWidth="231.0" text="Login" textFill="WHITE">
                <styleClass>
                   <String fx:value="back-colour" />
                   <String fx:value="static-hinting" />
@@ -161,7 +161,7 @@
                   <Image url="@../Logo.png" />
                </image>
             </ImageView>
-            <TextField fx:id="passwordTextField" layoutX="285.0" layoutY="364.0" onAction="#onClick" prefHeight="37.0" prefWidth="231.0" promptText="Password" />
+            <TextField fx:id="passwordTextField" layoutX="285.0" layoutY="364.0" onAction="#loginClick" prefHeight="37.0" prefWidth="231.0" promptText="Password" />
             <Label layoutX="336.0" layoutY="401.0" prefHeight="17.0" prefWidth="126.0" text="Forgot your password?" textFill="#5dbcd2" />
             <TextField fx:id="ipField" layoutX="284.0" layoutY="456.0" prefHeight="37.0" prefWidth="231.0" text="localhost">
                <tooltip>

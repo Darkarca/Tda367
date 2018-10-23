@@ -26,7 +26,7 @@ public class SocketHandler{
                     e.printStackTrace();
                 }
                 try {
-                    Thread.sleep(1000);             // Sleeps for a short ammount of time before connecting a new user
+                    Thread.sleep(1000);             // Sleeps for a short amount of time before connecting a new user
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

@@ -59,6 +59,7 @@ public class FriendListItem {
     }
 
     /** Is called when you press the friendIndicator image */
+    @FXML
     public void toggleFriend(){
         uInfo.setIsFriend(!uInfo.getIsFriend());
         if(uInfo.getIsFriend()) {

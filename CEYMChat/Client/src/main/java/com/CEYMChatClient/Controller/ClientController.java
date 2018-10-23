@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
@@ -85,7 +86,7 @@ public class ClientController implements IController {
 
     /** FXML methods**/
     @FXML
-    public void onClick() throws IOException {
+    public void loginClick() throws IOException {
         this.userName = userNameTextField.getText();
         login();
         mainPane.toFront();
@@ -266,22 +267,37 @@ public class ClientController implements IController {
      * @param item
      */
     public void initFriendListItem(FriendListItem item) {
-        item.getFriendPane().setOnMouseClicked(Event -> {
-            currentChatName = item.getFriendUsername().getText();
-            currentChat.setText("Currently chatting with: " + currentChatName);
-            try {
-                checkFriends();
-            } catch (IOException e) {
-                e.printStackTrace();
+        item.getFriendPane().setOnMouseClicked(MouseEvent -> {
+            MouseButton button = MouseEvent.getButton();
+            if(button==MouseButton.PRIMARY) {
+                //item.getFriendPane().setStyle("-fx-background-color: green");
+                currentChatName = item.getFriendUsername().getText();
+                currentChat.setText("Currently chatting with: " + currentChatName);
+                try {
+                    checkFriends();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+
         });
         ContextMenu contextMenu = new ContextMenu();
         MenuItem remove = new MenuItem("Remove");
         MenuItem mute = new MenuItem("Mute");
         MenuItem unmute = new MenuItem("Unmute");
+        MenuItem toggleFriend = new MenuItem("Toggle Friend");
         contextMenu.getItems().add(remove);
         contextMenu.getItems().add(mute);
         contextMenu.getItems().add(unmute);
+        contextMenu.getItems().add(toggleFriend);
+
+        toggleFriend.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                item.toggleFriend();
+
+            }
+        });
         mute.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {

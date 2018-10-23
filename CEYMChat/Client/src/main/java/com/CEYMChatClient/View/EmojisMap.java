@@ -11,7 +11,7 @@ public class EmojisMap {
     private Map<String, Emoji> emojiHashMap = new HashMap<String, Emoji>();
 
     public Map<String, Emoji> createEmojiHashMap() {
-        String[][] emojisarray = new String[][]{
+        final String[][] emojisarray = new String[][]{
                 {
                         "😄",
                         "\uD83D\uDE04",

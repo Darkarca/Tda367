@@ -8,13 +8,13 @@ public class Emoji {
 
     private String emojiChar;
     private String emojiCode;
-    private String discription;
+    private String description;
     private String tag;
 
-    Emoji ( String emojiChar, String emojiCode, String discription, String tag) {
+    public Emoji(String emojiChar, String emojiCode, String description, String tag) {
         this.emojiChar = emojiChar;
         this.emojiCode = emojiCode;
-        this.discription = discription;
+        this.description = description;
         this.tag = tag;
     }
 
