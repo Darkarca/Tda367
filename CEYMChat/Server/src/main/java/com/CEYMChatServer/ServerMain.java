@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class ServerMain{
     static private ServerModel model;
     static private SocketHandler socketHandler;
-    public void startHandler(){
+    private void startHandler(){
         socketHandler.start();
     }
     public static void main(String[] args){
