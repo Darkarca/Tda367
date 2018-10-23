@@ -7,16 +7,23 @@ import com.CEYMChatClient.Services.IService;
 import com.CEYMChatLib.*;
 import com.CEYMChatClient.Services.Service;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
+import javafx.stage.*;
+
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -72,6 +79,9 @@ public class ClientController implements IController {
     private ImageView emojis;
     @FXML
     private FlowPane emojisFlowPane;
+
+    private Stage disconnectPopup = new Stage();
+    private Parent disconnect;
 
     /** FXML methods**/
     @FXML
@@ -387,6 +397,32 @@ public class ClientController implements IController {
         StringBuilder stringBuilder = new StringBuilder(chatBox.getText());
         stringBuilder.append(s);
         chatBox.setText(stringBuilder.toString());
+    }
+
+    @Override
+    public void connectionEnded() {
+        Platform.runLater(
+                ()->{
+                    try {
+                        disconnect = FXMLLoader.load(getClass().getClassLoader().getResource("View/disconnected.fxml"));
+                        disconnectPopup.initModality(Modality.APPLICATION_MODAL);
+                        disconnectPopup.initStyle(StageStyle.UTILITY);
+                        disconnectPopup.setTitle("You've been disconnected!");
+                        disconnectPopup.setScene((new Scene(disconnect)));
+                        disconnectPopup.show();
+                        mainPane.setDisable(true);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+        );
+
+
+
+
+
+
+
     }
 }
 

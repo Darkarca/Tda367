@@ -48,4 +48,6 @@ public interface IController {
 
 
     void chatBoxAppendText(String s);
+
+    void connectionEnded();
 }

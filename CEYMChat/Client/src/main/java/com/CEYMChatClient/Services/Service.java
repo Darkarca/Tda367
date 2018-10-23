@@ -6,6 +6,7 @@ import com.CEYMChatLib.*;
 import javafx.application.Platform;
 import java.io.*;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,7 +65,6 @@ public class Service implements IService{
                 while (running) {
                     if(!socket.isConnected()){
                         System.out.println("DISCONNECTED FROM SERVER");
-
                     }
                     messageIn = (Message) messageInStream.readObject();
                     if (messageIn != null) {
@@ -90,6 +90,12 @@ public class Service implements IService{
                                 }
                              }
                          }
+                    }
+                } catch(SocketException e){
+                    if(e.toString().contains("Connection reset")){
+                        System.out.println("Connection reset!");
+                        controller.connectionEnded();
+
                     }
                 } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
