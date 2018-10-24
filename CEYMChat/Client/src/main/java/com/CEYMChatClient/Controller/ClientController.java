@@ -95,7 +95,7 @@ public class ClientController implements IController {
      */
     public void appInit() {
         model = new ClientModel();
-        outService = new OutputService(model, model.getServerIP());
+        outService = new OutputService(model);
         inService = new InputService(model, this);
         mainPane.getScene().getWindow().setOnCloseRequest(Event -> {    // Makes sure the client sends a notification to the Server that it has disconnected if the client is terminated
             try {
@@ -129,7 +129,7 @@ public class ClientController implements IController {
      */
     public void login(){
         appInit();
-        outService.connectToServer();
+        outService.connectToServer(model.getServerIP());
         outService.login(userName);
         model.setUsername(userName);
         model.setServerIP(ipField.getText());

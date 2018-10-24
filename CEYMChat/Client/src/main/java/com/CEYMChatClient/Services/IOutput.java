@@ -9,7 +9,7 @@ import java.net.Socket;
 public interface IOutput {
     void sendMessage(Message message) throws IOException;
 
-    void connectToServer();
+    void connectToServer(String serverIP);
 
     void login(String userName);
 

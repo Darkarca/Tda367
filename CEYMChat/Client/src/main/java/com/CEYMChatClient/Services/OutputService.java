@@ -7,14 +7,12 @@ import java.net.Socket;
 
 public class OutputService implements IOutput{
     private ClientModel model;
-    private final String serverIP;
     private ObjectOutputStream messageOutStream;
     Socket socket;
 
-    public OutputService(ClientModel model, String serverIP)
+    public OutputService(ClientModel model)
     {
             this.model=model;
-            this.serverIP = serverIP;
     }
 
     public void setMessageOut(Message messageOut) throws IOException {
@@ -25,7 +23,7 @@ public class OutputService implements IOutput{
     /**
      * Connect client to the server
      */
-    public void connectToServer(){
+    public void connectToServer(String serverIP){
         try {
             socket = new Socket(serverIP, 9000);
             messageOutStream = new ObjectOutputStream(socket.getOutputStream());
