@@ -14,4 +14,6 @@ public interface IOutput {
     void login(CommandName setUser, String userName);
 
     Socket getSocket();
+
+    void stop();
 }

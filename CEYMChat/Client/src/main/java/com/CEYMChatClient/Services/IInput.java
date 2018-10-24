@@ -12,5 +12,6 @@ public interface IInput {
      */
     void connectToS(Socket socket);
 
+    void stop();
 }
 
