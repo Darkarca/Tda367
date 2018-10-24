@@ -4,10 +4,6 @@ import com.CEYMChatServer.Model.User;
 import com.CEYMChatServer.Services.IReader;
 import com.CEYMChatServer.Services.SocketHandler;
 import com.CEYMChatServer.Model.ServerModel;
-
-import java.io.File;
-import java.io.IOException;
-import java.lang.management.ManagementFactory;
 import java.util.List;
 import java.util.Scanner;
 
@@ -60,7 +56,6 @@ public class ServerMain{
                 System.out.println("To disconnect a user, type '-disconnect'");
                 System.out.println("To restart the server and disconnect all users, type '-restart'");
                 System.out.println("To see the currently online users, type '-users'");
-
             }
             if(input.equals("-users")){
                 for (User u:model.getUserList()) {

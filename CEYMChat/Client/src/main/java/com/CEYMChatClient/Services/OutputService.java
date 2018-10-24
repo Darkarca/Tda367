@@ -15,13 +15,20 @@ public class OutputService implements IOutput{
             this.model=model;
     }
 
-    public void setMessageOut(Message messageOut) throws IOException {
+
+    /** Getters and setters */
+    private void setMessageOut(Message messageOut) throws IOException {
         messageOutStream.writeObject(messageOut);
         System.out.println("Message sent: " + messageOut.getData());
     }
 
+    public Socket getSocket(){
+        return socket;
+    }
+
     /**
      * Connect client to the server
+     * @param serverIP The IP to connect to
      */
     public void connectToServer(String serverIP){
         try {
@@ -80,17 +87,17 @@ public class OutputService implements IOutput{
     }
 
 
+    /**
+     * Safely stops all connections
+     */
     public void stop(){
         try {
             messageOutStream.close();
             socket.shutdownOutput();
             socket.shutdownInput();
+            socket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public Socket getSocket(){
-        return socket;
     }
 }

@@ -3,7 +3,6 @@ package com.CEYMChatClient.Model;
 import com.CEYMChatClient.View.FriendListItem;
 import com.CEYMChatLib.*;
 import java.io.*;
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -11,7 +10,6 @@ import java.util.List;
 /** Model for the client */
 public class ClientModel {
 
-    private Socket socket;
     private String username;
     private List<UserDisplayInfo> userList = new ArrayList<>();
     private List<Message> receivedMessages = new ArrayList<>();
@@ -26,29 +24,82 @@ public class ClientModel {
     public void setUserList(List<UserDisplayInfo> userList) {
         this.userList = userList;
     }
-    public List<UserDisplayInfo> getUserList() {
-        return userList;
-    }
     public void setUsername(String user){
         this.username = user;
-    }
-    public String getUsername(){
-        return username;
-    }
-    public void addReceivedMessage(Message message){
-        receivedMessages.add(message);
-    }
-    public void addSentMessage (Message message){
-        sentMessages.add(message);
-    }
-    public File getSelectedFile() {
-        return selectedFile;
     }
     public void setSelectedFile(File selectedFile) {
         this.selectedFile = selectedFile;
     }
+    public void setServerIP(String serverIP) {
+        this.serverIP = serverIP;
+    }
+    public void addFriends(UserDisplayInfo uInfo){
+        if (uInfo.getIsFriend() && !friendList.contains(uInfo)){
+            friendList.add(uInfo);
+        }
+    }
+    public void addBlockedFriend(FriendListItem item) {
+        blockedFriends.add(item);
+    }
+    public void addMuted(String friendUsername) {
+        mutedFriends.add(friendUsername);
+    }
+    public void addSentMessage (Message message){
+        sentMessages.add(message);
+    }
+    public void addReceivedMessage(Message message){
+        receivedMessages.add(message);
+    }
+    public void removeFriends(UserDisplayInfo uInfo){
+        if(!uInfo.getIsFriend() && friendList.contains(uInfo)){
+            friendList.remove(uInfo);
+        }
+    }
+    public void removeMuted(String text) {
+        mutedFriends.remove(text);
+    }
+    public boolean isMuted(String userName ) {
+        for (String s : getMutedFriends()) {
+            if (s.equals(userName)){
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean isBlocked(FriendListItem friendListItem) {
+        for (FriendListItem blocked : getBlockedFriends()) {
+            if (blocked.getFriendUsername().getText().equals(friendListItem.getFriendUsername().getText())) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public String getUsername(){
+        return username;
+    }
+    public String getServerIP() {
+        return serverIP;
+    }
+    public List<UserDisplayInfo> getUserList() {
+        return userList;
+    }
+    public List<UserDisplayInfo> getFriendList() {
+        return friendList;
+    }
+    public List<FriendListItem> getBlockedFriends() {
+        return this.blockedFriends;
+    }
+    public List<String> getMutedFriends() {
+        return this.mutedFriends;
+    }
+    public File getSelectedFile() {
+        return selectedFile;
+    }
 
-    /** Saves all sent and received messages into a file */
+    /** Saves all sent and received messages into a file
+     * @param list The list of messages to be saved
+     * @param filename The location to save the file to
+     */
     public void saveArrayListToFile(List<Message> list, String filename) throws IOException {
         FileWriter writer = new FileWriter(filename);
 
@@ -63,7 +114,9 @@ public class ClientModel {
         writer.close();
     }
 
-    /** Calls saveArrayListToFile to save all Received messages */
+    /** Calls saveArrayListToFile to save all Received messages
+     * @param filename the location to save the file to
+     */
     public void saveReceivedMessages(String filename) {
         try {
             saveArrayListToFile(receivedMessages, filename);
@@ -72,7 +125,9 @@ public class ClientModel {
         }
     }
 
-    /** Calls saveArrayListToFile to save all sent messages */
+    /** Calls saveArrayListToFile to save all sent messages
+     * @param filename the location to save the file to
+     */
     public void saveSendMessages(String filename) {
         try {
             saveArrayListToFile(sentMessages, filename);
@@ -81,7 +136,9 @@ public class ClientModel {
         }
     }
 
-    /** Loads messages that were saved during the last session */
+    /** Loads messages that were saved during the last session
+     * @param filename the location to load messages from
+     */
     public List<String> loadSavedMessages(String filename) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(filename));
         String line = "";
@@ -93,63 +150,45 @@ public class ClientModel {
         return new ArrayList<String>(Arrays.asList(savedMessages));
     }
 
-    public void setServerIP(String serverIP) {
-        this.serverIP = serverIP;
-    }
+    /** Combines two saved lists of messages in one list */
+    public void combineSavedLists (List<String> savedSentMessages, List<String> savedReceivedMessages,List<String>allSavedMessages){
+        int min = Math.min(savedReceivedMessages.size(),savedSentMessages.size());
+        int index = 0;
+        int tmp = 0;
 
-    public String getServerIP() {
-        return serverIP;
-    }
-
-    public void addMuted(String friendUsername) {
-        mutedFriends.add(friendUsername);
-    }
-
-    public List<String> getMutedFriends() {
-        return this.mutedFriends;
-    }
-
-    public void removeMuted(String text) {
-        mutedFriends.remove(text);
-    }
-    public boolean isMuted(String userName ) {
-        for (String s : getMutedFriends()) {
-            if (s.equals(userName)){
-                return true;
-            }
+        for (int i = 0; i < min/2; i++){
+            allSavedMessages.add(savedSentMessages.get(tmp));
+            allSavedMessages.add(savedSentMessages.get(tmp + 1));
+            allSavedMessages.add(savedReceivedMessages.get(tmp));
+            allSavedMessages.add(savedReceivedMessages.get(tmp + 1));
+            tmp = i + 2;
+            index = i;
         }
-        return false;
-    }
-
-    public List<FriendListItem> getBlockedFriends() {
-        return this.blockedFriends;
-    }
-    public boolean isBlocked(FriendListItem friendListItem) {
-        for (FriendListItem blocked : getBlockedFriends()) {
-            if (blocked.getFriendUsername().getText().equals(friendListItem.getFriendUsername().getText())) {
-                return true;
-            }
+        index = index * 4;
+        if (min == savedSentMessages.size()){
+            addElementsAfterIndex(savedReceivedMessages,allSavedMessages,index);
         }
-        return false;
-    }
-    public void addBlockedFriend(FriendListItem item) {
-        blockedFriends.add(item);
-    }
-
-
-    public void removeFriends(UserDisplayInfo uInfo){
-        if(!uInfo.getIsFriend() && friendList.contains(uInfo)){
-            friendList.remove(uInfo);
+        else if (min == savedReceivedMessages.size()) {
+            addElementsAfterIndex(savedSentMessages,allSavedMessages,index);
         }
     }
 
-    public void addFriends(UserDisplayInfo uInfo){
-        if (uInfo.getIsFriend() && !friendList.contains(uInfo)){
-            friendList.add(uInfo);
+    /**
+     * Saves messages locally so that they can
+     * be loaded the next time you load the client
+     */
+    public void saveMessages() {
+        saveReceivedMessages("Client/messages/received.csv");
+        saveSendMessages("Client/messages/sent.csv");
+    }
+
+
+
+    /** adds elements of a list to another list and begin from a given index */
+    public void addElementsAfterIndex(List<String> savedList,List<String>allSavedMessages,int index){
+        for (int i = index; i < savedList.size(); i++){
+            allSavedMessages.add(savedList.get(i));
         }
     }
 
-    public List<UserDisplayInfo> getFriendList() {
-        return friendList;
-    }
 }

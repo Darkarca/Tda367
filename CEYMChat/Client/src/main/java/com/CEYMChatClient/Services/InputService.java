@@ -36,7 +36,8 @@ public class InputService implements IInput {
 
     }
     /**
-     * Connect client to the server
+     * Connect client to the server and then starts the read thread
+     * @param socket The socket to connect to
      */
     @Override
     public void connectToServer(Socket socket){
@@ -101,8 +102,7 @@ public class InputService implements IInput {
     }
 
     /**
-     *
-     * handling the recieved array list
+     * handling the recieved array list by displaying the users in the list in the view via the controller
      */
     private void receiveArrayList(){
         comingFriendsList = (ArrayList) messageIn.getData();
@@ -175,6 +175,4 @@ public class InputService implements IInput {
     private void displayFriendList() throws IOException {
         controller.showOnlineFriends();  // the friendsList so that the Client correctly shows active users
     }
-
-
 }

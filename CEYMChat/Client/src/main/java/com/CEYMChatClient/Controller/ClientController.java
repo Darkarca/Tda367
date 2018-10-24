@@ -36,8 +36,6 @@ public class ClientController implements IController {
     private IInput inService;
     private List<FriendListItem> friendItemList = new ArrayList<>();
     private String currentChatName;
-    private String userName;
-
     @FXML
     private AnchorPane loginPane;
     @FXML
@@ -69,10 +67,6 @@ public class ClientController implements IController {
     @FXML
     private TextField ipField;
     @FXML
-    private Button recordStopButton;
-    @FXML
-    private Button recordPlayButton;
-    @FXML
     private Text fileName;
     @FXML
     private ImageView emojis;
@@ -81,14 +75,6 @@ public class ClientController implements IController {
 
     private Stage disconnectPopup = new Stage();
     private Parent disconnect;
-
-    /** FXML methods**/
-    @FXML
-    public void loginClick() throws IOException {
-        this.userName = userNameTextField.getText();
-        login();
-        mainPane.toFront();
-    }
 
     /**
      *  Initiates the GUI
@@ -99,11 +85,10 @@ public class ClientController implements IController {
         inService = new InputService(model, this);
         mainPane.getScene().getWindow().setOnCloseRequest(Event -> {    // Makes sure the client sends a notification to the Server that it has disconnected if the client is terminated
             try {
-                saveMessages();
-                outService.sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.DISCONNECT, userName), userName));
+                model.saveMessages();
+                outService.sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.DISCONNECT, model.getUsername()), model.getUsername()));
                 outService.stop();
                 inService.stop();
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -117,7 +102,6 @@ public class ClientController implements IController {
                 e.printStackTrace();
             }
         }
-
         fillEmojis();
     }
 
@@ -128,12 +112,14 @@ public class ClientController implements IController {
      * @throws IOException
      */
     public void login(){
+        model.setUsername(userNameTextField.getText());
         appInit();
         outService.connectToServer(model.getServerIP());
-        outService.login(userName);
-        model.setUsername(userName);
+        outService.login(model.getUsername());
+        model.setUsername(model.getUsername());
         model.setServerIP(ipField.getText());
         inService.connectToServer(outService.getSocket());
+        mainPane.toFront();
     }
 
     /**
@@ -144,7 +130,7 @@ public class ClientController implements IController {
     public void sendString() throws IOException {
         String toSend = chatBox.getText();
         chatBox.setText("");
-        Message message = MessageFactory.createStringMessage(toSend, userName, currentChatName);
+        Message message = MessageFactory.createStringMessage(toSend, model.getUsername(), currentChatName);
         outService.sendMessage(message);
         model.addSentMessage(message);
         createAddSendMessagePane("Me: " + toSend );
@@ -177,7 +163,7 @@ public class ClientController implements IController {
     @FXML
     public void refreshFriendList() {
         try {
-            outService.sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.REFRESH_FRIENDLIST, userName), userName));
+            outService.sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.REFRESH_FRIENDLIST, model.getUsername()), model.getUsername()));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -195,12 +181,12 @@ public class ClientController implements IController {
         for (FriendListItem fL : friendItemList) {              // Adds all newly selected friends
             model.addFriends(fL.getUInfo());
         }
-        outService.sendMessage(MessageFactory.createFriendInfoList(model.getFriendList(), userName, userName)); // Notifies the Server about any changes have been made to the friends list
+        outService.sendMessage(MessageFactory.createFriendInfoList(model.getFriendList(), model.getUsername(), model.getUsername())); // Notifies the Server about any changes have been made to the friends list
         }
 
     /**
      * Updates the GUI with text from a new message
-     * @param message
+     * @param message The message to display
      */
     public void displayNewMessage(Message message) throws IOException {
         if(!model.isMuted(message.getSender())) {
@@ -210,7 +196,7 @@ public class ClientController implements IController {
 
     /**
      * Creates a list of users for the GUI to show
-     * @param friendList
+     * @param friendList The list of UserDisplayInfo to be made into FriendListItems
      * @throws IOException
      */
     public void createFriendListItemList(List<UserDisplayInfo> friendList) throws IOException {
@@ -225,7 +211,6 @@ public class ClientController implements IController {
             }
         }
     }
-
 
     /**
      * Updates the GUI with the new userList
@@ -243,8 +228,8 @@ public class ClientController implements IController {
     }
 
     /**
-     * initialize the fxml friendListItem with data
-     * @param item
+     * initialize the fxml friendListItem with data, adds methods on click and right click
+     * @param item The FriendListItem to be initiated
      */
     public void initFriendListItem(FriendListItem item) {
         item.getFriendPane().setOnMouseClicked(MouseEvent -> {
@@ -272,7 +257,7 @@ public class ClientController implements IController {
         toggleFriend.setOnAction(event -> {
             item.toggleFriend();
             try {
-                outService.sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.ADD_FRIEND, item.getFriendUsername().getText()), userName));
+                outService.sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.ADD_FRIEND, item.getFriendUsername().getText()), model.getUsername()));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -285,7 +270,6 @@ public class ClientController implements IController {
             model.removeMuted(item.getFriendUsername().getText());
             item.getFriendPane().setStyle("-fx-background-color: white");
             });
-
         remove.setOnAction(event -> {
             model.addBlockedFriend(item);
             item.getFriendPane().setVisible(false);
@@ -293,7 +277,6 @@ public class ClientController implements IController {
         item.getFriendPane().setOnContextMenuRequested(event -> contextMenu.show(item.getFriendPane(), event.getScreenX(), event.getScreenY()));
 
     }
-
 
     /**
      * Opens a GUI window that lets the user choose a file,
@@ -323,29 +306,18 @@ public class ClientController implements IController {
      */
     public void sendFile() throws IOException {
         if (model.getSelectedFile() != null) {
-            outService.sendMessage(MessageFactory.createFileMessage(model.getSelectedFile(), userName, currentChatName));
+            outService.sendMessage(MessageFactory.createFileMessage(model.getSelectedFile(), model.getUsername(), currentChatName));
             fileName.setText("Current file: none");
             model.setSelectedFile(null);
         }
     }
-
-
-    /**
-     * Saves messages locally so that they can
-     * be loaded the next time you load the client
-     */
-    public void saveMessages() {
-        model.saveReceivedMessages("Client/messages/received.csv");
-        model.saveSendMessages("Client/messages/sent.csv");
-    }
-
 
     /** Loads messages saved during previous sessions */
     public void loadSavedMessages() throws IOException {
         List<String> savedSentMessages = model.loadSavedMessages("Client/messages/sent.csv");
         List<String> savedReceivedMessages = model.loadSavedMessages("Client/messages/received.csv");
         List<String> allSavedMessages = new ArrayList<>();
-        combineSavedLists(savedSentMessages,savedReceivedMessages,allSavedMessages);
+        model.combineSavedLists(savedSentMessages,savedReceivedMessages,allSavedMessages);
         for (int i = 0; i < allSavedMessages.size(); i=i+2) {
             if (allSavedMessages.get(i).equals("Me")) {
                 createAddSendMessagePane(allSavedMessages.get(i) + ": " + allSavedMessages.get(i + 1));
@@ -357,54 +329,27 @@ public class ClientController implements IController {
         }
     }
 
-
-    /** Combines two saved lists of messages in one list */
-    public void combineSavedLists (List<String> savedSentMessages, List<String> savedReceivedMessages,List<String>allSavedMessages){
-        int min = Math.min(savedReceivedMessages.size(),savedSentMessages.size());
-        int index = 0;
-        int tmp = 0;
-
-        for (int i = 0; i < min/2; i++){
-            allSavedMessages.add(savedSentMessages.get(tmp));
-            allSavedMessages.add(savedSentMessages.get(tmp + 1));
-            allSavedMessages.add(savedReceivedMessages.get(tmp));
-            allSavedMessages.add(savedReceivedMessages.get(tmp + 1));
-            tmp = i + 2;
-            index = i;
-        }
-        index = index * 4;
-        if (min == savedSentMessages.size()){
-            addElementsAfterIndex(savedReceivedMessages,allSavedMessages,index);
-        }
-        else if (min == savedReceivedMessages.size()) {
-            addElementsAfterIndex(savedSentMessages,allSavedMessages,index);
-        }
-    }
-
-
-    /** adds elements of a list to another list and begin from a given index */
-    public void addElementsAfterIndex(List<String> savedList,List<String>allSavedMessages,int index){
-        for (int i = index; i < savedList.size(); i++){
-            allSavedMessages.add(savedList.get(i));
-        }
-    }
-
     public void fillEmojis () {
         EmojisMap emojisMap = new EmojisMap();
         Map<String, Emoji> emojiHashMap = emojisMap.createEmojiHashMap();
-
         for (Map.Entry<String, Emoji> entry : emojiHashMap.entrySet()) {
             EmojiItem emojiItem = new EmojiItem(entry.getValue().getEmojiChar(), this);
             emojisFlowPane.getChildren().add(emojiItem.getEmojiPane());
         }
     }
 
+    /** Appends text of chatBox with a String
+     * @param s the String to append the chatBox with
+     */
     public void chatBoxAppendText(String s){
         StringBuilder stringBuilder = new StringBuilder(chatBox.getText());
         stringBuilder.append(s);
         chatBox.setText(stringBuilder.toString());
     }
 
+    /**
+     * Safely disconnects the client from the server
+     */
     @Override
     public void connectionEnded() {
         Platform.runLater(

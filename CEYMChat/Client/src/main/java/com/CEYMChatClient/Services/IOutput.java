@@ -1,8 +1,6 @@
 package com.CEYMChatClient.Services;
 
-import com.CEYMChatLib.CommandName;
 import com.CEYMChatLib.Message;
-
 import java.io.IOException;
 import java.net.Socket;
 

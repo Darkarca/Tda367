@@ -1,12 +1,9 @@
 package com.CEYMChatClient.Controller;
 
 import com.CEYMChatLib.Message;
-import com.CEYMChatLib.UserDisplayInfo;
 import javafx.fxml.FXML;
-
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 public interface IController {
 
@@ -43,7 +40,6 @@ public interface IController {
 
     /**
      * Handles how the controller displays a new userlist in the GUI
-     * @param userDisplayInfos
      * @throws IOException
      */
     void showOnlineFriends() throws IOException;
