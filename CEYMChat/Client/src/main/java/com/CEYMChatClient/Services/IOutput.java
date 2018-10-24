@@ -9,9 +9,9 @@ import java.net.Socket;
 public interface IOutput {
     void sendMessage(Message message) throws IOException;
 
-    void connectToS();
+    void connectToServer();
 
-    void login(CommandName setUser, String userName);
+    void login(String userName);
 
     Socket getSocket();
 

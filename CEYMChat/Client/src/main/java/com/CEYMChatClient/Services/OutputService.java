@@ -25,7 +25,7 @@ public class OutputService implements IOutput{
     /**
      * Connect client to the server
      */
-    public void connectToS(){
+    public void connectToServer(){
         try {
             socket = new Socket(serverIP, 9000);
             messageOutStream = new ObjectOutputStream(socket.getOutputStream());
@@ -37,12 +37,11 @@ public class OutputService implements IOutput{
     /**
      * Informs the Server that a user has connected
      * so that the Server can identify the user
-     * @param sCommand the sent command
      * @param userName  the username of the user who sends the command
      */
-    public void login(CommandName sCommand, String userName) {
+    public void login(String userName) {
         try {
-            sendMessage(MessageFactory.createCommandMessage(new Command(sCommand,userName),userName));
+            sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.SET_USER,userName),userName));
         } catch (IOException e) {
             e.printStackTrace();
         }

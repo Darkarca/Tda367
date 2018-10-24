@@ -40,7 +40,7 @@ public class InputService implements IInput {
      * Connect client to the server
      */
     @Override
-    public void connectToS(Socket socket){
+    public void connectToServer(Socket socket){
         try {
             this.socket = socket;
             messageInStream = new ObjectInputStream(socket.getInputStream());

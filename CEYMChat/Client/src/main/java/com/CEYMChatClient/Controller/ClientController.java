@@ -127,13 +127,13 @@ public class ClientController implements IController {
      * identified aswell as initiating the GUI
      * @throws IOException
      */
-    public void login() throws IOException {
+    public void login(){
         appInit();
-        outService.connectToS();
-        outService.login(CommandName.SET_USER, userName);
+        outService.connectToServer();
+        outService.login(userName);
         model.setUsername(userName);
         model.setServerIP(ipField.getText());
-        inService.connectToS(outService.getSocket());
+        inService.connectToServer(outService.getSocket());
     }
 
     /**
