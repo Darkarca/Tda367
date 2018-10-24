@@ -1,11 +1,13 @@
 package com.CEYMChatClient.Controller;
 
+import com.CEYMChatClient.Services.IOutput;
+import com.CEYMChatClient.Services.outputService;
 import com.CEYMChatClient.View.*;
 import javafx.application.Platform;
 import com.CEYMChatClient.Model.ClientModel;
-import com.CEYMChatClient.Services.IService;
+import com.CEYMChatClient.Services.IInput;
 import com.CEYMChatLib.*;
-import com.CEYMChatClient.Services.Service;
+import com.CEYMChatClient.Services.inputService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,14 +18,10 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.*;
-
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +32,8 @@ import java.util.Map;
 public class ClientController implements IController {
 
     private ClientModel model;
-    private IService service;
+    private IOutput outService;
+    private IInput inService;
     private List<FriendListItem> friendItemList = new ArrayList<>();
     private String currentChatName;
     private String userName;
@@ -96,11 +95,12 @@ public class ClientController implements IController {
      */
     public void appInit() {
         model = new ClientModel();
-        service = new Service(model, this);
+        outService = new outputService(model, model.getServerIP());
+        inService = new inputService(model, this);
         mainPane.getScene().getWindow().setOnCloseRequest(Event -> {    // Makes sure the client sends a notification to the Server that it has disconnected if the client is terminated
             try {
                 saveMessages();
-                service.sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.DISCONNECT, userName), userName));
+                outService.sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.DISCONNECT, userName), userName));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -126,10 +126,11 @@ public class ClientController implements IController {
      */
     public void login() throws IOException {
         appInit();
-        service.connectToS();
-        service.login(CommandName.SET_USER, userName);
+        outService.connectToS();
+        outService.login(CommandName.SET_USER, userName);
         model.setUsername(userName);
         model.setServerIP(ipField.getText());
+        inService.connectToS(outService.getSocket());
     }
 
     /**
@@ -140,7 +141,9 @@ public class ClientController implements IController {
     public void sendString() throws IOException {
         String toSend = chatBox.getText();
         chatBox.setText("");
-        service.sendMessage(MessageFactory.createStringMessage(toSend, userName, currentChatName));
+        Message message = MessageFactory.createStringMessage(toSend, userName, currentChatName);
+        outService.sendMessage(message);
+        model.addSentMessage(message);
         createAddSendMessagePane("Me: " + toSend );
     }
 
@@ -171,7 +174,7 @@ public class ClientController implements IController {
     @FXML
     public void refreshFriendList() {
         try {
-            service.sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.REFRESH_FRIENDLIST, userName), userName));
+            outService.sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.REFRESH_FRIENDLIST, userName), userName));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -189,7 +192,7 @@ public class ClientController implements IController {
         for (FriendListItem fL : friendItemList) {              // Adds all newly selected friends
             model.addFriends(fL.getUInfo());
         }
-        service.sendMessage(MessageFactory.createFriendInfoList(model.getFriendList(), userName, userName)); // Notifies the Server about any changes have been made to the friends list
+        outService.sendMessage(MessageFactory.createFriendInfoList(model.getFriendList(), userName, userName)); // Notifies the Server about any changes have been made to the friends list
         }
 
     /**
@@ -223,12 +226,11 @@ public class ClientController implements IController {
 
     /**
      * Updates the GUI with the new userList
-     * @param friendList
      * @throws IOException
      */
-    public void showOnlineFriends(List<UserDisplayInfo> friendList) throws IOException {
+    public void showOnlineFriends() throws IOException {
         friendItemList.clear();
-        createFriendListItemList(friendList);
+        createFriendListItemList(model.getUserList());
         friendsFlowPane.getChildren().clear();
         for (FriendListItem friendListItem : friendItemList) {
             if (!model.isBlocked(friendListItem)) {
@@ -267,7 +269,7 @@ public class ClientController implements IController {
         toggleFriend.setOnAction(event -> {
             item.toggleFriend();
             try {
-                service.sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.ADD_FRIEND, item.getFriendUsername().getText()), userName));
+                outService.sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.ADD_FRIEND, item.getFriendUsername().getText()), userName));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -318,8 +320,9 @@ public class ClientController implements IController {
      */
     public void sendFile() throws IOException {
         if (model.getSelectedFile() != null) {
-            service.sendMessage(MessageFactory.createFileMessage(model.getSelectedFile(), userName, currentChatName));
+            outService.sendMessage(MessageFactory.createFileMessage(model.getSelectedFile(), userName, currentChatName));
             fileName.setText("Current file: none");
+            model.setSelectedFile(null);
         }
     }
 
@@ -416,13 +419,10 @@ public class ClientController implements IController {
                     }
                 }
         );
+    }
 
-
-
-
-
-
-
+    public File getSelectedFile() {
+        return model.getSelectedFile();
     }
 }
 

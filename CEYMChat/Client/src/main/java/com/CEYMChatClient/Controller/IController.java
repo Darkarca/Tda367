@@ -3,6 +3,8 @@ package com.CEYMChatClient.Controller;
 import com.CEYMChatLib.Message;
 import com.CEYMChatLib.UserDisplayInfo;
 import javafx.fxml.FXML;
+
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -44,10 +46,12 @@ public interface IController {
      * @param userDisplayInfos
      * @throws IOException
      */
-    void showOnlineFriends(List<UserDisplayInfo> userDisplayInfos) throws IOException;
+    void showOnlineFriends() throws IOException;
 
 
     void chatBoxAppendText(String s);
 
     void connectionEnded();
+
+    File getSelectedFile();
 }

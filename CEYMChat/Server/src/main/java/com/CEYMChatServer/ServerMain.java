@@ -41,6 +41,7 @@ public class ServerMain{
         System.out.println("To stop the server, type '-quit'");
         System.out.println("To disconnect the last user connected, type '-disconnect'");
         System.out.println("To restart the server and disconnect all users, type '-restart");
+        System.out.println("To see the currently online users, type 'users");
         while (true) {
             String input = scanner.nextLine();
             if (input.equals("-quit")) {
@@ -58,6 +59,11 @@ public class ServerMain{
                 System.out.println("To stop the server, type '-quit'");
                 System.out.println("To disconnect a user, type '-disconnect'");
                 System.out.println("To restart the server and disconnect all users, type '-restart");
+            }
+            if(input.equals("-users")){
+                for (User u:model.getUserList()) {
+                    System.out.println(u.getUsername());
+                }
             }
             if (input.equals("-restart")) {
                 System.out.println("Restart the server");
