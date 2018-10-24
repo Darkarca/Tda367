@@ -23,7 +23,6 @@ public class InputService implements IInput {
     private List<UserDisplayInfo> comingFriendsList = new ArrayList();
     private IController controller;
     private boolean running = true;
-    private final String serverIP;
 
     /**
      * Constructor
@@ -34,7 +33,7 @@ public class InputService implements IInput {
     {
         this.model = model;
         this.controller = controller;
-        this.serverIP = model.getServerIP();
+
     }
     /**
      * Connect client to the server
@@ -56,7 +55,7 @@ public class InputService implements IInput {
      * While it is running it continuously checks the stream,
      * checks what type of message it has received and processes it appropriately
      */
-    public void read() {
+    private void read() {
         new Thread(() -> {
             try {
                 while (running) {
@@ -105,7 +104,7 @@ public class InputService implements IInput {
      *
      * handling the recieved array list
      */
-    public void receiveArrayList(){
+    private void receiveArrayList(){
         comingFriendsList = (ArrayList) messageIn.getData();
         model.setUserList(comingFriendsList);
         lastMsg = messageIn;
@@ -123,7 +122,7 @@ public class InputService implements IInput {
     /**
      * handling the recieved STRING
      */
-    public void receiveString() throws IOException {
+    private void receiveString() throws IOException {
         model.addReceivedMessage(messageIn);    // The Thread updates the models state
         lastMsg = messageIn;
         displayNewMessage(messageIn);
@@ -133,7 +132,7 @@ public class InputService implements IInput {
      * handling the recieved file
      * @throws IOException
      */
-    public void receiveFile() throws IOException {
+    private void receiveFile() throws IOException {
         byte [] receivedFile  = new byte [1073741824];
         InputStream inputStream = socket.getInputStream();
         FileOutputStream fileOut = new FileOutputStream("Client/messages/" + ((File)messageIn.getData()).getName());
@@ -165,7 +164,7 @@ public class InputService implements IInput {
      * @param message the message to display
      * @throws IOException
      */
-    public void displayNewMessage(Message message) throws IOException {
+    private void displayNewMessage(Message message) throws IOException {
         controller.displayNewMessage(message);
     }
 
@@ -173,7 +172,7 @@ public class InputService implements IInput {
      * Informs the controller that it should update
      * @throws IOException
      */
-    public void displayFriendList() throws IOException {
+    private void displayFriendList() throws IOException {
         controller.showOnlineFriends();  // the friendsList so that the Client correctly shows active users
     }
 
