@@ -246,7 +246,7 @@ public class ClientController implements IController {
      * initialize the fxml friendListItem with data
      * @param item
      */
-    public void initFriendListItem(FriendListItem item) {
+    private void initFriendListItem(FriendListItem item) {
         item.getFriendPane().setOnMouseClicked(MouseEvent -> {
             MouseButton button = MouseEvent.getButton();
             if(button==MouseButton.PRIMARY) {
@@ -341,7 +341,7 @@ public class ClientController implements IController {
 
 
     /** Loads messages saved during previous sessions */
-    public void loadSavedMessages() throws IOException {
+    private void loadSavedMessages() throws IOException {
         List<String> savedSentMessages = model.loadSavedMessages("Client/messages/sent.csv");
         List<String> savedReceivedMessages = model.loadSavedMessages("Client/messages/received.csv");
         List<String> allSavedMessages = new ArrayList<>();
@@ -359,7 +359,7 @@ public class ClientController implements IController {
 
 
     /** Combines two saved lists of messages in one list */
-    public void combineSavedLists (List<String> savedSentMessages, List<String> savedReceivedMessages,List<String>allSavedMessages){
+    private void combineSavedLists (List<String> savedSentMessages, List<String> savedReceivedMessages,List<String>allSavedMessages){
         int min = Math.min(savedReceivedMessages.size(),savedSentMessages.size());
         int index = 0;
         int tmp = 0;
@@ -383,13 +383,13 @@ public class ClientController implements IController {
 
 
     /** adds elements of a list to another list and begin from a given index */
-    public void addElementsAfterIndex(List<String> savedList,List<String>allSavedMessages,int index){
+    private void addElementsAfterIndex(List<String> savedList,List<String>allSavedMessages,int index){
         for (int i = index; i < savedList.size(); i++){
             allSavedMessages.add(savedList.get(i));
         }
     }
 
-    public void fillEmojis () {
+    private void fillEmojis () {
         EmojisMap emojisMap = new EmojisMap();
         Map<String, Emoji> emojiHashMap = emojisMap.createEmojiHashMap();
 
@@ -422,10 +422,6 @@ public class ClientController implements IController {
                     }
                 }
         );
-    }
-
-    public File getSelectedFile() {
-        return model.getSelectedFile();
     }
 }
 
