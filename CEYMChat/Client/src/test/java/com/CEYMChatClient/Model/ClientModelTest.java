@@ -5,6 +5,7 @@ import com.CEYMChatLib.MessageFactory;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -73,7 +74,9 @@ public class ClientModelTest {
         expected.addAll(Arrays.asList(expectedArray));
         actual = model.loadSavedMessages("messages/sent.csv");
         assertEquals("Loaded messages match expected value",expected,actual);
-
+        //Overwrites the test-files
+        FileWriter writer = new FileWriter("messages/sent.csv");
+        writer.write("");
     }
 
 
@@ -86,6 +89,10 @@ public class ClientModelTest {
         expected.addAll(Arrays.asList(expectedArray));
         actual = model.loadSavedMessages("messages/received.csv");
         assertEquals("Loaded messages match expected value",expected,actual);
+
+        //Overwrites the test-files
+        FileWriter writer = new FileWriter("messages/received.csv");
+        writer.write("");
 
     }
 }

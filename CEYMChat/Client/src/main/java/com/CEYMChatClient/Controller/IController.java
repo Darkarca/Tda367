@@ -40,6 +40,10 @@ public interface IController {
 
     /**
      * Handles how the controller displays a new userlist in the GUI
+<<<<<<< HEAD
+=======
+     * @param
+>>>>>>> 444d158f62c3a81a9e0f0ba07a0a3b33540009b1
      * @throws IOException
      */
     void showOnlineFriends() throws IOException;
@@ -48,6 +52,4 @@ public interface IController {
     void chatBoxAppendText(String s);
 
     void connectionEnded();
-
-    File getSelectedFile();
 }

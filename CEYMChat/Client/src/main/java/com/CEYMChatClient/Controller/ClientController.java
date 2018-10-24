@@ -231,7 +231,7 @@ public class ClientController implements IController {
      * initialize the fxml friendListItem with data, adds methods on click and right click
      * @param item The FriendListItem to be initiated
      */
-    public void initFriendListItem(FriendListItem item) {
+    private void initFriendListItem(FriendListItem item) {
         item.getFriendPane().setOnMouseClicked(MouseEvent -> {
             MouseButton button = MouseEvent.getButton();
             if(button==MouseButton.PRIMARY) {
@@ -313,7 +313,7 @@ public class ClientController implements IController {
     }
 
     /** Loads messages saved during previous sessions */
-    public void loadSavedMessages() throws IOException {
+    private void loadSavedMessages() throws IOException {
         List<String> savedSentMessages = model.loadSavedMessages("Client/messages/sent.csv");
         List<String> savedReceivedMessages = model.loadSavedMessages("Client/messages/received.csv");
         List<String> allSavedMessages = new ArrayList<>();
@@ -367,10 +367,6 @@ public class ClientController implements IController {
                     }
                 }
         );
-    }
-
-    public File getSelectedFile() {
-        return model.getSelectedFile();
     }
 }
 

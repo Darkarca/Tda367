@@ -102,7 +102,6 @@ public class ClientModel {
      */
     public void saveArrayListToFile(List<Message> list, String filename) throws IOException {
         FileWriter writer = new FileWriter(filename);
-
         for(Message message: list) {
             if(message.getSender().equals(username)) {
                 writer.write("Me: " + "," + message.getData().toString() + ",");
@@ -155,7 +154,6 @@ public class ClientModel {
         int min = Math.min(savedReceivedMessages.size(),savedSentMessages.size());
         int index = 0;
         int tmp = 0;
-
         for (int i = 0; i < min/2; i++){
             allSavedMessages.add(savedSentMessages.get(tmp));
             allSavedMessages.add(savedSentMessages.get(tmp + 1));
@@ -170,6 +168,7 @@ public class ClientModel {
         }
         else if (min == savedReceivedMessages.size()) {
             addElementsAfterIndex(savedSentMessages,allSavedMessages,index);
+
         }
     }
 
