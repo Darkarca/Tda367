@@ -62,6 +62,7 @@ public class InputService implements IInput {
                 while (running) {
                     if(!socket.isConnected()){
                         System.out.println("DISCONNECTED FROM SERVER");
+                        controller.connectionEnded();
                     }
                     messageIn = (Message) messageInStream.readObject();
                     if (messageIn != null) {
