@@ -10,8 +10,6 @@ import java.util.List;
 
 /** Model for the client */
 public class ClientModel {
-
-    private Socket socket;
     private String username;
     private List<UserDisplayInfo> userList = new ArrayList<>();
     private List<Message> receivedMessages = new ArrayList<>();
@@ -49,7 +47,7 @@ public class ClientModel {
     }
 
     /** Saves all sent and received messages into a file */
-    public void saveArrayListToFile(List<Message> list, String filename) throws IOException {
+    void saveArrayListToFile(List<Message> list, String filename) throws IOException {
         FileWriter writer = new FileWriter(filename);
 
         for(Message message: list) {
@@ -105,7 +103,7 @@ public class ClientModel {
         mutedFriends.add(friendUsername);
     }
 
-    public List<String> getMutedFriends() {
+    private List<String> getMutedFriends() {
         return this.mutedFriends;
     }
 
@@ -121,7 +119,7 @@ public class ClientModel {
         return false;
     }
 
-    public List<FriendListItem> getBlockedFriends() {
+    private List<FriendListItem> getBlockedFriends() {
         return this.blockedFriends;
     }
     public boolean isBlocked(FriendListItem friendListItem) {
