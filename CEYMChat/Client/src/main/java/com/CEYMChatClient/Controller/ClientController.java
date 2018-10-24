@@ -1,13 +1,13 @@
 package com.CEYMChatClient.Controller;
 
 import com.CEYMChatClient.Services.IOutput;
-import com.CEYMChatClient.Services.outputService;
+import com.CEYMChatClient.Services.OutputService;
 import com.CEYMChatClient.View.*;
 import javafx.application.Platform;
 import com.CEYMChatClient.Model.ClientModel;
 import com.CEYMChatClient.Services.IInput;
 import com.CEYMChatLib.*;
-import com.CEYMChatClient.Services.inputService;
+import com.CEYMChatClient.Services.InputService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -95,8 +95,8 @@ public class ClientController implements IController {
      */
     public void appInit() {
         model = new ClientModel();
-        outService = new outputService(model, model.getServerIP());
-        inService = new inputService(model, this);
+        outService = new OutputService(model, model.getServerIP());
+        inService = new InputService(model, this);
         mainPane.getScene().getWindow().setOnCloseRequest(Event -> {    // Makes sure the client sends a notification to the Server that it has disconnected if the client is terminated
             try {
                 saveMessages();
