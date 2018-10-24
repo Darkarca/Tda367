@@ -37,11 +37,11 @@ public class ServerMain{
         }
         socketHandler = new SocketHandler(model);
         main.startHandler();
-        System.out.println("To view commands, type -commands");
+        System.out.println("To view commands, type '-commands'");
         System.out.println("To stop the server, type '-quit'");
         System.out.println("To disconnect the last user connected, type '-disconnect'");
-        System.out.println("To restart the server and disconnect all users, type '-restart");
-        System.out.println("To see the currently online users, type 'users");
+        System.out.println("To restart the server and disconnect all users, type '-restart'");
+        System.out.println("To see the currently online users, type '-users'");
         while (true) {
             String input = scanner.nextLine();
             if (input.equals("-quit")) {
@@ -55,10 +55,12 @@ public class ServerMain{
                 readers.get(readers.size() - 1).stop();
             }
             if (input.equals("-commands")) {
-                System.out.println("To view commands, type -c");
+                System.out.println("To view commands, type '-commands'");
                 System.out.println("To stop the server, type '-quit'");
                 System.out.println("To disconnect a user, type '-disconnect'");
-                System.out.println("To restart the server and disconnect all users, type '-restart");
+                System.out.println("To restart the server and disconnect all users, type '-restart'");
+                System.out.println("To see the currently online users, type '-users'");
+
             }
             if(input.equals("-users")){
                 for (User u:model.getUserList()) {
