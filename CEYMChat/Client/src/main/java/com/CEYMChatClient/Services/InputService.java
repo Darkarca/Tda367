@@ -14,7 +14,7 @@ import java.util.List;
  * This class implements the IInput interface.
  * It communicates via Sockets to the server.
  */
-public class inputService implements IInput {
+public class InputService implements IInput {
     private Socket socket;
     private ObjectInputStream messageInStream;
     private ClientModel model;
@@ -30,7 +30,7 @@ public class inputService implements IInput {
      * @param model the client model
      * @param controller the controller
      */
-    public inputService(ClientModel model, IController controller)
+    public InputService(ClientModel model, IController controller)
     {
         this.model = model;
         this.controller = controller;

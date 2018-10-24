@@ -5,13 +5,13 @@ import com.CEYMChatLib.*;
 import java.io.*;
 import java.net.Socket;
 
-public class outputService implements IOutput{
+public class OutputService implements IOutput{
     private ClientModel model;
     private final String serverIP;
     private ObjectOutputStream messageOutStream;
     Socket socket;
 
-    public outputService(ClientModel model, String serverIP)
+    public OutputService(ClientModel model, String serverIP)
     {
             this.model=model;
             this.serverIP = serverIP;
