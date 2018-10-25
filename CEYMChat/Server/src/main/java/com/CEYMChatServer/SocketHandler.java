@@ -71,12 +71,12 @@ public class SocketHandler{
 
     public List<IReader> getReaders() {
         return readers;
-
     }
 
     public void stop() {
         running = false;
     }
+
     public void closeSocket() {
         try {
             serverSocket.close();

@@ -182,7 +182,7 @@ public class ServerModel implements IObserver {
         MessageType msgType = MessageType.valueOf(message.getType().getSimpleName().toUpperCase());
         switch (msgType) {
             case COMMAND: {                                     // A message containing a command is sent to the model so that is can be performed, we stop the thread if the command tells us to disconnect
-                        performCommand((Command)(message.getData()),message.getReceiver());
+                performCommand((Command)(message.getData()),message.getReceiver());
                 break;
             }
             case STRING: {                                      // A string message is simply sent to the model and redistributed to the correct client

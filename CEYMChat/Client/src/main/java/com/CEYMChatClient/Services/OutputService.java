@@ -111,8 +111,6 @@ public class OutputService implements IOutput, IObserver {
     public void disconnect() {
         try {
             messageOutStream.close();
-            socket.shutdownOutput();
-            socket.shutdownInput();
             socket.close();
         } catch (IOException e) {
             e.printStackTrace();
