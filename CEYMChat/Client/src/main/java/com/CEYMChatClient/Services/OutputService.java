@@ -1,18 +1,21 @@
 package com.CEYMChatClient.Services;
 
 import com.CEYMChatClient.Model.ClientModel;
+import com.CEYMChatClient.Model.IObservable;
 import com.CEYMChatLib.*;
 import java.io.*;
 import java.net.Socket;
 
-public class OutputService implements IOutput{
+public class OutputService implements IOutput, IObservable {
     private ClientModel model;
     private ObjectOutputStream messageOutStream;
     Socket socket;
 
-    public OutputService(ClientModel model)
+    public OutputService(ClientModel model, Socket socket)
     {
+            this.socket=socket;
             this.model=model;
+            model.register(this);
     }
 
 
@@ -28,11 +31,9 @@ public class OutputService implements IOutput{
 
     /**
      * Connect client to the server
-     * @param serverIP The IP to connect to
      */
-    public void connectToServer(String serverIP){
+    public void connectToServer(){
         try {
-            socket = new Socket(serverIP, 9000);
             messageOutStream = new ObjectOutputStream(socket.getOutputStream());
         } catch (IOException e) {
             e.printStackTrace();
@@ -90,6 +91,22 @@ public class OutputService implements IOutput{
      * Safely stops all connections
      */
     public void stop(){
+
+    }
+
+    @Override
+    public void update(Message message) {
+    if(message.getSender() != null && message.getSender().equals(model.getUsername())){
+    try {
+        sendMessage(message);
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+    }
+
+    @Override
+    public void disconnect() {
         try {
             messageOutStream.close();
             socket.shutdownOutput();

@@ -6,5 +6,6 @@ import com.CEYMChatClient.Model.ClientModel;
 public interface IServiceFactory {
     IOutput createOutputService(ClientModel model);
 
-    IInput createInputService(ClientModel model, IClientController clientController);
+    IInput createInputService(ClientModel model);
+
 }
