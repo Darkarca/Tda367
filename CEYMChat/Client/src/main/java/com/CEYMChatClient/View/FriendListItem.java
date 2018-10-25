@@ -31,9 +31,7 @@ public class FriendListItem implements IFXMLView{
     public Label getFriendUsername() {
         return friendUsername;
     }
-    public AnchorPane getFriendPane() {
-        return friendPane;
-    }
+    public AnchorPane getPane(){return friendPane; }
     public void setUInfo(UserDisplayInfo uInfo){
         this.uInfo = uInfo;
     }

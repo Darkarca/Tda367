@@ -48,4 +48,7 @@ public class ReceivedTextMessage implements IFXMLView{
             e.printStackTrace();
         }
     }
+    public AnchorPane getPane(){
+        return rMessagePane;
+    }
 }

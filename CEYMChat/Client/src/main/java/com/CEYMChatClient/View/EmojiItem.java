@@ -28,7 +28,7 @@ public class EmojiItem implements IFXMLView{
         this.clientController = clientController;
     }
 
-    public AnchorPane getEmojiPane() {
+    public AnchorPane getPane() {
         return emojiPane;
     }
 
