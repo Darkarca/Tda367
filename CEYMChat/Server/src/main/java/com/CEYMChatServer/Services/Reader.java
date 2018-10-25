@@ -40,6 +40,7 @@ public class Reader implements Runnable, IReader {
             socket.shutdownInput();
             socket.shutdownOutput();
             socket.close();
+            unregisterAllObservers();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -99,5 +100,9 @@ public class Reader implements Runnable, IReader {
 
     @Override
     public void unregister(IObserver observer) {observerList.remove(observer);}
+
+    private void unregisterAllObservers(){
+        observerList.clear();
+    }
 }
 

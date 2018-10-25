@@ -93,6 +93,7 @@ public class ServerModel implements IObserver {
         user.setOnline(false);
         userList.remove(user);
         updateUserLists();
+
     }
 
 
