@@ -56,7 +56,7 @@ public class InputService implements IInput {
      * While it is running it continuously checks the stream,
      * checks what type of message it has received and processes it appropriately
      */
-    private void read() {
+    private void read() { //FIX THIS METHOD
         new Thread(() -> {
             try {
                 while (running) {

@@ -40,13 +40,12 @@ public class EmojiItem implements IFXMLController {
 
     @Override
     public void load() {
-        try {
-            URL url = Paths.get("Client/src/main/resources/View/emojiItem.fxml").toUri().toURL();
-            FXMLLoader fxmlLoader = new FXMLLoader(url);
-            fxmlLoader.setController(this);
-            fxmlLoader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("View/emojiItem.fxml"));
+            loader.setController(this);
+            try {
+                loader.load();
+            } catch (IOException exception) {
+                throw new RuntimeException(exception);
+            }
         }
-    }
 }

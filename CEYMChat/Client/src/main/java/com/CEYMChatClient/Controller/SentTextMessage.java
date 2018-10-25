@@ -35,20 +35,15 @@ public class SentTextMessage implements IFXMLController {
 
     @Override
     public void load() {
-        URL url = null;
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("View/textMessageSender.fxml"));
+        loader.setController(this);
         try {
-            url = Paths.get("Client/src/main/resources/View/textMessageSender.fxml").toUri().toURL();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        FXMLLoader fxmlLoader = new FXMLLoader(url);
-        fxmlLoader.setController(this);
-        try {
-            fxmlLoader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
+            loader.load();
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
         }
     }
+
     public AnchorPane getPane(){
         return sMessagePane;
     }
