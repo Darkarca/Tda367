@@ -71,11 +71,14 @@ public class OutputService implements IOutput, IObserver {
                 break;
             }
             case MESSAGEFILE: setMessageOut(message);    // Messages containing a FILE will be sent via the message object but arrives corrupt at the Server
-                FileInputStream fileInput = new FileInputStream(model.getSelectedFile());   // Sending a FILE is instead done by sending an array of bytes
-                BufferedInputStream bufferedInput = new BufferedInputStream(fileInput);     // To a separate inputStream
-                bufferedInput.read(((MessageFile)(message.getData())).getByteArray(),0,(((MessageFile)(message.getData())).getByteArray().length));
+                File toSend = new File (model.getSelectedFile().getPath());
+                byte [] toSendArray  = new byte [(int)toSend.length()];
+                FileInputStream inputStream = new FileInputStream(toSend);
+                BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
+                bufferedInputStream.read(toSendArray,0,toSendArray.length);
                 OutputStream outputStream = socket.getOutputStream();
-                outputStream.write(((MessageFile)(message.getData())).getByteArray(),0,((MessageFile)(message.getData())).getByteArray().length);
+                outputStream.write(toSendArray,0,toSendArray.length);
+                outputStream.flush();
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
