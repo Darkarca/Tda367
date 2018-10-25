@@ -71,8 +71,8 @@ public class  ServerModel {
      */
     public void refreshFriendList(Command command, String sender){
         User user = getUserByUsername(sender);
-        user.syncFriends(sendUserInfo());
-        user.sendMessage(user.checkFriends(sendUserInfo()));
+        user.syncFriends(getUserInfoMessage());
+        user.sendMessage(user.checkFriends(getUserInfoMessage()));
         System.out.println("COMMAND performed: 'refreshFriendList '" + command.getCommandData());
     }
 
@@ -89,7 +89,7 @@ public class  ServerModel {
 
 
     /** Sends user information via UserDisplayInfo objects to the recipient. */
-    public Message sendUserInfo(){
+    public Message getUserInfoMessage(){
         List<UserDisplayInfo> list = new ArrayList<UserDisplayInfo>();
         for (User user:userList) {
             UserDisplayInfo uInfo = new UserDisplayInfo();
@@ -109,7 +109,7 @@ public class  ServerModel {
     /** Updates user lists */
     public void updateUserLists(){
         for (User u:userList) {
-            u.sendMessage(u.checkFriends(sendUserInfo()));
+            u.sendMessage(u.checkFriends(getUserInfoMessage()));
         }
         System.out.println("Userlists updated!");
     }
