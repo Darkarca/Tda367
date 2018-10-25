@@ -13,14 +13,14 @@ import java.nio.file.Paths;
  */
 public class EmojiItem implements IFXMLController {
 
-    private IController clientController;
+    private IClientController clientController;
 
     @FXML
     private Label emojiCharLabel;
     @FXML
     private AnchorPane emojiPane;
 
-    public EmojiItem (String emojiChar, ClientController clientController) {
+    public EmojiItem (String emojiChar, IClientController clientController) {
         load();
         this.emojiCharLabel.setText(emojiChar);
         this.clientController = clientController;

@@ -1,6 +1,6 @@
 package com.CEYMChatClient.Services;
 
-import com.CEYMChatClient.Controller.IController;
+import com.CEYMChatClient.Controller.IClientController;
 import com.CEYMChatClient.Model.ClientModel;
 import com.CEYMChatLib.*;
 import javafx.application.Platform;

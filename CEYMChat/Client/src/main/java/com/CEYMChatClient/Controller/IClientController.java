@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import java.io.File;
 import java.io.IOException;
 
-public interface IController {
+public interface IClientController {
 
     /**
      * Called when a username has been chosen, notifies the

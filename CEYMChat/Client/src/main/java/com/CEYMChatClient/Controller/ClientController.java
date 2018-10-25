@@ -26,7 +26,7 @@ import java.util.Map;
 /**
  * Controller for the Client and ClientMain .
  */
-public class ClientController implements IController {
+public class ClientController implements IClientController {
 
     private ClientModel model;
     private IOutput outService;
