@@ -44,11 +44,17 @@ public class Reader implements Runnable, IReader {
             e.printStackTrace();
         }
     }
-
+    private void checkConnectionIsLive(){
+        if(!socket.isConnected()){
+            stop();
+            System.out.println("DISCONNECTED FROM SERVER");
+        }
+    }
     @Override
     public void run() {
         while (running) {
             try {
+                checkConnectionIsLive();
                 Message inMessage = (Message) inputStream.readObject();         // Constantly check the inputStream and casts its object to a message
                 MessageType msgType = MessageType.valueOf(inMessage.getType().getSimpleName().toUpperCase());
                 switch (msgType) {
@@ -64,17 +70,14 @@ public class Reader implements Runnable, IReader {
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        //bufferedOut.flush();
                         for (IObserver observer: observerList) {
                             observer.update(inMessage);
-
                         }
                         break;
                     }
                     default:
                         for (IObserver observer: observerList) {
                             observer.update(inMessage);
-
                         }
                 }
             } catch (IOException | ClassNotFoundException e) {
@@ -89,8 +92,6 @@ public class Reader implements Runnable, IReader {
     }
 
     @Override
-    public void unregister(IObserver observer) {
-
-    }
+    public void unregister(IObserver observer) {observerList.remove(observer);}
 }
 

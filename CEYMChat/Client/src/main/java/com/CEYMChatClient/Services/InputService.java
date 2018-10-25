@@ -163,8 +163,6 @@ public class InputService implements IInput {
         running = false;
         try {
             messageInStream.close();
-            socket.shutdownOutput();
-            socket.shutdownInput();
         } catch (IOException e) {
             e.printStackTrace();
         }
