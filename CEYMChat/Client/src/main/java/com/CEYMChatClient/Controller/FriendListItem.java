@@ -11,7 +11,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import java.io.IOException;
 
-/** GUI element for friends. */
+/**
+ * Controller for friendListItem.fxml
+ * Creates and handles a GUI-element representing a friend.
+ */
 public class FriendListItem implements IFXMLController {
 
     private UserDisplayInfo uInfo = new UserDisplayInfo();

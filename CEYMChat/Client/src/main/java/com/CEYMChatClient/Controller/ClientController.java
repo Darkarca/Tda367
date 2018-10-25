@@ -333,7 +333,7 @@ public class ClientController implements IController {
         EmojisMap emojisMap = new EmojisMap();
         Map<String, Emoji> emojiHashMap = emojisMap.createEmojiHashMap();
         for (Map.Entry<String, Emoji> entry : emojiHashMap.entrySet()) {
-            IFXMLViewController emojiItem = new EmojiItem(entry.getValue().getEmojiChar(), this);
+            IFXMLController emojiItem = new EmojiItem(entry.getValue().getEmojiChar(), this);
             emojisFlowPane.getChildren().add(emojiItem.getPane());
         }
     }

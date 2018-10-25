@@ -10,7 +10,8 @@ import java.net.URL;
 import java.nio.file.Paths;
 
 /**
- * Creates a GUI element for a received text message.
+ *  * Controller for textMessageReciever.fxml
+ * * Creates a GUI element for a received text message.
  */
 public class ReceivedTextMessage implements IFXMLController {
 

@@ -10,9 +10,10 @@ import java.net.URL;
 import java.nio.file.Paths;
 
 /**
+ * Controller for textMessageSender.fxml
  * Creates a GUI element for a sent text message.
  */
-public class SentTextMessage implements IFXMLViewController {
+public class SentTextMessage implements IFXMLController {
 
     @FXML
     public Label sMessageTextLabel;
