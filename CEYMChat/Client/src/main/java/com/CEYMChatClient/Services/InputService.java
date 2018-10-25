@@ -51,12 +51,13 @@ public class InputService implements IInput {
             e.printStackTrace();
         }
     }
+
     /**
      * Starts a new thread constantly reading a inputstream from the Server.
      * While it is running it continuously checks the stream,
      * checks what type of message it has received and processes it appropriately
      */
-    private void read() { //FIX THIS METHOD
+    private void read() {
         new Thread(() -> {
             try {
                 while (running) {
