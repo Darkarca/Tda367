@@ -111,9 +111,10 @@ public class ClientController implements IController {
      * identified aswell as initiating the GUI
      * @throws IOException
      */
+    @FXML
     public void login(){
-        model.setUsername(userNameTextField.getText());
         appInit();
+        model.setUsername(userNameTextField.getText());
         outService.connectToServer(model.getServerIP());
         outService.login(model.getUsername());
         model.setUsername(model.getUsername());
@@ -368,5 +369,12 @@ public class ClientController implements IController {
                 }
         );
     }
+
+    @FXML
+    public void saveMessages (){
+        model.saveMessages();
+    }
 }
+
+
 

@@ -149,7 +149,7 @@
                </styleClass>
             </Text>
             <TextField fx:id="userNameTextField" layoutX="284.0" layoutY="314.0" onAction="#login" prefHeight="37.0" prefWidth="231.0" promptText="Username" />
-            <Button fx:id="loginButton" layoutX="285.0" layoutY="509.0" mnemonicParsing="false" onAction="#login" onMouseClicked="#loginClick" prefHeight="37.0" prefWidth="231.0" text="Login" textFill="WHITE">
+            <Button fx:id="loginButton" layoutX="285.0" layoutY="509.0" mnemonicParsing="false" onAction="#login" onMouseClicked="#login" prefHeight="37.0" prefWidth="231.0" text="Login" textFill="WHITE">
                <styleClass>
                   <String fx:value="back-colour" />
                   <String fx:value="static-hinting" />
