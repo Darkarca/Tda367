@@ -3,7 +3,6 @@ package com.CEYMChatServer;
 import com.CEYMChatLib.*;
 import com.CEYMChatServer.Model.ServerModel;
 import com.CEYMChatServer.Model.User;
-import com.CEYMChatServer.Services.SocketHandler;
 import org.junit.Test;
 import java.io.File;
 import java.io.IOException;

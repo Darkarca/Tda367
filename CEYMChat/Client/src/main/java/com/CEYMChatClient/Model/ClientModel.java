@@ -9,7 +9,7 @@ import java.util.List;
 /** Model for the client */
 public class ClientModel implements IObserver{
 
-    private List<IObservable> ObservableClientList = new ArrayList<>();
+    private List<IObservable> ObservableList = new ArrayList<>();
     private String username;
     private List<UserDisplayInfo> userList = new ArrayList<>();
     private List<Message> receivedMessages = new ArrayList<>();
@@ -184,26 +184,26 @@ public class ClientModel implements IObserver{
     }
 
     public void connectionEnded() {
-        for (IObservable client:ObservableClientList) {
+        for (IObservable client: ObservableList) {
             client.disconnect();
         }
     }
 
     public void displayNewMessage(Message message) {
-        for (IObservable observer:ObservableClientList) {
+        for (IObservable observer: ObservableList) {
             observer.update(message);
         }
     }
 
     @Override
     public void register(IObservable observer) {
-        ObservableClientList.add(observer);
+        ObservableList.add(observer);
         System.out.println(observer.toString());
     }
 
     @Override
     public void unregister(IObservable observer) {
-        ObservableClientList.remove(observer);
+        ObservableList.remove(observer);
 
     }
 

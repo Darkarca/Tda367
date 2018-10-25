@@ -1,7 +1,10 @@
-package com.CEYMChatServer.Services;
+package com.CEYMChatServer;
 
 import com.CEYMChatServer.Model.User;
 import com.CEYMChatServer.Model.ServerModel;
+import com.CEYMChatServer.Services.IReader;
+import com.CEYMChatServer.Services.Reader;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -61,8 +64,9 @@ public class SocketHandler{
         newUser.setOnline(true);
         model.addUser(newUser);
         newUser.initIO(acceptedSocket);
-        IReader reader = new Reader(model, acceptedSocket);          // Constructor for reader starts the Thread
+        IReader reader = new Reader(acceptedSocket);          // Constructor for reader starts the Thread
         readers.add(reader);
+        reader.register(model);
     }
 
     public List<IReader> getReaders() {
