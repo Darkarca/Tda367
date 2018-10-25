@@ -21,28 +21,24 @@ public class InputService implements IInput {
     private Message messageIn;
     private Message lastMsg;
     private List<UserDisplayInfo> comingFriendsList = new ArrayList();
-    private IController controller;
     private boolean running = true;
 
     /**
      * Constructor
      * @param model the client model
-     * @param controller the controller
+     * @param socket
      */
-    public InputService(ClientModel model, IController controller)
+    public InputService(ClientModel model, Socket socket)
     {
         this.model = model;
-        this.controller = controller;
-
+        this.socket = socket;
     }
     /**
      * Connect client to the server and then starts the read thread
-     * @param socket The socket to connect to
      */
     @Override
-    public void connectToServer(Socket socket){
+    public void connectToServer(){
         try {
-            this.socket = socket;
             messageInStream = new ObjectInputStream(socket.getInputStream());
             System.out.println("Connection started");
             read();
@@ -62,7 +58,7 @@ public class InputService implements IInput {
                 while (running) {
                     if(!socket.isConnected()){
                         System.out.println("DISCONNECTED FROM SERVER");
-                        controller.connectionEnded();
+                        model.connectionEnded();
                     }
                     messageIn = (Message) messageInStream.readObject();
                     if (messageIn != null) {
@@ -92,7 +88,7 @@ public class InputService implements IInput {
                 } catch(SocketException e){
                     if(e.toString().contains("Connection reset")){
                         System.out.println("Connection reset!");
-                        controller.connectionEnded();
+                        model.connectionEnded();
 
                     }
                 } catch (IOException | ClassNotFoundException e) {
@@ -111,7 +107,7 @@ public class InputService implements IInput {
         Platform.runLater(
                 () -> {
                     try {
-                        displayFriendList();
+                        displayNewMessage(messageIn);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -141,7 +137,6 @@ public class InputService implements IInput {
         int current = bytesRead;
         bufferedOut.write(receivedFile, 0 , current);
         bufferedOut.flush();
-
     }
 
     /**
@@ -165,14 +160,12 @@ public class InputService implements IInput {
      * @throws IOException
      */
     private void displayNewMessage(Message message) throws IOException {
-        controller.displayNewMessage(message);
+        model.displayNewMessage(message);
     }
 
     /**
      * Informs the controller that it should update
      * @throws IOException
      */
-    private void displayFriendList() throws IOException {
-        controller.showOnlineFriends();  // the friendsList so that the Client correctly shows active users
-    }
+
 }

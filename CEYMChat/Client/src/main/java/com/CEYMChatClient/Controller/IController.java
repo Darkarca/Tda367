@@ -2,7 +2,6 @@ package com.CEYMChatClient.Controller;
 
 import com.CEYMChatLib.Message;
 import javafx.fxml.FXML;
-import java.io.File;
 import java.io.IOException;
 
 public interface IController {
