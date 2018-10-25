@@ -159,6 +159,7 @@ public class ClientController implements IClientController {
     /**
      * Asks the Server for an updated active
      * userlist, called when the Refresh button is pressed
+     * Not currently implemented - great for debugging.
      */
     @FXML
     public void refreshFriendList() {
