@@ -61,12 +61,11 @@ public class InputService implements IInput {
         new Thread(() -> {
             try {
                 while (running) {
-                    if(!socket.isConnected()){
-                        System.out.println("DISCONNECTED FROM SERVER");
-                        controller.connectionEnded();
-                    }
+                    checkConnectionIsLive();
                     messageIn = (Message) messageInStream.readObject();
-                    checkForType();
+                    if(messageIn!= null){
+                        checkForType();
+                        }
                     }
                 } catch(SocketException e){
                     if(e.toString().contains("Connection reset")){
@@ -79,35 +78,42 @@ public class InputService implements IInput {
         }).start();
     }
 
+
+    private void checkConnectionIsLive(){
+        if(!socket.isConnected()){
+            System.out.println("DISCONNECTED FROM SERVER");
+            controller.connectionEnded();
+            stop();
+        }
+    }
     /**
      * Checks for the type of message that has been read and calls the appropriate method.
      * @throws IOException
      */
     public void checkForType() throws IOException {
-        if (messageIn != null) {
-            MessageType msgType = MessageType.valueOf(messageIn.getType().getSimpleName().toUpperCase());
-            switch (msgType) {
-                case ARRAYLIST: {   // A message with an ARRAYLIST contains information about currently active users
-                    if (!messageIn.equals(lastMsg) && messageIn != null) {    // The Thread updates the models state
-                        receiveArrayList();
-                    }
-                    break;
+        MessageType msgType = MessageType.valueOf(messageIn.getType().getSimpleName().toUpperCase());
+        switch (msgType) {
+            case ARRAYLIST: {   // A message with an ARRAYLIST contains information about currently active users
+                if (!messageIn.equals(lastMsg) && messageIn != null) {    // The Thread updates the models state
+                    receiveArrayList();
                 }
-                case STRING: {  // A message with a STRING is a text message to be shown in the GUI
-                    if (!messageIn.equals(lastMsg) && messageIn != null) {
-                        receiveString();
-                    }
-                    break;
+                break;
+            }
+            case STRING: {  // A message with a STRING is a text message to be shown in the GUI
+                if (!messageIn.equals(lastMsg) && messageIn != null) {
+                    receiveString();
                 }
-                case MESSAGEFILE: {    // A message with a FILE is intended to be saved to the users local device
-                    if(!messageIn.equals(lastMsg) && messageIn != null){  // The FILE within the message is corrupt so the Thread saves the FILE using a seperate stream of bytes
-                        receiveFile();
-                    }
-                    break;
+                break;
+            }
+            case MESSAGEFILE: {    // A message with a FILE is intended to be saved to the users local device
+                if(!messageIn.equals(lastMsg) && messageIn != null){  // The FILE within the message is corrupt so the Thread saves the FILE using a seperate stream of bytes
+                    receiveFile();
                 }
+                break;
             }
         }
     }
+
     /**
      * handling the recieved array list by displaying the users in the list in the view via the controller
      */
