@@ -5,18 +5,20 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Paths;
 
 /**
  * Creates a GUI element for a received text message.
  */
-public class ReceivedTextMessage {
+public class ReceivedTextMessage implements IFXMLView{
 
     @FXML
     public AnchorPane rMessagePane;
     @FXML
     public Label rMessageTextLabel;
+    String rMessage;
 
     /**
      * constructor with initialized the received message
@@ -25,10 +27,25 @@ public class ReceivedTextMessage {
      */
     public ReceivedTextMessage(String rMessage) throws IOException {
 
-        URL url = Paths.get("Client/src/main/resources/View/textMessageReciever.fxml").toUri().toURL();
+        this.rMessage = rMessage;
+        load();
+        this.rMessageTextLabel.setText(rMessage);
+    }
+
+    @Override
+    public void load() {
+        URL url = null;
+        try {
+            url = Paths.get("Client/src/main/resources/View/textMessageReciever.fxml").toUri().toURL();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
         FXMLLoader fxmlLoader = new FXMLLoader(url);
         fxmlLoader.setController(this);
-        fxmlLoader.load();
-        this.rMessageTextLabel.setText(rMessage);
+        try {
+            fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

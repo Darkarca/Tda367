@@ -12,7 +12,7 @@ import javafx.scene.shape.Circle;
 import java.io.IOException;
 
 /** GUI element for friends. */
-public class FriendListItem {
+public class FriendListItem implements IFXMLView{
 
     private UserDisplayInfo uInfo = new UserDisplayInfo();
 
@@ -43,13 +43,7 @@ public class FriendListItem {
 
     /** Constructor creating the friendlistitem for the controller to show */
     public FriendListItem(UserDisplayInfo uInfo) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("View/friendListItem.fxml"));
-        loader.setController(this);
-        try {
-            loader.load();
-        } catch (IOException exception) {
-            throw new RuntimeException(exception);
-        }
+        load();
         this.friendUsername.setText(uInfo.getUsername());
         if(uInfo.getOnline()) {
             this.onlineIndicator.setFill(Color.GREEN);
@@ -82,4 +76,14 @@ public class FriendListItem {
     }
 
 
+    @Override
+    public void load() {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("View/friendListItem.fxml"));
+        loader.setController(this);
+        try {
+            loader.load();
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
 }

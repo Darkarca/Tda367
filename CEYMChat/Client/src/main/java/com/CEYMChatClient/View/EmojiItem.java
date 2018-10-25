@@ -13,7 +13,7 @@ import java.nio.file.Paths;
 /**
  * emojiItem is a controller to emojiItem fxml file
  */
-public class EmojiItem {
+public class EmojiItem implements IFXMLView{
 
     private IController clientController;
 
@@ -23,16 +23,7 @@ public class EmojiItem {
     private AnchorPane emojiPane;
 
     public EmojiItem (String emojiChar, ClientController clientController) {
-
-        try {
-            URL url = Paths.get("Client/src/main/resources/View/emojiItem.fxml").toUri().toURL();
-            FXMLLoader fxmlLoader = new FXMLLoader(url);
-            fxmlLoader.setController(this);
-            fxmlLoader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        load();
         this.emojiCharLabel.setText(emojiChar);
         this.clientController = clientController;
     }
@@ -47,5 +38,17 @@ public class EmojiItem {
     @FXML
     public void onClick(){
         clientController.chatBoxAppendText(emojiCharLabel.getText());
+    }
+
+    @Override
+    public void load() {
+        try {
+            URL url = Paths.get("Client/src/main/resources/View/emojiItem.fxml").toUri().toURL();
+            FXMLLoader fxmlLoader = new FXMLLoader(url);
+            fxmlLoader.setController(this);
+            fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
