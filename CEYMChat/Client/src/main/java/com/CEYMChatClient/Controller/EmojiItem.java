@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 /**
  * emojiItem is a controller to emojiItem fxml file
  */
-public class EmojiItem implements IFXMLViewController {
+public class EmojiItem implements IFXMLController {
 
     private IController clientController;
 

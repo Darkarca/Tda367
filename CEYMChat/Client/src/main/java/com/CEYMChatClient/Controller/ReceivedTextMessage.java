@@ -12,7 +12,7 @@ import java.nio.file.Paths;
 /**
  * Creates a GUI element for a received text message.
  */
-public class ReceivedTextMessage implements IFXMLViewController {
+public class ReceivedTextMessage implements IFXMLController {
 
     @FXML
     public AnchorPane rMessagePane;
