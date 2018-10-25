@@ -8,11 +8,36 @@ import java.util.List;
 
 /** Server model class */
 public class  ServerModel {
-
+    private ServerSocket serverSocket;
     private List<User> userList = new ArrayList<>();
+
+    private int port = 9000;
+
+    public ServerModel(Integer port) {
+        this.port = port;
+        {
+            try {
+                serverSocket = new ServerSocket(port);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    public ServerModel() {
+        {
+            try {
+                serverSocket = new ServerSocket(port);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 
     /** Getters and setters */
+    public ServerSocket getServerSocket() {
+        return serverSocket;
+    }
     public List<User> getUserList() {
         return userList;
     }
@@ -28,17 +53,17 @@ public class  ServerModel {
     public void performCommand(Command command, String sender) {
         switch(command.getCommandName()){
             case SET_USER: {
-               setUser(command);
+                setUser(command);
             }
-                break;
+            break;
             case REFRESH_FRIENDLIST: {
                 refreshFriendList(command, sender);
             }
-                break;
+            break;
             case DISCONNECT: {
                 disconnect(sender);
             }
-                break;
+            break;
             case ADD_FRIEND:
                 addFriend(getUserByUsername(sender),getUserByUsername(command.getCommandData()));
                 break;
@@ -163,6 +188,11 @@ public class  ServerModel {
         outputStream.write(sentFile,0,sentFile.length);
     }
 
-
+    public void closeSocket() {
+        try {
+            serverSocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
-
