@@ -15,7 +15,6 @@ public class ClientModel implements IObserver{
     private List<Message> receivedMessages = new ArrayList<>();
     private List<Message> sentMessages = new ArrayList<>();
     private File selectedFile;
-    private String serverIP;
     private List<String> mutedFriends = new ArrayList<>();
     private List<UserDisplayInfo> blockedFriends = new ArrayList<>();
     private List<UserDisplayInfo> friendList = new ArrayList<>();
@@ -29,9 +28,6 @@ public class ClientModel implements IObserver{
     }
     public void setSelectedFile(File selectedFile) {
         this.selectedFile = selectedFile;
-    }
-    public void setServerIP(String serverIP) {
-        this.serverIP = serverIP;
     }
     public void addFriends(UserDisplayInfo uInfo){
         if (uInfo.getIsFriend() && !friendList.contains(uInfo)){
@@ -76,9 +72,6 @@ public class ClientModel implements IObserver{
     }
     public String getUsername(){
         return username;
-    }
-    public String getServerIP() {
-        return serverIP;
     }
     public List<UserDisplayInfo> getUserList() {
         return userList;

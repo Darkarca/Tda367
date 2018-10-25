@@ -56,8 +56,6 @@ public class ClientController implements IClientController, IObservable {
     @FXML
     private TextField userNameTextField;
     @FXML
-    private TextField passwordTextField;
-    @FXML
     private Button loginButton;
     @FXML
     private Button fileSend;
@@ -102,7 +100,6 @@ public class ClientController implements IClientController, IObservable {
         appInit();
         model.setUsername(userNameTextField.getText());
         model.setUsername(model.getUsername());
-        model.setServerIP(ipField.getText());
         model.login();
         mainPane.toFront();
     }
@@ -369,7 +366,7 @@ public class ClientController implements IClientController, IObservable {
 
     @Override
     public void disconnect() {
-    connectionEnded();
+        connectionEnded();
     }
 
     public void setModel(ClientModel model) {

@@ -16,21 +16,14 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.Socket;
+import java.util.Scanner;
 
 /** This class should do nothing else than to launch the client application. */
 public class ClientMain extends Application {
 
     private IServiceFactory serviceFactory;
     private ClientModel model = new ClientModel();
-
-    {
-        try {
-            serviceFactory = new ServiceFactory();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    String hostname;
 
     /** Runs the Client module as a main method */
     @Override
@@ -40,6 +33,18 @@ public class ClientMain extends Application {
         primaryStage.setTitle("CEYMChat");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
+        System.out.println("Enter the server's IP to connect to. If no input within two seconds, default server will be used.");
+        Scanner scanner = new Scanner(System.in);
+        Thread.sleep(2000);
+        if(System.in.available()!=0) {
+            hostname = scanner.nextLine();
+            serviceFactory = new ServiceFactory(hostname);
+        }
+        else{
+            System.out.println("Default server used");
+            serviceFactory = new ServiceFactory();
+        }
+
         ((ClientController)fxmlLoader.getController()).setModel(model);
         IOutput outService = serviceFactory.createOutputService(model);
         IInput inService = serviceFactory.createInputService(model);

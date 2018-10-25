@@ -8,9 +8,18 @@ import java.net.Socket;
 
 public class ServiceFactory implements IServiceFactory{
 
-    private Socket socket = new Socket("localhost", 9000);
+    private Socket socket;
 
     public ServiceFactory() throws IOException {
+        socket = new Socket("localhost", 9000);
+    }
+
+    public ServiceFactory(String hostname) {
+        try {
+            socket = new Socket(hostname, 9000);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public IInput createInputService(ClientModel model){

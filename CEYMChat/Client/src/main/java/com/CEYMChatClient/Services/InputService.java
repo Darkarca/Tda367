@@ -81,9 +81,9 @@ public class InputService implements IInput {
 
     private void checkConnectionIsLive(){
         if(!socket.isConnected()){
+            stop();
             System.out.println("DISCONNECTED FROM SERVER");
             model.connectionEnded();
-            stop();
         }
     }
     /**
