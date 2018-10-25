@@ -374,27 +374,6 @@ public class ClientController implements IController {
     public void saveMessages (){
         model.saveMessages();
     }
-
-    void gitInspectorTest(){
-
-        System.out.println("I'am buggy");
-
-
-
-        System.out.println("I'am buggy");
-
-
-
-        System.out.println("I'am buggy");
-
-        System.out.println("I'am buggy");
-
-
-
-        System.out.println("I'am buggy");
-
-        System.out.println("I'am buggy");
-    }
 }
 
 
