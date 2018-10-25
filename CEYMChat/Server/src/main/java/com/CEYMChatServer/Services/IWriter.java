@@ -1,6 +1,5 @@
 package com.CEYMChatServer.Services;
 
-import com.CEYMChatLib.IObservable;
 import com.CEYMChatLib.Message;
 import java.net.Socket;
 /**

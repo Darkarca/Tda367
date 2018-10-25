@@ -1,6 +1,6 @@
 package com.CEYMChatClient.Controller;
 
-import com.CEYMChatLib.IObservable;
+import com.CEYMChatLib.IObserver;
 import com.CEYMChatClient.View.*;
 import javafx.application.Platform;
 import com.CEYMChatClient.Model.ClientModel;
@@ -27,7 +27,7 @@ import java.util.Map;
  * Controller for the Client and ClientMain .
  */
 
-public class ClientController implements IClientController, IObservable {
+public class ClientController implements IClientController, IObserver {
 
     public ClientModel model;
     private List<FriendListItem> friendItemList = new ArrayList<>();

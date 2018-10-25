@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /** Server model class */
-public class  ServerModel implements IObservable {
+public class ServerModel implements IObserver {
 
     private List<User> userList = new ArrayList<>();
 

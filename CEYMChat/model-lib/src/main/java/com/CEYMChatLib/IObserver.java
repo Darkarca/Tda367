@@ -1,6 +1,8 @@
 package com.CEYMChatLib;
 
+import com.CEYMChatLib.Message;
+
 public interface IObserver {
-    void register(IObservable observer);
-    void unregister(IObservable observer);
+    void update(Message message);
+    void disconnect();
 }

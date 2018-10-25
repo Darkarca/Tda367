@@ -14,5 +14,5 @@ public interface IOutput {
 
     Socket getSocket();
 
-    void stop();
+    void disconnect();
 }

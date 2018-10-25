@@ -1,12 +1,12 @@
 package com.CEYMChatClient.Services;
 
 import com.CEYMChatClient.Model.ClientModel;
-import com.CEYMChatLib.IObservable;
+import com.CEYMChatLib.IObserver;
 import com.CEYMChatLib.*;
 import java.io.*;
 import java.net.Socket;
 
-public class OutputService implements IOutput, IObservable {
+public class OutputService implements IOutput, IObserver {
     private ClientModel model;
     private ObjectOutputStream messageOutStream;
     Socket socket;
@@ -81,30 +81,29 @@ public class OutputService implements IOutput, IObservable {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                //outputStream.flush();
                 break;
         }
     }
 
 
     /**
-     * Safely stops all connections
+     * Called when model gets updated
+     * @param message
      */
-    public void stop(){
-
-    }
-
     @Override
     public void update(Message message) {
-    if(message.getSender() != null && message.getSender().equals(model.getUsername())){
-    try {
-        sendMessage(message);
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
-}
+        if(message.getSender() != null && message.getSender().equals(model.getUsername())){
+            try {
+                sendMessage(message);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
+    /**
+     * Safely stops all connections
+     */
     @Override
     public void disconnect() {
         try {

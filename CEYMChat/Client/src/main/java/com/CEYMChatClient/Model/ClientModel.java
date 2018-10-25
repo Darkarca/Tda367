@@ -7,9 +7,9 @@ import java.util.Arrays;
 import java.util.List;
 
 /** Model for the client */
-public class ClientModel implements IObserver{
+public class ClientModel implements IObserveable {
 
-    private List<IObservable> ObservableList = new ArrayList<>();
+    private List<IObserver> observerList = new ArrayList<>();
     private String username;
     private List<UserDisplayInfo> userList = new ArrayList<>();
     private List<Message> receivedMessages = new ArrayList<>();
@@ -93,7 +93,7 @@ public class ClientModel implements IObserver{
      * @param list The list of messages to be saved
      * @param filename The location to save the file to
      */
-    private void saveArrayListToFile(List<Message> list, String filename) throws IOException {
+    public void saveArrayListToFile(List<Message> list, String filename) throws IOException {
         FileWriter writer = new FileWriter(filename);
         for(Message message: list) {
             if(message.getSender().equals(username)) {
@@ -109,7 +109,7 @@ public class ClientModel implements IObserver{
     /** Calls saveArrayListToFile to save all Received messages
      * @param filename the location to save the file to
      */
-    private void saveReceivedMessages(String filename) {
+    public void saveReceivedMessages(String filename) {
         try {
             saveArrayListToFile(receivedMessages, filename);
         } catch (IOException e) {
@@ -120,7 +120,7 @@ public class ClientModel implements IObserver{
     /** Calls saveArrayListToFile to save all sent messages
      * @param filename the location to save the file to
      */
-    private void saveSendMessages(String filename) {
+    public void saveSendMessages(String filename) {
         try {
             saveArrayListToFile(sentMessages, filename);
         } catch (IOException e) {
@@ -174,37 +174,45 @@ public class ClientModel implements IObserver{
         saveSendMessages("Client/messages/sent.csv");
     }
 
-
-
     /** adds elements of a list to another list and begin from a given index */
-    public void addElementsAfterIndex(List<String> savedList,List<String>allSavedMessages,int index){
+    private void addElementsAfterIndex(List<String> savedList,List<String>allSavedMessages,int index){
         for (int i = index; i < savedList.size(); i++){
             allSavedMessages.add(savedList.get(i));
         }
     }
 
+    /**
+     * Disconnects all observers when the connection is ended.
+     */
     public void connectionEnded() {
-        for (IObservable client: ObservableList) {
+        for (IObserver client: observerList) {
             client.disconnect();
         }
     }
 
+    /**
+     * Tells observers to update when a new message been received.
+     * @param message
+     */
     public void displayNewMessage(Message message) {
-        for (IObservable observer: ObservableList) {
+        for (IObserver observer: observerList) {
             observer.update(message);
         }
     }
 
+    /**
+     * Registers an observer to the Observerlist
+     * @param observer
+     */
     @Override
-    public void register(IObservable observer) {
-        ObservableList.add(observer);
+    public void register(IObserver observer) {
+        observerList.add(observer);
         System.out.println(observer.toString());
     }
 
     @Override
-    public void unregister(IObservable observer) {
-        ObservableList.remove(observer);
-
+    public void unregister(IObserver observer) {
+        observerList.remove(observer);
     }
 
     public void addMessage(Message message) {

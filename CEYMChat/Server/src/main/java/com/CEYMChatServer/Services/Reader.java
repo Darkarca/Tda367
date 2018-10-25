@@ -1,7 +1,7 @@
 package com.CEYMChatServer.Services;
 
 import com.CEYMChatLib.*;
-import com.CEYMChatServer.Model.ServerModel;
+
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import java.util.List;
  * server implementing the IReader interface.
  */
 public class Reader implements Runnable, IReader {
-    private List<IObservable> ObservableList = new ArrayList<>();
+    private List<IObserver> observerList = new ArrayList<>();
     private Socket socket;
     private ObjectInputStream inputStream;
     private boolean running = true;
@@ -65,14 +65,14 @@ public class Reader implements Runnable, IReader {
                             e.printStackTrace();
                         }
                         //bufferedOut.flush();
-                        for (IObservable observer:ObservableList) {
+                        for (IObserver observer: observerList) {
                             observer.update(inMessage);
 
                         }
                         break;
                     }
                     default:
-                        for (IObservable observer:ObservableList) {
+                        for (IObserver observer: observerList) {
                             observer.update(inMessage);
 
                         }
@@ -84,12 +84,12 @@ public class Reader implements Runnable, IReader {
     }
 
     @Override
-    public void register(IObservable observer) {
-        ObservableList.add(observer);
+    public void register(IObserver observer) {
+        observerList.add(observer);
     }
 
     @Override
-    public void unregister(IObservable observer) {
+    public void unregister(IObserver observer) {
 
     }
 }
