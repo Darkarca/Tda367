@@ -80,7 +80,7 @@ public class InputService implements IInput {
                                 }
                                 break;
                             }
-                            case FILE: {    // A message with a FILE is intended to be saved to the users local device
+                            case MESSAGEFILE: {    // A message with a FILE is intended to be saved to the users local device
                                     if(!messageIn.equals(lastMsg) && messageIn != null){  // The FILE within the message is corrupt so the Thread saves the FILE using a seperate stream of bytes
                                         receiveFile();
                                     }
@@ -135,7 +135,7 @@ public class InputService implements IInput {
     private void receiveFile() throws IOException {
         byte [] receivedFile  = new byte [1073741824];
         InputStream inputStream = socket.getInputStream();
-        FileOutputStream fileOut = new FileOutputStream("Client/messages/" + ((File)messageIn.getData()).getName());
+        FileOutputStream fileOut = new FileOutputStream("Client/messages/" + ((MessageFile)messageIn.getData()).getFileName());
         BufferedOutputStream bufferedOut = new BufferedOutputStream(fileOut);
         int bytesRead = inputStream.read(receivedFile,0,receivedFile.length);
         int current = bytesRead;

@@ -307,7 +307,7 @@ public class ClientController implements IController {
      */
     public void sendFile() throws IOException {
         if (model.getSelectedFile() != null) {
-            outService.sendMessage(MessageFactory.createFileMessage(model.getSelectedFile(), model.getUsername(), currentChatName));
+            outService.sendMessage(MessageFactory.createFileMessage(new MessageFile(model.getSelectedFile()), model.getUsername(), currentChatName));
             fileName.setText("Current file: none");
             model.setSelectedFile(null);
         }

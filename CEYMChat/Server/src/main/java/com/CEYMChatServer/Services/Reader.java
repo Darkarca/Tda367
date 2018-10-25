@@ -1,9 +1,6 @@
 package com.CEYMChatServer.Services;
 
-import com.CEYMChatLib.Command;
-import com.CEYMChatLib.CommandName;
-import com.CEYMChatLib.Message;
-import com.CEYMChatLib.MessageType;
+import com.CEYMChatLib.*;
 import com.CEYMChatServer.Model.ServerModel;
 import java.io.*;
 import java.net.Socket;
@@ -70,16 +67,20 @@ public class Reader implements Runnable, IReader {
                         model.performCommand(new Command(CommandName.REFRESH_FRIENDLIST,inMessage.getSender()),inMessage.getSender());
                         break;
                     }
-                    case FILE: {                                        // A a message containing a FILE is received and redistributed, the FILE will be corrupt so it needs to be received via a separate inputStream.
-                        byte [] receivedFile  = new byte [1073741824];  // The message with the original FILE still contains information such as filesize and filename
+                    case MESSAGEFILE: {                                        // A a message containing a FILE is received and redistributed, the FILE will be corrupt so it needs to be received via a separate inputStream.
                         InputStream inputStream = socket.getInputStream();
-                        FileOutputStream fileOut = new FileOutputStream("Server/messages/" + ((File)inMessage.getData()).getName());
+                        FileOutputStream fileOut = new FileOutputStream("Server/messages/" + ((MessageFile)inMessage.getData()).getFileName());
                         BufferedOutputStream bufferedOut = new BufferedOutputStream(fileOut);
-                        int bytesRead = inputStream.read(receivedFile,0,receivedFile.length);
+                        int bytesRead = inputStream.read(((MessageFile)(inMessage.getData())).getByteArray(),0,(((MessageFile)(inMessage.getData())).getByteArray().length));
                         int current = bytesRead;
-                            bufferedOut.write(receivedFile, 0 , current);
-                            bufferedOut.flush();
-                        model.sendFile("Server/messages/" + ((File)inMessage.getData()).getName(), inMessage);
+                            bufferedOut.write(((MessageFile)inMessage.getData()).getByteArray(), 0 , current);
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        //bufferedOut.flush();
+                        model.sendFile("Server/messages/" + ((MessageFile)inMessage.getData()).getFileName(), inMessage);
                         break;
                     }
                 }

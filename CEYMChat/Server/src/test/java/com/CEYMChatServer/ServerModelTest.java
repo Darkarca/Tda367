@@ -1,9 +1,6 @@
 package com.CEYMChatServer;
 
-import com.CEYMChatLib.Command;
-import com.CEYMChatLib.CommandName;
-import com.CEYMChatLib.Message;
-import com.CEYMChatLib.MessageFactory;
+import com.CEYMChatLib.*;
 import com.CEYMChatServer.Model.ServerModel;
 import com.CEYMChatServer.Model.User;
 import com.CEYMChatServer.Services.SocketHandler;
@@ -92,8 +89,8 @@ public class ServerModelTest {
         Thread.sleep(2000);
         testModel.getUserList().get(0).setUsername("testUser");
         File toSend = new File("pom.xml");
-        testModel.sendFile(toSend.getName(),MessageFactory.createFileMessage(toSend,testModel.getUserList().get(0).getUsername(),testModel.getUserList().get(0).getUsername()));
-        assertEquals("File to be sent matches expected value",toSend,testModel.getUserList().get(0).getWriter().getOutMessage().getData());
+        testModel.sendFile(toSend.getName(),MessageFactory.createFileMessage(new MessageFile(toSend),testModel.getUserList().get(0).getUsername(),testModel.getUserList().get(0).getUsername()));
+        assertEquals("MessageFile to be sent matches expected value",toSend,((MessageFile)(testModel.getUserList().get(0).getWriter().getOutMessage().getData())).getFile());
         testModel.getServerSocket().close();
     }
 }

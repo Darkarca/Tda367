@@ -69,19 +69,18 @@ public class OutputService implements IOutput{
                 setMessageOut(message);           // Sends an updated list of friends to the Server so that the Servers state can be updated
                 break;
             }
-            case FILE: setMessageOut(message);    // Messages containing a FILE will be sent via the message object but arrives corrupt at the Server
-                byte[] sentFile = new byte[(int)model.getSelectedFile().length()];  // Sending a FILE is instead done by sending an array of bytes
-                FileInputStream fileInput = new FileInputStream(model.getSelectedFile());   // To a separate inputStream
-                BufferedInputStream bufferedInput = new BufferedInputStream(fileInput);
-                bufferedInput.read(sentFile,0,sentFile.length);
+            case MESSAGEFILE: setMessageOut(message);    // Messages containing a FILE will be sent via the message object but arrives corrupt at the Server
+                FileInputStream fileInput = new FileInputStream(model.getSelectedFile());   // Sending a FILE is instead done by sending an array of bytes
+                BufferedInputStream bufferedInput = new BufferedInputStream(fileInput);     // To a separate inputStream
+                bufferedInput.read(((MessageFile)(message.getData())).getByteArray(),0,(((MessageFile)(message.getData())).getByteArray().length));
                 OutputStream outputStream = socket.getOutputStream();
-                outputStream.write(sentFile,0,sentFile.length);
+                outputStream.write(((MessageFile)(message.getData())).getByteArray(),0,((MessageFile)(message.getData())).getByteArray().length);
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                outputStream.flush();
+                //outputStream.flush();
                 break;
         }
     }

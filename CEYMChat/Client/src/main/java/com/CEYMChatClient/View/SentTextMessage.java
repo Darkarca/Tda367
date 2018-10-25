@@ -25,7 +25,7 @@ public class SentTextMessage {
      */
     public SentTextMessage( String sMessage) throws IOException {
 
-        URL url = Paths.get("Client/src/main/resources/View/textMessageSender.fxml").toUri().toURL();
+        URL url = Paths.get("View/textMessageSender.fxml").toUri().toURL();
         FXMLLoader fxmlLoader = new FXMLLoader(url);
         fxmlLoader.setController(this);
         fxmlLoader.load();

@@ -17,7 +17,7 @@ public abstract class MessageFactory {
         return new Message(data, user, receiver);
     }
 
-    public static Message<File> createFileMessage(File data, String user, String receiver) {
+    public static Message<File> createFileMessage(MessageFile data, String user, String receiver) {
         return new Message(data, user, receiver);
     }
 

@@ -7,6 +7,6 @@ public enum MessageType {
     COMMAND,
     STRING,
     ARRAYLIST,
-    FILE
+    MESSAGEFILE
     }
 

@@ -25,7 +25,7 @@ public class ReceivedTextMessage {
      */
     public ReceivedTextMessage(String rMessage) throws IOException {
 
-        URL url = Paths.get("Client/src/main/resources/View/textMessageReciever.fxml").toUri().toURL();
+        URL url = Paths.get("View/textMessageReciever.fxml").toUri().toURL();
         FXMLLoader fxmlLoader = new FXMLLoader(url);
         fxmlLoader.setController(this);
         fxmlLoader.load();

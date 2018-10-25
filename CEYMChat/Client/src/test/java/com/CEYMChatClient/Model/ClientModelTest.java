@@ -18,7 +18,6 @@ public class ClientModelTest {
     private static ClientModel model = new ClientModel();
    static private List<Message> testList = new ArrayList<>();
 
-
     /** creates a virtual saved messages */
     @BeforeClass
    static public void mockUpSavedMessages(){
@@ -45,7 +44,7 @@ public class ClientModelTest {
         }
         File testFile = new File("messages/test.csv");
         boolean exists = testFile.exists();
-        assertTrue("File created successfully", exists);
+        assertTrue("MessageFile created successfully", exists);
     }
 
 

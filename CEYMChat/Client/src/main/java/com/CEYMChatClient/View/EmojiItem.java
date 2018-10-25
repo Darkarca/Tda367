@@ -25,7 +25,7 @@ public class EmojiItem {
     public EmojiItem (String emojiChar, ClientController clientController) {
 
         try {
-            URL url = Paths.get("Client/src/main/resources/View/emojiItem.fxml").toUri().toURL();
+            URL url = Paths.get("View/emojiItem.fxml").toUri().toURL();
             FXMLLoader fxmlLoader = new FXMLLoader(url);
             fxmlLoader.setController(this);
             fxmlLoader.load();
