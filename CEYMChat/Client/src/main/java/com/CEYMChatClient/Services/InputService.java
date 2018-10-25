@@ -90,7 +90,7 @@ public class InputService implements IInput {
      * Checks for the type of message that has been read and calls the appropriate method.
      * @throws IOException
      */
-    public void checkForType() throws IOException {
+    private void checkForType() throws IOException {
         MessageType msgType = MessageType.valueOf(messageIn.getType().getSimpleName().toUpperCase());
         switch (msgType) {
             case ARRAYLIST: {   // A message with an ARRAYLIST contains information about currently active users

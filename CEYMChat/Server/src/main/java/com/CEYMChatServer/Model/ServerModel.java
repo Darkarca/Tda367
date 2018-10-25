@@ -129,7 +129,7 @@ public class  ServerModel implements IObservable {
      *
      * @param message Message to be displayed.
      */
-    public void displayMessage(Message message) throws IOException, ClassNotFoundException {
+    private void displayMessage(Message message) throws IOException, ClassNotFoundException {
         System.out.println(message.getSender() + ": " + message.getData());
     }
 

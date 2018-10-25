@@ -73,7 +73,7 @@ public class ClientController implements IClientController, IObservable {
     /**
      *  Initiates the GUI
      */
-    public void appInit() {
+    private void appInit() {
 
         model.register(this);
         File received = new File("Client/messages/received.csv");
@@ -122,7 +122,7 @@ public class ClientController implements IClientController, IObservable {
      * as a Send message
      * @param sMessage the STRING which will be sent
      */
-    public void createAddSendMessagePane (final String sMessage) throws IOException {
+    private void createAddSendMessagePane (final String sMessage) throws IOException {
         SentTextMessage sentTextMessage = new SentTextMessage(sMessage);
         Platform.runLater(() -> chatPane.getChildren().add(sentTextMessage.sMessagePane));
     }
@@ -132,7 +132,7 @@ public class ClientController implements IClientController, IObservable {
      * as a received message
      * @param rMessage the STRING which will be received
      */
-    public void createAddReceiveMessagePane (final String rMessage) throws IOException {
+    private void createAddReceiveMessagePane (final String rMessage) throws IOException {
         ReceivedTextMessage receivedMessage = new ReceivedTextMessage(rMessage);
         Platform.runLater(() -> chatPane.getChildren().add(receivedMessage.rMessagePane));
     }
@@ -152,7 +152,7 @@ public class ClientController implements IClientController, IObservable {
      *  and notifies the Server if any new friends have been added
      * @throws IOException
      */
-    public void checkFriends() throws IOException {
+    private void checkFriends() throws IOException {
         for (UserDisplayInfo friendInfo : model.getFriendList()) {         // Removes friends that have been deselected
             model.removeFriends(friendInfo);
         }
@@ -177,7 +177,7 @@ public class ClientController implements IClientController, IObservable {
      * @param friendList The list of UserDisplayInfo to be made into FriendListItems
      * @throws IOException
      */
-    public void createFriendListItemList(List<UserDisplayInfo> friendList) throws IOException {
+    private void createFriendListItemList(List<UserDisplayInfo> friendList) throws IOException {
         for (UserDisplayInfo uInfo : friendList) {
             if (!uInfo.getUsername().equals(model.getUsername())) {
                 FriendListItem userItem = new FriendListItem(uInfo);

@@ -79,10 +79,10 @@ public class ClientModel implements IObserver{
     public List<UserDisplayInfo> getFriendList() {
         return friendList;
     }
-    public List<UserDisplayInfo> getBlockedFriends() {
+    private List<UserDisplayInfo> getBlockedFriends() {
         return this.blockedFriends;
     }
-    public List<String> getMutedFriends() {
+    private List<String> getMutedFriends() {
         return this.mutedFriends;
     }
     public File getSelectedFile() {
@@ -93,7 +93,7 @@ public class ClientModel implements IObserver{
      * @param list The list of messages to be saved
      * @param filename The location to save the file to
      */
-    public void saveArrayListToFile(List<Message> list, String filename) throws IOException {
+    private void saveArrayListToFile(List<Message> list, String filename) throws IOException {
         FileWriter writer = new FileWriter(filename);
         for(Message message: list) {
             if(message.getSender().equals(username)) {
@@ -109,7 +109,7 @@ public class ClientModel implements IObserver{
     /** Calls saveArrayListToFile to save all Received messages
      * @param filename the location to save the file to
      */
-    public void saveReceivedMessages(String filename) {
+    private void saveReceivedMessages(String filename) {
         try {
             saveArrayListToFile(receivedMessages, filename);
         } catch (IOException e) {
@@ -120,7 +120,7 @@ public class ClientModel implements IObserver{
     /** Calls saveArrayListToFile to save all sent messages
      * @param filename the location to save the file to
      */
-    public void saveSendMessages(String filename) {
+    private void saveSendMessages(String filename) {
         try {
             saveArrayListToFile(sentMessages, filename);
         } catch (IOException e) {
