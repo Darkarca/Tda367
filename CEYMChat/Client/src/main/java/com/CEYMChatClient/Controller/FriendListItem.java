@@ -1,4 +1,4 @@
-package com.CEYMChatClient.View;
+package com.CEYMChatClient.Controller;
 
 import com.CEYMChatLib.UserDisplayInfo;
 import javafx.fxml.FXML;
@@ -11,8 +11,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import java.io.IOException;
 
-/** GUI element for friends. */
-public class FriendListItem {
+/**
+ * Controller for friendListItem.fxml
+ * Creates and handles a GUI-element representing a friend.
+ */
+public class FriendListItem implements IFXMLController {
 
     private UserDisplayInfo uInfo = new UserDisplayInfo();
 
@@ -31,9 +34,7 @@ public class FriendListItem {
     public Label getFriendUsername() {
         return friendUsername;
     }
-    public AnchorPane getFriendPane() {
-        return friendPane;
-    }
+    public AnchorPane getPane(){return friendPane; }
     public void setUInfo(UserDisplayInfo uInfo){
         this.uInfo = uInfo;
     }
@@ -43,13 +44,7 @@ public class FriendListItem {
 
     /** Constructor creating the friendlistitem for the controller to show */
     public FriendListItem(UserDisplayInfo uInfo) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("View/friendListItem.fxml"));
-        loader.setController(this);
-        try {
-            loader.load();
-        } catch (IOException exception) {
-            throw new RuntimeException(exception);
-        }
+        load();
         this.friendUsername.setText(uInfo.getUsername());
         if(uInfo.getOnline()) {
             this.onlineIndicator.setFill(Color.GREEN);
@@ -82,4 +77,14 @@ public class FriendListItem {
     }
 
 
+    @Override
+    public void load() {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("View/friendListItem.fxml"));
+        loader.setController(this);
+        try {
+            loader.load();
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
 }

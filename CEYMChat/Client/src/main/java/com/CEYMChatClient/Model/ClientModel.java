@@ -1,6 +1,6 @@
 package com.CEYMChatClient.Model;
 
-import com.CEYMChatClient.View.FriendListItem;
+import com.CEYMChatClient.Controller.FriendListItem;
 import com.CEYMChatLib.*;
 import java.io.*;
 import java.util.ArrayList;

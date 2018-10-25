@@ -27,7 +27,8 @@ import java.util.Map;
 /**
  * Controller for the Client and ClientMain .
  */
-public class ClientController implements IController, IObservable {
+
+public class ClientController implements IClientController, IObservable {
 
     public ClientModel model;
     private List<FriendListItem> friendItemList = new ArrayList<>();
@@ -143,6 +144,7 @@ public class ClientController implements IController, IObservable {
     /**
      * Asks the Server for an updated active
      * userlist, called when the Refresh button is pressed
+     * Not currently implemented - great for debugging.
      */
     @FXML
     public void refreshFriendList() {
@@ -169,7 +171,7 @@ public class ClientController implements IController, IObservable {
      * @param message The message to display
      */
     public void displayNewMessage(Message message) throws IOException {
-        if(!model.isMuted(message.getSender())) {
+        if(!model.isMuted(message.getSender()) && message.getSender() != model.getUsername()) {
             createAddReceiveMessagePane(message.getSender() + ": " + message.getData());
         }
     }
@@ -202,7 +204,7 @@ public class ClientController implements IController, IObservable {
         friendsFlowPane.getChildren().clear();
         for (FriendListItem friendListItem : friendItemList) {
             if (!model.isBlocked(friendListItem)) {
-                friendsFlowPane.getChildren().add(friendListItem.getFriendPane());
+                friendsFlowPane.getChildren().add(friendListItem.getPane());
             }
         }
     }
@@ -212,7 +214,7 @@ public class ClientController implements IController, IObservable {
      * @param item The FriendListItem to be initiated
      */
     private void initFriendListItem(FriendListItem item) {
-        item.getFriendPane().setOnMouseClicked(MouseEvent -> {
+        item.getPane().setOnMouseClicked(MouseEvent -> {
             MouseButton button = MouseEvent.getButton();
             if(button==MouseButton.PRIMARY) {
                 currentChatName = item.getFriendUsername().getText();
@@ -239,17 +241,17 @@ public class ClientController implements IController, IObservable {
         });
         mute.setOnAction(event -> {
             model.addMuted(item.getFriendUsername().getText());
-            item.getFriendPane().setStyle("-fx-background-color: crimson");
+            item.getPane().setStyle("-fx-background-color: crimson");
         });
         unmute.setOnAction(event -> {
             model.removeMuted(item.getFriendUsername().getText());
-            item.getFriendPane().setStyle("-fx-background-color: white");
+            item.getPane().setStyle("-fx-background-color: white");
             });
         remove.setOnAction(event -> {
             model.addBlockedFriend(item);
-            item.getFriendPane().setVisible(false);
+            item.getPane().setVisible(false);
         });
-        item.getFriendPane().setOnContextMenuRequested(event -> contextMenu.show(item.getFriendPane(), event.getScreenX(), event.getScreenY()));
+        item.getPane().setOnContextMenuRequested(event -> contextMenu.show(item.getPane(), event.getScreenX(), event.getScreenY()));
 
     }
 
@@ -308,8 +310,8 @@ public class ClientController implements IController, IObservable {
         EmojisMap emojisMap = new EmojisMap();
         Map<String, Emoji> emojiHashMap = emojisMap.createEmojiHashMap();
         for (Map.Entry<String, Emoji> entry : emojiHashMap.entrySet()) {
-            EmojiItem emojiItem = new EmojiItem(entry.getValue().getEmojiChar(), this);
-            emojisFlowPane.getChildren().add(emojiItem.getEmojiPane());
+            IFXMLController emojiItem = new EmojiItem(entry.getValue().getEmojiChar(), this);
+            emojisFlowPane.getChildren().add(emojiItem.getPane());
         }
     }
 

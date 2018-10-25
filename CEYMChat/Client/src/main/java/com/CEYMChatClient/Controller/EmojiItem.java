@@ -1,7 +1,5 @@
-package com.CEYMChatClient.View;
+package com.CEYMChatClient.Controller;
 
-import com.CEYMChatClient.Controller.ClientController;
-import com.CEYMChatClient.Controller.IController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -13,31 +11,22 @@ import java.nio.file.Paths;
 /**
  * emojiItem is a controller to emojiItem fxml file
  */
-public class EmojiItem {
+public class EmojiItem implements IFXMLController {
 
-    private IController clientController;
+    private IClientController clientController;
 
     @FXML
     private Label emojiCharLabel;
     @FXML
     private AnchorPane emojiPane;
 
-    public EmojiItem (String emojiChar, ClientController clientController) {
-
-        try {
-            URL url = Paths.get("Client/src/main/resources/View/emojiItem.fxml").toUri().toURL();
-            FXMLLoader fxmlLoader = new FXMLLoader(url);
-            fxmlLoader.setController(this);
-            fxmlLoader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+    public EmojiItem (String emojiChar, IClientController clientController) {
+        load();
         this.emojiCharLabel.setText(emojiChar);
         this.clientController = clientController;
     }
 
-    public AnchorPane getEmojiPane() {
+    public AnchorPane getPane() {
         return emojiPane;
     }
 
@@ -48,4 +37,15 @@ public class EmojiItem {
     public void onClick(){
         clientController.chatBoxAppendText(emojiCharLabel.getText());
     }
+
+    @Override
+    public void load() {
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("View/emojiItem.fxml"));
+            loader.setController(this);
+            try {
+                loader.load();
+            } catch (IOException exception) {
+                throw new RuntimeException(exception);
+            }
+        }
 }

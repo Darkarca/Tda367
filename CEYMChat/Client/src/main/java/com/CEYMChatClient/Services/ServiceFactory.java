@@ -1,6 +1,6 @@
 package com.CEYMChatClient.Services;
 
-import com.CEYMChatClient.Controller.IController;
+import com.CEYMChatClient.Controller.IClientController;
 import com.CEYMChatClient.Model.ClientModel;
 
 import java.io.IOException;
@@ -15,6 +15,7 @@ public class ServiceFactory implements IServiceFactory{
 
     public IInput createInputService(ClientModel model){
         return new InputService(model, socket);
+
     }
     public IOutput createOutputService(ClientModel model){
         return new OutputService(model, socket);
