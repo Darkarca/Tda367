@@ -13,7 +13,7 @@ import java.nio.file.Paths;
 /**
  * emojiItem is a controller to emojiItem fxml file
  */
-public class EmojiItem implements IFXMLView{
+public class EmojiItem implements IFXMLViewController {
 
     private IController clientController;
 

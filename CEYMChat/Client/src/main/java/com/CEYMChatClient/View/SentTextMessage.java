@@ -12,7 +12,7 @@ import java.nio.file.Paths;
 /**
  * Creates a GUI element for a sent text message.
  */
-public class SentTextMessage implements IFXMLView{
+public class SentTextMessage implements IFXMLViewController {
 
     @FXML
     public Label sMessageTextLabel;

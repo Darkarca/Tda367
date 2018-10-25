@@ -12,7 +12,7 @@ import javafx.scene.shape.Circle;
 import java.io.IOException;
 
 /** GUI element for friends. */
-public class FriendListItem implements IFXMLView{
+public class FriendListItem implements IFXMLViewController {
 
     private UserDisplayInfo uInfo = new UserDisplayInfo();
 
