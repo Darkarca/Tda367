@@ -7,7 +7,7 @@ public interface IInput {
     /** Handles how the service connects
      *  the IInput to the ServerSocket
      */
-    void connectToServer(Socket socket);
+    void connectToServer();
 
     void stop();
 }

@@ -1,6 +1,5 @@
 package com.CEYMChatClient.Model;
 
-import com.CEYMChatClient.Controller.FriendListItem;
 import com.CEYMChatLib.*;
 import java.io.*;
 import java.util.ArrayList;
@@ -8,8 +7,9 @@ import java.util.Arrays;
 import java.util.List;
 
 /** Model for the client */
-public class ClientModel {
+public class ClientModel implements IObserver{
 
+    private List<IObservable> ObservableClientList = new ArrayList<>();
     private String username;
     private List<UserDisplayInfo> userList = new ArrayList<>();
     private List<Message> receivedMessages = new ArrayList<>();
@@ -17,7 +17,7 @@ public class ClientModel {
     private File selectedFile;
     private String serverIP;
     private List<String> mutedFriends = new ArrayList<>();
-    private List<FriendListItem> blockedFriends = new ArrayList<>();
+    private List<UserDisplayInfo> blockedFriends = new ArrayList<>();
     private List<UserDisplayInfo> friendList = new ArrayList<>();
 
     /** Getters, setters and adders **/
@@ -38,7 +38,7 @@ public class ClientModel {
             friendList.add(uInfo);
         }
     }
-    public void addBlockedFriend(FriendListItem item) {
+    public void addBlockedFriend(UserDisplayInfo item) {
         blockedFriends.add(item);
     }
     public void addMuted(String friendUsername) {
@@ -66,9 +66,9 @@ public class ClientModel {
         }
         return false;
     }
-    public boolean isBlocked(FriendListItem friendListItem) {
-        for (FriendListItem blocked : getBlockedFriends()) {
-            if (blocked.getFriendUsername().getText().equals(friendListItem.getFriendUsername().getText())) {
+    public boolean isBlocked(UserDisplayInfo uInfo) {
+        for (UserDisplayInfo blocked : getBlockedFriends()) {
+            if (blocked.getUsername().equals(uInfo.getUsername())) {
                 return true;
             }
         }
@@ -86,7 +86,7 @@ public class ClientModel {
     public List<UserDisplayInfo> getFriendList() {
         return friendList;
     }
-    public List<FriendListItem> getBlockedFriends() {
+    public List<UserDisplayInfo> getBlockedFriends() {
         return this.blockedFriends;
     }
     public List<String> getMutedFriends() {
@@ -190,4 +190,35 @@ public class ClientModel {
         }
     }
 
+    public void connectionEnded() {
+        for (IObservable client:ObservableClientList) {
+            client.disconnect();
+        }
+    }
+
+    public void displayNewMessage(Message message) {
+        for (IObservable observer:ObservableClientList) {
+            observer.update(message);
+        }
+    }
+
+    @Override
+    public void register(IObservable observer) {
+        ObservableClientList.add(observer);
+        System.out.println(observer.toString());
+    }
+
+    @Override
+    public void unregister(IObservable observer) {
+        ObservableClientList.remove(observer);
+
+    }
+
+    public void addMessage(Message message) {
+        displayNewMessage(message);
+    }
+
+    public void login() {
+        displayNewMessage(MessageFactory.createCommandMessage(new Command(CommandName.SET_USER,username),username));
+    }
 }

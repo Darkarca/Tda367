@@ -8,7 +8,7 @@ public interface IOutput {
 
     void sendMessage(Message message) throws IOException;
 
-    void connectToServer(String serverIP);
+    void connectToServer();
 
     void login(String userName);
 
