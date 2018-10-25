@@ -2,7 +2,7 @@ package com.CEYMChatClient.View;
 
 import javafx.scene.layout.AnchorPane;
 
-public interface IFXMLView {
+public interface IFXMLViewController {
     void load();
     AnchorPane getPane();
 }
