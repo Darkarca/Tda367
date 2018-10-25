@@ -1,7 +1,6 @@
 package com.CEYMChatClient.Controller;
 
-import com.CEYMChatClient.Model.IObservable;
-import com.CEYMChatClient.Services.*;
+import com.CEYMChatLib.IObservable;
 import com.CEYMChatClient.View.*;
 import javafx.application.Platform;
 import com.CEYMChatClient.Model.ClientModel;

@@ -48,6 +48,8 @@ public class Writer implements IWriter {
     public Message getOutMessage() {
         return outMessage;
     }
+
+
 }
 
 

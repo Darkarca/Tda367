@@ -1,4 +1,4 @@
-package com.CEYMChatClient.Model;
+package com.CEYMChatLib;
 
 import com.CEYMChatLib.Message;
 

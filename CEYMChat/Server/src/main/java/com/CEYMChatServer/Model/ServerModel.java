@@ -6,26 +6,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 /** Server model class */
-public class  ServerModel {
+public class  ServerModel implements IObservable {
 
     private List<User> userList = new ArrayList<>();
 
 
-    /** Getters and setters */
+    /**
+     * Getters and setters
+     */
     public List<User> getUserList() {
         return userList;
     }
+
     public void addUser(User user) {
         userList.add(user);
     }
 
     /**
-     *Performs a received command,
+     * Performs a received command,
+     *
      * @param command COMMAND to be executed
-     * @param sender User that sent the command
+     * @param sender  User that sent the command
      */
     public void performCommand(Command command, String sender) {
-        switch(command.getCommandName()){
+        switch (command.getCommandName()) {
             case SET_USER: {
                 setUser(command);
             }
@@ -39,13 +43,14 @@ public class  ServerModel {
             }
             break;
             case ADD_FRIEND:
-                addFriend(getUserByUsername(sender),getUserByUsername(command.getCommandData()));
+                addFriend(getUserByUsername(sender), getUserByUsername(command.getCommandData()));
                 break;
         }
     }
 
     /**
      * Adds a User(toBeAdded) to the User's(adder) friendlist
+     *
      * @param adder
      * @param toBeAdded
      */
@@ -53,23 +58,25 @@ public class  ServerModel {
         adder.addFriend(toBeAdded);
     }
 
-    /** Sets the username of a user so that it can be
+    /**
+     * Sets the username of a user so that it can be
      * identified uniformly between the client and server
      */
-    public void setUser(Command command){
-        userList.get(userList.size()-1).setUsername(command.getCommandData());
+    public void setUser(Command command) {
+        userList.get(userList.size() - 1).setUsername(command.getCommandData());
         System.out.println("COMMAND performed: 'setUser'" + command.getCommandData());
         updateUserLists();
     }
 
-    public void friendSync(Message message){
+    public void friendSync(Message message) {
         getUserByUsername(message.getSender()).syncFriends(message);
     }
 
-    /** Sends an update active userlist to all active clients,
+    /**
+     * Sends an update active userlist to all active clients,
      * also merges the list with each users individual friendslist
      */
-    public void refreshFriendList(Command command, String sender){
+    public void refreshFriendList(Command command, String sender) {
         User user = getUserByUsername(sender);
         user.syncFriends(getUserInfoMessage());
         user.sendMessage(user.checkFriends(getUserInfoMessage()));
@@ -77,10 +84,11 @@ public class  ServerModel {
     }
 
 
-    /** Disconnects the user by removing it from the Servers
+    /**
+     * Disconnects the user by removing it from the Servers
      * userlist so that the server won't point to a null outputStream
      */
-    public void disconnect (String sender){
+    public void disconnect(String sender) {
         User user = getUserByUsername(sender);
         user.setOnline(false);
         userList.remove(user);
@@ -88,14 +96,16 @@ public class  ServerModel {
     }
 
 
-    /** Sends user information via UserDisplayInfo objects to the recipient. */
-    public Message getUserInfoMessage(){
+    /**
+     * Sends user information via UserDisplayInfo objects to the recipient.
+     */
+    public Message getUserInfoMessage() {
         List<UserDisplayInfo> list = new ArrayList<UserDisplayInfo>();
-        for (User user:userList) {
+        for (User user : userList) {
             UserDisplayInfo uInfo = new UserDisplayInfo();
             uInfo.setUsername(user.getUsername());
             uInfo.setInetAddress(user.getSocket().getInetAddress());
-            if(user.isOnline()) {
+            if (user.isOnline()) {
                 uInfo.setOnlineIndicator(true);
             }
             list.add(uInfo);
@@ -104,11 +114,11 @@ public class  ServerModel {
     }
 
 
-
-
-    /** Updates user lists */
-    public void updateUserLists(){
-        for (User u:userList) {
+    /**
+     * Updates user lists
+     */
+    public void updateUserLists() {
+        for (User u : userList) {
             u.sendMessage(u.checkFriends(getUserInfoMessage()));
         }
         System.out.println("Userlists updated!");
@@ -116,6 +126,7 @@ public class  ServerModel {
 
     /**
      * Displays a message on the server console.
+     *
      * @param message Message to be displayed.
      */
     public void displayMessage(Message message) throws IOException, ClassNotFoundException {
@@ -124,21 +135,23 @@ public class  ServerModel {
 
     /**
      * Sends a message to the correct receiver.
-     * @param message Message to be sent.
+     *
+     * @param message  Message to be sent.
      * @param receiver Name of receiver.
      */
-    public void sendMessage(Message message, String receiver){
+    public void sendMessage(Message message, String receiver) {
         User user = getUserByUsername(receiver);
         user.sendMessage(message);
     }
 
     /**
      * Retrieves a User by searching for a username STRING.
+     *
      * @param username Username to search for
      */
-    public User getUserByUsername(String username){
-        for (User u : userList){
-            if (u.getUsername().equals(username)){
+    public User getUserByUsername(String username) {
+        for (User u : userList) {
+            if (u.getUsername().equals(username)) {
                 return u;
             }
         }
@@ -147,20 +160,62 @@ public class  ServerModel {
 
     /**
      * Sends a file to a clients device
-     * @param s Name of file.
+     *
+     * @param s       Name of file.
      * @param message Message to send alongside the FILE
-     *          containing things such as filesize, sender and receiver
+     *                containing things such as filesize, sender and receiver
      */
     public void sendFile(String s, Message message) throws IOException {
-        sendMessage(message,message.getReceiver());
+        sendMessage(message, message.getReceiver());
         File toSend = new File(s);
-        byte[] sentFile = new byte[(int)toSend.length()];
+        byte[] sentFile = new byte[(int) toSend.length()];
         FileInputStream fileInput = new FileInputStream(toSend);
         BufferedInputStream bufferedInput = new BufferedInputStream(fileInput);
-        bufferedInput.read(sentFile,0,sentFile.length);
+        bufferedInput.read(sentFile, 0, sentFile.length);
         OutputStream outputStream = getUserByUsername(message.getReceiver()).getWriter().getSocket().getOutputStream();
-        outputStream.write(sentFile,0,sentFile.length);
+        outputStream.write(sentFile, 0, sentFile.length);
     }
 
 
+    @Override
+    public void update(Message message) {
+        MessageType msgType = MessageType.valueOf(message.getType().getSimpleName().toUpperCase());
+        switch (msgType) {
+            case COMMAND: {                                     // A message containing a command is sent to the model so that is can be performed, we stop the thread if the command tells us to disconnect
+                        performCommand((Command)(message.getData()),message.getReceiver());
+                break;
+            }
+            case STRING: {                                      // A string message is simply sent to the model and redistributed to the correct client
+                try {
+                    displayMessage(message);
+                    sendMessage(message,message.getReceiver());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                break;
+            }
+            case ARRAYLIST: {
+                    friendSync(message);
+                    performCommand(new Command(CommandName.REFRESH_FRIENDLIST,message.getSender()),message.getSender());
+                break;
+            }
+            case MESSAGEFILE: {
+                try {
+                    sendFile("Server/messages/" + ((MessageFile)message.getData()).getFileName(), message);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            }
+        }
+    }
+
+
+
+    @Override
+    public void disconnect() {
+
+    }
 }

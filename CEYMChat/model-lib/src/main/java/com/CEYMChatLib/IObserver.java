@@ -1,4 +1,4 @@
-package com.CEYMChatClient.Model;
+package com.CEYMChatLib;
 
 public interface IObserver {
     void register(IObservable observer);
