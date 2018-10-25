@@ -35,7 +35,7 @@ public class ClientMain extends Application {
     /** Runs the Client module as a main method */
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(Class.class.getClass().getResource("/View/ClientView.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("View/ClientView.fxml"));
         Parent root = fxmlLoader.load();
         primaryStage.setTitle("CEYMChat");
         primaryStage.setScene(new Scene(root));
