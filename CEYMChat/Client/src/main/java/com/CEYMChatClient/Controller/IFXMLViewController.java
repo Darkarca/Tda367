@@ -1,4 +1,4 @@
-package com.CEYMChatClient.View;
+package com.CEYMChatClient.Controller;
 
 import javafx.scene.layout.AnchorPane;
 

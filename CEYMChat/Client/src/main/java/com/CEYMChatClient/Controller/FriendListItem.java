@@ -1,4 +1,4 @@
-package com.CEYMChatClient.View;
+package com.CEYMChatClient.Controller;
 
 import com.CEYMChatLib.UserDisplayInfo;
 import javafx.fxml.FXML;

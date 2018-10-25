@@ -1,7 +1,5 @@
-package com.CEYMChatClient.View;
+package com.CEYMChatClient.Controller;
 
-import com.CEYMChatClient.Controller.ClientController;
-import com.CEYMChatClient.Controller.IController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
