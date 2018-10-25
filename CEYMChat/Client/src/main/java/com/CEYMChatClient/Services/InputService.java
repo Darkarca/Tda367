@@ -21,7 +21,7 @@ public class InputService implements IInput {
     private Message messageIn;
     private Message lastMsg;
     private List<UserDisplayInfo> comingFriendsList = new ArrayList();
-    private IController controller;
+    private IClientController controller;
     private boolean running = true;
 
     /**
@@ -29,7 +29,7 @@ public class InputService implements IInput {
      * @param model the client model
      * @param controller the controller
      */
-    public InputService(ClientModel model, IController controller)
+    public InputService(ClientModel model, IClientController controller)
     {
         this.model = model;
         this.controller = controller;
