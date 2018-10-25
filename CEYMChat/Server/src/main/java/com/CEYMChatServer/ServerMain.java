@@ -23,15 +23,15 @@ public class ServerMain{
         String port;
         Scanner scanner = new Scanner(System.in);
         port = scanner.nextLine();
+        model = new ServerModel();
         if ("".equals(port)) {
-            model = new ServerModel();
+            socketHandler = new SocketHandler(model);
             System.out.println("Default port used");
         } else {
             int portInt = Integer.parseInt(port);
-            model = new ServerModel(portInt);
+            socketHandler = new SocketHandler(model, portInt);
             System.out.println("Server hosted with port " + port);
         }
-        socketHandler = new SocketHandler(model);
         main.startHandler();
         System.out.println("To view commands, type '-commands'");
         System.out.println("To stop the server, type '-quit'");
@@ -64,7 +64,7 @@ public class ServerMain{
             }
             if (input.equals("-restart")) {
                 System.out.println("Restart the server");
-                model.closeSocket();
+                socketHandler.closeSocket();
                 try {
                     Thread.sleep(2000);
                 } catch (InterruptedException e) {

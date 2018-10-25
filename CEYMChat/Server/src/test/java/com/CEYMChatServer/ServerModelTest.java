@@ -28,8 +28,7 @@ public class ServerModelTest {
         testModel.performCommand(new Command(CommandName.DISCONNECT, testModel.getUserList().get(0).getUsername()),testModel.getUserList().get(0).getUsername());
         assertEquals("User successfully disconnected",0,testModel.getUserList().size());
         socket.close();
-        testModel.getServerSocket().close();
-    }
+        testHandler.closeSocket();    }
 
     @Test
     public void addUser() throws IOException {
@@ -37,7 +36,6 @@ public class ServerModelTest {
         User testUser = new User();
         testModel.addUser(testUser);
         assertEquals("Correct user added to userlist",testModel.getUserList().get(0), testUser);
-        testModel.getServerSocket().close();
     }
 
     @Test
@@ -52,17 +50,16 @@ public class ServerModelTest {
         Message testMessage = MessageFactory.createStringMessage("Hello world!", "testUser", "testUser");
         testModel.sendMessage(testMessage,"testUser");
         assertEquals("Message on outstream match expected value",testMessage,testModel.getUserByUsername("testUser").getWriter().getOutMessage());
-        testModel.getServerSocket().close();
+        testHandler.closeSocket();
     }
 
     @Test
-    public void findUserByUsername() throws IOException {
+    public void findUserByUsername() throws IOException, InterruptedException {
         testModel = new ServerModel();
         User testUser = new User();
         testUser.setUsername("testUser");
         testModel.addUser(testUser);
-        assertEquals("Retrieved user from list match expected value",testUser, testModel.getUserByUsername(testUser.getUsername()));
-        testModel.getServerSocket().close();
+        assertEquals("Retrieved user from list match expected value", testUser, testModel.getUserByUsername(testUser.getUsername()));
     }
 
     @Test
@@ -76,7 +73,7 @@ public class ServerModelTest {
         testModel.getUserList().get(0).setUsername("testUser");
         testModel.updateUserLists();
         assertEquals("A new userlist has been put on the ooutstream","ArrayList", testModel.getUserList().get(0).getWriter().getOutMessage().getType().getSimpleName());
-        testModel.getServerSocket().close();
+        testHandler.closeSocket();
     }
 
     @Test
@@ -91,6 +88,6 @@ public class ServerModelTest {
         File toSend = new File("pom.xml");
         testModel.sendFile(toSend.getName(),MessageFactory.createFileMessage(new MessageFile(toSend),testModel.getUserList().get(0).getUsername(),testModel.getUserList().get(0).getUsername()));
         assertEquals("MessageFile to be sent matches expected value",toSend,((MessageFile)(testModel.getUserList().get(0).getWriter().getOutMessage().getData())).getFile());
-        testModel.getServerSocket().close();
+        testHandler.closeSocket();
     }
 }

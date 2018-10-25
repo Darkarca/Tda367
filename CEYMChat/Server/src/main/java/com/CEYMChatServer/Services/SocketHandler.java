@@ -15,10 +15,25 @@ public class SocketHandler{
     private ServerSocket serverSocket;
     private ServerModel model;
     private List<IReader> readers;
+    private int port = 9000;
     boolean running = true;
+    public SocketHandler(ServerModel model, int port){
+        this.model = model;
+        this.port = port;
+        try {
+            this.serverSocket = new ServerSocket(port);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        readers = new ArrayList<>();
+    }
     public SocketHandler(ServerModel model){
         this.model = model;
-        this.serverSocket = model.getServerSocket();
+        try {
+            this.serverSocket = new ServerSocket(port);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         readers = new ArrayList<>();
     }
 
@@ -57,5 +72,12 @@ public class SocketHandler{
 
     public void stop() {
         running = false;
+    }
+    public void closeSocket() {
+        try {
+            serverSocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

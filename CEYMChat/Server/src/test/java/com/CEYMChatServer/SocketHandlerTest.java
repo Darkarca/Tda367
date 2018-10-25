@@ -19,8 +19,7 @@ public class SocketHandlerTest {
         int expected = Thread.activeCount()+1;
         testHandler.start();
         assertEquals("A new thread has been started",expected,Thread.activeCount());
-        testModel.getServerSocket().close();
-    }
+        testHandler.closeSocket();    }
 
     @Test
     public void connectSocket() throws IOException, InterruptedException {
@@ -31,6 +30,5 @@ public class SocketHandlerTest {
         testHandler.start();
         Thread.sleep(2000);
         assertEquals("User added to userlist in model",1, testModel.getUserList().size());
-        testModel.getServerSocket().close();
-    }
+        testHandler.closeSocket();    }
 }
