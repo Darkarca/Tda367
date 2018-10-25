@@ -1,6 +1,5 @@
 package com.CEYMChatClient.Model;
 
-import com.CEYMChatClient.Controller.FriendListItem;
 import com.CEYMChatLib.*;
 import java.io.*;
 import java.util.ArrayList;
@@ -18,7 +17,7 @@ public class ClientModel implements IObserver{
     private File selectedFile;
     private String serverIP;
     private List<String> mutedFriends = new ArrayList<>();
-    private List<FriendListItem> blockedFriends = new ArrayList<>();
+    private List<UserDisplayInfo> blockedFriends = new ArrayList<>();
     private List<UserDisplayInfo> friendList = new ArrayList<>();
 
     /** Getters, setters and adders **/
@@ -39,7 +38,7 @@ public class ClientModel implements IObserver{
             friendList.add(uInfo);
         }
     }
-    public void addBlockedFriend(FriendListItem item) {
+    public void addBlockedFriend(UserDisplayInfo item) {
         blockedFriends.add(item);
     }
     public void addMuted(String friendUsername) {
@@ -67,9 +66,9 @@ public class ClientModel implements IObserver{
         }
         return false;
     }
-    public boolean isBlocked(FriendListItem friendListItem) {
-        for (FriendListItem blocked : getBlockedFriends()) {
-            if (blocked.getFriendUsername().getText().equals(friendListItem.getFriendUsername().getText())) {
+    public boolean isBlocked(UserDisplayInfo uInfo) {
+        for (UserDisplayInfo blocked : getBlockedFriends()) {
+            if (blocked.getUsername().equals(uInfo.getUsername())) {
                 return true;
             }
         }
@@ -87,7 +86,7 @@ public class ClientModel implements IObserver{
     public List<UserDisplayInfo> getFriendList() {
         return friendList;
     }
-    public List<FriendListItem> getBlockedFriends() {
+    public List<UserDisplayInfo> getBlockedFriends() {
         return this.blockedFriends;
     }
     public List<String> getMutedFriends() {

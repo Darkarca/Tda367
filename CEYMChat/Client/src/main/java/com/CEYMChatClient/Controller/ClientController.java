@@ -203,7 +203,7 @@ public class ClientController implements IClientController, IObservable {
         createFriendListItemList(model.getUserList());
         friendsFlowPane.getChildren().clear();
         for (FriendListItem friendListItem : friendItemList) {
-            if (!model.isBlocked(friendListItem)) {
+            if (!model.isBlocked(friendListItem.getUInfo())) {
                 friendsFlowPane.getChildren().add(friendListItem.getPane());
             }
         }
@@ -248,7 +248,7 @@ public class ClientController implements IClientController, IObservable {
             item.getPane().setStyle("-fx-background-color: white");
             });
         remove.setOnAction(event -> {
-            model.addBlockedFriend(item);
+            model.addBlockedFriend(item.getUInfo());
             item.getPane().setVisible(false);
         });
         item.getPane().setOnContextMenuRequested(event -> contextMenu.show(item.getPane(), event.getScreenX(), event.getScreenY()));
