@@ -9,6 +9,7 @@ public interface IInput {
      */
     void connectToServer();
 
-    void stop();
+
+    void disconnect();
 }
 

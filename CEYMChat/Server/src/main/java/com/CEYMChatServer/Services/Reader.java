@@ -52,10 +52,11 @@ public class Reader implements Runnable, IReader {
     }
     @Override
     public void run() {
+        Message inMessage;
         while (running) {
+            checkConnectionIsLive();
             try {
-                checkConnectionIsLive();
-                Message inMessage = (Message) inputStream.readObject();         // Constantly check the inputStream and casts its object to a message
+                inMessage = (Message) inputStream.readObject();         // Constantly check the inputStream and casts its object to a message
                 MessageType msgType = MessageType.valueOf(inMessage.getType().getSimpleName().toUpperCase());
                 switch (msgType) {
                     case MESSAGEFILE: {                                        // A a message containing a FILE is received and redistributed, the FILE will be corrupt so it needs to be received via a separate inputStream.
@@ -76,15 +77,20 @@ public class Reader implements Runnable, IReader {
                         break;
                     }
                     default:
-                        for (IObserver observer: observerList) {
-                            observer.update(inMessage);
-                        }
+                        for (IObserver observer: observerList) {observer.update(inMessage);}
                 }
-            } catch (IOException | ClassNotFoundException e) {
+            }
+            catch(EOFException e){ //This exception will occur if a socket has been unexpectedly closed on client-side.
+                stop();
+                break;
+            }
+            catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
+
         }
     }
+
 
     @Override
     public void register(IObserver observer) {

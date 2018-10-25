@@ -81,7 +81,7 @@ public class InputService implements IInput {
 
     private void checkConnectionIsLive(){
         if(!socket.isConnected()){
-            stop();
+            disconnect();
             System.out.println("DISCONNECTED FROM SERVER");
             model.connectionEnded();
         }
@@ -159,14 +159,17 @@ public class InputService implements IInput {
     /**
      * Safely stops all connections and stops the Thread
      */
-    public void stop(){
+    @Override
+    public void disconnect(){
         running = false;
         try {
             messageInStream.close();
+            socket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
 
     /**

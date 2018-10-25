@@ -55,7 +55,7 @@ public class ClientMain extends Application {
                 model.saveMessages();
                 outService.sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.DISCONNECT, model.getUsername()), model.getUsername()));
                 outService.disconnect();
-                inService.stop();
+                inService.disconnect();
             } catch (IOException e) {
                 e.printStackTrace();
             }
