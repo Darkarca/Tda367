@@ -60,13 +60,16 @@ public class Reader implements Runnable, IReader {
                 inMessage = (Message) inputStream.readObject();         // Constantly check the inputStream and casts its object to a message
                 MessageType msgType = MessageType.valueOf(inMessage.getType().getSimpleName().toUpperCase());
                 switch (msgType) {
-                    case MESSAGEFILE: {                                        // A a message containing a FILE is received and redistributed, the FILE will be corrupt so it needs to be received via a separate inputStream.
+                    case MESSAGEFILE: {
+                        byte [] receivedFileArray  = new byte [((MessageFile)inMessage.getData()).getByteArray().length];
                         InputStream inputStream = socket.getInputStream();
-                        FileOutputStream fileOut = new FileOutputStream("Server/messages/" + ((MessageFile)inMessage.getData()).getFileName());
-                        BufferedOutputStream bufferedOut = new BufferedOutputStream(fileOut);
-                        int bytesRead = inputStream.read(((MessageFile)(inMessage.getData())).getByteArray(),0,(((MessageFile)(inMessage.getData())).getByteArray().length));
+                        FileOutputStream outStream = new FileOutputStream("Server/messages/" + ((MessageFile)inMessage.getData()).getFileName());
+                        BufferedOutputStream bufferedOutStream = new BufferedOutputStream(outStream);
+                        int bytesRead = inputStream.read(receivedFileArray,0,receivedFileArray.length);
                         int current = bytesRead;
-                            bufferedOut.write(((MessageFile)inMessage.getData()).getByteArray(), 0 , current);
+                            bytesRead = inputStream.read(receivedFileArray, current, (receivedFileArray.length-current));
+                        bufferedOutStream.write(receivedFileArray, 0 , current);
+                        bufferedOutStream.flush();
                         try {
                             Thread.sleep(1000);
                         } catch (InterruptedException e) {

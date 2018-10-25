@@ -179,7 +179,7 @@ public class ClientController implements IClientController, IObserver {
      */
     private void createFriendListItemList(List<UserDisplayInfo> friendList) throws IOException {
         for (UserDisplayInfo uInfo : friendList) {
-            if (!uInfo.getUsername().equals(model.getUsername())) {
+            if (uInfo.getUsername() != null && !uInfo.getUsername().equals(model.getUsername())) {
                 FriendListItem userItem = new FriendListItem(uInfo);
                 if (uInfo.getIsFriend()) {
                     userItem.setFriend();
