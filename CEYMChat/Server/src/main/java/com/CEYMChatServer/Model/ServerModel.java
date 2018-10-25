@@ -2,7 +2,6 @@ package com.CEYMChatServer.Model;
 
 import com.CEYMChatLib.*;
 import java.io.*;
-import java.net.ServerSocket;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,17 +27,17 @@ public class  ServerModel {
     public void performCommand(Command command, String sender) {
         switch(command.getCommandName()){
             case SET_USER: {
-               setUser(command);
+                setUser(command);
             }
-                break;
+            break;
             case REFRESH_FRIENDLIST: {
                 refreshFriendList(command, sender);
             }
-                break;
+            break;
             case DISCONNECT: {
                 disconnect(sender);
             }
-                break;
+            break;
             case ADD_FRIEND:
                 addFriend(getUserByUsername(sender),getUserByUsername(command.getCommandData()));
                 break;
@@ -72,8 +71,8 @@ public class  ServerModel {
      */
     public void refreshFriendList(Command command, String sender){
         User user = getUserByUsername(sender);
-        user.syncFriends(sendUserInfo());
-        user.sendMessage(user.checkFriends(sendUserInfo()));
+        user.syncFriends(getUserInfoMessage());
+        user.sendMessage(user.checkFriends(getUserInfoMessage()));
         System.out.println("COMMAND performed: 'refreshFriendList '" + command.getCommandData());
     }
 
@@ -90,7 +89,7 @@ public class  ServerModel {
 
 
     /** Sends user information via UserDisplayInfo objects to the recipient. */
-    public Message sendUserInfo(){
+    public Message getUserInfoMessage(){
         List<UserDisplayInfo> list = new ArrayList<UserDisplayInfo>();
         for (User user:userList) {
             UserDisplayInfo uInfo = new UserDisplayInfo();
@@ -110,7 +109,7 @@ public class  ServerModel {
     /** Updates user lists */
     public void updateUserLists(){
         for (User u:userList) {
-            u.sendMessage(u.checkFriends(sendUserInfo()));
+            u.sendMessage(u.checkFriends(getUserInfoMessage()));
         }
         System.out.println("Userlists updated!");
     }
@@ -165,4 +164,3 @@ public class  ServerModel {
 
 
 }
-
