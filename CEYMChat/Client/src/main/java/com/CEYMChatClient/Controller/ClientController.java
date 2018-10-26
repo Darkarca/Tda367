@@ -116,7 +116,6 @@ public class ClientController implements IClientController, IObserver {
         chatBox.setText("");
         Message message = MessageFactory.createStringMessage(toSend, model.getUInfo(), currentChatName);
         model.addMessage(message);
-        model.addSentMessage(message);
         createAddSendMessagePane("Me: " + toSend );
     }
 
@@ -162,7 +161,7 @@ public class ClientController implements IClientController, IObserver {
         for (FriendListItem fL : friendItemList) {              // Adds all newly selected friends
             model.addFriends(fL.getUInfo());
         }
-        model.addMessage(MessageFactory.createFriendInfoList(model.getFriendList(), model.getUInfo(), model.getUsername())); // Notifies the Server about any changes have been made to the friends list
+        model.addMessage(MessageFactory.createUsersDisplayInfoMessages(model.getFriendList(), model.getUInfo(), model.getUsername())); // Notifies the Server about any changes have been made to the friends list
         }
 
     /**

@@ -136,7 +136,6 @@ public class InputService implements IInput {
      * handling the recieved STRING
      */
     private void receiveString() throws IOException {
-        model.addReceivedMessage(messageIn);    // The Thread updates the models state
         lastMsg = messageIn;
         notifyModel(messageIn);
     }
@@ -190,6 +189,7 @@ public class InputService implements IInput {
      */
     private void notifyModel(Message message) throws IOException {
         model.update(message);
+        model.addReceivedMessage(message);
     }
 
     /**

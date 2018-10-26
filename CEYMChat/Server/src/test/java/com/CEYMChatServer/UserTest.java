@@ -19,7 +19,7 @@ public class UserTest {
         testList.add(testUInfo);
         User testUser = new User();
         UserDisplayInfo testUserUInfo = new UserDisplayInfo();
-        Message<List> testMessage = MessageFactory.createFriendInfoList(testList,testUser.getUInfo(),"testUser");
+        Message<List> testMessage = MessageFactory.createUsersDisplayInfoMessages(testList,testUser.getUInfo(),"testUser");
         testUserUInfo.setUsername("testUser");
         testUser.setuInfo(testUserUInfo);
         testUser.syncFriends(testMessage);
@@ -37,7 +37,7 @@ public class UserTest {
         //testList.add(willNotAddInfo);
         User testUser = new User();
         testUser.setuInfo(new UserDisplayInfo());
-        Message<List> testMessage = MessageFactory.createFriendInfoList(testList, testUser.getUInfo(), "testUser");
+        Message<List> testMessage = MessageFactory.createUsersDisplayInfoMessages(testList, testUser.getUInfo(), "testUser");
         testUser.getUInfo().setUsername("testUser");
         testUser.addFriends(shouldAddInfo);
         assertEquals("User sent in message found in friendslist",testUInfo,((List<UserDisplayInfo>)testUser.checkFriends(testMessage).getData()).get(0));

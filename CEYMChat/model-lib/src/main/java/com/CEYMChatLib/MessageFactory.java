@@ -1,5 +1,4 @@
 package com.CEYMChatLib;
-import javafx.scene.image.Image;
 import java.io.File;
 import java.util.List;
 /**
@@ -13,10 +12,6 @@ public abstract class MessageFactory {
         return new Message(data, sender, receiver);
     }
 
-    public static Message<Image> createImageMessage(Image data, UserDisplayInfo sender, String receiver){
-        return new Message(data, sender, receiver);
-    }
-
     public static Message<File> createFileMessage(MessageFile data, UserDisplayInfo sender, String receiver) {
         return new Message(data, sender, receiver);
     }
@@ -25,7 +20,7 @@ public abstract class MessageFactory {
         return new Message(data, sender);
     }
 
-    public static Message<List> createFriendInfoList (List<UserDisplayInfo> data,UserDisplayInfo sender, String receiver){
+    public static Message<List> createUsersDisplayInfoMessages(List<UserDisplayInfo> data,UserDisplayInfo sender, String receiver){
         return new Message(data, sender, receiver);
     }
 }
