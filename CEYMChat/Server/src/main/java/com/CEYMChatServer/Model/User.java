@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class User {
 
-    private String username;
+    private UserDisplayInfo uInfo;
     private IWriter writer;
     private Socket socket;
     private List<UserDisplayInfo> friendsInfo = new ArrayList();
@@ -23,12 +23,12 @@ public class User {
 
 
     /** Getters and setters */
-    public void setUsername(String username) {
-        this.username = username;
+    public void setuInfo(UserDisplayInfo uInfo) {
+        this.uInfo = uInfo;
     }
 
-    public String getUsername() {
-        return username;
+    public UserDisplayInfo getUInfo() {
+        return uInfo;
     }
 
     public Socket getSocket() {
@@ -124,6 +124,6 @@ public class User {
 
     public void addFriend(User toBeAdded) {
         friends.add(toBeAdded);
-        System.out.println("Friend added" + toBeAdded.getUsername());
+        System.out.println("Friend added" + toBeAdded.getUInfo().getUsername());
     }
 }

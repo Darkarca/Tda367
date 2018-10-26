@@ -19,7 +19,9 @@ public class UserTest {
         testList.add(testUInfo);
         Message<List> testMessage = MessageFactory.createFriendInfoList(testList,"testUser","testUser");
         User testUser = new User();
-        testUser.setUsername("testUser");
+        UserDisplayInfo testUserUInfo = new UserDisplayInfo();
+        testUserUInfo.setUsername("testuser");
+        testUser.setuInfo(testUserUInfo);
         testUser.syncFriends(testMessage);
         assertEquals("User added to friendslist","true",testUser.getFriendsInfo().get(0).getUsername());
     }
@@ -35,7 +37,8 @@ public class UserTest {
         //testList.add(willNotAddInfo);
         Message<List> testMessage = MessageFactory.createFriendInfoList(testList, "testUser", "testUser");
         User testUser = new User();
-        testUser.setUsername("testUser");
+        testUser.setuInfo(new UserDisplayInfo());
+        testUser.getUInfo().setUsername("testUser");
         testUser.addFriends(shouldAddInfo);
         assertEquals("User sent in message found in friendslist",testUInfo,((List<UserDisplayInfo>)testUser.checkFriends(testMessage).getData()).get(0));
         assertEquals("User added manually added successfully",shouldAddInfo,((List<UserDisplayInfo>)testUser.checkFriends(testMessage).getData()).get(1));

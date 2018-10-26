@@ -63,7 +63,9 @@ public class ServerModel implements IObserver {
      * identified uniformly between the client and server
      */
     public void setUser(Command command) {
-        userList.get(userList.size() - 1).setUsername(command.getCommandData());
+        UserDisplayInfo uInfo = new UserDisplayInfo();
+        uInfo.setUsername(command.getCommandData());
+        userList.get(userList.size() - 1).setuInfo(uInfo);
         System.out.println("COMMAND performed: 'setUser'" + command.getCommandData());
         updateUserLists();
     }
@@ -103,8 +105,7 @@ public class ServerModel implements IObserver {
     public Message getUserInfoMessage() {
         List<UserDisplayInfo> list = new ArrayList<UserDisplayInfo>();
         for (User user : userList) {
-            UserDisplayInfo uInfo = new UserDisplayInfo();
-            uInfo.setUsername(user.getUsername());
+            UserDisplayInfo uInfo = user.getUInfo();
             uInfo.setInetAddress(user.getSocket().getInetAddress());
             if (user.isOnline()) {
                 uInfo.setOnlineIndicator(true);
@@ -152,7 +153,7 @@ public class ServerModel implements IObserver {
      */
     public User getUserByUsername(String username) {
         for (User u : userList) {
-            if (u.getUsername().equals(username)) {
+            if (u.getUInfo().getUsername().equals(username)) {
                 return u;
             }
         }

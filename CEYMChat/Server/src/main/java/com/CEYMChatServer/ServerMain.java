@@ -58,7 +58,7 @@ public class ServerMain{
             }
             if(input.equals("-users")){
                 for (User u:model.getUserList()) {
-                    System.out.println(u.getUsername());
+                    System.out.println(u.getUInfo().getUsername());
                 }
             }
             if (input.equals("-restart")) {
