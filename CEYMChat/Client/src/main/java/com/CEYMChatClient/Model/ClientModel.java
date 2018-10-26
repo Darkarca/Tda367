@@ -10,14 +10,15 @@ import java.util.List;
 public class ClientModel implements IObserveable {
 
     private List<IObserver> observerList = new ArrayList<>();
-    private String username;
+    private List<UserDisplayInfo> blockedFriends = new ArrayList<>();
+    private List<UserDisplayInfo> friendList = new ArrayList<>();
     private List<UserDisplayInfo> userList = new ArrayList<>();
     private List<Message> receivedMessages = new ArrayList<>();
     private List<Message> sentMessages = new ArrayList<>();
-    private File selectedFile;
     private List<String> mutedFriends = new ArrayList<>();
-    private List<UserDisplayInfo> blockedFriends = new ArrayList<>();
-    private List<UserDisplayInfo> friendList = new ArrayList<>();
+    private String username;
+    private UserDisplayInfo uInfo;
+    private File selectedFile;
 
     /** Getters, setters and adders **/
     public void setUserList(List<UserDisplayInfo> userList) {
@@ -194,7 +195,7 @@ public class ClientModel implements IObserveable {
      * Tells observers to update when a new message been received.
      * @param message
      */
-    public void displayNewMessage(Message message) {
+    public void update(Message message) {
         for (IObserver observer: observerList) {
             observer.update(message);
         }
@@ -216,10 +217,10 @@ public class ClientModel implements IObserveable {
     }
 
     public void addMessage(Message message) {
-        displayNewMessage(message);
+        update(message);
     }
 
     public void login() {
-        displayNewMessage(MessageFactory.createCommandMessage(new Command(CommandName.SET_USER,username),username));
+        update(MessageFactory.createCommandMessage(new Command(CommandName.SET_USER,username),username));
     }
 }

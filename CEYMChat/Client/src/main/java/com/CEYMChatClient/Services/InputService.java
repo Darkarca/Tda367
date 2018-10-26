@@ -1,6 +1,5 @@
 package com.CEYMChatClient.Services;
 
-import com.CEYMChatClient.Controller.IClientController;
 import com.CEYMChatClient.Model.ClientModel;
 import com.CEYMChatLib.*;
 import javafx.application.Platform;
@@ -125,7 +124,7 @@ public class InputService implements IInput {
         Platform.runLater(
                 () -> {
                     try {
-                        displayNewMessage(messageIn);
+                        notifyModel(messageIn);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -139,7 +138,7 @@ public class InputService implements IInput {
     private void receiveString() throws IOException {
         model.addReceivedMessage(messageIn);    // The Thread updates the models state
         lastMsg = messageIn;
-        displayNewMessage(messageIn);
+        notifyModel(messageIn);
     }
 
     /**
@@ -189,8 +188,8 @@ public class InputService implements IInput {
      * @param message the message to display
      * @throws IOException
      */
-    private void displayNewMessage(Message message) throws IOException {
-        model.displayNewMessage(message);
+    private void notifyModel(Message message) throws IOException {
+        model.update(message);
     }
 
     /**
