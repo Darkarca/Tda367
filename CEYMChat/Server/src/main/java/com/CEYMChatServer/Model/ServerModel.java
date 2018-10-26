@@ -112,7 +112,7 @@ public class ServerModel implements IObserver {
             }
             list.add(uInfo);
         }
-        return MessageFactory.createFriendInfoList(list, null, null);
+        return MessageFactory.createUsersDisplayInfoMessages(list, null, null);
     }
 
 

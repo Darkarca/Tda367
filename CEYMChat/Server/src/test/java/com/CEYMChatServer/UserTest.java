@@ -17,7 +17,7 @@ public class UserTest {
         UserDisplayInfo testUInfo = new UserDisplayInfo();
         testUInfo.setUsername("true");
         testList.add(testUInfo);
-        Message<List> testMessage = MessageFactory.createFriendInfoList(testList,"testUser","testUser");
+        Message<List> testMessage = MessageFactory.createUsersDisplayInfoMessages(testList,"testUser","testUser");
         User testUser = new User();
         UserDisplayInfo testUserUInfo = new UserDisplayInfo();
         testUserUInfo.setUsername("testuser");
@@ -35,7 +35,7 @@ public class UserTest {
         shouldAddInfo.setUsername("false");
         testList.add(testUInfo);
         //testList.add(willNotAddInfo);
-        Message<List> testMessage = MessageFactory.createFriendInfoList(testList, "testUser", "testUser");
+        Message<List> testMessage = MessageFactory.createUsersDisplayInfoMessages(testList, "testUser", "testUser");
         User testUser = new User();
         testUser.setuInfo(new UserDisplayInfo());
         testUser.getUInfo().setUsername("testUser");

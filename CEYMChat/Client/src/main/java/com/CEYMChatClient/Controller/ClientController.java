@@ -158,7 +158,7 @@ public class ClientController implements IClientController, IObserver {
         for (FriendListItem fL : friendItemList) {              // Adds all newly selected friends
             model.addFriends(fL.getUInfo());
         }
-        model.addMessage(MessageFactory.createFriendInfoList(model.getFriendList(), model.getUsername(), model.getUsername())); // Notifies the Server about any changes have been made to the friends list
+        model.addMessage(MessageFactory.createUsersDisplayInfoMessages(model.getFriendList(), model.getUsername(), model.getUsername())); // Notifies the Server about any changes have been made to the friends list
         }
 
     /**

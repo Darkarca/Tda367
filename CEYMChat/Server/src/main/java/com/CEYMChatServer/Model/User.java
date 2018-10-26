@@ -88,7 +88,7 @@ public class User {
                 listToSend.add(friends);
             }
         }
-        return MessageFactory.createFriendInfoList(listToSend, message.getSender(), message.getReceiver());
+        return MessageFactory.createUsersDisplayInfoMessages(listToSend, message.getSender(), message.getReceiver());
     }
 
 

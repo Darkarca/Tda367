@@ -21,7 +21,7 @@ public abstract class MessageFactory {
         return new Message(data, user);
     }
 
-    public static Message<List> createFriendInfoList (List<UserDisplayInfo> data,String user, String receiver){
+    public static Message<List> createUsersDisplayInfoMessages(List<UserDisplayInfo> data, String user, String receiver){
         return new Message(data, user, receiver);
     }
 }
