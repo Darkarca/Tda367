@@ -113,7 +113,6 @@ public class ClientController implements IClientController, IObserver {
         chatBox.setText("");
         Message message = MessageFactory.createStringMessage(toSend, model.getUsername(), currentChatName);
         model.addMessage(message);
-        model.addSentMessage(message);
         createAddSendMessagePane("Me: " + toSend );
     }
 

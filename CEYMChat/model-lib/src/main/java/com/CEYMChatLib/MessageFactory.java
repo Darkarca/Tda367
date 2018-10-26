@@ -13,10 +13,6 @@ public abstract class MessageFactory {
         return new Message(data, user, receiver);
     }
 
-    public static Message<Image> createImageMessage(Image data, String user, String receiver){
-        return new Message(data, user, receiver);
-    }
-
     public static Message<File> createFileMessage(MessageFile data, String user, String receiver) {
         return new Message(data, user, receiver);
     }
