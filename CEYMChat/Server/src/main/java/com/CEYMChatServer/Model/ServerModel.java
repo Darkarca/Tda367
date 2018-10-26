@@ -28,7 +28,7 @@ public class ServerModel implements IObserver {
      * @param command COMMAND to be executed
      * @param sender  User that sent the command
      */
-    public void performCommand(Command command, UserDisplayInfo sender) {
+    public void performCommand(Command command, UserInfo sender) {
         switch (command.getCommandName()) {
             case SET_USER: {
                 setUser(sender);
@@ -62,7 +62,7 @@ public class ServerModel implements IObserver {
      * Sets the username of a user so that it can be
      * identified uniformly between the client and server
      */
-    public void setUser(UserDisplayInfo sender) {
+    public void setUser(UserInfo sender) {
         userList.get(userList.size() - 1).setuInfo(sender);
         System.out.println("COMMAND performed: 'setUser'" + userList.get(userList.size()-1).getUInfo().getUsername());
         updateUserLists();
@@ -76,7 +76,7 @@ public class ServerModel implements IObserver {
      * Sends an update active userlist to all active clients,
      * also merges the list with each users individual friendslist
      */
-    public void refreshFriendList(Command command, UserDisplayInfo sender) {
+    public void refreshFriendList(Command command, UserInfo sender) {
         User user = getUserByUsername(sender.getUsername());
         user.syncFriends(getUserInfoMessage());
         user.sendMessage(user.checkFriends(getUserInfoMessage()));
@@ -88,7 +88,7 @@ public class ServerModel implements IObserver {
      * Disconnects the user by removing it from the Servers
      * userlist so that the server won't point to a null outputStream
      */
-    public void disconnect(UserDisplayInfo sender) {
+    public void disconnect(UserInfo sender) {
         User user = getUserByUsername(sender.getUsername());
         user.setOnline(false);
         userList.remove(user);
@@ -98,12 +98,12 @@ public class ServerModel implements IObserver {
 
 
     /**
-     * Sends user information via UserDisplayInfo objects to the recipient.
+     * Sends user information via UserInfo objects to the recipient.
      */
     public Message getUserInfoMessage() {
-        List<UserDisplayInfo> list = new ArrayList<UserDisplayInfo>();
+        List<UserInfo> list = new ArrayList<UserInfo>();
         for (User user : userList) {
-            UserDisplayInfo uInfo = user.getUInfo();
+            UserInfo uInfo = user.getUInfo();
             uInfo.setInetAddress(user.getSocket().getInetAddress());
             if (user.isOnline()) {
                 uInfo.setOnlineIndicator(true);

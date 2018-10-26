@@ -20,7 +20,7 @@ public class ServerModelTest {
         Thread.sleep(2000);
         testHandler.start();
         Thread.sleep(2000);
-        testModel.getUserList().get(0).setuInfo(new UserDisplayInfo());
+        testModel.getUserList().get(0).setuInfo(new UserInfo());
         testModel.performCommand(new Command(CommandName.SET_USER, "true"), testModel.getUserList().get(0).getUInfo());
         assertEquals("Username correctly set for user",testModel.getUserList().get(0).getUInfo().getUsername(), "true");
         testModel.performCommand(new Command(CommandName.REFRESH_FRIENDLIST, testModel.getUserList().get(0).getUInfo().getUsername()),testModel.getUserList().get(0).getUInfo());
@@ -46,7 +46,7 @@ public class ServerModelTest {
         Thread.sleep(2000);
         testHandler.start();
         Thread.sleep(2000);
-        testModel.getUserList().get(0).setuInfo(new UserDisplayInfo());
+        testModel.getUserList().get(0).setuInfo(new UserInfo());
         testModel.getUserList().get(0).getUInfo().setUsername("testUser");
         Message testMessage = MessageFactory.createStringMessage("Hello world!", testModel.getUserList().get(0).getUInfo(), "testUser");
         testModel.sendMessage(testMessage,"testUser");
@@ -58,7 +58,7 @@ public class ServerModelTest {
     public void findUserByUsername() throws IOException, InterruptedException {
         testModel = new ServerModel();
         User testUser = new User();
-        testUser.setuInfo(new UserDisplayInfo());
+        testUser.setuInfo(new UserInfo());
         testUser.getUInfo().setUsername("testUser");
         testModel.addUser(testUser);
         assertEquals("Retrieved user from list match expected value", testUser, testModel.getUserByUsername(testUser.getUInfo().getUsername()));
@@ -72,7 +72,7 @@ public class ServerModelTest {
         Thread.sleep(2000);
         testHandler.start();
         Thread.sleep(2000);
-        testModel.getUserList().get(0).setuInfo(new UserDisplayInfo());
+        testModel.getUserList().get(0).setuInfo(new UserInfo());
         testModel.getUserList().get(0).getUInfo().setUsername("testUser");
         testModel.updateUserLists();
         assertEquals("A new userlist has been put on the ooutstream","ArrayList", testModel.getUserList().get(0).getWriter().getOutMessage().getType().getSimpleName());
@@ -87,7 +87,7 @@ public class ServerModelTest {
         Thread.sleep(2000);
         testHandler.start();
         Thread.sleep(2000);
-        testModel.getUserList().get(0).setuInfo(new UserDisplayInfo());
+        testModel.getUserList().get(0).setuInfo(new UserInfo());
         testModel.getUserList().get(0).getUInfo().setUsername("testUser");
         File toSend = new File("pom.xml");
         testModel.sendFile(toSend.getName(),MessageFactory.createFileMessage(new MessageFile(toSend),testModel.getUserList().get(0).getUInfo(),testModel.getUserList().get(0).getUInfo().getUsername()));

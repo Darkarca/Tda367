@@ -1,6 +1,6 @@
 package com.CEYMChatClient.Controller;
 
-import com.CEYMChatLib.UserDisplayInfo;
+import com.CEYMChatLib.UserInfo;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -17,7 +17,7 @@ import java.io.IOException;
  */
 public class FriendListItem implements IFXMLController {
 
-    private UserDisplayInfo uInfo = new UserDisplayInfo();
+    private UserInfo uInfo = new UserInfo();
 
     @FXML
     private AnchorPane friendPane;
@@ -35,15 +35,15 @@ public class FriendListItem implements IFXMLController {
         return friendUsername;
     }
     public AnchorPane getPane(){return friendPane; }
-    public void setUInfo(UserDisplayInfo uInfo){
+    public void setUInfo(UserInfo uInfo){
         this.uInfo = uInfo;
     }
-    public UserDisplayInfo getUInfo(){
+    public UserInfo getUInfo(){
         return uInfo;
     }
 
     /** Constructor creating the friendlistitem for the controller to show */
-    public FriendListItem(UserDisplayInfo uInfo) throws IOException {
+    public FriendListItem(UserInfo uInfo) throws IOException {
         load();
         this.friendUsername.setText(uInfo.getUsername());
         if(uInfo.getOnline()) {

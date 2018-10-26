@@ -2,7 +2,7 @@ package com.CEYMChatServer;
 
 import com.CEYMChatLib.Message;
 import com.CEYMChatLib.MessageFactory;
-import com.CEYMChatLib.UserDisplayInfo;
+import com.CEYMChatLib.UserInfo;
 import com.CEYMChatServer.Model.User;
 import org.junit.Test;
 import java.util.ArrayList;
@@ -13,12 +13,12 @@ public class UserTest {
 
     @Test
     public void syncFriends() {
-        List<UserDisplayInfo> testList = new ArrayList<>();
-        UserDisplayInfo testUInfo = new UserDisplayInfo();
+        List<UserInfo> testList = new ArrayList<>();
+        UserInfo testUInfo = new UserInfo();
         testUInfo.setUsername("true");
         testList.add(testUInfo);
         User testUser = new User();
-        UserDisplayInfo testUserUInfo = new UserDisplayInfo();
+        UserInfo testUserUInfo = new UserInfo();
         Message<List> testMessage = MessageFactory.createUsersDisplayInfoMessages(testList,testUser.getUInfo(),"testUser");
         testUserUInfo.setUsername("testUser");
         testUser.setuInfo(testUserUInfo);
@@ -28,21 +28,21 @@ public class UserTest {
 
     @Test
     public void checkFriends() {
-        List<UserDisplayInfo> testList = new ArrayList<>();
-        UserDisplayInfo testUInfo = new UserDisplayInfo();
-        UserDisplayInfo shouldAddInfo = new UserDisplayInfo();
+        List<UserInfo> testList = new ArrayList<>();
+        UserInfo testUInfo = new UserInfo();
+        UserInfo shouldAddInfo = new UserInfo();
         testUInfo.setUsername("true");
         shouldAddInfo.setUsername("false");
         testList.add(testUInfo);
         //testList.add(willNotAddInfo);
         User testUser = new User();
-        testUser.setuInfo(new UserDisplayInfo());
+        testUser.setuInfo(new UserInfo());
         Message<List> testMessage = MessageFactory.createUsersDisplayInfoMessages(testList, testUser.getUInfo(), "testUser");
         testUser.getUInfo().setUsername("testUser");
         testUser.addFriends(shouldAddInfo);
-        assertEquals("User sent in message found in friendslist",testUInfo,((List<UserDisplayInfo>)testUser.checkFriends(testMessage).getData()).get(0));
-        assertEquals("User added manually added successfully",shouldAddInfo,((List<UserDisplayInfo>)testUser.checkFriends(testMessage).getData()).get(1));
-        assertEquals("User already in list was not added",2,((List<UserDisplayInfo>)testUser.checkFriends(testMessage).getData()).size());
+        assertEquals("User sent in message found in friendslist",testUInfo,((List<UserInfo>)testUser.checkFriends(testMessage).getData()).get(0));
+        assertEquals("User added manually added successfully",shouldAddInfo,((List<UserInfo>)testUser.checkFriends(testMessage).getData()).get(1));
+        assertEquals("User already in list was not added",2,((List<UserInfo>)testUser.checkFriends(testMessage).getData()).size());
 
 
     }

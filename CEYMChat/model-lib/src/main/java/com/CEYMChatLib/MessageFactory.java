@@ -8,19 +8,19 @@ import java.util.List;
 public abstract class MessageFactory {
 
 
-    public static Message<String> createStringMessage(String data, UserDisplayInfo sender, String receiver){
+    public static Message<String> createStringMessage(String data, UserInfo sender, String receiver){
         return new Message(data, sender, receiver);
     }
 
-    public static Message<File> createFileMessage(MessageFile data, UserDisplayInfo sender, String receiver) {
+    public static Message<File> createFileMessage(MessageFile data, UserInfo sender, String receiver) {
         return new Message(data, sender, receiver);
     }
 
-    public static Message<Command> createCommandMessage(Command data, UserDisplayInfo sender){
+    public static Message<Command> createCommandMessage(Command data, UserInfo sender){
         return new Message(data, sender);
     }
 
-    public static Message<List> createUsersDisplayInfoMessages(List<UserDisplayInfo> data,UserDisplayInfo sender, String receiver){
+    public static Message<List> createUsersDisplayInfoMessages(List<UserInfo> data, UserInfo sender, String receiver){
         return new Message(data, sender, receiver);
     }
 }

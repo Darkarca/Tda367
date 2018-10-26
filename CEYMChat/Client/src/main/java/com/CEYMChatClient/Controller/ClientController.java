@@ -98,7 +98,7 @@ public class ClientController implements IClientController, IObserver {
     public void login(){
         appInit();
         model.setUsername(userNameTextField.getText());
-        UserDisplayInfo uInfo = new UserDisplayInfo();
+        UserInfo uInfo = new UserInfo();
         uInfo.setUsername(userNameTextField.getText());
         model.setUInfo(uInfo);
         model.setUsername(model.getUsername());
@@ -155,7 +155,7 @@ public class ClientController implements IClientController, IObserver {
      * @throws IOException
      */
     private void checkFriends() throws IOException {
-        for (UserDisplayInfo friendInfo : model.getFriendList()) {         // Removes friends that have been deselected
+        for (UserInfo friendInfo : model.getFriendList()) {         // Removes friends that have been deselected
             model.removeFriends(friendInfo);
         }
         for (FriendListItem fL : friendItemList) {              // Adds all newly selected friends
@@ -176,11 +176,11 @@ public class ClientController implements IClientController, IObserver {
 
     /**
      * Creates a list of users for the GUI to show
-     * @param friendList The list of UserDisplayInfo to be made into FriendListItems
+     * @param friendList The list of UserInfo to be made into FriendListItems
      * @throws IOException
      */
-    private void createFriendListItemList(List<UserDisplayInfo> friendList) throws IOException {
-        for (UserDisplayInfo uInfo : friendList) {
+    private void createFriendListItemList(List<UserInfo> friendList) throws IOException {
+        for (UserInfo uInfo : friendList) {
             if (uInfo.getUsername() != null && !uInfo.getUsername().equals(model.getUsername())) {
                 FriendListItem userItem = new FriendListItem(uInfo);
                 if (uInfo.getIsFriend()) {

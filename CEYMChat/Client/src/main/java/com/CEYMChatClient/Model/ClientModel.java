@@ -10,18 +10,18 @@ import java.util.List;
 public class ClientModel implements IObserveable {
 
     private List<IObserver> observerList = new ArrayList<>();
-    private List<UserDisplayInfo> blockedFriends = new ArrayList<>();
-    private List<UserDisplayInfo> friendList = new ArrayList<>();
-    private List<UserDisplayInfo> userList = new ArrayList<>();
+    private List<UserInfo> blockedFriends = new ArrayList<>();
+    private List<UserInfo> friendList = new ArrayList<>();
+    private List<UserInfo> userList = new ArrayList<>();
     private List<Message> receivedMessages = new ArrayList<>();
     private List<Message> sentMessages = new ArrayList<>();
-    private List<UserDisplayInfo> mutedFriends = new ArrayList<>();
+    private List<UserInfo> mutedFriends = new ArrayList<>();
     private String username;
-    private UserDisplayInfo uInfo;
+    private UserInfo uInfo;
     private File selectedFile;
 
     /** Getters, setters and adders **/
-    public void setUserList(List<UserDisplayInfo> userList) {
+    public void setUserList(List<UserInfo> userList) {
         this.userList = userList;
     }
     public void setUsername(String user){
@@ -30,15 +30,15 @@ public class ClientModel implements IObserveable {
     public void setSelectedFile(File selectedFile) {
         this.selectedFile = selectedFile;
     }
-    public void addFriends(UserDisplayInfo uInfo){
+    public void addFriends(UserInfo uInfo){
         if (uInfo.getIsFriend() && !friendList.contains(uInfo)){
             friendList.add(uInfo);
         }
     }
-    public void addBlockedFriend(UserDisplayInfo item) {
+    public void addBlockedFriend(UserInfo item) {
         blockedFriends.add(item);
     }
-    public void addMuted(UserDisplayInfo uInfo) {
+    public void addMuted(UserInfo uInfo) {
         mutedFriends.add(uInfo);
     }
     public void addSentMessage (Message message){
@@ -47,7 +47,7 @@ public class ClientModel implements IObserveable {
     public void addReceivedMessage(Message message){
         receivedMessages.add(message);
     }
-    public void removeFriends(UserDisplayInfo uInfo){
+    public void removeFriends(UserInfo uInfo){
         if(!uInfo.getIsFriend() && friendList.contains(uInfo)){
             friendList.remove(uInfo);
         }
@@ -55,32 +55,32 @@ public class ClientModel implements IObserveable {
     public void removeMuted(String text) {
         mutedFriends.remove(text);
     }
-    public boolean isMuted(UserDisplayInfo mutedUser) {
-        for (UserDisplayInfo uInfo : getMutedFriends()) {
+    public boolean isMuted(UserInfo mutedUser) {
+        for (UserInfo uInfo : getMutedFriends()) {
             if (uInfo.equals(mutedUser)){
                 return true;
             }
         }
         return false;
     }
-    public boolean isBlocked(UserDisplayInfo uInfo) {
-        for (UserDisplayInfo blocked : getBlockedFriends()) {
+    public boolean isBlocked(UserInfo uInfo) {
+        for (UserInfo blocked : getBlockedFriends()) {
             if (blocked.getUsername().equals(uInfo.getUsername())) {
                 return true;
             }
         }
         return false;
     }
-    public List<UserDisplayInfo> getUserList() {
+    public List<UserInfo> getUserList() {
         return userList;
     }
-    public List<UserDisplayInfo> getFriendList() {
+    public List<UserInfo> getFriendList() {
         return friendList;
     }
-    private List<UserDisplayInfo> getBlockedFriends() {
+    private List<UserInfo> getBlockedFriends() {
         return this.blockedFriends;
     }
-    private List<UserDisplayInfo> getMutedFriends() {
+    private List<UserInfo> getMutedFriends() {
         return this.mutedFriends;
     }
     public String getUsername(){
@@ -226,11 +226,11 @@ public class ClientModel implements IObserveable {
         update(MessageFactory.createCommandMessage(new Command(CommandName.SET_USER,username),uInfo));
     }
 
-    public UserDisplayInfo getUInfo() {
+    public UserInfo getUInfo() {
         return uInfo;
     }
 
-    public void setUInfo(UserDisplayInfo uInfo) {
+    public void setUInfo(UserInfo uInfo) {
     this.uInfo=uInfo;
     }
 }

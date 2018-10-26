@@ -4,7 +4,7 @@ import javafx.scene.image.ImageView;
 import java.io.Serializable;
 import java.net.InetAddress;
 /** A class containing information about a single user */
-public class UserDisplayInfo implements Serializable {
+public class UserInfo implements Serializable {
 
     private String username;
     private ImageView img;

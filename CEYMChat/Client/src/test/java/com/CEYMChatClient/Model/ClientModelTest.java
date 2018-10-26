@@ -2,7 +2,7 @@ package com.CEYMChatClient.Model;
 
 import com.CEYMChatLib.Message;
 import com.CEYMChatLib.MessageFactory;
-import com.CEYMChatLib.UserDisplayInfo;
+import com.CEYMChatLib.UserInfo;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import java.io.File;
@@ -22,8 +22,8 @@ public class ClientModelTest {
     /** creates a virtual saved messages */
     @BeforeClass
    static public void mockUpSavedMessages(){
-        UserDisplayInfo testUserInfo1 = new UserDisplayInfo();
-        UserDisplayInfo testUserInfo2 = new UserDisplayInfo();
+        UserInfo testUserInfo1 = new UserInfo();
+        UserInfo testUserInfo2 = new UserInfo();
         testUserInfo1.setUsername("test1");
         testUserInfo2.setUsername("test2");
         model.addReceivedMessage(MessageFactory.createStringMessage("Hello World",testUserInfo1,"test2"));

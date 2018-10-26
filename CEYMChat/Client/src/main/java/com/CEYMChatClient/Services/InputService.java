@@ -19,7 +19,7 @@ public class InputService implements IInput {
     private ClientModel model;
     private Message messageIn;
     private Message lastMsg;
-    private List<UserDisplayInfo> comingFriendsList = new ArrayList();
+    private List<UserInfo> comingFriendsList = new ArrayList();
     private int bytesRead = 0;
 
     private boolean running = true;

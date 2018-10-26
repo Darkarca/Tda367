@@ -43,8 +43,8 @@ public class MessageFactoryTest {
 
     @Test
     public void createFriendInfoList() {
-        List<UserDisplayInfo> friendInfoList = new ArrayList<>();
-        friendInfoList.add(new UserDisplayInfo());
+        List<UserInfo> friendInfoList = new ArrayList<>();
+        friendInfoList.add(new UserInfo());
         Message expected =  new Message<>(friendInfoList,"test2","test3");
         Message actual = MessageFactory.createUsersDisplayInfoMessages(friendInfoList,"test2","test3");
         assertEquals(expected.getData(),actual.getData());

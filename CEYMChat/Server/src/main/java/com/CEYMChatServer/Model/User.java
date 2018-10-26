@@ -2,9 +2,10 @@ package com.CEYMChatServer.Model;
 
 import com.CEYMChatLib.Message;
 import com.CEYMChatLib.MessageFactory;
+import com.CEYMChatLib.UserInfo;
 import com.CEYMChatServer.Services.IWriter;
 import com.CEYMChatServer.Services.Writer;
-import com.CEYMChatLib.UserDisplayInfo;
+
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,20 +15,20 @@ import java.util.List;
  */
 public class User {
 
-    private UserDisplayInfo uInfo;
+    private UserInfo uInfo;
     private IWriter writer;
     private Socket socket;
-    private List<UserDisplayInfo> friendsInfo = new ArrayList();
+    private List<UserInfo> friendsInfo = new ArrayList();
     private boolean online;
     private List<User> friends = new ArrayList();
 
 
     /** Getters and setters */
-    public void setuInfo(UserDisplayInfo uInfo) {
+    public void setuInfo(UserInfo uInfo) {
         this.uInfo = uInfo;
     }
 
-    public UserDisplayInfo getUInfo() {
+    public UserInfo getUInfo() {
         return uInfo;
     }
 
@@ -39,7 +40,7 @@ public class User {
         return writer;
     }
 
-    public List<UserDisplayInfo> getFriendsInfo(){
+    public List<UserInfo> getFriendsInfo(){
         return friendsInfo;
     }
 
@@ -54,10 +55,10 @@ public class User {
      * a list received by its corresponding client
      */
     public void syncFriends(Message message){
-        List<UserDisplayInfo> receivedList = (List<UserDisplayInfo>) message.getData();
+        List<UserInfo> receivedList = (List<UserInfo>) message.getData();
         Boolean add = true;
-        for(UserDisplayInfo uInfo : receivedList) {
-            for(UserDisplayInfo friends: friendsInfo){
+        for(UserInfo uInfo : receivedList) {
+            for(UserInfo friends: friendsInfo){
                 if(uInfo.getUsername().equals(friends.getUsername())){
                     add = false;
                 }
@@ -75,10 +76,10 @@ public class User {
      * of users so that they can both be sent to a client
      */
     public Message checkFriends(Message message) {
-        List<UserDisplayInfo> listToSend = (List<UserDisplayInfo>) message.getData();
-        for (UserDisplayInfo friends : friendsInfo) {
+        List<UserInfo> listToSend = (List<UserInfo>) message.getData();
+        for (UserInfo friends : friendsInfo) {
             Boolean add = true;
-            for (UserDisplayInfo uInfo : listToSend) {
+            for (UserInfo uInfo : listToSend) {
                 if (uInfo.getUsername().equals(friends.getUsername())) {
                     add = false;
                 }
@@ -100,12 +101,12 @@ public class User {
         writer.setOutMessage(message);
     }
 
-    public void addFriends(UserDisplayInfo uInfo) {
+    public void addFriends(UserInfo uInfo) {
         friendsInfo.add(uInfo);
     }
 
-    public void removeFriends(UserDisplayInfo toRemove) {
-        for (UserDisplayInfo uInfo : friendsInfo) {
+    public void removeFriends(UserInfo toRemove) {
+        for (UserInfo uInfo : friendsInfo) {
             if (uInfo.getIsFriend() && toRemove.getUsername() == uInfo.getUsername()) {
                 friendsInfo.remove(uInfo);
                 return;
