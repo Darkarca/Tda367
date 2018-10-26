@@ -11,14 +11,14 @@ import java.io.InputStream;
 public class PlayBackThread implements Runnable {
     private AudioStream audioStream;
     private String fileName;
-
+/*
     /**
      * Constructor
      * @param fileName
      */
-    public PlayBackThread(String fileName){
-        this.fileName = fileName;
-    }
+    //public PlayBackThread(String fileName){
+        //this.fileName = fileName;
+    //}
 
     /**
      * This method takes an inputstream from an audio file and run it via AudioPlayer class

@@ -1,5 +1,6 @@
 package com.CEYMChatClient.Controller;
 
+import com.CEYMChatClient.Services.PlayBackThread;
 import com.CEYMChatClient.Services.RecordThread;
 import com.CEYMChatLib.IObserver;
 import com.CEYMChatClient.View.*;
@@ -123,6 +124,22 @@ public class ClientController implements IClientController, IObserver {
                 }
                 System.exit(0);
             }
+    }
+
+    /**
+     * This method creates a thread to play back audio files
+     */
+    public void playBack(){
+
+    new Thread(new PlayBackThread()).start();
+    }
+
+    /**
+     * This method is called to stop recording
+     */
+    public void stop(){
+        mic.stop();
+        mic.close();
     }
 
     /**
