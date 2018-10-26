@@ -1,5 +1,6 @@
 package com.CEYMChatClient.Controller;
 
+import com.CEYMChatClient.Services.RecordThread;
 import com.CEYMChatLib.IObserver;
 import com.CEYMChatClient.View.*;
 import javafx.application.Platform;
@@ -17,6 +18,11 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.*;
+
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.TargetDataLine;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -70,6 +76,14 @@ public class ClientController implements IClientController, IObserver {
     private Stage disconnectPopup = new Stage();
     private Parent disconnect;
 
+    private AudioMessage format;
+    //Audio Source
+    private TargetDataLine mic;
+    private AudioFormat aF;
+    //30 seconds
+    private int maxRecordTime = 30000;
+
+
     /**
      *  Initiates the GUI
      */
@@ -86,6 +100,29 @@ public class ClientController implements IClientController, IObserver {
             }
         }
         fillEmojis();
+    }
+
+    /**
+     * This method is responsible for creating a thread that record voice from a target line
+     */
+    public void recordVoice (){
+
+            try {
+
+                aF = format.getAudioFormat();
+                DataLine.Info dataLineInfo = new DataLine.Info(TargetDataLine.class, aF);
+                mic = (TargetDataLine) AudioSystem.getLine(dataLineInfo);
+                mic.open(aF);
+                mic.start();
+                Thread recordToFile = new Thread(new RecordThread(this,mic,maxRecordTime));
+                recordToFile.start();
+            } catch (Exception e) {
+                StackTraceElement stackEle[] = e.getStackTrace();
+                for (StackTraceElement val : stackEle) {
+                    System.out.println(val);
+                }
+                System.exit(0);
+            }
     }
 
     /**
