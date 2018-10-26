@@ -170,7 +170,7 @@ public class ClientController implements IClientController, IObserver {
      */
     public void displayNewMessage(Message message) throws IOException {
         if(!model.isMuted(message.getSender()) && message.getSender() != model.getUInfo()) {
-            createAddReceiveMessagePane(message.getSender() + ": " + message.getData());
+            createAddReceiveMessagePane(message.getSender().getUsername() + ": " + message.getData());
         }
     }
 
