@@ -43,11 +43,10 @@ public class OutputService implements IOutput, IObserver {
     /**
      * Informs the Server that a user has connected
      * so that the Server can identify the user
-     * @param userName  the username of the user who sends the command
      */
-    public void login(String userName) {
+    public void login() {
         try {
-            sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.SET_USER,userName),userName));
+            sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.SET_USER,model.getUInfo().getUsername()),model.getUInfo()));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -100,7 +99,7 @@ public class OutputService implements IOutput, IObserver {
      */
     @Override
     public void update(Message message) {
-        if(message.getSender() != null && message.getSender().equals(model.getUsername())){
+        if(message.getSender() != null && message.getSender().getUsername().equals(model.getUsername())){
             try {
                 sendMessage(message);
             } catch (IOException e) {

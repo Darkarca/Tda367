@@ -5,8 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import java.io.IOException;
-import java.net.URL;
-import java.nio.file.Paths;
 
 /**
  * emojiItem is a controller to emojiItem fxml file

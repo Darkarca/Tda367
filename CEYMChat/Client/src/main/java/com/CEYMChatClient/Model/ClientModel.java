@@ -15,7 +15,7 @@ public class ClientModel implements IObserveable {
     private List<UserDisplayInfo> userList = new ArrayList<>();
     private List<Message> receivedMessages = new ArrayList<>();
     private List<Message> sentMessages = new ArrayList<>();
-    private List<String> mutedFriends = new ArrayList<>();
+    private List<UserDisplayInfo> mutedFriends = new ArrayList<>();
     private String username;
     private UserDisplayInfo uInfo;
     private File selectedFile;
@@ -38,8 +38,8 @@ public class ClientModel implements IObserveable {
     public void addBlockedFriend(UserDisplayInfo item) {
         blockedFriends.add(item);
     }
-    public void addMuted(String friendUsername) {
-        mutedFriends.add(friendUsername);
+    public void addMuted(UserDisplayInfo uInfo) {
+        mutedFriends.add(uInfo);
     }
     public void addSentMessage (Message message){
         sentMessages.add(message);
@@ -55,9 +55,9 @@ public class ClientModel implements IObserveable {
     public void removeMuted(String text) {
         mutedFriends.remove(text);
     }
-    public boolean isMuted(String userName ) {
-        for (String s : getMutedFriends()) {
-            if (s.equals(userName)){
+    public boolean isMuted(UserDisplayInfo mutedUser) {
+        for (UserDisplayInfo uInfo : getMutedFriends()) {
+            if (uInfo.equals(mutedUser)){
                 return true;
             }
         }
@@ -71,9 +71,6 @@ public class ClientModel implements IObserveable {
         }
         return false;
     }
-    public String getUsername(){
-        return username;
-    }
     public List<UserDisplayInfo> getUserList() {
         return userList;
     }
@@ -83,8 +80,11 @@ public class ClientModel implements IObserveable {
     private List<UserDisplayInfo> getBlockedFriends() {
         return this.blockedFriends;
     }
-    private List<String> getMutedFriends() {
+    private List<UserDisplayInfo> getMutedFriends() {
         return this.mutedFriends;
+    }
+    public String getUsername(){
+        return username;
     }
     public File getSelectedFile() {
         return selectedFile;
@@ -221,6 +221,14 @@ public class ClientModel implements IObserveable {
     }
 
     public void login() {
-        update(MessageFactory.createCommandMessage(new Command(CommandName.SET_USER,username),username));
+        update(MessageFactory.createCommandMessage(new Command(CommandName.SET_USER,username),uInfo));
+    }
+
+    public UserDisplayInfo getUInfo() {
+        return uInfo;
+    }
+
+    public void setUInfo(UserDisplayInfo uInfo) {
+    this.uInfo=uInfo;
     }
 }

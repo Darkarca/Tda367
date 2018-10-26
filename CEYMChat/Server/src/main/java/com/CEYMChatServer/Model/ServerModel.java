@@ -28,10 +28,10 @@ public class ServerModel implements IObserver {
      * @param command COMMAND to be executed
      * @param sender  User that sent the command
      */
-    public void performCommand(Command command, String sender) {
+    public void performCommand(Command command, UserDisplayInfo sender) {
         switch (command.getCommandName()) {
             case SET_USER: {
-                setUser(command);
+                setUser(sender);
             }
             break;
             case REFRESH_FRIENDLIST: {
@@ -43,7 +43,7 @@ public class ServerModel implements IObserver {
             }
             break;
             case ADD_FRIEND:
-                addFriend(getUserByUsername(sender), getUserByUsername(command.getCommandData()));
+                addFriend(getUserByUsername(sender.getUsername()), getUserByUsername(command.getCommandData()));
                 break;
         }
     }
@@ -62,24 +62,22 @@ public class ServerModel implements IObserver {
      * Sets the username of a user so that it can be
      * identified uniformly between the client and server
      */
-    public void setUser(Command command) {
-        UserDisplayInfo uInfo = new UserDisplayInfo();
-        uInfo.setUsername(command.getCommandData());
-        userList.get(userList.size() - 1).setuInfo(uInfo);
-        System.out.println("COMMAND performed: 'setUser'" + command.getCommandData());
+    public void setUser(UserDisplayInfo sender) {
+        userList.get(userList.size() - 1).setuInfo(sender);
+        System.out.println("COMMAND performed: 'setUser'" + userList.get(userList.size()-1).getUInfo().getUsername());
         updateUserLists();
     }
 
     public void friendSync(Message message) {
-        getUserByUsername(message.getSender()).syncFriends(message);
+        getUserByUsername(message.getSender().getUsername()).syncFriends(message);
     }
 
     /**
      * Sends an update active userlist to all active clients,
      * also merges the list with each users individual friendslist
      */
-    public void refreshFriendList(Command command, String sender) {
-        User user = getUserByUsername(sender);
+    public void refreshFriendList(Command command, UserDisplayInfo sender) {
+        User user = getUserByUsername(sender.getUsername());
         user.syncFriends(getUserInfoMessage());
         user.sendMessage(user.checkFriends(getUserInfoMessage()));
         System.out.println("COMMAND performed: 'refreshFriendList '" + command.getCommandData());
@@ -90,8 +88,8 @@ public class ServerModel implements IObserver {
      * Disconnects the user by removing it from the Servers
      * userlist so that the server won't point to a null outputStream
      */
-    public void disconnect(String sender) {
-        User user = getUserByUsername(sender);
+    public void disconnect(UserDisplayInfo sender) {
+        User user = getUserByUsername(sender.getUsername());
         user.setOnline(false);
         userList.remove(user);
         updateUserLists();
@@ -203,7 +201,7 @@ public class ServerModel implements IObserver {
             }
             case ARRAYLIST: {
                     friendSync(message);
-                    performCommand(new Command(CommandName.REFRESH_FRIENDLIST,message.getSender()),message.getSender());
+                    performCommand(new Command(CommandName.REFRESH_FRIENDLIST,message.getSender().getUsername()),message.getSender());
                 break;
             }
             case MESSAGEFILE: {

@@ -21,11 +21,11 @@ public class ServerModelTest {
         testHandler.start();
         Thread.sleep(2000);
         testModel.getUserList().get(0).setuInfo(new UserDisplayInfo());
-        testModel.performCommand(new Command(CommandName.SET_USER, "true"), testModel.getUserList().get(0).getUInfo().getUsername());
+        testModel.performCommand(new Command(CommandName.SET_USER, "true"), testModel.getUserList().get(0).getUInfo());
         assertEquals("Username correctly set for user",testModel.getUserList().get(0).getUInfo().getUsername(), "true");
-        testModel.performCommand(new Command(CommandName.REFRESH_FRIENDLIST, testModel.getUserList().get(0).getUInfo().getUsername()),testModel.getUserList().get(0).getUInfo().getUsername());
+        testModel.performCommand(new Command(CommandName.REFRESH_FRIENDLIST, testModel.getUserList().get(0).getUInfo().getUsername()),testModel.getUserList().get(0).getUInfo());
         assertEquals("Message of type 'ARRAYLIST' received","ArrayList",testModel.getUserList().get(0).getWriter().getOutMessage().getType().getSimpleName());
-        testModel.performCommand(new Command(CommandName.DISCONNECT, testModel.getUserList().get(0).getUInfo().getUsername()),testModel.getUserList().get(0).getUInfo().getUsername());
+        testModel.performCommand(new Command(CommandName.DISCONNECT, testModel.getUserList().get(0).getUInfo().getUsername()),testModel.getUserList().get(0).getUInfo());
         assertEquals("User successfully disconnected",0,testModel.getUserList().size());
         socket.close();
         testHandler.closeSocket();    }
@@ -48,7 +48,7 @@ public class ServerModelTest {
         Thread.sleep(2000);
         testModel.getUserList().get(0).setuInfo(new UserDisplayInfo());
         testModel.getUserList().get(0).getUInfo().setUsername("testUser");
-        Message testMessage = MessageFactory.createStringMessage("Hello world!", "testUser", "testUser");
+        Message testMessage = MessageFactory.createStringMessage("Hello world!", testModel.getUserList().get(0).getUInfo(), "testUser");
         testModel.sendMessage(testMessage,"testUser");
         assertEquals("Message on outstream match expected value",testMessage,testModel.getUserByUsername("testUser").getWriter().getOutMessage());
         testHandler.closeSocket();
@@ -90,7 +90,7 @@ public class ServerModelTest {
         testModel.getUserList().get(0).setuInfo(new UserDisplayInfo());
         testModel.getUserList().get(0).getUInfo().setUsername("testUser");
         File toSend = new File("pom.xml");
-        testModel.sendFile(toSend.getName(),MessageFactory.createFileMessage(new MessageFile(toSend),testModel.getUserList().get(0).getUInfo().getUsername(),testModel.getUserList().get(0).getUInfo().getUsername()));
+        testModel.sendFile(toSend.getName(),MessageFactory.createFileMessage(new MessageFile(toSend),testModel.getUserList().get(0).getUInfo(),testModel.getUserList().get(0).getUInfo().getUsername()));
         assertEquals("MessageFile to be sent matches expected value",toSend,((MessageFile)(testModel.getUserList().get(0).getWriter().getOutMessage().getData())).getFile());
         testHandler.closeSocket();
     }

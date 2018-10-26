@@ -2,6 +2,7 @@ package com.CEYMChatClient.Model;
 
 import com.CEYMChatLib.Message;
 import com.CEYMChatLib.MessageFactory;
+import com.CEYMChatLib.UserDisplayInfo;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import java.io.File;
@@ -21,14 +22,18 @@ public class ClientModelTest {
     /** creates a virtual saved messages */
     @BeforeClass
    static public void mockUpSavedMessages(){
-        model.addReceivedMessage(MessageFactory.createStringMessage("Hello World","test1","test2"));
-        model.addReceivedMessage(MessageFactory.createStringMessage("Hello World2","test1","test2"));
-        model.addSentMessage(MessageFactory.createStringMessage("Hello World3","test2","test1"));
-        model.addSentMessage(MessageFactory.createStringMessage("Hello World4","test2","test1"));
-        testList.add(MessageFactory.createStringMessage("Hello World","test1","test2"));
-        testList.add(MessageFactory.createStringMessage("Hello World2","test1","test2"));
-        testList.add(MessageFactory.createStringMessage("Hello World3","test2","test1"));
-        testList.add(MessageFactory.createStringMessage("Hello World4","test2","test1"));
+        UserDisplayInfo testUserInfo1 = new UserDisplayInfo();
+        UserDisplayInfo testUserInfo2 = new UserDisplayInfo();
+        testUserInfo1.setUsername("test1");
+        testUserInfo2.setUsername("test2");
+        model.addReceivedMessage(MessageFactory.createStringMessage("Hello World",testUserInfo1,"test2"));
+        model.addReceivedMessage(MessageFactory.createStringMessage("Hello World2",testUserInfo1,"test2"));
+        model.addSentMessage(MessageFactory.createStringMessage("Hello World3",testUserInfo2,"test1"));
+        model.addSentMessage(MessageFactory.createStringMessage("Hello World4",testUserInfo2,"test1"));
+        testList.add(MessageFactory.createStringMessage("Hello World",testUserInfo1,"test2"));
+        testList.add(MessageFactory.createStringMessage("Hello World2",testUserInfo1,"test2"));
+        testList.add(MessageFactory.createStringMessage("Hello World3",testUserInfo2,"test1"));
+        testList.add(MessageFactory.createStringMessage("Hello World4",testUserInfo2,"test1"));
         model.saveSendMessages("messages/sent.csv");
         model.saveReceivedMessages("messages/received.csv");
 

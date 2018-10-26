@@ -53,7 +53,7 @@ public class ClientMain extends Application {
         primaryStage.getScene().getWindow().setOnCloseRequest(Event -> {    // Makes sure the client sends a notification to the Server that it has disconnected if the client is terminated
             try {
                 model.saveMessages();
-                outService.sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.DISCONNECT, model.getUsername()), model.getUsername()));
+                outService.sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.DISCONNECT, model.getUsername()), model.getUInfo()));
                 outService.disconnect();
                 inService.disconnect();
             } catch (IOException e) {

@@ -10,7 +10,7 @@ public interface IOutput {
 
     void connectToServer();
 
-    void login(String userName);
+    void login();
 
     Socket getSocket();
 

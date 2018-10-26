@@ -10,20 +10,20 @@ import java.io.Serializable;
  */
 
 public class Message<T> implements Serializable {
-    private String sender;
+    private UserDisplayInfo sender;
     private String receiver;
     private T data;
 
 
     /** Potential constructors */
-    protected Message(T data, String sender, String receiver){
+    protected Message(T data, UserDisplayInfo sender, String receiver){
         this.data = data;
         this.sender = sender;
         this.receiver = receiver;
     }
 
 
-    protected Message(T data, String sender){
+    protected Message(T data, UserDisplayInfo sender){
         this.data = data;
         this.sender = sender;
 
@@ -35,7 +35,7 @@ public class Message<T> implements Serializable {
 
 
     /** Getters and setters **/
-    public String getSender() {
+    public UserDisplayInfo getSender() {
         return sender;
     }
 

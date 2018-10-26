@@ -9,23 +9,23 @@ import java.util.List;
 public abstract class MessageFactory {
 
 
-    public static Message<String> createStringMessage(String data, String user, String receiver){
-        return new Message(data, user, receiver);
+    public static Message<String> createStringMessage(String data, UserDisplayInfo sender, String receiver){
+        return new Message(data, sender, receiver);
     }
 
-    public static Message<Image> createImageMessage(Image data, String user, String receiver){
-        return new Message(data, user, receiver);
+    public static Message<Image> createImageMessage(Image data, UserDisplayInfo sender, String receiver){
+        return new Message(data, sender, receiver);
     }
 
-    public static Message<File> createFileMessage(MessageFile data, String user, String receiver) {
-        return new Message(data, user, receiver);
+    public static Message<File> createFileMessage(MessageFile data, UserDisplayInfo sender, String receiver) {
+        return new Message(data, sender, receiver);
     }
 
-    public static Message<Command> createCommandMessage(Command data, String user){
-        return new Message(data, user);
+    public static Message<Command> createCommandMessage(Command data, UserDisplayInfo sender){
+        return new Message(data, sender);
     }
 
-    public static Message<List> createFriendInfoList (List<UserDisplayInfo> data,String user, String receiver){
-        return new Message(data, user, receiver);
+    public static Message<List> createFriendInfoList (List<UserDisplayInfo> data,UserDisplayInfo sender, String receiver){
+        return new Message(data, sender, receiver);
     }
 }

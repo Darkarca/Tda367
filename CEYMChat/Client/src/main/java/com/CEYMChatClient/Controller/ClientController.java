@@ -98,6 +98,9 @@ public class ClientController implements IClientController, IObserver {
     public void login(){
         appInit();
         model.setUsername(userNameTextField.getText());
+        UserDisplayInfo uInfo = new UserDisplayInfo();
+        uInfo.setUsername(userNameTextField.getText());
+        model.setUInfo(uInfo);
         model.setUsername(model.getUsername());
         model.login();
         mainPane.toFront();
@@ -111,7 +114,7 @@ public class ClientController implements IClientController, IObserver {
     public void sendString() throws IOException {
         String toSend = chatBox.getText();
         chatBox.setText("");
-        Message message = MessageFactory.createStringMessage(toSend, model.getUsername(), currentChatName);
+        Message message = MessageFactory.createStringMessage(toSend, model.getUInfo(), currentChatName);
         model.addMessage(message);
         model.addSentMessage(message);
         createAddSendMessagePane("Me: " + toSend );
@@ -144,7 +147,7 @@ public class ClientController implements IClientController, IObserver {
      */
     @FXML
     public void refreshFriendList() {
-        model.addMessage(MessageFactory.createCommandMessage(new Command(CommandName.REFRESH_FRIENDLIST, model.getUsername()), model.getUsername()));
+        model.addMessage(MessageFactory.createCommandMessage(new Command(CommandName.REFRESH_FRIENDLIST, model.getUsername()), model.getUInfo()));
     }
 
     /**
@@ -159,7 +162,7 @@ public class ClientController implements IClientController, IObserver {
         for (FriendListItem fL : friendItemList) {              // Adds all newly selected friends
             model.addFriends(fL.getUInfo());
         }
-        model.addMessage(MessageFactory.createFriendInfoList(model.getFriendList(), model.getUsername(), model.getUsername())); // Notifies the Server about any changes have been made to the friends list
+        model.addMessage(MessageFactory.createFriendInfoList(model.getFriendList(), model.getUInfo(), model.getUsername())); // Notifies the Server about any changes have been made to the friends list
         }
 
     /**
@@ -167,7 +170,7 @@ public class ClientController implements IClientController, IObserver {
      * @param message The message to display
      */
     public void displayNewMessage(Message message) throws IOException {
-        if(!model.isMuted(message.getSender()) && message.getSender() != model.getUsername()) {
+        if(!model.isMuted(message.getSender()) && message.getSender() != model.getUInfo()) {
             createAddReceiveMessagePane(message.getSender() + ": " + message.getData());
         }
     }
@@ -233,10 +236,10 @@ public class ClientController implements IClientController, IObserver {
         contextMenu.getItems().add(toggleFriend);
         toggleFriend.setOnAction(event -> {
             item.toggleFriend();
-            model.addMessage(MessageFactory.createCommandMessage(new Command(CommandName.ADD_FRIEND, item.getFriendUsername().getText()), model.getUsername()));
+            model.addMessage(MessageFactory.createCommandMessage(new Command(CommandName.ADD_FRIEND, item.getFriendUsername().getText()), model.getUInfo()));
         });
         mute.setOnAction(event -> {
-            model.addMuted(item.getFriendUsername().getText());
+            model.addMuted(item.getUInfo());
             item.getPane().setStyle("-fx-background-color: crimson");
         });
         unmute.setOnAction(event -> {
@@ -279,7 +282,7 @@ public class ClientController implements IClientController, IObserver {
      */
     public void sendFile() throws IOException {
         if (model.getSelectedFile() != null) {
-            model.addMessage(MessageFactory.createFileMessage(new MessageFile(model.getSelectedFile()), model.getUsername(), currentChatName));
+            model.addMessage(MessageFactory.createFileMessage(new MessageFile(model.getSelectedFile()), model.getUInfo(), currentChatName));
             fileName.setText("Current file: none");
             model.setSelectedFile(null);
         }
