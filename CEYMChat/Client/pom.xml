@@ -45,12 +45,6 @@
             <version>RELEASE</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>com.CEYMChat</groupId>
-            <artifactId>Server</artifactId>
-            <version>1</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
     <build>
         <plugins>
