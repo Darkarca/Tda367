@@ -18,7 +18,7 @@ public class RecordThread implements Runnable{
     // determine the audio format
     private AudioFileFormat.Type fileType = AudioFileFormat.Type.WAVE;
 
-    private IClientController controller;
+    //private IClientController controller;
 
     // The audio data is captured from the microphone
     private TargetDataLine mic;
@@ -34,8 +34,8 @@ public class RecordThread implements Runnable{
      * @param mic
      * @param maxRecordingTime
      */
-    public RecordThread(IClientController controller, TargetDataLine mic, long maxRecordingTime){
-        this.controller = controller;
+    public RecordThread(TargetDataLine mic, long maxRecordingTime){
+        //this.controller = controller;
         this.mic = mic;
         this.maxRecordingTime = maxRecordingTime;
     }

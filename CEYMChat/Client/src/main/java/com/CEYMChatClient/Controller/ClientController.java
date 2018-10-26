@@ -115,7 +115,7 @@ public class ClientController implements IClientController, IObserver {
                 mic = (TargetDataLine) AudioSystem.getLine(dataLineInfo);
                 mic.open(aF);
                 mic.start();
-                Thread recordToFile = new Thread(new RecordThread(this,mic,maxRecordTime));
+                Thread recordToFile = new Thread(new RecordThread(mic,maxRecordTime));
                 recordToFile.start();
             } catch (Exception e) {
                 StackTraceElement stackEle[] = e.getStackTrace();
