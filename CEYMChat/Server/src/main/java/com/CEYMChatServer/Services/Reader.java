@@ -15,6 +15,8 @@ public class Reader implements Runnable, IReader {
     private Socket socket;
     private ObjectInputStream inputStream;
     private boolean running = true;
+    private int bytesRead = 0;
+
 
 
     public Reader(Socket socket) {
@@ -61,24 +63,45 @@ public class Reader implements Runnable, IReader {
                 MessageType msgType = MessageType.valueOf(inMessage.getType().getSimpleName().toUpperCase());
                 switch (msgType) {
                     case MESSAGEFILE: {
+
                         byte [] receivedFileArray  = new byte [((MessageFile)inMessage.getData()).getByteArray().length];
+                        //ByteArrayOutputStream ba = new ByteArrayOutputStream();
                         InputStream inputStream = socket.getInputStream();
                         FileOutputStream outStream = new FileOutputStream("Server/messages/" + ((MessageFile)inMessage.getData()).getFileName());
                         BufferedOutputStream bufferedOutStream = new BufferedOutputStream(outStream);
-                        int bytesRead = inputStream.read(receivedFileArray,0,receivedFileArray.length);
-                        int current = bytesRead;
-                            bytesRead = inputStream.read(receivedFileArray, current, (receivedFileArray.length-current));
-                        bufferedOutStream.write(receivedFileArray, 0 , current);
+                        // = inputStream.read(receivedFileArray,0,receivedFileArray.length);
+                        int[] i = new int[1];
+                        while ((bytesRead = inputStream.read(receivedFileArray)) != 1){
+                            i[0] = i[0] + bytesRead;
+                            bufferedOutStream.write(receivedFileArray,0,bytesRead);
+                            if (i[0] == receivedFileArray.length){
+                                break;
+                            }
+
+                        }
+/*
+                        do {
+                            ba.write(byt);
+                            bytesRead = inputStream.read(byt);
+                        } while (bytesRead != -1);
+                        //int current = bytesRead;
+                        //bytesRead = inputStream.read(receivedFileArray, current, (receivedFileArray.length-current));
+                        //while ((bytesRead = inputStream.read(receivedFileArray,0,receivedFileArray.length)) != -1){
+                        bufferedOutStream.write(ba.toByteArray());*/
                         bufferedOutStream.flush();
+                        outStream.close();
+                        //bufferedOutStream.close();
+
+                        /*
                         try {
                             Thread.sleep(1000);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
-                        }
+                        }*/
                         for (IObserver observer: observerList) {
                             observer.update(inMessage);
                         }
-                        break;
+                        //break;
                     }
                     default:
                         for (IObserver observer: observerList) {observer.update(inMessage);}

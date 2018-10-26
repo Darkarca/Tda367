@@ -174,7 +174,10 @@ public class ServerModel implements IObserver {
         BufferedInputStream bufferedInput = new BufferedInputStream(fileInput);
         bufferedInput.read(sentFile, 0, sentFile.length);
         OutputStream outputStream = getUserByUsername(message.getReceiver()).getWriter().getSocket().getOutputStream();
+
         outputStream.write(sentFile, 0, sentFile.length);
+        outputStream.flush();
+        //bo.close();
     }
 
 

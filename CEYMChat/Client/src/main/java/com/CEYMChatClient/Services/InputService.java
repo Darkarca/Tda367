@@ -21,6 +21,7 @@ public class InputService implements IInput {
     private Message messageIn;
     private Message lastMsg;
     private List<UserDisplayInfo> comingFriendsList = new ArrayList();
+    private int bytesRead = 0;
 
     private boolean running = true;
 
@@ -146,14 +147,25 @@ public class InputService implements IInput {
      * @throws IOException
      */
     private void receiveFile() throws IOException {
-        byte [] receivedFile  = new byte [1073741824];
+        byte [] receivedFile  = new byte [((MessageFile)messageIn.getData()).getByteArray().length];
         InputStream inputStream = socket.getInputStream();
         FileOutputStream fileOut = new FileOutputStream("Client/messages/" + ((MessageFile)messageIn.getData()).getFileName());
         BufferedOutputStream bufferedOut = new BufferedOutputStream(fileOut);
-        int bytesRead = inputStream.read(receivedFile,0,receivedFile.length);
-        int current = bytesRead;
-        bufferedOut.write(receivedFile, 0 , current);
+         //inputStream.read(receivedFile,0,receivedFile.length);
+        //int current = bytesRead;
+        int[] i = new int[1];
+        while ((bytesRead = inputStream.read(receivedFile)) != 1) {
+            i[0] = i[0] + bytesRead;
+            bufferedOut.write(receivedFile, 0, bytesRead);
+            if (i[0] == receivedFile.length) {
+                break;
+            }
+        }
+        //bufferedOut.write(receivedFile, 0 , current);
         bufferedOut.flush();
+        //bufferedOut.close();
+        fileOut.close();
+        //inputStream.reset();
     }
 
     /**
