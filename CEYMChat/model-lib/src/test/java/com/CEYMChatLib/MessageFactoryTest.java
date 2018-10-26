@@ -12,8 +12,9 @@ public class MessageFactoryTest {
 
     @Test
     public void createStringMessage() {
-        Message expected =  new Message<>("test1","test2","test3");
-        Message actual = MessageFactory.createStringMessage("test1","test2","test3");
+        UserInfo uInfo = new UserInfo();
+        Message expected =  new Message("test1",uInfo,"test3");
+        Message actual = MessageFactory.createStringMessage("test1",uInfo,"test3");
         assertEquals(expected.getData(),actual.getData());
         assertEquals(expected.getSender(),actual.getSender());
         assertEquals(expected.getReceiver(),actual.getReceiver());
@@ -22,9 +23,10 @@ public class MessageFactoryTest {
 
     @Test
     public void createFileMessage() {
+        UserInfo uInfo = new UserInfo();
         MessageFile file = new MessageFile(new File(""));
-        Message expected =  new Message<>(file,"test2","test3");
-        Message actual = MessageFactory.createFileMessage(file,"test2","test3");
+        Message expected =  new Message(file,uInfo,"test3");
+        Message actual = MessageFactory.createFileMessage(file,uInfo,"test3");
         assertEquals(expected.getData(),actual.getData());
         assertEquals(expected.getSender(),actual.getSender());
         assertEquals(expected.getReceiver(),actual.getReceiver());
@@ -33,9 +35,11 @@ public class MessageFactoryTest {
 
     @Test
     public void createCommandMessage() {
+        UserInfo uInfo = new UserInfo();
+
         Command command = new Command(CommandName.SET_USER,"test");
-        Message expected =  new Message<>(command,"test2","test3");
-        Message actual = MessageFactory.createCommandMessage(command,"test2");
+        Message expected =  new Message<>(command,uInfo,"test3");
+        Message actual = MessageFactory.createCommandMessage(command,uInfo);
         assertEquals(expected.getData(),actual.getData());
         assertEquals(expected.getSender(),actual.getSender());
         assertEquals(expected.getType(),actual.getType());
@@ -43,10 +47,11 @@ public class MessageFactoryTest {
 
     @Test
     public void createFriendInfoList() {
+        UserInfo uInfo = new UserInfo();
         List<UserInfo> friendInfoList = new ArrayList<>();
         friendInfoList.add(new UserInfo());
-        Message expected =  new Message<>(friendInfoList,"test2","test3");
-        Message actual = MessageFactory.createUsersDisplayInfoMessages(friendInfoList,"test2","test3");
+        Message expected =  new Message<>(friendInfoList,uInfo,"test3");
+        Message actual = MessageFactory.createUsersDisplayInfoMessages(friendInfoList,uInfo,"test3");
         assertEquals(expected.getData(),actual.getData());
         assertEquals(expected.getSender(),actual.getSender());
         assertEquals(expected.getReceiver(),actual.getReceiver());

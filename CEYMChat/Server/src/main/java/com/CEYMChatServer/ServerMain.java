@@ -23,14 +23,7 @@ public class ServerMain{
         Scanner scanner = new Scanner(System.in);
         port = scanner.nextLine();
         model = new ServerModel();
-        if ("".equals(port)) {
-            socketHandler = new SocketHandler(model);
-            System.out.println("Default port used");
-        } else {
-            int portInt = Integer.parseInt(port);
-            socketHandler = new SocketHandler(model, portInt);
-            System.out.println("Server hosted with port " + port);
-        }
+        initHandler(port);
         main.startHandler();
         System.out.println("To view commands, type '-commands'");
         System.out.println("To stop the server, type '-quit'");
@@ -62,7 +55,7 @@ public class ServerMain{
                 }
             }
             if (input.equals("-restart")) {
-                System.out.println("Restart the server");
+                System.out.println("Restarting the server");
                 socketHandler.closeSocket();
                 try {
                     Thread.sleep(2000);
@@ -76,12 +69,22 @@ public class ServerMain{
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                socketHandler = new SocketHandler(model);
-                socketHandler.start();
+                initHandler(port);
             }
         }
         System.exit(0);
 
 
+    }
+
+    private static void initHandler(String port) {
+        if ("".equals(port)) {
+            socketHandler = new SocketHandler(model);
+            System.out.println("Default port used");
+        } else {
+            int portInt = Integer.parseInt(port);
+            socketHandler = new SocketHandler(model, portInt);
+            System.out.println("Server hosted with port " + port);
+        }
     }
 }
