@@ -190,6 +190,7 @@ public class InputService implements IInput {
      */
     private void notifyModel(Message message) throws IOException {
         model.update(message);
+        model.addReceivedMessage(message);
     }
 
     /**

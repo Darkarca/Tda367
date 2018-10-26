@@ -196,6 +196,7 @@ public class ClientModel implements IObserveable {
      * @param message
      */
     public void update(Message message) {
+
         for (IObserver observer: observerList) {
             observer.update(message);
         }
@@ -217,6 +218,7 @@ public class ClientModel implements IObserveable {
     }
 
     public void addMessage(Message message) {
+        addSentMessage(message);
         update(message);
     }
 
