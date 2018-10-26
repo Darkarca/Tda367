@@ -1,5 +1,4 @@
 package com.CEYMChatLib;
-import javafx.scene.image.Image;
 import java.io.File;
 import java.util.List;
 /**
