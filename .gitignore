@@ -29,6 +29,10 @@
 .idea/**/uiDesigner.xml
 .idea/**/dbnavigator.xml
 CEYMChat/Client/messages/*
+!CeymChat/Client/messages/sent.csv
+!CeymChat/Client/messages/received.csv
+
+
 
 # Gradle
 .idea/**/gradle.xml
