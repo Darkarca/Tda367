@@ -106,10 +106,10 @@ public class ClientController implements IClientController, IObserver {
     /**
      * This method is responsible for creating a thread that record voice from a target line
      */
+    @FXML
     public void recordVoice (){
 
             try {
-
                 aF = format.getAudioFormat();
                 DataLine.Info dataLineInfo = new DataLine.Info(TargetDataLine.class, aF);
                 mic = (TargetDataLine) AudioSystem.getLine(dataLineInfo);
@@ -129,17 +129,24 @@ public class ClientController implements IClientController, IObserver {
     /**
      * This method creates a thread to play back audio files
      */
+    @FXML
     public void playBack(){
 
     new Thread(new PlayBackThread()).start();
     }
 
     /**
-     * This method is called to stop recording
+     * This method is called to stopRecording recording
      */
-    public void stop(){
+    @FXML
+    public void stopRecording(){
         mic.stop();
         mic.close();
+        try {
+            sendFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

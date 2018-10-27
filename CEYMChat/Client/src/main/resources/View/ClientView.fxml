@@ -88,7 +88,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button layoutX="411.0" layoutY="595.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="72.0">
+                        <Button layoutX="411.0" layoutY="595.0" mnemonicParsing="false" onAction="#recordVoice" prefHeight="38.0" prefWidth="72.0">
                            <graphic>
                               <ImageView fitHeight="30.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -97,7 +97,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="recordStopButton" layoutX="447.0" layoutY="634.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="36.0">
+                        <Button fx:id="recordStopButton" layoutX="447.0" layoutY="634.0" mnemonicParsing="false" onAction="#stopRecording" prefHeight="29.0" prefWidth="36.0">
                            <graphic>
                               <ImageView fitHeight="63.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -106,7 +106,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="recordPlayButton" layoutX="411.0" layoutY="634.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="37.0">
+                        <Button fx:id="recordPlayButton" layoutX="411.0" layoutY="634.0" mnemonicParsing="false" onAction="#playBack" prefHeight="29.0" prefWidth="37.0">
                            <graphic>
                               <ImageView fitHeight="19.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                  <image>

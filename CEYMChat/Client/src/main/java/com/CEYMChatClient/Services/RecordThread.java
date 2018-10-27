@@ -23,7 +23,7 @@ public class RecordThread implements Runnable{
     // The audio data is captured from the microphone
     private TargetDataLine mic;
 
-    // to decide when to stop recording
+    // to decide when to stopRecording recording
     private boolean recording;
 
     private long maxRecordingTime;
@@ -59,7 +59,7 @@ public class RecordThread implements Runnable{
     }
 
     /**
-     * This method is called to stop recording
+     * This method is called to stopRecording recording
      */
     public void stop(){
         mic.stop();
