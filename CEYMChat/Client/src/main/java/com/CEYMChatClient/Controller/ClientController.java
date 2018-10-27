@@ -142,7 +142,7 @@ public class ClientController implements IClientController, IObserver {
      * This method is called to stopRecording recording
      */
     @FXML
-    public void stopRecording(){
+    public void stopRecording() throws IOException {
         mic.stop();
         mic.close();
 
@@ -153,6 +153,11 @@ public class ClientController implements IClientController, IObserver {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        //Send a string message to notify the receiver that a voice-message has been received.
+        String toSend = "Sound has been received. To listen, click play.";
+        Message message = MessageFactory.createStringMessage(toSend, model.getUInfo(), currentChatName);
+        model.addMessage(message);
+
     }
 
     /**
