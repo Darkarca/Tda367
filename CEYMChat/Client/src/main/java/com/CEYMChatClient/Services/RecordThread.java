@@ -13,7 +13,9 @@ import java.io.IOException;
 public class RecordThread implements Runnable{
 
     // Filepath
-    private File directory = new File("Client/Messages/RAudio.wav");
+    private File directory;
+
+    //private IInput send = new InputService();
 
     // determine the audio format
     private AudioFileFormat.Type fileType = AudioFileFormat.Type.WAVE;
@@ -30,12 +32,13 @@ public class RecordThread implements Runnable{
 
     /**
      * Constructor
-     * @param controller
+     * @param file
      * @param mic
      * @param maxRecordingTime
      */
-    public RecordThread(TargetDataLine mic, long maxRecordingTime){
+    public RecordThread(File file, TargetDataLine mic, long maxRecordingTime){
         //this.controller = controller;
+        this.directory = file;
         this.mic = mic;
         this.maxRecordingTime = maxRecordingTime;
     }

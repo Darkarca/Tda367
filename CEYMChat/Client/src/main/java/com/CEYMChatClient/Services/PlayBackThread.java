@@ -10,6 +10,7 @@ import java.io.InputStream;
  */
 public class PlayBackThread implements Runnable {
     private AudioStream audioStream;
+
     private String fileName;
 /*
     /**
@@ -25,12 +26,14 @@ public class PlayBackThread implements Runnable {
      */
     public  void run()  {
         // Make an inputstream from file
-        String directory = "Client/Messages/Audio.wav";
+        String directory = "Client/Messages/RAudio.wav";
 
         // Make an audio stream from a source audio file
         try {
+
             InputStream inputStream = new FileInputStream(directory);
             audioStream = new AudioStream(inputStream);
+
         } catch (IOException e) {
             e.printStackTrace();
         }

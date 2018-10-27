@@ -75,14 +75,17 @@ public class ClientController implements IClientController, IObserver {
     private FlowPane emojisFlowPane;
 
     private Stage disconnectPopup = new Stage();
+
     private Parent disconnect;
 
-    private AudioMessage format;
+    private AudioMessage format = new AudioMessage();
     //Audio Source
     private TargetDataLine mic;
     private AudioFormat aF;
     //30 seconds
     private int maxRecordTime = 30000;
+
+    private File directory = new File("Client/Messages/RAudio.wav");
 
 
     /**
@@ -115,7 +118,7 @@ public class ClientController implements IClientController, IObserver {
                 mic = (TargetDataLine) AudioSystem.getLine(dataLineInfo);
                 mic.open(aF);
                 mic.start();
-                Thread recordToFile = new Thread(new RecordThread(mic,maxRecordTime));
+                Thread recordToFile = new Thread(new RecordThread(directory, mic, maxRecordTime));
                 recordToFile.start();
             } catch (Exception e) {
                 StackTraceElement stackEle[] = e.getStackTrace();
@@ -142,6 +145,9 @@ public class ClientController implements IClientController, IObserver {
     public void stopRecording(){
         mic.stop();
         mic.close();
+
+        System.out.println("Stop recording");
+
         try {
             sendFile();
         } catch (IOException e) {
