@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
 public class ClientModelTest {
 
     private static ClientModel model = new ClientModel();
-   static private List<Message> testList = new ArrayList<>();
+   static private List<Message<String>> testList = new ArrayList<>();
 
     /** creates a virtual saved messages */
     @BeforeClass
@@ -74,10 +74,11 @@ public class ClientModelTest {
     public void loadSavedSentMessage() throws IOException {
         List<String> expected = new ArrayList<>();
         List<String> actual = new ArrayList<>();
-        String[] expectedArray = {"test2", "Hello World3", "test2", "Hello World4"};
+        String[] expectedArray = {"test2: ", "Hello World3", "test2: ", "Hello World4"};
         expected.addAll(Arrays.asList(expectedArray));
         actual = model.loadSavedMessages("messages/sent.csv");
         assertEquals("Loaded messages match expected value",expected,actual);
+
         //Overwrites the test-files
         FileWriter writer = new FileWriter("messages/sent.csv");
         writer.write("");
@@ -89,7 +90,7 @@ public class ClientModelTest {
     public void loadSavedReceivedMessage() throws IOException {
         List<String> expected = new ArrayList<>();
         List<String> actual = new ArrayList<>();
-        String[] expectedArray = {"test1", "Hello World", "test1", "Hello World2"};
+        String[] expectedArray = {"test1: ", "Hello World", "test1: ", "Hello World2"};
         expected.addAll(Arrays.asList(expectedArray));
         actual = model.loadSavedMessages("messages/received.csv");
         assertEquals("Loaded messages match expected value",expected,actual);

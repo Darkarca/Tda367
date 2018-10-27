@@ -12,23 +12,6 @@ import static org.junit.Assert.*;
 public class ServerModelTest {
     private ServerModel testModel;
 
-    @Test
-    public void performCommand() throws IOException, InterruptedException {
-        testModel  = new ServerModel();
-        SocketHandler testHandler = new SocketHandler(testModel);
-        Socket socket = new Socket("localhost", 9000);
-        Thread.sleep(2000);
-        testHandler.start();
-        Thread.sleep(2000);
-        testModel.getUserList().get(0).setuInfo(new UserInfo());
-        testModel.performCommand(new Command(CommandName.SET_USER, "true"), testModel.getUserList().get(0).getUInfo());
-        assertEquals("Username correctly set for user",testModel.getUserList().get(0).getUInfo().getUsername(), "true");
-        testModel.performCommand(new Command(CommandName.REFRESH_FRIENDLIST, testModel.getUserList().get(0).getUInfo().getUsername()),testModel.getUserList().get(0).getUInfo());
-        assertEquals("Message of type 'ARRAYLIST' received","ArrayList",testModel.getUserList().get(0).getWriter().getOutMessage().getType().getSimpleName());
-        testModel.performCommand(new Command(CommandName.DISCONNECT, testModel.getUserList().get(0).getUInfo().getUsername()),testModel.getUserList().get(0).getUInfo());
-        assertEquals("User successfully disconnected",0,testModel.getUserList().size());
-        socket.close();
-        testHandler.closeSocket();    }
 
     @Test
     public void addUser() throws IOException {

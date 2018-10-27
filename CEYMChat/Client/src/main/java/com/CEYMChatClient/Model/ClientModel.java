@@ -13,8 +13,8 @@ public class ClientModel implements IObserveable {
     private List<UserInfo> blockedFriends = new ArrayList<>();
     private List<UserInfo> friendList = new ArrayList<>();
     private List<UserInfo> userList = new ArrayList<>();
-    private List<Message> receivedMessages = new ArrayList<>();
-    private List<Message> sentMessages = new ArrayList<>();
+    private List<Message<String>> receivedMessages = new ArrayList<>();
+    private List<Message<String>> sentMessages = new ArrayList<>();
     private List<UserInfo> mutedFriends = new ArrayList<>();
     private String username;
     private UserInfo uInfo;
@@ -42,10 +42,14 @@ public class ClientModel implements IObserveable {
         mutedFriends.add(uInfo);
     }
     public void addSentMessage (Message message){
-        sentMessages.add(message);
+        if(messageIsOfStringType(message)) {
+            sentMessages.add(message);
+        }
     }
     public void addReceivedMessage(Message message){
-        receivedMessages.add(message);
+        if(messageIsOfStringType(message)) {
+            receivedMessages.add(message);
+        }
     }
     public void removeFriends(UserInfo uInfo){
         if(!uInfo.getIsFriend() && friendList.contains(uInfo)){
@@ -94,14 +98,14 @@ public class ClientModel implements IObserveable {
      * @param list The list of messages to be saved
      * @param filename The location to save the file to
      */
-    public void saveArrayListToFile(List<Message> list, String filename) throws IOException {
+    public void saveArrayListToFile(List<Message<String>> list, String filename) throws IOException {
         FileWriter writer = new FileWriter(filename);
         for(Message message: list) {
-            if(message.getSender().equals(username)) {
+            if(message.getSender().getUsername().equals(username)) {
                 writer.write("Me: " + "," + message.getData().toString() + ",");
             }
             else{
-                writer.write(message.getSender() + "," + message.getData().toString() + ",");
+                writer.write(message.getSender().getUsername() + ": ," + message.getData().toString() + ",");
             }
         }
         writer.close();
@@ -220,6 +224,13 @@ public class ClientModel implements IObserveable {
     public void addMessage(Message message) {
         addSentMessage(message);
         update(message);
+    }
+    public boolean messageIsOfStringType(Message message){
+        MessageType msgType = MessageType.STRING;
+        if(MessageType.valueOf(message.getType().getSimpleName().toUpperCase()).equals(msgType)) {
+            return true;
+        }
+        return false;
     }
 
     public void login() {
