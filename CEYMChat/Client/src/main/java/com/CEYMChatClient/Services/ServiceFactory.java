@@ -1,6 +1,5 @@
 package com.CEYMChatClient.Services;
 
-import com.CEYMChatClient.Controller.IClientController;
 import com.CEYMChatClient.Model.ClientModel;
 
 import java.io.IOException;

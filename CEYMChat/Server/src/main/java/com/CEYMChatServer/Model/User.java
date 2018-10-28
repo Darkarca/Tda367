@@ -32,7 +32,7 @@ public class User {
         return uInfo;
     }
 
-    public Socket getSocket() {
+    Socket getSocket() {
         return socket;
     }
 
@@ -97,7 +97,7 @@ public class User {
      *  Writes a message to the outputStream so
      *  that the client can read it from their inputStream
      */
-    public void sendMessage(Message message) {
+    void sendMessage(Message message) {
         writer.setOutMessage(message);
     }
 
@@ -115,7 +115,7 @@ public class User {
     }
 
 
-    public boolean isOnline() {
+    boolean isOnline() {
        return this.online;
     }
 
@@ -123,7 +123,7 @@ public class User {
         this.online = online;
     }
 
-    public void addFriend(User toBeAdded) {
+    void addFriend(User toBeAdded) {
         friends.add(toBeAdded);
         System.out.println("Friend added" + toBeAdded.getUInfo().getUsername());
     }

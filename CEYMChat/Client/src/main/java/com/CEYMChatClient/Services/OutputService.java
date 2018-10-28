@@ -77,12 +77,8 @@ public class OutputService implements IOutput, IObserver {
                 bufferedInputStream.read(toSendArray,0,toSendArray.length);
 
                 OutputStream outputStream = socket.getOutputStream();
-                //BufferedOutputStream bo = new BufferedOutputStream(outputStream);
                 outputStream.write(toSendArray,0,toSendArray.length);
                 outputStream.flush();
-
-                //bo.close();
-                //socket.shutdownOutput();
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {

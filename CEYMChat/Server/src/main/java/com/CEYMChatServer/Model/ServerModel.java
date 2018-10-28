@@ -28,7 +28,7 @@ public class ServerModel implements IObserver {
      * @param command COMMAND to be executed
      * @param sender  User that sent the command
      */
-    public void performCommand(Command command, UserInfo sender) {
+    private void performCommand(Command command, UserInfo sender) {
         switch (command.getCommandName()) {
             case SET_USER: {
                 setUser(sender);

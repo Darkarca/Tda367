@@ -14,13 +14,13 @@ import java.util.List;
 /** SocketHandler is responsible for
  * * continuously allowing new users to connect to the Server
  */
-public class SocketHandler{
+class SocketHandler{
     private ServerSocket serverSocket;
     private ServerModel model;
     private List<IReader> readers;
     private int port = 9000;
     boolean running = true;
-    public SocketHandler(ServerModel model, int port){
+    SocketHandler(ServerModel model, int port){
         this.model = model;
         this.port = port;
         try {
@@ -30,7 +30,7 @@ public class SocketHandler{
         }
         readers = new ArrayList<>();
     }
-    public SocketHandler(ServerModel model){
+    SocketHandler(ServerModel model){
         this.model = model;
         try {
             this.serverSocket = new ServerSocket(port);
@@ -40,7 +40,7 @@ public class SocketHandler{
         readers = new ArrayList<>();
     }
 
-    public void start() {
+    void start() {
         new Thread(() -> {
             while (running) {
                 try {
@@ -58,7 +58,7 @@ public class SocketHandler{
         }).start();
     }
 
-    public void connectSocket() throws IOException {
+    private void connectSocket() throws IOException {
         Socket acceptedSocket = serverSocket.accept();
         User newUser = new User();
         newUser.setOnline(true);
@@ -69,15 +69,15 @@ public class SocketHandler{
         reader.register(model);
     }
 
-    public List<IReader> getReaders() {
+    List<IReader> getReaders() {
         return readers;
     }
 
-    public void stop() {
+    void stop() {
         running = false;
     }
 
-    public void closeSocket() {
+    void closeSocket() {
         try {
             serverSocket.close();
         } catch (IOException e) {
