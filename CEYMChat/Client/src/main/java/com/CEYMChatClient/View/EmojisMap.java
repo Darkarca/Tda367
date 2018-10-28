@@ -375,6 +375,264 @@ public class EmojisMap {
                         "\uD83D\uDE2E",
                         "face with open mouth",
                         "open_mouth"
+                },
+                {
+                        "😬",
+                        "\uD83D\uDE2C",
+                        "grimacing face",
+                        "grimacing"
+                },
+                {
+                        "😐",
+                        "\uD83D\uDE10",
+                        "neutral face",
+
+                        "neutral_face"
+
+                },
+                {
+                        "😕",
+                        "\uD83D\uDE15",
+                        "confused face",
+                        "confused"
+                },
+                {
+                        "😯",
+                        "\uD83D\uDE2F",
+                        "hushed face",
+                        "hushed"
+                },
+                {
+                        "😶",
+                        "\uD83D\uDE36",
+                        "face without mouth",
+                        "no_mouth"
+
+                },
+                {
+                        "😇",
+                        "\uD83D\uDE07",
+                        "smiling face with halo",
+                        "innocent"
+                },
+                {
+                        "😏",
+                        "\uD83D\uDE0F",
+                        "smirking face",
+                        "smirk"
+                },
+                {
+                        "😑",
+                        "\uD83D\uDE11",
+                        "expressionless face",
+                        "expressionless"
+                },
+                {
+                        "👲",
+                        "\uD83D\uDC72",
+                        "man with gua pi mao",
+                        "man_with_gua_pi_mao"
+                },
+
+                {
+                        "👳",
+                        "\uD83D\uDC73",
+                        "man with turban",
+                        "man_with_turban"
+                },
+                {
+                        "👮",
+                        "\uD83D\uDC6E",
+                        "police officer",
+                        "cop"
+                },
+                {
+                        "👷",
+                        "\uD83D\uDC77",
+                        "construction worker",
+                        "supports_fitzpatrick"
+                },
+                {
+                        "💂",
+                        "\uD83D\uDC82",
+                        "guardsman",
+                        "guardsman"
+                },
+                {
+                        "👶",
+                        "\uD83D\uDC76",
+                        "baby",
+                        "baby"
+                },
+                {
+                        "👦",
+                        "\uD83D\uDC66",
+                        "boy",
+                        "boy"
+                },
+                {
+                        "👧",
+                        "\uD83D\uDC67",
+                        "girl",
+                        "girl"
+                },
+                {
+                        "👨",
+                        "\uD83D\uDC68",
+                        "man",
+                        "man"
+                },
+                {
+                        "👩",
+                        "\uD83D\uDC69",
+                        "woman",
+                        "woman"
+                },
+                {
+                        "👴",
+                        "\uD83D\uDC74",
+                        "older man",
+                        "older_man"
+                },
+                {
+                        "👵",
+                        "\uD83D\uDC75",
+                        "older woman",
+                        "older_woman"
+                },
+                {
+                        "👱",
+                        "\uD83D\uDC71",
+                        "person with blond hair",
+                        "person_with_blond_hair"
+                },
+                {
+                        "👼",
+                        "\uD83D\uDC7C",
+                        "baby angel",
+                        "angel"
+
+                },
+                {
+                        "👸",
+                        "\uD83D\uDC78",
+                        "princess",
+                        "princess"
+
+                },
+                {
+                        "😺",
+                        "\uD83D\uDE3A",
+                        "smiling cat face with open mouth",
+                        "smiley_cat"
+
+                },
+                {
+                        "😸",
+                        "\uD83D\uDE38",
+                        "grinning cat face with smiling eyes",
+                        "smile_cat"
+
+                },
+                {
+                        "😻",
+                        "\uD83D\uDE3B",
+                        "smiling cat face with heart-shaped eyes",
+                        "heart_eyes_cat"
+
+                },
+                {
+                        "😽",
+                        "\uD83D\uDE3D",
+                        "kissing cat face with closed eyes",
+                        "kissing_cat"
+
+                },
+                {
+                        "😼",
+                        "\uD83D\uDE3C",
+                        "cat face with wry smile",
+                        "smirk_cat"
+
+                },
+                {
+                        "🙀",
+                        "\uD83D\uDE40",
+                        "weary cat face",
+                        "scream_cat"
+
+                },
+                {
+                        "😿",
+                        "\uD83D\uDE3F",
+                        "crying cat face",
+                        "crying_cat_face"
+                },
+                {
+                        "😹",
+                        "\uD83D\uDE39",
+                        "cat face with tears of joy",
+                        "joy_cat"
+                },
+                {
+                        "😾",
+                        "\uD83D\uDE3E",
+                        "pouting cat face",
+                        "pouting_cat"
+                },
+                {
+                        "👹",
+                        "\uD83D\uDC79",
+                        "japanese ogre",
+                        "japanese_ogre"
+                },
+                {
+                        "👺",
+                        "\uD83D\uDC7A",
+                        "japanese goblin",
+                        "japanese_goblin"
+                },
+                {
+                        "🙈",
+                        "\uD83D\uDE48",
+                        "see-no-evil monkey",
+                        "see_no_evil"
+                },
+                {
+                        "🙉",
+                        "\uD83D\uDE49",
+                        "hear-no-evil monkey",
+                        "hear_no_evil"
+                },
+                {
+                        "🙊",
+                        "\uD83D\uDE4A",
+                        "speak-no-evil monkey",
+                        "speak_no_evil"
+                },
+                {
+                        "💀",
+                        "\uD83D\uDC80",
+                        "skull",
+                        "skull"
+                },
+                {
+                        "👽",
+                        "\uD83D\uDC7D",
+                        "extraterrestrial alien",
+                        "alien"
+                },
+                {
+                        "💩",
+                        "\uD83D\uDCA9",
+                        "pile of poo",
+                        "hankey",
+                },
+                {
+                        "🔥",
+                        "\uD83D\uDD25",
+                        "fire",
+                        "fire"
                 }
 
         };
