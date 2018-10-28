@@ -369,10 +369,9 @@ public class ClientController implements IClientController, IObserver {
             if (allSavedMessages.get(i).equals("Me")) {
                 createAddSendMessagePane(allSavedMessages.get(i) + ": " + allSavedMessages.get(i + 1));
             }
-            else if(allSavedMessages.size() > 1){
-                createAddReceiveMessagePane(allSavedMessages.get(i) + ": " + allSavedMessages.get(i + 1));
+            else if(allSavedMessages.size() > 1 && i < allSavedMessages.size()){
+                createAddReceiveMessagePane(allSavedMessages.get(i) + ": " + allSavedMessages.get(i+1));
             }
-
         }
     }
 
