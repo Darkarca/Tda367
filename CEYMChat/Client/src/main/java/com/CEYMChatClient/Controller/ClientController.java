@@ -154,7 +154,7 @@ public class ClientController implements IClientController, IObserver {
             e.printStackTrace();
         }
         //Send a string message to notify the receiver that a voice-message has been received.
-        String toSend = "Sound has been received. To listen, click play.";
+        String toSend = "Sound has been received. To listen click play.";
         Message message = MessageFactory.createStringMessage(toSend, model.getUInfo(), currentChatName);
         model.addMessage(message);
 
@@ -370,7 +370,7 @@ public class ClientController implements IClientController, IObserver {
                 createAddSendMessagePane(allSavedMessages.get(i) + ": " + allSavedMessages.get(i + 1));
             }
             else if(allSavedMessages.size() > 1 && i < allSavedMessages.size()){
-                createAddReceiveMessagePane(allSavedMessages.get(i) + ": " + allSavedMessages.get(i+1));
+                createAddReceiveMessagePane(allSavedMessages.get(i) + ": " + allSavedMessages.get(i + 1));
             }
         }
     }
@@ -383,7 +383,6 @@ public class ClientController implements IClientController, IObserver {
             emojisFlowPane.getChildren().add(emojiItem.getPane());
         }
     }
-
     /** Appends text of chatBox with a String
      * @param s the String to append the chatBox with
      */
