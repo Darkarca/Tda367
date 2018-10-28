@@ -85,7 +85,7 @@ public class ClientController implements IClientController, IObserver {
     //30 seconds
     private int maxRecordTime = 30000;
 
-    private File directory = new File("Client/Messages/RAudio.wav");
+    private File directory = new File("Client/messages/RAudio.wav");
 
 
     /**
