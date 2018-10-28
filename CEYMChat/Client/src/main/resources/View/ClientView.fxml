@@ -45,8 +45,8 @@
                       </AnchorPane>
                       <AnchorPane maxWidth="900.0" minHeight="0.0" minWidth="0.0" prefHeight="675.0" prefWidth="721.0">
                           <children>
-                              <TextField fx:id="chatBox" editable="true" layoutX="30.0" layoutY="595.0" onAction="#sendString" prefHeight="69.0" prefWidth="378.0" promptText="Type here to chat!" />
-                        <Text fx:id="currentChat" layoutX="21.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Currently chatting with: Nobody" wrappingWidth="175.611328125" />
+                              <TextField fx:id="chatBox" editable="true" layoutX="10.0" layoutY="595.0" onAction="#sendString" prefHeight="69.0" prefWidth="395.0" promptText="Type here to chat!" />
+                        <Text fx:id="currentChat" layoutX="27.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Currently chatting with: Nobody" wrappingWidth="360.611328125" />
                         <ImageView fx:id="fileChooser" fitHeight="40.0" fitWidth="40.0" layoutX="402.0" layoutY="5.0" onMouseClicked="#chooseFile" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../attached_icon.png" />
@@ -57,19 +57,19 @@
                         <Text fx:id="fileName" layoutX="365.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="36.999994575977325" />
                         <ScrollPane layoutY="50.0" prefHeight="482.0" prefWidth="571.0">
                           <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="480.0" prefWidth="568.0">
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="480.0" prefWidth="569.0">
                                  <children>
-                                    <ImageView fitHeight="417.0" fitWidth="239.0" layoutX="4.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" scaleX="2.42" scaleY="1.15" translateX="163.0" translateY="30.0">
+                                    <ImageView fitHeight="417.0" fitWidth="235.0" layoutX="3.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" scaleX="2.42" scaleY="1.15" translateX="163.0" translateY="30.0">
                                        <image>
                                           <Image url="@../BackgroundPic/1.jpg" />
                                        </image>
                                     </ImageView>
-                                    <FlowPane fx:id="chatPane" layoutX="-3.0" layoutY="-1.0" prefHeight="482.0" prefWidth="571.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="-3.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0" />
+                                    <FlowPane fx:id="chatPane" layoutX="-3.0" layoutY="-1.0" prefHeight="480.0" prefWidth="569.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                           </content>
                         </ScrollPane>
-                              <Button fx:id="sendButton" layoutX="493.0" layoutY="595.0" mnemonicParsing="false" onAction="#sendString" prefHeight="69.0" prefWidth="65.0">
+                              <Button fx:id="sendButton" layoutX="496.0" layoutY="595.0" mnemonicParsing="false" onAction="#sendString" prefHeight="69.0" prefWidth="65.0">
                            <graphic>
                               <ImageView fitHeight="54.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -88,7 +88,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button layoutX="409.0" layoutY="598.0" mnemonicParsing="false" onAction="#recordVoice" prefHeight="29.0" prefWidth="26.0">
+                        <Button layoutX="408.0" layoutY="596.0" mnemonicParsing="false" onAction="#recordVoice" prefHeight="37.0" prefWidth="42.0">
                            <graphic>
                               <ImageView fitHeight="27.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -97,7 +97,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="recordStopButton" layoutX="450.0" layoutY="599.0" mnemonicParsing="false" onAction="#stopRecording" prefHeight="34.0" prefWidth="41.0">
+                        <Button fx:id="recordStopButton" layoutX="451.0" layoutY="596.0" mnemonicParsing="false" onAction="#stopRecording" prefHeight="37.0" prefWidth="42.0">
                            <graphic>
                               <ImageView fitHeight="26.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -117,9 +117,9 @@
                         </Button>
                         <ScrollPane layoutX="-1.0" layoutY="538.0" prefHeight="52.0" prefWidth="571.0">
                           <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="50.0" prefWidth="568.0">
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="136.0" prefWidth="555.0">
                                  <children>
-                                    <FlowPane fx:id="emojisFlowPane" prefHeight="52.0" prefWidth="571.0" styleClass="logo-Backgroundanother-colour" />
+                                    <FlowPane fx:id="emojisFlowPane" prefHeight="136.0" prefWidth="555.0" styleClass="logo-Backgroundanother-colour" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                           </content>
@@ -138,7 +138,7 @@
       </AnchorPane>
       <AnchorPane fx:id="loginPane" prefHeight="400.0" prefWidth="582.0" styleClass="logo-Backgroundanother-colour" stylesheets="@style/style.css">
          <children>
-            <Text fill="#5dbcd2" layoutX="355.0" layoutY="273.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login" wrappingWidth="86.63671875">
+            <Text fill="#5dbcd2" layoutX="357.0" layoutY="316.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login" wrappingWidth="86.63671875">
                <font>
                   <Font size="33.0" />
                </font>
@@ -147,20 +147,20 @@
                   <String fx:value="loginText" />
                </styleClass>
             </Text>
-            <TextField fx:id="userNameTextField" layoutX="284.0" layoutY="314.0" onAction="#login" prefHeight="37.0" prefWidth="231.0" promptText="Username" />
-            <Button fx:id="loginButton" layoutX="285.0" layoutY="509.0" mnemonicParsing="false" onAction="#login" onMouseClicked="#login" prefHeight="37.0" prefWidth="231.0" text="Login" textFill="WHITE">
+            <TextField fx:id="userNameTextField" layoutX="285.0" layoutY="366.0" onAction="#login" prefHeight="37.0" prefWidth="231.0" promptText="Username" />
+            <Button fx:id="loginButton" layoutX="285.0" layoutY="448.0" mnemonicParsing="false" onAction="#login" onMouseClicked="#login" prefHeight="37.0" prefWidth="231.0" text="Login" textFill="WHITE">
                <styleClass>
                   <String fx:value="back-colour" />
                   <String fx:value="static-hinting" />
                   <String fx:value="text-larger" />
                </styleClass>
             </Button>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="325.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="325.0" layoutY="104.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Logo.png" />
                </image>
             </ImageView>
-            <Label layoutX="336.0" layoutY="401.0" prefHeight="17.0" prefWidth="126.0" text="Forgot your password?" textFill="#5dbcd2" />
+            <Label layoutX="285.0" layoutY="403.0" prefHeight="17.0" prefWidth="126.0" text="Forgot your password?" textFill="#5dbcd2" />
          </children>
       </AnchorPane>
    </children>
