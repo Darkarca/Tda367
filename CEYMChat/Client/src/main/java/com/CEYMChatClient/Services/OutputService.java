@@ -11,7 +11,7 @@ public class OutputService implements IOutput, IObserver {
     private ObjectOutputStream messageOutStream;
     Socket socket;
 
-    public OutputService(ClientModel model, Socket socket)
+    OutputService(ClientModel model, Socket socket)
     {
             this.socket=socket;
             this.model=model;
