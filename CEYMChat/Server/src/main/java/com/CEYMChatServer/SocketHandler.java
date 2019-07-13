@@ -26,6 +26,8 @@ class SocketHandler{
         try {
             this.serverSocket = new ServerSocket(port);
         } catch (IOException e) {
+            System.out.println("Could not initialize the serverSocket, exiting...");
+            System.exit(1);
             e.printStackTrace();
         }
         readers = new ArrayList<>();
@@ -35,6 +37,8 @@ class SocketHandler{
         try {
             this.serverSocket = new ServerSocket(port);
         } catch (IOException e) {
+            System.out.println("Could not initialize the serverSocket, exiting...");
+            System.exit(1);
             e.printStackTrace();
         }
         readers = new ArrayList<>();
@@ -81,7 +85,22 @@ class SocketHandler{
         try {
             serverSocket.close();
         } catch (IOException e) {
+            onCloseSocketException();
             e.printStackTrace();
         }
+    }
+
+    /**
+     * If closeSocket throws exception, we attempt again
+     */
+    void onCloseSocketException(){
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            System.out.println("Was interrupted from sleep");
+            e.printStackTrace();
+        }
+        closeSocket();
+
     }
 }

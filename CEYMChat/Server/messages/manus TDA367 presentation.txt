@@ -1,0 +1,15 @@
+Hej,
+
+Välkommna till vår presentation utav CEYMChat, en chatapplikation utvecklad utav oss. Jag kommer att ge er
+en överblick utav programmet och de involverade komponeterna och teknikerna.
+
+Denna bilden illusterar flödet utav ett chatmeddelande. Här ser ni en klient som skickar ett meddelande över
+internet till servern, där servern sen routar meddelanden till mottagar-klienten. Servern kör just nu på min dator
+hemma i min lägenhet. Jag kan visa er den här via en Remote-session. Och om jag kan be Erik ansluta en klient härifrån på sin laptop så kan ni se
+att servern tagit emot en ny användare.
+
+För att åstadkomma denna anslutningen har vi använt oss utav ett bibliotek som heter Java.net och mer specifikt har vi använt oss utav Sockets.
+Via Sockets kan vi skicka objekt utav vilken typ som helst, men både klienten och servern måste såklart veta om objektet. Därför har vi använt oss utav en 
+delat bibliotek med klasser så som Message, Command m.m. Vi kan då skicka dessa objekt och avläsa information från dom i både server och klient. 
+
+Nu kommer Erik demoa lite snabbt hur det ser ut på klient-sidan.

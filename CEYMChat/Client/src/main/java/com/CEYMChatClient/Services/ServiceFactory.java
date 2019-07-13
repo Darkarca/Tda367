@@ -17,6 +17,8 @@ public class ServiceFactory implements IServiceFactory{
         try {
             socket = new Socket(hostname, 9000);
         } catch (IOException e) {
+            System.out.println("Could not initialize the serverSocket, exiting...");
+            System.exit(1);
             e.printStackTrace();
         }
     }

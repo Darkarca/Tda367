@@ -60,6 +60,7 @@ public class ServerMain{
                 try {
                     Thread.sleep(2000);
                 } catch (InterruptedException e) {
+                    System.out.println("Sleep interrupted");
                     e.printStackTrace();
                 }
                 model = new ServerModel();
@@ -67,6 +68,8 @@ public class ServerMain{
                 try {
                     Thread.sleep(2000);
                 } catch (InterruptedException e) {
+                    System.out.println("Sleep interrupted");
+                    e.printStackTrace();
                     e.printStackTrace();
                 }
                 initHandler(port);

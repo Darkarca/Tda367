@@ -36,6 +36,8 @@ public class OutputService implements IOutput, IObserver {
         try {
             messageOutStream = new ObjectOutputStream(socket.getOutputStream());
         } catch (IOException e) {
+            System.out.println("Failed to open an OutStream from socket, exiting hard");
+            System.exit(1);
             e.printStackTrace();
         }
     }
@@ -48,8 +50,10 @@ public class OutputService implements IOutput, IObserver {
         try {
             sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.SET_USER,model.getUInfo().getUsername()),model.getUInfo()));
         } catch (IOException e) {
+            System.out.println("Failed to login, exiting hard");
+            System.exit(1);
             e.printStackTrace();
-        }
+            }
         }
 
     /**
@@ -82,6 +86,7 @@ public class OutputService implements IOutput, IObserver {
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
+                    System.out.println("Sleep interrupted");
                     e.printStackTrace();
                 }
                 break;
@@ -113,6 +118,8 @@ public class OutputService implements IOutput, IObserver {
             messageOutStream.close();
             socket.close();
         } catch (IOException e) {
+            System.out.println("Failed to disconnect safely, exiting hard");
+            System.exit(1);
             e.printStackTrace();
         }
     }

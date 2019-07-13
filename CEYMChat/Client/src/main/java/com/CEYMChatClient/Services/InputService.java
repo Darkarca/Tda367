@@ -47,6 +47,8 @@ public class InputService implements IInput {
             read();
 
         } catch (IOException e) {
+            System.out.println("Could not get InputStream, exiting...");
+            System.exit(1);
             e.printStackTrace();
         }
     }
@@ -126,6 +128,8 @@ public class InputService implements IInput {
                     try {
                         notifyModel(messageIn);
                     } catch (IOException e) {
+                        System.out.println("JavaFX failed the runLater, cannot cope");
+                        System.exit(1);
                         e.printStackTrace();
                     }
                 }
@@ -159,11 +163,9 @@ public class InputService implements IInput {
                 break;
             }
         }
-        //bufferedOut.write(receivedFile, 0 , current);
         bufferedOut.flush();
-        //bufferedOut.close();
         fileOut.close();
-        //inputStream.reset();
+
     }
 
     /**
@@ -176,6 +178,8 @@ public class InputService implements IInput {
             messageInStream.close();
             socket.close();
         } catch (IOException e) {
+            System.out.println("Could not disconnect safely, exiting hard");
+            System.exit(1);
             e.printStackTrace();
         }
     }

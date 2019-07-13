@@ -56,6 +56,7 @@ public class RecordThread implements Runnable{
             sleepMaxRecordingTime(maxRecordingTime);
             AudioSystem.write(ais, fileType, directory);
         }  catch (IOException ioe) {
+            System.out.println("AudioStream not ran correctly");
             ioe.printStackTrace();
         }
     }
@@ -80,6 +81,7 @@ public class RecordThread implements Runnable{
                 try {
                     Thread.sleep(maxRecordingTime);
                 } catch (InterruptedException e) {
+                    System.out.println("Sleep interrupted");
                     e.printStackTrace();
                 }
                 stop();
