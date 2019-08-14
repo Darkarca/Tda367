@@ -1,4 +1,6 @@
 package com.CEYMChatClient.Services;
+import javafx.scene.control.Alert;
+
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -56,7 +58,7 @@ public class RecordThread implements Runnable{
             sleepMaxRecordingTime(maxRecordingTime);
             AudioSystem.write(ais, fileType, directory);
         }  catch (IOException ioe) {
-            System.out.println("AudioStream not ran correctly");
+
             ioe.printStackTrace();
         }
     }

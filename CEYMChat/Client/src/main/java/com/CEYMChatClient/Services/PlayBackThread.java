@@ -1,4 +1,5 @@
 package com.CEYMChatClient.Services;
+import javafx.scene.control.Alert;
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
 import java.io.FileInputStream;
@@ -35,6 +36,12 @@ public class PlayBackThread implements Runnable {
             audioStream = new AudioStream(inputStream);
 
         } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Playback error");
+            alert.setHeaderText("Playback error");
+            alert.setContentText("Your audio file could not playback.");
+
+            alert.showAndWait();
             e.printStackTrace();
         }
 
