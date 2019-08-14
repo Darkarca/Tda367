@@ -79,10 +79,7 @@ public class ClientController implements IClientController, IObserver {
     private Properties config;
 
     private IVoice voiceService;
-
-
-
-
+    
     /**
      *  Initiates the GUI and loading default configurations.
      */
