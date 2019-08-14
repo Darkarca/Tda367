@@ -2,10 +2,7 @@ package com.CEYMChatClient;
 
 import com.CEYMChatClient.Controller.ClientController;
 import com.CEYMChatClient.Model.ClientModel;
-import com.CEYMChatClient.Services.IInput;
-import com.CEYMChatClient.Services.IOutput;
-import com.CEYMChatClient.Services.IServiceFactory;
-import com.CEYMChatClient.Services.ServiceFactory;
+import com.CEYMChatClient.Services.*;
 import com.CEYMChatLib.Command;
 import com.CEYMChatLib.CommandName;
 import com.CEYMChatLib.MessageFactory;
@@ -53,7 +50,8 @@ public class ClientMain extends Application {
         inService.connectToServer();
         primaryStage.getScene().getWindow().setOnCloseRequest(Event -> {    // Makes sure the client sends a notification to the Server that it has disconnected if the client is terminated
             try {
-                model.saveMessages();
+                ISaveMessages save = new SaveToCSV();
+                save.saveMessages(model.getReceivedMessages(), model.getSentMessages(), model.getUsername());
                 outService.sendMessage(MessageFactory.createCommandMessage(new Command(CommandName.DISCONNECT, model.getUsername()), model.getUInfo()));
                 outService.disconnect();
                 inService.disconnect();

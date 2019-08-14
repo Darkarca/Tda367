@@ -1,5 +1,7 @@
 package com.CEYMChatClient.Controller;
 
+import com.CEYMChatClient.Services.ILoadMessages;
+import com.CEYMChatClient.Services.LoadFromCSV;
 import com.CEYMChatClient.Services.PlayBackThread;
 import com.CEYMChatClient.Services.RecordThread;
 import com.CEYMChatLib.IObserver;
@@ -361,8 +363,9 @@ public class ClientController implements IClientController, IObserver {
 
     /** Loads messages saved during previous sessions */
     private void loadSavedMessages() throws IOException {
-        List<String> savedSentMessages = model.loadSavedMessages("Client/messages/sent.csv");
-        List<String> savedReceivedMessages = model.loadSavedMessages("Client/messages/received.csv");
+        ILoadMessages loader = new LoadFromCSV();
+        List<String> savedSentMessages = loader.loadSavedMessages("Client/messages/sent.csv");
+        List<String> savedReceivedMessages = loader.loadSavedMessages("Client/messages/received.csv");
         List<String> allSavedMessages = new ArrayList<>();
         model.combineSavedLists(savedSentMessages,savedReceivedMessages,allSavedMessages);
         for (int i = 0; i < allSavedMessages.size(); i=i+2) {
@@ -416,7 +419,7 @@ public class ClientController implements IClientController, IObserver {
 
     @FXML
     public void saveMessages (){
-        model.saveMessages();
+       // model.saveMessages();
     }
 
     @Override

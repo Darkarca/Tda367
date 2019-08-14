@@ -19,11 +19,11 @@ public class ClientModel implements IObserveable {
     private String username;
     private UserInfo uInfo;
     private File selectedFile;
-
     /** Getters, setters and adders **/
     public void setUserList(List<UserInfo> userList) {
         this.userList = userList;
     }
+
     public void setUsername(String user){
         this.username = user;
     }
@@ -94,58 +94,12 @@ public class ClientModel implements IObserveable {
         return selectedFile;
     }
 
-    /** Saves all sent and received messages into a file
-     * @param list The list of messages to be saved
-     * @param filename The location to save the file to
-     */
-    public void saveArrayListToFile(List<Message<String>> list, String filename) throws IOException {
-        FileWriter writer = new FileWriter(filename);
-        for(Message message: list) {
-            if(message.getSender().getUsername().equals(username)) {
-                writer.write("Me: " + "," + message.getData().toString() + ",");
-            }
-            else{
-                writer.write(message.getSender().getUsername() + ": ," + message.getData().toString() + ",");
-            }
-        }
-        writer.close();
-    }
 
-    /** Calls saveArrayListToFile to save all Received messages
-     * @param filename the location to save the file to
-     */
-    public void saveReceivedMessages(String filename) {
-        try {
-            saveArrayListToFile(receivedMessages, filename);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
-    /** Calls saveArrayListToFile to save all sent messages
-     * @param filename the location to save the file to
-     */
-    public void saveSendMessages(String filename) {
-        try {
-            saveArrayListToFile(sentMessages, filename);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
-    /** Loads messages that were saved during the last session
-     * @param filename the location to load messages from
-     */
-    public List<String> loadSavedMessages(String filename) throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(filename));
-        String line = "";
-        String cvsSplitBy = ",";
-        String [] savedMessages = {};
-        while((line = reader.readLine())!=null){
-            savedMessages = line.split(cvsSplitBy);
-        }
-        return new ArrayList<String>(Arrays.asList(savedMessages));
-    }
+
+
+
 
     /** Combines two saved lists of messages in one list */
     public void combineSavedLists (List<String> savedSentMessages, List<String> savedReceivedMessages,List<String>allSavedMessages){
@@ -170,14 +124,7 @@ public class ClientModel implements IObserveable {
         }
     }
 
-    /**
-     * Saves messages locally so that they can
-     * be loaded the next time you load the client
-     */
-    public void saveMessages() {
-        saveReceivedMessages("Client/messages/received.csv");
-        saveSendMessages("Client/messages/sent.csv");
-    }
+
 
     /** adds elements of a list to another list and begin from a given index */
     private void addElementsAfterIndex(List<String> savedList,List<String>allSavedMessages,int index){
@@ -225,6 +172,7 @@ public class ClientModel implements IObserveable {
         addSentMessage(message);
         update(message);
     }
+
     public boolean messageIsOfStringType(Message message){
         MessageType msgType = MessageType.STRING;
         if(MessageType.valueOf(message.getType().getSimpleName().toUpperCase()).equals(msgType)) {
@@ -232,7 +180,6 @@ public class ClientModel implements IObserveable {
         }
         return false;
     }
-
     public void login() {
         update(MessageFactory.createCommandMessage(new Command(CommandName.SET_USER,username),uInfo));
     }
@@ -243,5 +190,13 @@ public class ClientModel implements IObserveable {
 
     public void setUInfo(UserInfo uInfo) {
     this.uInfo=uInfo;
+    }
+
+    public List<Message<String>> getReceivedMessages() {
+        return receivedMessages;
+    }
+
+    public List<Message<String>> getSentMessages() {
+        return sentMessages;
     }
 }

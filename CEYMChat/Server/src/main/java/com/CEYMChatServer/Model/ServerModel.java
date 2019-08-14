@@ -140,8 +140,12 @@ public class ServerModel implements IObserver {
      * @param receiver Name of receiver.
      */
     public void sendMessage(Message message, String receiver) {
-        User user = getUserByUsername(receiver);
-        user.sendMessage(message);
+        try {
+            User user = getUserByUsername(receiver);
+            user.sendMessage(message);
+        }catch(NullPointerException e){
+            System.out.println("No user found, message not forwaded");
+        }
     }
 
     /**
