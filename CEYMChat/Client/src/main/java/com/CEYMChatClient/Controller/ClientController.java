@@ -90,8 +90,8 @@ public class ClientController implements IClientController, IObserver {
 
         loadProperties();
         model.register(this);
-        File received = new File("Client/messages/received.csv");
-        File sent = new File("Client/messages/received.csv");
+        File received = new File(config.getProperty("sentTextFile"));
+        File sent = new File(config.getProperty("receivedTextFile"));
         voiceService = new VoiceServices(config, AudioFileFormat.Type.WAVE);
         if (received.exists() && sent.exists()) {
             try {
@@ -356,8 +356,8 @@ public class ClientController implements IClientController, IObserver {
     /** Loads messages saved during previous sessions */
     private void loadSavedMessages() throws IOException {
         ILoadMessages loader = new LoadFromCSV();
-        List<String> savedSentMessages = loader.loadSavedMessages("Client/messages/sent.csv");
-        List<String> savedReceivedMessages = loader.loadSavedMessages("Client/messages/received.csv");
+        List<String> savedSentMessages = loader.loadSavedMessages(config.getProperty("sentTextFile"));
+        List<String> savedReceivedMessages = loader.loadSavedMessages(config.getProperty("receivedTextFile"));
         List<String> allSavedMessages = new ArrayList<>();
         model.combineSavedLists(savedSentMessages,savedReceivedMessages,allSavedMessages);
         for (int i = 0; i < allSavedMessages.size(); i=i+2) {
