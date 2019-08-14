@@ -125,7 +125,12 @@ public class ClientController implements IClientController, IObserver {
                 for (StackTraceElement val : stackEle) {
                     System.out.println(val);
                 }
-                System.exit(0);
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Recording error");
+                alert.setHeaderText("Recording error!");
+                alert.setContentText("Your recording failed! Try again.");
+
+                alert.showAndWait();
             }
     }
 

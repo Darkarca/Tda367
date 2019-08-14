@@ -1,6 +1,8 @@
 package com.CEYMChatClient.Model;
 
 import com.CEYMChatLib.*;
+import javafx.scene.control.Alert;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -129,6 +131,12 @@ public class ClientModel implements IObserveable {
         try {
             saveArrayListToFile(sentMessages, filename);
         } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("File save error");
+            alert.setHeaderText("File save error");
+            alert.setContentText("Your files could not be saved.");
+
+            alert.showAndWait();
             e.printStackTrace();
         }
     }
