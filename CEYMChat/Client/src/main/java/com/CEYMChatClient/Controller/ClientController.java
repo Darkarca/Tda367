@@ -1,9 +1,6 @@
 package com.CEYMChatClient.Controller;
 
-import com.CEYMChatClient.Services.ILoadMessages;
-import com.CEYMChatClient.Services.LoadFromCSV;
-import com.CEYMChatClient.Services.PlayBackThread;
-import com.CEYMChatClient.Services.RecordThread;
+import com.CEYMChatClient.Services.*;
 import com.CEYMChatLib.IObserver;
 import com.CEYMChatClient.View.*;
 import javafx.application.Platform;
@@ -22,15 +19,14 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.*;
 
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.DataLine;
-import javax.sound.sampled.TargetDataLine;
+import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 /**
  * Controller for the Client and ClientMain .
@@ -80,24 +76,23 @@ public class ClientController implements IClientController, IObserver {
 
     private Parent disconnect;
 
-    private AudioMessage format = new AudioMessage();
-    //Audio Source
-    private TargetDataLine mic;
-    private AudioFormat aF;
-    //30 seconds
-    private int maxRecordTime = 30000;
+    private Properties config;
 
-    private File directory = new File("Client/messages/RAudio.wav");
+    private IVoice voiceService;
+
+
 
 
     /**
-     *  Initiates the GUI
+     *  Initiates the GUI and loading default configurations.
      */
     private void appInit() {
 
+        loadProperties();
         model.register(this);
         File received = new File("Client/messages/received.csv");
         File sent = new File("Client/messages/received.csv");
+        voiceService = new VoiceServices(config, AudioFileFormat.Type.WAVE);
         if (received.exists() && sent.exists()) {
             try {
                 loadSavedMessages();
@@ -109,49 +104,41 @@ public class ClientController implements IClientController, IObserver {
     }
 
     /**
-     * This method is responsible for creating a thread that record voice from a target line
+     * Loads configurations from the properties file.
+     */
+    private void loadProperties() {
+        InputStream input = (getClass().getClassLoader().getResourceAsStream("config.properties"));
+        config = new Properties();
+        try {
+            config.load(input);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("File Not Found");
+        }
+    }
+
+    /**
+     * Records voice from a target line.
      */
     @FXML
     public void recordVoice (){
-
-            try {
-                aF = format.getAudioFormat();
-                DataLine.Info dataLineInfo = new DataLine.Info(TargetDataLine.class, aF);
-                mic = (TargetDataLine) AudioSystem.getLine(dataLineInfo);
-                mic.open(aF);
-                mic.start();
-                Thread recordToFile = new Thread(new RecordThread(directory, mic, maxRecordTime));
-                recordToFile.start();
-            } catch (Exception e) {
-                StackTraceElement stackEle[] = e.getStackTrace();
-                for (StackTraceElement val : stackEle) {
-                    System.out.println(val);
-                }
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Recording error");
-                alert.setHeaderText("Recording error!");
-                alert.setContentText("Your recording failed! Try again.");
-
-                alert.showAndWait();
-            }
+        voiceService.recordVoice();
     }
 
     /**
-     * This method creates a thread to play back audio files
+     * Creates a thread to play back audio files.
      */
     @FXML
     public void playBack(){
-
-    new Thread(new PlayBackThread()).start();
+        voiceService.playBack();
     }
 
     /**
-     * This method is called to stopRecording recording
+     * Stops the recording.
      */
     @FXML
     public void stopRecording() throws IOException {
-        mic.stop();
-        mic.close();
+        voiceService.stopRecording();
 
         System.out.println("Stop recording");
 

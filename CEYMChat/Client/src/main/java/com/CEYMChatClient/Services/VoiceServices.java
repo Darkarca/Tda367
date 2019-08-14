@@ -1,5 +1,6 @@
 package com.CEYMChatClient.Services;
 
+import javafx.scene.control.Alert;
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
 
@@ -93,7 +94,12 @@ public class VoiceServices implements IVoice {
             for (StackTraceElement val : stackEle) {
                 System.out.println(val);
             }
-            System.exit(0);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Recording error");
+            alert.setHeaderText("Recording error!");
+            alert.setContentText("Your recording failed! Try again.");
+
+            alert.showAndWait();
         }
 
 
