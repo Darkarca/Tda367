@@ -39,6 +39,7 @@ public class ClientMain extends Application {
         if(System.in.available()!=0) {
             hostname = scanner.nextLine();
             serviceFactory = new ServiceFactory(hostname);
+
         }
         else{
             System.out.println("Default server used");
@@ -57,6 +58,7 @@ public class ClientMain extends Application {
                 outService.disconnect();
                 inService.disconnect();
             } catch (IOException e) {
+                System.exit(1);
                 e.printStackTrace();
             }
         });

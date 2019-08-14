@@ -44,6 +44,8 @@ public class Reader implements Runnable, IReader {
             socket.close();
             unregisterAllObservers();
         } catch (IOException e) {
+            System.out.println("Could not stop safely, stopping hard");
+            System.exit(1);
             e.printStackTrace();
         }
     }

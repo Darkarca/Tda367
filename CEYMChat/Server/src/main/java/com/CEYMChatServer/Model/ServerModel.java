@@ -129,7 +129,7 @@ public class ServerModel implements IObserver {
      *
      * @param message Message to be displayed.
      */
-    private void displayMessage(Message message) throws IOException, ClassNotFoundException {
+    private void displayMessage(Message message) {
         System.out.println(message.getSender() + ": " + message.getData());
     }
 
@@ -176,7 +176,7 @@ public class ServerModel implements IObserver {
 
         outputStream.write(sentFile, 0, sentFile.length);
         outputStream.flush();
-        //bo.close();
+
     }
 
 
@@ -189,25 +189,20 @@ public class ServerModel implements IObserver {
                 break;
             }
             case STRING: {                                      // A string message is simply sent to the model and redistributed to the correct client
-                try {
-                    displayMessage(message);
-                    sendMessage(message,message.getReceiver());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
+                displayMessage(message);
+                sendMessage(message,message.getReceiver());
                 break;
             }
             case ARRAYLIST: {
-                    friendSync(message);
-                    performCommand(new Command(CommandName.REFRESH_FRIENDLIST,message.getSender().getUsername()),message.getSender());
+                friendSync(message);
+                performCommand(new Command(CommandName.REFRESH_FRIENDLIST,message.getSender().getUsername()),message.getSender());
                 break;
             }
             case MESSAGEFILE: {
                 try {
                     sendFile("Server/messages/" + ((MessageFile)message.getData()).getFileName(), message);
                 } catch (IOException e) {
+                    System.out.println("File was not found, try again");
                     e.printStackTrace();
                 }
                 break;

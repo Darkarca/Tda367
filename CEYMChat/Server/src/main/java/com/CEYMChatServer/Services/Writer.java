@@ -23,6 +23,8 @@ public class Writer implements IWriter {
             } catch (IOException e) {
                 e.printStackTrace();
                 System.out.println("No socket found");
+                System.exit(1);
+
             }
         }
     }
@@ -36,6 +38,7 @@ public class Writer implements IWriter {
         try {
             outputStream.writeObject(outMessage);
         } catch (IOException e) {
+            System.exit(1);
             e.printStackTrace();
         }
     }
