@@ -1,6 +1,7 @@
 package com.CEYMChatClient.Services;
 
 import com.CEYMChatLib.Message;
+import javafx.scene.control.Alert;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -33,6 +34,12 @@ public class SaveToCSV implements ISaveMessages {
             saveArrayListToFile(receivedMessages, filename, username);
         } catch (IOException e) {
             e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("File save error");
+            alert.setHeaderText("File save error");
+            alert.setContentText("Your files could not be saved.");
+
+            alert.showAndWait();
         }
     }
 
@@ -44,6 +51,12 @@ public class SaveToCSV implements ISaveMessages {
             saveArrayListToFile(sentMessages, filename, username);
         } catch (IOException e) {
             e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("File save error");
+            alert.setHeaderText("File save error");
+            alert.setContentText("Your files could not be saved.");
+
+            alert.showAndWait();
         }
     }
 

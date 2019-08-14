@@ -1,6 +1,8 @@
 package com.CEYMChatClient.Model;
 
 import com.CEYMChatLib.*;
+import javafx.scene.control.Alert;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -93,9 +95,6 @@ public class ClientModel implements IObserveable {
     public File getSelectedFile() {
         return selectedFile;
     }
-
-
-
 
 
 

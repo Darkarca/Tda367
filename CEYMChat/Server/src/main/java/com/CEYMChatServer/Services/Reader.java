@@ -85,7 +85,7 @@ public class Reader implements Runnable, IReader {
                             observer.update(inMessage);
                         }
                         break;
-                    }
+                      }
                     default:
                         for (IObserver observer: observerList) {observer.update(inMessage);}
                 }

@@ -26,8 +26,9 @@ class SocketHandler{
         try {
             this.serverSocket = new ServerSocket(port);
         } catch (IOException e) {
-            System.out.println("Could not initialize the serverSocket, exiting...");
-            System.exit(1);
+            System.out.println("Could not initialize the serverSocket, restarting...");
+            //exitcode 5 tells the start script to restart
+            System.exit(5);
             e.printStackTrace();
         }
         readers = new ArrayList<>();
@@ -37,8 +38,10 @@ class SocketHandler{
         try {
             this.serverSocket = new ServerSocket(port);
         } catch (IOException e) {
-            System.out.println("Could not initialize the serverSocket, exiting...");
-            System.exit(1);
+
+            System.out.println("Could not initialize the serverSocket, restarting...");
+            //exitcode 5 tells the start script to restart
+            System.exit(5);
             e.printStackTrace();
         }
         readers = new ArrayList<>();
