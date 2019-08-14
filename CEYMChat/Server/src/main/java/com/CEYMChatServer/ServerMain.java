@@ -70,7 +70,6 @@ public class ServerMain{
                 } catch (InterruptedException e) {
                     System.out.println("Sleep interrupted");
                     e.printStackTrace();
-                    e.printStackTrace();
                 }
                 initHandler(port);
             }
