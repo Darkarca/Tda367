@@ -16,20 +16,20 @@ public class Message<T> implements Serializable {
 
 
     /** Potential constructors */
-    protected Message(T data, UserInfo sender, String receiver){
+    public Message(T data, UserInfo sender, String receiver){
         this.data = data;
         this.sender = sender;
         this.receiver = receiver;
     }
 
 
-    protected Message(T data, UserInfo sender){
+    public Message(T data, UserInfo sender){
         this.data = data;
         this.sender = sender;
 
     }
 
-    protected Message(T data){
+    public Message(T data){
         this.data = data;
     }
 
