@@ -18,16 +18,20 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.*;
+import org.apache.commons.io.FileUtils;
 
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.swing.*;
+import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 /**
  * Controller for the Client and ClientMain .
@@ -103,6 +107,7 @@ public class ClientController implements IClientController, IObserver {
             }
         }
         fillEmojis();
+        SaveToCSV.loadProperties();
     }
     // voice Files
     //text messages
@@ -114,6 +119,7 @@ public class ClientController implements IClientController, IObserver {
     @FXML
     public void changeServer(){
         String serverIp = (String) JOptionPane.showInputDialog("Enter the new server path");
+
         System.out.println(serverIp);
         //TODO set the server ip in the Enum & try connect to the new server
     }
@@ -129,12 +135,18 @@ public class ClientController implements IClientController, IObserver {
         if(selectedDirectory == null){
             //No Directory selected
         }else{
-            String directoryPath = selectedDirectory.getAbsolutePath();
-         //   Files.move(messagesDirectory,directoryPath, StandardCopyOption.REPLACE_EXISTING);
-            System.out.println(directoryPath);
+            File newDirectoryPath = new File(selectedDirectory.getAbsolutePath());
+            File oldDirectoryPath = new File(SaveToCSV.config.getProperty("saveDirectoryPath"));
+            SaveToCSV.config.setProperty("saveDirectoryPath", selectedDirectory.getAbsolutePath());
+            try {
+                FileUtils.copyDirectoryToDirectory(oldDirectoryPath,newDirectoryPath);
+                FileUtils.deleteDirectory(oldDirectoryPath);
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(null, "Couldn't change the directory path", "Failure", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
+            }
+            System.out.println("oldDirectoryPath is: " + oldDirectoryPath + "     newDirectoryPath: " +newDirectoryPath);
         }        //TODO set the directoryPath ip in the Enum
-
-
     }
 
     /**

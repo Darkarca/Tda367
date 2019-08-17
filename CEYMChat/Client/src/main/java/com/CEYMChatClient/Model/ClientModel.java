@@ -21,11 +21,11 @@ public class ClientModel implements IObserveable {
     private String username;
     private UserInfo uInfo;
     private File selectedFile;
+
     /** Getters, setters and adders **/
     public void setUserList(List<UserInfo> userList) {
         this.userList = userList;
     }
-
     public void setUsername(String user){
         this.username = user;
     }
