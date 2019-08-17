@@ -44,12 +44,6 @@ public class VoiceServices implements IVoice {
     private long maxRecordingTime;
 
 
-
-    /**
-     * Holds the maximum recording time.
-     */
-    private int maxRecordTime;
-
     /**
      * Constructs A voice Service with the appropriate configurations.
      * @param config Configurations loaded from the properties file.
