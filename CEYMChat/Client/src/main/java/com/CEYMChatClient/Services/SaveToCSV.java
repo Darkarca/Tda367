@@ -84,6 +84,7 @@ public class SaveToCSV implements ISaveMessages {
      * be loaded the next time you load the client
      */
     public void saveMessages(List<Message<String>> receivedMessages, List<Message<String>> sentMessages, String username) {
+        loadProperties();
         saveReceivedMessages(receivedMessages, config.getProperty("receivedTextFile"), username);
         saveSendMessages(sentMessages, config.getProperty("sentTextFile"), username);
     }
