@@ -24,8 +24,11 @@ import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine;
 import javax.sound.sampled.TargetDataLine;
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -36,7 +39,7 @@ import java.util.Map;
 
 public class ClientController implements IClientController, IObserver {
 
-    public ClientModel model;
+    private ClientModel model;
     private List<FriendListItem> friendItemList = new ArrayList<>();
     private String currentChatName;
     @FXML
@@ -73,15 +76,22 @@ public class ClientController implements IClientController, IObserver {
     private ImageView emojis;
     @FXML
     private FlowPane emojisFlowPane;
+    @FXML
+    private MenuItem serverPath;
+    @FXML
+    private MenuItem historyPath;
 
     private Stage disconnectPopup = new Stage();
 
     private Parent disconnect;
 
     private AudioMessage format = new AudioMessage();
+
     //Audio Source
     private TargetDataLine mic;
+
     private AudioFormat aF;
+
     //30 seconds
     private int maxRecordTime = 30000;
 
@@ -105,13 +115,44 @@ public class ClientController implements IClientController, IObserver {
         }
         fillEmojis();
     }
+    // voice Files
+    //text messages
+    //Files
+
+    /**
+     * This method is to change the server ip adress
+     */
+    @FXML
+    public void changeServer(){
+        String serverIp = (String) JOptionPane.showInputDialog("Enter the new server path");
+        System.out.println(serverIp);
+        //TODO set the server ip in the Enum & try connect to the new server
+    }
+
+    /**
+     * This method is to change the history file path
+     */
+    @FXML
+    public void changeHistoryPath(){
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setTitle("Choose the path of the history files");
+        File selectedDirectory = directoryChooser.showDialog(chatBox.getScene().getWindow());
+        if(selectedDirectory == null){
+            //No Directory selected
+        }else{
+            String directoryPath = selectedDirectory.getAbsolutePath();
+         //   Files.move(messagesDirectory,directoryPath, StandardCopyOption.REPLACE_EXISTING);
+            System.out.println(directoryPath);
+        }        //TODO set the directoryPath ip in the Enum
+
+
+    }
 
     /**
      * This method is responsible for creating a thread that record voice from a target line
      */
     @FXML
     public void recordVoice (){
-
             try {
                 aF = format.getAudioFormat();
                 DataLine.Info dataLineInfo = new DataLine.Info(TargetDataLine.class, aF);

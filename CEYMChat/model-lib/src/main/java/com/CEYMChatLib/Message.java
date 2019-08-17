@@ -23,7 +23,7 @@ public class Message<T> implements Serializable {
     }
 
 
-    protected Message(T data, UserInfo sender){
+    public Message(T data, UserInfo sender){
         this.data = data;
         this.sender = sender;
 
