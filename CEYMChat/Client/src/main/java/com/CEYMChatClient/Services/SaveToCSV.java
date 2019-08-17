@@ -5,9 +5,27 @@ import javafx.scene.control.Alert;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
+import java.util.Properties;
 
 public class SaveToCSV implements ISaveMessages {
+
+    Properties config;
+
+    /**
+     * Loads configurations from the properties file.
+     */
+    private void loadProperties() {
+        InputStream input = (getClass().getClassLoader().getResourceAsStream("config.properties"));
+        config = new Properties();
+        try {
+            config.load(input);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error, File Not Found");
+        }
+    }
 
     /** Saves all sent and received messages into a file
      * @param list The list of messages to be saved
@@ -66,7 +84,7 @@ public class SaveToCSV implements ISaveMessages {
      * be loaded the next time you load the client
      */
     public void saveMessages(List<Message<String>> receivedMessages, List<Message<String>> sentMessages, String username) {
-        saveReceivedMessages(receivedMessages, "Client/messages/received.csv", username);
-        saveSendMessages(sentMessages, "Client/messages/sent.csv", username);
+        saveReceivedMessages(receivedMessages, config.getProperty("receivedTextFile"), username);
+        saveSendMessages(sentMessages, config.getProperty("sentTextFile"), username);
     }
 }
