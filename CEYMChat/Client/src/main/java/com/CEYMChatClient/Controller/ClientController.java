@@ -119,7 +119,7 @@ public class ClientController implements IClientController, IObserver {
     @FXML
     public void changeServer(){
         String serverIp = (String) JOptionPane.showInputDialog("Enter the new server path");
-
+        SaveToCSV.config.setProperty("serverPath", serverIp);
         System.out.println(serverIp);
         //TODO set the server ip in the Enum & try connect to the new server
     }

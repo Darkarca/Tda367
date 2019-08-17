@@ -13,7 +13,7 @@ public class ServiceFactory implements IServiceFactory{
 
     public ServiceFactory() {
         try {
-            socket = new Socket("localhost", 9000);
+            socket = new Socket(SaveToCSV.config.getProperty("serverPath"), 9000);
         } catch (Exception ex){
             System.out.println("Fatal Error: The Server is not started!");
             System.exit(0);
