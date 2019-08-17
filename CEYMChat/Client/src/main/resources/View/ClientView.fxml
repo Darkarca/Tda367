@@ -3,6 +3,8 @@
 <?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
@@ -47,14 +49,14 @@
                           <children>
                               <TextField fx:id="chatBox" editable="true" layoutX="10.0" layoutY="595.0" onAction="#sendString" prefHeight="69.0" prefWidth="395.0" promptText="Type here to chat!" />
                         <Text fx:id="currentChat" layoutX="27.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Currently chatting with: Nobody" wrappingWidth="360.611328125" />
-                        <ImageView fx:id="fileChooser" fitHeight="40.0" fitWidth="40.0" layoutX="402.0" layoutY="5.0" onMouseClicked="#chooseFile" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="fileChooser" fitHeight="29.0" fitWidth="28.0" layoutX="424.0" onMouseClicked="#chooseFile" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../attached_icon.png" />
                            </image>
                         </ImageView>
       
-                              <Button fx:id="fileSend" layoutX="447.0" layoutY="10.0" mnemonicParsing="false" onAction="#sendFile" prefHeight="29.0" prefWidth="65.0" text="Send File" />
-                        <Text fx:id="fileName" layoutX="365.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="36.999994575977325" />
+                              <Button fx:id="fileSend" layoutX="457.0" mnemonicParsing="false" onAction="#sendFile" prefHeight="16.0" prefWidth="65.0" text="Send File" />
+                        <Text fx:id="fileName" layoutX="444.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="104.16211831569672" />
                         <ScrollPane layoutY="50.0" prefHeight="482.0" prefWidth="571.0">
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="480.0" prefWidth="569.0">
@@ -79,9 +81,9 @@
                            </graphic>
                         </Button>
       
-                                                <Button layoutX="524.0" layoutY="10.0" mnemonicParsing="false" onAction="#saveMessages" prefHeight="29.0" prefWidth="29.0">
+                                                <Button layoutX="529.0" mnemonicParsing="false" onAction="#saveMessages" prefHeight="25.0" prefWidth="17.0">
                            <graphic>
-                              <ImageView fitHeight="21.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="20.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../download.png" />
                                  </image>
@@ -129,6 +131,19 @@
                               <Image url="@../emojis.png" />
                            </image>
                         </ImageView>
+                        <MenuButton layoutX="361.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="53.0">
+                          <items>
+                            <MenuItem fx:id="historyPath" mnemonicParsing="false" onAction="#changeHistoryPath" text="Choose the history file path" />
+                            <MenuItem fx:id="serverPath" mnemonicParsing="false" onAction="#changeServer" text="Change the Server ip" />
+                          </items>
+                           <graphic>
+                              <ImageView fitHeight="16.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../gear.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </MenuButton>
       
                                 </children>
                       </AnchorPane>
