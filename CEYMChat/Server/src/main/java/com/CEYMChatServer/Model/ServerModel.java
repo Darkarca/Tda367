@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /** Server model class */
-public class ServerModel implements IObserver {
+public class ServerModel implements IMessageObserver {
 
     private List<User> userList = new ArrayList<>();
 
@@ -73,7 +73,7 @@ public class ServerModel implements IObserver {
     }
 
     /**
-     * Sends an update active userlist to all active clients,
+     * Sends an updateNewMessage active userlist to all active clients,
      * also merges the list with each users individual friendslist
      */
     public void refreshFriendList(Command command, UserInfo sender) {
@@ -185,7 +185,7 @@ public class ServerModel implements IObserver {
 
 
     @Override
-    public void update(Message message) {
+    public void updateNewMessage(Message message) {
         MessageType msgType = MessageType.valueOf(message.getType().getSimpleName().toUpperCase());
         switch (msgType) {
             case COMMAND: {                                     // A message containing a command is sent to the model so that is can be performed, we stop the thread if the command tells us to disconnect

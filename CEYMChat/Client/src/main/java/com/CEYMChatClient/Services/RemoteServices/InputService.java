@@ -190,7 +190,7 @@ public class InputService implements IInput {
     }
 
     /**
-     * Informs the controller that it should update
+     * Informs the controller that it should updateNewMessage
      * @throws IOException
      */
 

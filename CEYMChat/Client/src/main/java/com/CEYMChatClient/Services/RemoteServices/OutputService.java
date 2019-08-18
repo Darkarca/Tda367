@@ -1,13 +1,12 @@
 package com.CEYMChatClient.Services.RemoteServices;
 
 import com.CEYMChatClient.Model.ClientModel;
-import com.CEYMChatClient.Services.RemoteServices.IOutput;
-import com.CEYMChatLib.IObserver;
+import com.CEYMChatLib.IMessageObserver;
 import com.CEYMChatLib.*;
 import java.io.*;
 import java.net.Socket;
 
-public class OutputService implements IOutput, IObserver {
+public class OutputService implements IOutput, IMessageObserver {
     private ClientModel model;
     private ObjectOutput messageOutStream;
     private Socket socket;
@@ -75,7 +74,7 @@ public class OutputService implements IOutput, IObserver {
      * @param message
      */
     @Override
-    public void update(Message message) {
+    public void updateNewMessage(Message message) {
         if(message.getSender() != null && message.getSender().getUsername().equals(model.getUsername())){
             try {
                 sendMessage(message);

@@ -1,7 +1,7 @@
 package com.CEYMChatClient.Controller;
 
 import com.CEYMChatClient.Services.FileServices.*;
-import com.CEYMChatLib.IObserver;
+import com.CEYMChatLib.IMessageObserver;
 import com.CEYMChatClient.View.*;
 import javafx.application.Platform;
 import com.CEYMChatClient.Model.ClientModel;
@@ -25,13 +25,12 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
 /**
  * Controller for the Client and ClientMain .
  */
 
-public class ClientController implements IClientController, IObserver {
+public class ClientController implements IClientController, IMessageObserver {
 
     private ClientModel model;
     private List<FriendListItem> friendItemList = new ArrayList<>();
@@ -435,7 +434,7 @@ public class ClientController implements IClientController, IObserver {
     }
 
     @Override
-    public void update(Message message)  {
+    public void updateNewMessage(Message message)  {
         System.out.println("Update called successfully!");
         MessageType msgType = MessageType.valueOf(message.getType().getSimpleName().toUpperCase());
         switch(msgType){
