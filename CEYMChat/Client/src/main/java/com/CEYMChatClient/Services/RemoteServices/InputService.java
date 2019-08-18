@@ -185,7 +185,7 @@ public class InputService implements IInput {
      * @throws IOException
      */
     private void notifyModel(Message message) {
-        model.update(message);
+        model.notify(message);
         model.addReceivedMessage(message);
     }
 

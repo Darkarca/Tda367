@@ -145,7 +145,7 @@ public class ClientModel implements IObserveable {
      * Tells observers to update when a new message been received.
      * @param message
      */
-    public void update(Message message) {
+    public void notify(Message message) {
 
         for (IObserver observer: observerList) {
             observer.update(message);
@@ -169,7 +169,7 @@ public class ClientModel implements IObserveable {
 
     public void addMessage(Message message) {
         addSentMessage(message);
-        update(message);
+        notify(message);
     }
 
     public boolean messageIsOfStringType(Message message){
@@ -180,7 +180,7 @@ public class ClientModel implements IObserveable {
         return false;
     }
     public void login() {
-        update(MessageFactory.createCommandMessage(new Command(CommandName.SET_USER,username),uInfo));
+        notify(MessageFactory.createCommandMessage(new Command(CommandName.SET_USER,username),uInfo));
     }
 
     public UserInfo getUInfo() {
