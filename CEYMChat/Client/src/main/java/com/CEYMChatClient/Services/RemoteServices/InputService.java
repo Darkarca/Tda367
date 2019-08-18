@@ -125,22 +125,14 @@ public class InputService implements IInput {
         model.setUserList(comingFriendsList);
         lastMsg = messageIn;
         Platform.runLater(
-                () -> {
-                    try {
-                        notifyModel(messageIn);
-                    } catch (IOException e) {
-                        System.out.println("JavaFX failed the runLater, cannot cope");
-                        System.exit(1);
-                        e.printStackTrace();
-                    }
-                }
+                () -> notifyModel(messageIn)
         );
     }
 
     /**
      * handling the recieved STRING
      */
-    private void receiveString() throws IOException {
+    private void receiveString() {
         lastMsg = messageIn;
         notifyModel(messageIn);
     }
@@ -192,7 +184,7 @@ public class InputService implements IInput {
      * @param message the message to display
      * @throws IOException
      */
-    private void notifyModel(Message message) throws IOException {
+    private void notifyModel(Message message) {
         model.update(message);
         model.addReceivedMessage(message);
     }
