@@ -1,7 +1,7 @@
 package com.CEYMChatClient.Services.RemoteServices;
 
 import com.CEYMChatClient.Model.ClientModel;
-import com.CEYMChatLib.IMessageObserver;
+import com.CEYMChatClient.IMessageObserver;
 import com.CEYMChatLib.*;
 import java.io.*;
 import java.net.Socket;

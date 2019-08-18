@@ -72,7 +72,7 @@ public class InputService implements IInput {
                 } catch(SocketException e){
                     if(e.toString().contains("Connection reset")){
                         System.out.println("Connection reset!");
-                        model.connectionEnded();
+                        System.exit(0);
 
                     }
                 } catch (IOException | ClassNotFoundException e) {
@@ -86,7 +86,7 @@ public class InputService implements IInput {
         if(!socket.isConnected()){
             disconnect();
             System.out.println("DISCONNECTED FROM SERVER");
-            model.connectionEnded();
+            System.exit(0);
         }
     }
     /**
@@ -185,7 +185,7 @@ public class InputService implements IInput {
      * @throws IOException
      */
     private void notifyModel(Message message) {
-        model.update(message);
+        model.notify(message);
         model.addReceivedMessage(message);
     }
 

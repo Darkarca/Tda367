@@ -1,7 +1,7 @@
 package com.CEYMChatClient.Controller;
 
 import com.CEYMChatClient.Services.FileServices.*;
-import com.CEYMChatLib.IMessageObserver;
+import com.CEYMChatClient.IMessageObserver;
 import com.CEYMChatClient.View.*;
 import javafx.application.Platform;
 import com.CEYMChatClient.Model.ClientModel;
@@ -84,7 +84,7 @@ public class ClientController implements IClientController, IMessageObserver {
     /**
      * Holds the program configurations.
      */
-    private Configurations config = Configurations.getInstance();
+    private IConfigurable config = Configurations.getInstance();
     /**
      *  Initiates the GUI and loading default configurations.
      */
@@ -445,7 +445,7 @@ public class ClientController implements IClientController, IMessageObserver {
         }
     }
 
-    @Override
+
     public void disconnect() {
         connectionEnded();
     }

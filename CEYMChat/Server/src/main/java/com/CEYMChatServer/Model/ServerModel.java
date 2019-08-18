@@ -1,6 +1,8 @@
 package com.CEYMChatServer.Model;
 
 import com.CEYMChatLib.*;
+import com.CEYMChatServer.IMessageObserver;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -216,8 +218,4 @@ public class ServerModel implements IMessageObserver {
 
 
 
-    @Override
-    public void disconnect() {
-
-    }
 }

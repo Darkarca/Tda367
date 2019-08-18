@@ -21,7 +21,7 @@ public class VoiceServices implements IVoice {
     /**
      * Holds the program configurations.
      */
-    private Configurations config;
+    private IConfigurable config;
 
     /**
      * Holds the directory path of the recorded file.
@@ -48,7 +48,7 @@ public class VoiceServices implements IVoice {
      * Constructs A voice Service with the appropriate configurations.
      * @param config Configurations loaded from the properties file.
      */
-    public VoiceServices(Configurations config, AudioFileFormat.Type type) {
+    public VoiceServices(IConfigurable config, AudioFileFormat.Type type) {
         this.config = config;
         maxRecordingTime = Integer.parseInt(config.getConfigProperty("maxRecordingTime"));
         directory = config.getConfigProperty("soundFile");

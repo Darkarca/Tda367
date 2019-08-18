@@ -1,5 +1,7 @@
 package com.CEYMChatClient.Model;
 
+import com.CEYMChatClient.IMessageObservable;
+import com.CEYMChatClient.IMessageObserver;
 import com.CEYMChatLib.*;
 
 import java.io.*;
@@ -7,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /** Model for the client */
-public class ClientModel implements IMessageObserveable {
+public class ClientModel implements IMessageObservable {
 
     private List<IMessageObserver> observerList = new ArrayList<>();
     private List<UserInfo> blockedFriends = new ArrayList<>();
@@ -130,21 +132,12 @@ public class ClientModel implements IMessageObserveable {
         }
     }
 
-    /**
-     * Disconnects all observers when the connection is ended.
-     */
-    public void connectionEnded() {
-        for (IMessageObserver client: observerList) {
-            client.disconnect();
-        }
-    }
 
     /**
      * Tells observers to updateNewMessage when a new message been received.
      * @param message
      */
-    public void update(Message message) {
-
+    public void notify(Message message) {
         for (IMessageObserver observer: observerList) {
             observer.updateNewMessage(message);
         }
@@ -167,7 +160,7 @@ public class ClientModel implements IMessageObserveable {
 
     public void addMessage(Message message) {
         addSentMessage(message);
-        update(message);
+        notify(message);
     }
 
     public boolean messageIsOfStringType(Message message){
@@ -178,7 +171,7 @@ public class ClientModel implements IMessageObserveable {
         return false;
     }
     public void login() {
-        update(MessageFactory.createCommandMessage(new Command(CommandName.SET_USER,username),uInfo));
+        notify(MessageFactory.createCommandMessage(new Command(CommandName.SET_USER,username),uInfo));
     }
 
     public UserInfo getUInfo() {

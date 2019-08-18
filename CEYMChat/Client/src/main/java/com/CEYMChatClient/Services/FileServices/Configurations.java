@@ -6,7 +6,7 @@ import java.util.Properties;
 
 public class Configurations implements IConfigurable{
 
-    private static Configurations configurations_instance = null;
+    private static IConfigurable configurations_instance = null;
     private Properties config;
     private String configPath;
 
@@ -16,7 +16,7 @@ public class Configurations implements IConfigurable{
     }
 
     // static method to create instance of Configurations class
-    public static Configurations getInstance() {
+    public static IConfigurable getInstance() {
         if (configurations_instance == null)
             configurations_instance = new Configurations();
 
