@@ -117,7 +117,8 @@ public class ClientController implements IClientController, IObserver {
     public void changeServer(){
         String serverIp = (String) JOptionPane.showInputDialog("Enter the new server path");
         Configurations.config.setProperty("serverPath", serverIp);
-        //TODO call restart client after changing the server path
+        JOptionPane.showMessageDialog(null, "Server path has successfully been changed. The program will shut down. Please start it again", "info", JOptionPane.INFORMATION_MESSAGE);
+        System.exit(0);
     }
 
     /**
@@ -137,11 +138,12 @@ public class ClientController implements IClientController, IObserver {
             try {
                 FileUtils.copyDirectoryToDirectory(oldDirectoryPath,newDirectoryPath);
                 FileUtils.deleteDirectory(oldDirectoryPath);
+                JOptionPane.showMessageDialog(null, "Server path has successfully been changed. The program will shut down. Please start it again", "info", JOptionPane.INFORMATION_MESSAGE);
+                System.exit(0);
             } catch (IOException e) {
                 JOptionPane.showMessageDialog(null, "Couldn't change the directory path", "Failure", JOptionPane.ERROR_MESSAGE);
                 e.printStackTrace();
             }
-            System.out.println("oldDirectoryPath is: " + oldDirectoryPath + "     newDirectoryPath: " +newDirectoryPath);
         }
     }
 
