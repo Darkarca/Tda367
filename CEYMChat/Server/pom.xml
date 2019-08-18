@@ -48,7 +48,6 @@
             <artifactId> model-lib </artifactId>
             <version>model</version>
         </dependency>
-
     </dependencies>
     <build>
         <plugins>

@@ -1,6 +1,7 @@
 package com.CEYMChatLib;
 
 import javafx.scene.image.ImageView;
+
 import java.io.Serializable;
 import java.net.InetAddress;
 /** A class containing information about a single user */

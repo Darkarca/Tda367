@@ -2,7 +2,6 @@ package com.CEYMChatClient.Services;
 
 import com.CEYMChatLib.Message;
 import javafx.scene.control.Alert;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,13 +10,13 @@ import java.util.Properties;
 
 public class SaveToCSV implements ISaveMessages {
 
-    Properties config;
+    public static Properties config;
 
     /**
      * Loads configurations from the properties file.
      */
-    private void loadProperties() {
-        InputStream input = (getClass().getClassLoader().getResourceAsStream("config.properties"));
+    public static void loadProperties() {
+        InputStream input = (SaveToCSV.class.getClassLoader().getResourceAsStream("config.properties"));
         config = new Properties();
         try {
             config.load(input);
