@@ -1,4 +1,4 @@
-package com.CEYMChatClient.Services;
+package com.CEYMChatClient.Services.FileServices;
 
 import javafx.scene.control.Alert;
 import sun.audio.AudioPlayer;
