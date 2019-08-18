@@ -24,7 +24,7 @@ public class ReceivedTextMessage implements IFXMLController {
      * @param rMessage the received message
      * @throws IOException
      */
-    public ReceivedTextMessage(String rMessage) throws IOException {
+    public ReceivedTextMessage(String rMessage) {
 
         this.rMessage = rMessage;
         load();

@@ -43,7 +43,7 @@ public class FriendListItem implements IFXMLController {
     }
 
     /** Constructor creating the friendlistitem for the controller to show */
-    public FriendListItem(UserInfo uInfo) throws IOException {
+    public FriendListItem(UserInfo uInfo) {
         load();
         this.friendUsername.setText(uInfo.getUsername());
         if(uInfo.getOnline()) {

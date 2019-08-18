@@ -180,16 +180,12 @@ public class ClientController implements IClientController, IObserver {
      * Stops the recording.
      */
     @FXML
-    public void stopRecording() throws IOException {
+    public void stopRecording() {
         voiceService.stopRecording();
 
         System.out.println("Stop recording");
+        sendFile();
 
-        try {
-            sendFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         //Send a string message to notify the receiver that a voice-message has been received.
         String toSend = "Sound has been received. To listen click play.";
         Message message = MessageFactory.createStringMessage(toSend, model.getUInfo(), currentChatName);
@@ -243,7 +239,7 @@ public class ClientController implements IClientController, IObserver {
      * as a received message
      * @param rMessage the STRING which will be received
      */
-    private void createAddReceiveMessagePane (final String rMessage) throws IOException {
+    private void createAddReceiveMessagePane (final String rMessage) {
         ReceivedTextMessage receivedMessage = new ReceivedTextMessage(rMessage);
         Platform.runLater(() -> chatPane.getChildren().add(receivedMessage.rMessagePane));
     }
@@ -263,7 +259,7 @@ public class ClientController implements IClientController, IObserver {
      *  and notifies the Server if any new friends have been added
      * @throws IOException
      */
-    private void checkFriends() throws IOException {
+    private void checkFriends() {
         for (UserInfo friendInfo : model.getFriendList()) {         // Removes friends that have been deselected
             model.removeFriends(friendInfo);
         }
@@ -277,7 +273,7 @@ public class ClientController implements IClientController, IObserver {
      * Updates the GUI with text from a new message
      * @param message The message to display
      */
-    public void displayNewMessage(Message message) throws IOException {
+    public void displayNewMessage(Message message) {
         if(!model.isMuted(message.getSender()) && message.getSender() != model.getUInfo()) {
             createAddReceiveMessagePane(message.getSender().getUsername() + ": " + message.getData());
         }
@@ -288,7 +284,7 @@ public class ClientController implements IClientController, IObserver {
      * @param friendList The list of UserInfo to be made into FriendListItems
      * @throws IOException
      */
-    private void createFriendListItemList(List<UserInfo> friendList) throws IOException {
+    private void createFriendListItemList(List<UserInfo> friendList) {
         for (UserInfo uInfo : friendList) {
             if (uInfo.getUsername() != null && !uInfo.getUsername().equals(model.getUsername())) {
                 FriendListItem userItem = new FriendListItem(uInfo);
@@ -305,7 +301,7 @@ public class ClientController implements IClientController, IObserver {
      * Updates the GUI with the new userList
      * @throws IOException
      */
-    public void showOnlineFriends() throws IOException {
+    public void showOnlineFriends() {
         friendItemList.clear();
         createFriendListItemList(model.getUserList());
         friendsFlowPane.getChildren().clear();
@@ -326,11 +322,7 @@ public class ClientController implements IClientController, IObserver {
             if(button==MouseButton.PRIMARY) {
                 currentChatName = item.getFriendUsername().getText();
                 currentChat.setText("Currently chatting with: " + currentChatName);
-                try {
-                    checkFriends();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                checkFriends();
             }
         });
         ContextMenu contextMenu = new ContextMenu();
@@ -388,7 +380,7 @@ public class ClientController implements IClientController, IObserver {
      * Server (and potentially to another user)
      * @throws IOException
      */
-    public void sendFile() throws IOException {
+    public void sendFile() {
         if (model.getSelectedFile() != null) {
             model.addMessage(MessageFactory.createFileMessage(new MessageFile(model.getSelectedFile()), model.getUInfo(), currentChatName));
             fileName.setText("Current file: none");
@@ -459,17 +451,13 @@ public class ClientController implements IClientController, IObserver {
 
     @Override
     public void update(Message message)  {
-        try {
-            System.out.println("Update called successfully!");
-            MessageType msgType = MessageType.valueOf(message.getType().getSimpleName().toUpperCase());
-            switch(msgType){
-                case STRING:    displayNewMessage(message);
-                break;
-                case ARRAYLIST: showOnlineFriends();
-                break;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        System.out.println("Update called successfully!");
+        MessageType msgType = MessageType.valueOf(message.getType().getSimpleName().toUpperCase());
+        switch(msgType){
+            case STRING:    displayNewMessage(message);
+            break;
+            case ARRAYLIST: showOnlineFriends();
+            break;
         }
     }
 
