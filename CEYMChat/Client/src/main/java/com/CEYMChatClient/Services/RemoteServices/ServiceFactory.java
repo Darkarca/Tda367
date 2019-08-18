@@ -4,7 +4,10 @@ import com.CEYMChatClient.Model.ClientModel;
 import com.CEYMChatClient.Services.FileServices.Configurations;
 
 import javax.swing.*;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.Socket;
 
 public class ServiceFactory implements IServiceFactory {
@@ -13,12 +16,12 @@ public class ServiceFactory implements IServiceFactory {
 
     public ServiceFactory() {
         try {
-            System.out.println(Configurations.getInstance().getConfig().getProperty("serverPath"));
-            socket = new Socket(Configurations.getInstance().getConfig().getProperty("serverPath"), 9000);
+            String serverPath = Configurations.getInstance().getConfigProperty("serverPath");
+            socket = new Socket(serverPath, 9000);
         } catch (Exception ex){
             System.out.println("Fatal Error: The Server is not started!");
             String serverIp = (String) JOptionPane.showInputDialog("The entered Server path is not available or wrong. Please enter a new server path (for example: localhost) and start again");
-            Configurations.getInstance().getConfig().setProperty("serverPath", serverIp);
+            Configurations.getInstance().setConfigProperty("serverPath", serverIp);
             System.exit(0);
         }
     }

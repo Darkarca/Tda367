@@ -1,0 +1,13 @@
+#Sun Aug 18 15:26:53 CEST 2019
+soundFile=Client/messages/RAudio.wav
+bigEndian=false
+AudioFileFormat=AudioFileFormat.Type.WAVE
+sampleSizeInBits=16
+saveDirectoryPath=Client/messages
+channels=1
+maxRecordingTime=30000
+signed=true
+sampleRate=16000.0F
+sentTextFile=Client/messages/sent.csv
+receivedTextFile=Client/messages/received.csv
+serverPath=5151511

@@ -21,7 +21,7 @@ public class VoiceServices implements IVoice {
     /**
      * Holds the program configurations.
      */
-    private Properties config;
+    private Configurations config;
 
     /**
      * Holds the directory path of the recorded file.
@@ -48,10 +48,10 @@ public class VoiceServices implements IVoice {
      * Constructs A voice Service with the appropriate configurations.
      * @param config Configurations loaded from the properties file.
      */
-    public VoiceServices(Properties config, AudioFileFormat.Type type) {
+    public VoiceServices(Configurations config, AudioFileFormat.Type type) {
         this.config = config;
-        maxRecordingTime = Integer.parseInt(config.getProperty("maxRecordingTime"));
-        directory = config.getProperty("soundFile");
+        maxRecordingTime = Integer.parseInt(config.getConfigProperty("maxRecordingTime"));
+        directory = config.getConfigProperty("soundFile");
         fileFormat = type;
     }
 
@@ -158,11 +158,11 @@ public class VoiceServices implements IVoice {
      * @return AudioFormat object.
      */
     private AudioFormat getAudioFormat() {
-        float sRate = Float.parseFloat(config.getProperty("sampleRate"));
-        int sInbits = Integer.parseInt(config.getProperty("sampleSizeInBits"));
-        int channels = Integer.parseInt(config.getProperty("channels"));
-        boolean signed = Boolean.parseBoolean(config.getProperty("signed"));
-        boolean bigEndian = Boolean.parseBoolean(config.getProperty("bigEndian"));
+        float sRate = Float.parseFloat(config.getConfigProperty("sampleRate"));
+        int sInbits = Integer.parseInt(config.getConfigProperty("sampleSizeInBits"));
+        int channels = Integer.parseInt(config.getConfigProperty("channels"));
+        boolean signed = Boolean.parseBoolean(config.getConfigProperty("signed"));
+        boolean bigEndian = Boolean.parseBoolean(config.getConfigProperty("bigEndian"));
 
         return new AudioFormat(sRate, sInbits, channels, signed, bigEndian);
     }

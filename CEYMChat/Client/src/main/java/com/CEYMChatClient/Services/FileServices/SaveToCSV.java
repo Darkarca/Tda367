@@ -10,8 +10,6 @@ import java.util.List;
 
 public class SaveToCSV implements ISaveMessages {
 
-
-
     /** Saves all sent and received messages into a file
      * @param list The list of messages to be saved
      * @param filename The location to save the file to
@@ -69,7 +67,7 @@ public class SaveToCSV implements ISaveMessages {
      * be loaded the next time you load the client
      */
     public void saveMessages(List<Message<String>> receivedMessages, List<Message<String>> sentMessages, String username) {
-        saveReceivedMessages(receivedMessages, Configurations.getInstance().getConfig().getProperty("receivedTextFile"), username);
-        saveSendMessages(sentMessages, Configurations.getInstance().getConfig().getProperty("sentTextFile"), username);
+        saveReceivedMessages(receivedMessages, Configurations.getInstance().getConfigProperty("receivedTextFile"), username);
+        saveSendMessages(sentMessages, Configurations.getInstance().getConfigProperty("sentTextFile"), username);
     }
 }

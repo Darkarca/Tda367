@@ -20,9 +20,7 @@ import javafx.scene.text.Text;
 import javafx.stage.*;
 import org.apache.commons.io.FileUtils;
 import javax.sound.sampled.*;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +36,7 @@ public class ClientController implements IClientController, IObserver {
     private ClientModel model;
     private List<FriendListItem> friendItemList = new ArrayList<>();
     private String currentChatName;
+
     @FXML
     private AnchorPane loginPane;
     @FXML
@@ -82,16 +81,20 @@ public class ClientController implements IClientController, IObserver {
     private Parent disconnect;
 
     private IVoice voiceService;
-    
+
+    /**
+     * Holds the program configurations.
+     */
+    private Configurations config = Configurations.getInstance();
     /**
      *  Initiates the GUI and loading default configurations.
      */
     private void appInit() {
-        Configurations.getInstance().loadProperties();
+        config.loadProperties();
         model.register(this);
-        File received = new File(Configurations.getInstance().getConfig().getProperty("sentTextFile"));
-        File sent = new File(Configurations.getInstance().getConfig().getProperty("receivedTextFile"));
-        voiceService = new VoiceServices(Configurations.getInstance().getConfig(), AudioFileFormat.Type.WAVE);
+        File received = new File(config.getConfigProperty("sentTextFile"));
+        File sent = new File(config.getConfigProperty("receivedTextFile"));
+        voiceService = new VoiceServices(config, AudioFileFormat.Type.WAVE);
         if (received.exists() && sent.exists()) {
             try {
                 loadSavedMessages();
@@ -111,7 +114,7 @@ public class ClientController implements IClientController, IObserver {
     @FXML
     public void changeServer(){
         String serverIp = (String) JOptionPane.showInputDialog("Enter the new server path");
-        Configurations.getInstance().getConfig().setProperty("serverPath", serverIp);
+        config.setConfigProperty("serverPath", serverIp);
         JOptionPane.showMessageDialog(null, "Server path has successfully been changed. The program will shut down. Please start it again", "info", JOptionPane.INFORMATION_MESSAGE);
         System.exit(0);
     }
@@ -128,8 +131,8 @@ public class ClientController implements IClientController, IObserver {
             //No Directory selected
         }else{
             File newDirectoryPath = new File(selectedDirectory.getAbsolutePath());
-            File oldDirectoryPath = new File(Configurations.getInstance().getConfig().getProperty("saveDirectoryPath"));
-            Configurations.getInstance().getConfig().setProperty("saveDirectoryPath", selectedDirectory.getAbsolutePath());
+            File oldDirectoryPath = new File(config.getConfigProperty("saveDirectoryPath"));
+            config.setConfigProperty("saveDirectoryPath", selectedDirectory.getAbsolutePath());
             try {
                 FileUtils.copyDirectoryToDirectory(oldDirectoryPath,newDirectoryPath);
                 FileUtils.deleteDirectory(oldDirectoryPath);
@@ -373,15 +376,15 @@ public class ClientController implements IClientController, IObserver {
     /** Loads messages saved during previous sessions */
     private void loadSavedMessages() throws IOException {
         ILoadMessages loader = new LoadFromCSV();
-        List<String> savedSentMessages = loader.loadSavedMessages(Configurations.getInstance().getConfig().getProperty("sentTextFile"));
-        List<String> savedReceivedMessages = loader.loadSavedMessages(Configurations.getInstance().getConfig().getProperty("receivedTextFile"));
+        List<String> savedSentMessages = loader.loadSavedMessages(config.getConfigProperty("sentTextFile"));
+        List<String> savedReceivedMessages = loader.loadSavedMessages(config.getConfigProperty("receivedTextFile"));
         List<String> allSavedMessages = new ArrayList<>();
         model.combineSavedLists(savedSentMessages,savedReceivedMessages,allSavedMessages);
         for (int i = 0; i < allSavedMessages.size(); i=i+2) {
             if (allSavedMessages.get(i).equals("Me")) {
                 createAddSendMessagePane(allSavedMessages.get(i) + ": " + allSavedMessages.get(i + 1));
             }
-            else if(allSavedMessages.size() > 1 && i < allSavedMessages.size()){
+            else if(allSavedMessages.size() > 1 && i < allSavedMessages.size()-1){
                 createAddReceiveMessagePane(allSavedMessages.get(i) + ": " + allSavedMessages.get(i + 1));
             }
         }
