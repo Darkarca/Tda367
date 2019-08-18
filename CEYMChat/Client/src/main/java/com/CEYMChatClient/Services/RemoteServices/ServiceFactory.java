@@ -12,9 +12,11 @@ public class ServiceFactory implements IServiceFactory {
 
     public ServiceFactory() {
         try {
-            socket = new Socket(Configurations.config.getProperty("serverPath"), 9000);
+            System.out.println(Configurations.getInstance().getConfig().getProperty("serverPath"));
+            socket = new Socket(Configurations.getInstance().getConfig().getProperty("serverPath"), 9000);
         } catch (Exception ex){
             System.out.println("Fatal Error: The Server is not started!");
+            ex.printStackTrace();
             System.exit(0);
         }
     }
@@ -25,7 +27,6 @@ public class ServiceFactory implements IServiceFactory {
         } catch (IOException e) {
             System.out.println("Could not initialize the serverSocket, exiting...");
             System.exit(1);
-            e.printStackTrace();
         }
     }
 

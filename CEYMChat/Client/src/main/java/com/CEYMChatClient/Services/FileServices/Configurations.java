@@ -1,25 +1,47 @@
 package com.CEYMChatClient.Services.FileServices;
 
-import java.io.IOException;
-import java.io.InputStream;
+import javax.swing.*;
+import java.io.*;
 import java.util.Properties;
 
 public class Configurations {
 
-    public static Properties config;
+    private static Configurations configurations_instance = null;
+    private Properties config;
+
+    // private constructor restricted to this class itself
+    private Configurations() {
+        loadProperties();
+    }
+
+    // static method to create instance of Configurations class
+    public static Configurations getInstance() {
+        if (configurations_instance == null)
+            configurations_instance = new Configurations();
+
+        return configurations_instance;
+    }
+
 
     /**
      * Loads configurations from the properties file.
      */
-    public static void loadProperties() {
-        InputStream input = (SaveToCSV.class.getClassLoader().getResourceAsStream("config.properties"));
-        config = new Properties();
+    public void loadProperties() {
+        InputStream input = null;
         try {
+            input = Configurations.class.getClassLoader().getResourceAsStream("config.properties");
+            config = new Properties();
             config.load(input);
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "file config.properties is not found in resources package", "info", JOptionPane.INFORMATION_MESSAGE);
+            System.exit(0);
         } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Error, File Not Found");
+            JOptionPane.showMessageDialog(null, "file config.properties is not found in resources package", "info", JOptionPane.INFORMATION_MESSAGE);
         }
+
     }
 
+    public Properties getConfig() {
+        return config;
+    }
 }

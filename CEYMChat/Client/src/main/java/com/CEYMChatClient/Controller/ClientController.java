@@ -81,20 +81,17 @@ public class ClientController implements IClientController, IObserver {
 
     private Parent disconnect;
 
-    private Properties config;
-
     private IVoice voiceService;
     
     /**
      *  Initiates the GUI and loading default configurations.
      */
     private void appInit() {
-
-        loadProperties();
+        Configurations.getInstance().loadProperties();
         model.register(this);
-        File received = new File(config.getProperty("sentTextFile"));
-        File sent = new File(config.getProperty("receivedTextFile"));
-        voiceService = new VoiceServices(config, AudioFileFormat.Type.WAVE);
+        File received = new File(Configurations.getInstance().getConfig().getProperty("sentTextFile"));
+        File sent = new File(Configurations.getInstance().getConfig().getProperty("receivedTextFile"));
+        voiceService = new VoiceServices(Configurations.getInstance().getConfig(), AudioFileFormat.Type.WAVE);
         if (received.exists() && sent.exists()) {
             try {
                 loadSavedMessages();
@@ -103,7 +100,6 @@ public class ClientController implements IClientController, IObserver {
             }
         }
         fillEmojis();
-        Configurations.loadProperties();
     }
     // voice Files
     //text messages
@@ -115,7 +111,7 @@ public class ClientController implements IClientController, IObserver {
     @FXML
     public void changeServer(){
         String serverIp = (String) JOptionPane.showInputDialog("Enter the new server path");
-        Configurations.config.setProperty("serverPath", serverIp);
+        Configurations.getInstance().getConfig().setProperty("serverPath", serverIp);
         JOptionPane.showMessageDialog(null, "Server path has successfully been changed. The program will shut down. Please start it again", "info", JOptionPane.INFORMATION_MESSAGE);
         System.exit(0);
     }
@@ -132,8 +128,8 @@ public class ClientController implements IClientController, IObserver {
             //No Directory selected
         }else{
             File newDirectoryPath = new File(selectedDirectory.getAbsolutePath());
-            File oldDirectoryPath = new File(Configurations.config.getProperty("saveDirectoryPath"));
-            Configurations.config.setProperty("saveDirectoryPath", selectedDirectory.getAbsolutePath());
+            File oldDirectoryPath = new File(Configurations.getInstance().getConfig().getProperty("saveDirectoryPath"));
+            Configurations.getInstance().getConfig().setProperty("saveDirectoryPath", selectedDirectory.getAbsolutePath());
             try {
                 FileUtils.copyDirectoryToDirectory(oldDirectoryPath,newDirectoryPath);
                 FileUtils.deleteDirectory(oldDirectoryPath);
@@ -143,20 +139,6 @@ public class ClientController implements IClientController, IObserver {
                 JOptionPane.showMessageDialog(null, "Couldn't change the directory path", "Failure", JOptionPane.ERROR_MESSAGE);
                 e.printStackTrace();
             }
-        }
-    }
-
-    /**
-     * Loads configurations from the properties file.
-     */
-    private void loadProperties() {
-        InputStream input = (getClass().getClassLoader().getResourceAsStream("config.properties"));
-        config = new Properties();
-        try {
-            config.load(input);
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("File Not Found");
         }
     }
 
@@ -399,8 +381,8 @@ public class ClientController implements IClientController, IObserver {
     /** Loads messages saved during previous sessions */
     private void loadSavedMessages() throws IOException {
         ILoadMessages loader = new LoadFromCSV();
-        List<String> savedSentMessages = loader.loadSavedMessages(config.getProperty("sentTextFile"));
-        List<String> savedReceivedMessages = loader.loadSavedMessages(config.getProperty("receivedTextFile"));
+        List<String> savedSentMessages = loader.loadSavedMessages(Configurations.getInstance().getConfig().getProperty("sentTextFile"));
+        List<String> savedReceivedMessages = loader.loadSavedMessages(Configurations.getInstance().getConfig().getProperty("receivedTextFile"));
         List<String> allSavedMessages = new ArrayList<>();
         model.combineSavedLists(savedSentMessages,savedReceivedMessages,allSavedMessages);
         for (int i = 0; i < allSavedMessages.size(); i=i+2) {
