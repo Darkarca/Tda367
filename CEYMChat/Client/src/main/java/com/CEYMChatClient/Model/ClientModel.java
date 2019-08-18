@@ -1,17 +1,17 @@
 package com.CEYMChatClient.Model;
 
+import com.CEYMChatClient.IMessageObservable;
+import com.CEYMChatClient.IMessageObserver;
 import com.CEYMChatLib.*;
-import javafx.scene.control.Alert;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /** Model for the client */
-public class ClientModel implements IObserveable {
+public class ClientModel implements IMessageObservable {
 
-    private List<IObserver> observerList = new ArrayList<>();
+    private List<IMessageObserver> observerList = new ArrayList<>();
     private List<UserInfo> blockedFriends = new ArrayList<>();
     private List<UserInfo> friendList = new ArrayList<>();
     private List<UserInfo> userList = new ArrayList<>();
@@ -132,23 +132,14 @@ public class ClientModel implements IObserveable {
         }
     }
 
-    /**
-     * Disconnects all observers when the connection is ended.
-     */
-    public void connectionEnded() {
-        for (IObserver client: observerList) {
-            client.disconnect();
-        }
-    }
 
     /**
-     * Tells observers to update when a new message been received.
+     * Tells observers to updateNewMessage when a new message been received.
      * @param message
      */
     public void notify(Message message) {
-
-        for (IObserver observer: observerList) {
-            observer.update(message);
+        for (IMessageObserver observer: observerList) {
+            observer.updateNewMessage(message);
         }
     }
 
@@ -157,13 +148,13 @@ public class ClientModel implements IObserveable {
      * @param observer
      */
     @Override
-    public void register(IObserver observer) {
+    public void register(IMessageObserver observer) {
         observerList.add(observer);
         System.out.println(observer.toString());
     }
 
     @Override
-    public void unregister(IObserver observer) {
+    public void unregister(IMessageObserver observer) {
         observerList.remove(observer);
     }
 

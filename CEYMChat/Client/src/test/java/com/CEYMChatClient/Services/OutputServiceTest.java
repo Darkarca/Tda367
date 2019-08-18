@@ -122,7 +122,7 @@ public class OutputServiceTest {
         oos.writeObject(textMessage);
         oos.flush();
 
-        outputService.update(textMessage);
+        outputService.updateNewMessage(textMessage);
 
         verify(objectOutputStream).writeObject(argumentCaptor.capture());
 

@@ -1,6 +1,7 @@
 package com.CEYMChatServer.Services;
 
 import com.CEYMChatLib.*;
+import com.CEYMChatServer.IMessageObserver;
 
 import java.io.*;
 import java.net.Socket;
@@ -11,7 +12,7 @@ import java.util.List;
  * server implementing the IReader interface.
  */
 public class Reader implements Runnable, IReader {
-    private List<IObserver> observerList = new ArrayList<>();
+    private List<IMessageObserver> observerList = new ArrayList<>();
     private Socket socket;
     private ObjectInputStream inputStream;
     private boolean running = true;
@@ -81,13 +82,11 @@ public class Reader implements Runnable, IReader {
                         }
                         bufferedOutStream.flush();
                         outStream.close();
-                        for (IObserver observer: observerList) {
-                            observer.update(inMessage);
-                        }
+                        notify(inMessage);
                         break;
                       }
                     default:
-                        for (IObserver observer: observerList) {observer.update(inMessage);}
+                        notify(inMessage);
                 }
             }
             catch(EOFException e){ //This exception will occur if a socket has been unexpectedly closed on client-side.
@@ -103,12 +102,19 @@ public class Reader implements Runnable, IReader {
 
 
     @Override
-    public void register(IObserver observer) {
+    public void notify(Message message) {
+        for (IMessageObserver observer: observerList) {
+            observer.updateNewMessage(message);
+        }
+    }
+
+    @Override
+    public void register(IMessageObserver observer) {
         observerList.add(observer);
     }
 
     @Override
-    public void unregister(IObserver observer) {observerList.remove(observer);}
+    public void unregister(IMessageObserver observer) {observerList.remove(observer);}
 
     private void unregisterAllObservers(){
         observerList.clear();

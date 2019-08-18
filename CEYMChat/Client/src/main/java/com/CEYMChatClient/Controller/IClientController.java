@@ -47,7 +47,7 @@ public interface IClientController {
     void chatBoxAppendText(String s);
 
     /**
-     * This method will be called when the connection is ended in order to update the UI.
+     * This method will be called when the connection is ended in order to updateNewMessage the UI.
      */
     void connectionEnded();
 }
