@@ -1,4 +1,4 @@
-package com.CEYMChatClient.Services;
+package com.CEYMChatClient.Services.RemoteServices;
 
 /** Interface for communicating with the server. */
 public interface IInput {

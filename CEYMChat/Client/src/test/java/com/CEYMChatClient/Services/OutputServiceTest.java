@@ -1,6 +1,7 @@
 package com.CEYMChatClient.Services;
 
 import com.CEYMChatClient.Model.ClientModel;
+import com.CEYMChatClient.Services.RemoteServices.OutputService;
 import com.CEYMChatLib.Command;
 import com.CEYMChatLib.CommandName;
 import com.CEYMChatLib.Message;
@@ -14,7 +15,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
-import java.net.Socket;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.verify;

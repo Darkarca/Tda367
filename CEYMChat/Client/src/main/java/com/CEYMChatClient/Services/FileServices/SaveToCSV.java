@@ -1,13 +1,12 @@
-package com.CEYMChatClient.Services;
+package com.CEYMChatClient.Services.FileServices;
 
 import com.CEYMChatClient.Services.FileServices.Configurations;
+import com.CEYMChatClient.Services.FileServices.ISaveMessages;
 import com.CEYMChatLib.Message;
 import javafx.scene.control.Alert;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
-import java.util.Properties;
 
 public class SaveToCSV implements ISaveMessages {
 

@@ -1,4 +1,4 @@
-package com.CEYMChatClient.Services;
+package com.CEYMChatClient.Services.RemoteServices;
 
 import com.CEYMChatLib.Message;
 import java.io.IOException;

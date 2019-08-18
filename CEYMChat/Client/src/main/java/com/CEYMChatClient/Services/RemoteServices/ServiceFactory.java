@@ -1,19 +1,18 @@
-package com.CEYMChatClient.Services;
+package com.CEYMChatClient.Services.RemoteServices;
 
 import com.CEYMChatClient.Model.ClientModel;
+import com.CEYMChatClient.Services.FileServices.Configurations;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.net.Socket;
-import java.rmi.UnknownHostException;
 
-public class ServiceFactory implements IServiceFactory{
+public class ServiceFactory implements IServiceFactory {
 
     private Socket socket;
 
     public ServiceFactory() {
         try {
-            socket = new Socket(SaveToCSV.config.getProperty("serverPath"), 9000);
+            socket = new Socket(Configurations.config.getProperty("serverPath"), 9000);
         } catch (Exception ex){
             System.out.println("Fatal Error: The Server is not started!");
             System.exit(0);

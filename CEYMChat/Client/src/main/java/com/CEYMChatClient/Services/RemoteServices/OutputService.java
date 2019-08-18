@@ -1,6 +1,7 @@
-package com.CEYMChatClient.Services;
+package com.CEYMChatClient.Services.RemoteServices;
 
 import com.CEYMChatClient.Model.ClientModel;
+import com.CEYMChatClient.Services.RemoteServices.IOutput;
 import com.CEYMChatLib.IObserver;
 import com.CEYMChatLib.*;
 import java.io.*;
