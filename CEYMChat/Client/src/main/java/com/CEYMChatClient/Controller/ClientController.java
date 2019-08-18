@@ -1,6 +1,7 @@
 package com.CEYMChatClient.Controller;
 
 import com.CEYMChatClient.Services.*;
+import com.CEYMChatClient.Services.FileServices.Configurations;
 import com.CEYMChatLib.IObserver;
 import com.CEYMChatClient.View.*;
 import javafx.application.Platform;
@@ -19,19 +20,15 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.*;
 import org.apache.commons.io.FileUtils;
-
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.swing.*;
-import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-
-import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 /**
  * Controller for the Client and ClientMain .
@@ -107,7 +104,7 @@ public class ClientController implements IClientController, IObserver {
             }
         }
         fillEmojis();
-        SaveToCSV.loadProperties();
+        Configurations.loadProperties();
     }
     // voice Files
     //text messages
@@ -119,9 +116,8 @@ public class ClientController implements IClientController, IObserver {
     @FXML
     public void changeServer(){
         String serverIp = (String) JOptionPane.showInputDialog("Enter the new server path");
-        SaveToCSV.config.setProperty("serverPath", serverIp);
-        System.out.println(serverIp);
-        //TODO set the server ip in the Enum & try connect to the new server
+        Configurations.config.setProperty("serverPath", serverIp);
+        //TODO call restart client after changing the server path
     }
 
     /**
@@ -136,8 +132,8 @@ public class ClientController implements IClientController, IObserver {
             //No Directory selected
         }else{
             File newDirectoryPath = new File(selectedDirectory.getAbsolutePath());
-            File oldDirectoryPath = new File(SaveToCSV.config.getProperty("saveDirectoryPath"));
-            SaveToCSV.config.setProperty("saveDirectoryPath", selectedDirectory.getAbsolutePath());
+            File oldDirectoryPath = new File(Configurations.config.getProperty("saveDirectoryPath"));
+            Configurations.config.setProperty("saveDirectoryPath", selectedDirectory.getAbsolutePath());
             try {
                 FileUtils.copyDirectoryToDirectory(oldDirectoryPath,newDirectoryPath);
                 FileUtils.deleteDirectory(oldDirectoryPath);
@@ -146,7 +142,7 @@ public class ClientController implements IClientController, IObserver {
                 e.printStackTrace();
             }
             System.out.println("oldDirectoryPath is: " + oldDirectoryPath + "     newDirectoryPath: " +newDirectoryPath);
-        }        //TODO set the directoryPath ip in the Enum
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.CEYMChatClient.Services;
 
+import com.CEYMChatClient.Services.FileServices.Configurations;
 import com.CEYMChatLib.Message;
 import javafx.scene.control.Alert;
 import java.io.FileWriter;
@@ -10,21 +11,7 @@ import java.util.Properties;
 
 public class SaveToCSV implements ISaveMessages {
 
-    public static Properties config;
 
-    /**
-     * Loads configurations from the properties file.
-     */
-    public static void loadProperties() {
-        InputStream input = (SaveToCSV.class.getClassLoader().getResourceAsStream("config.properties"));
-        config = new Properties();
-        try {
-            config.load(input);
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Error, File Not Found");
-        }
-    }
 
     /** Saves all sent and received messages into a file
      * @param list The list of messages to be saved
@@ -83,8 +70,7 @@ public class SaveToCSV implements ISaveMessages {
      * be loaded the next time you load the client
      */
     public void saveMessages(List<Message<String>> receivedMessages, List<Message<String>> sentMessages, String username) {
-        loadProperties();
-        saveReceivedMessages(receivedMessages, config.getProperty("receivedTextFile"), username);
-        saveSendMessages(sentMessages, config.getProperty("sentTextFile"), username);
+        saveReceivedMessages(receivedMessages, Configurations.config.getProperty("receivedTextFile"), username);
+        saveSendMessages(sentMessages, Configurations.config.getProperty("sentTextFile"), username);
     }
 }

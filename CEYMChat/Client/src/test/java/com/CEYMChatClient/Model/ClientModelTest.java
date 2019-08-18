@@ -5,6 +5,7 @@ import com.CEYMChatLib.MessageFactory;
 import com.CEYMChatLib.UserInfo;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -17,29 +18,33 @@ import static org.junit.Assert.*;
 public class ClientModelTest {
 
     private static ClientModel model = new ClientModel();
-   static private List<Message<String>> testList = new ArrayList<>();
+    static private List<Message<String>> testList = new ArrayList<>();
 
-    /** creates a virtual saved messages */
+    /**
+     * creates a virtual saved messages
+     */
     @BeforeClass
-   static public void mockUpSavedMessages(){
+    static public void mockUpSavedMessages() {
         UserInfo testUserInfo1 = new UserInfo();
         UserInfo testUserInfo2 = new UserInfo();
         testUserInfo1.setUsername("test1");
         testUserInfo2.setUsername("test2");
-        model.addReceivedMessage(MessageFactory.createStringMessage("Hello World",testUserInfo1,"test2"));
-        model.addReceivedMessage(MessageFactory.createStringMessage("Hello World2",testUserInfo1,"test2"));
-        model.addSentMessage(MessageFactory.createStringMessage("Hello World3",testUserInfo2,"test1"));
-        model.addSentMessage(MessageFactory.createStringMessage("Hello World4",testUserInfo2,"test1"));
-        testList.add(MessageFactory.createStringMessage("Hello World",testUserInfo1,"test2"));
-        testList.add(MessageFactory.createStringMessage("Hello World2",testUserInfo1,"test2"));
-        testList.add(MessageFactory.createStringMessage("Hello World3",testUserInfo2,"test1"));
-        testList.add(MessageFactory.createStringMessage("Hello World4",testUserInfo2,"test1"));
+        model.addReceivedMessage(MessageFactory.createStringMessage("Hello World", testUserInfo1, "test2"));
+        model.addReceivedMessage(MessageFactory.createStringMessage("Hello World2", testUserInfo1, "test2"));
+        model.addSentMessage(MessageFactory.createStringMessage("Hello World3", testUserInfo2, "test1"));
+        model.addSentMessage(MessageFactory.createStringMessage("Hello World4", testUserInfo2, "test1"));
+        testList.add(MessageFactory.createStringMessage("Hello World", testUserInfo1, "test2"));
+        testList.add(MessageFactory.createStringMessage("Hello World2", testUserInfo1, "test2"));
+        testList.add(MessageFactory.createStringMessage("Hello World3", testUserInfo2, "test1"));
+        testList.add(MessageFactory.createStringMessage("Hello World4", testUserInfo2, "test1"));
         //model.saveSendMessages("messages/sent.csv");
-       // model.saveReceivedMessages("messages/received.csv");
+        // model.saveReceivedMessages("messages/received.csv");
 
     }
 
-    /** saves the virtual messages to a certain file locally */
+    /**
+     * saves the virtual messages to a certain file locally
+     */
     @Test
     public void saveMessagesToFile() {
        /* try {
@@ -53,15 +58,19 @@ public class ClientModelTest {
     }
 
 
-    /** saves the received messages to a certain files */
+    /**
+     * saves the received messages to a certain files
+     */
     @Test
     public void saveReceivedMessages() {
-       // model.saveReceivedMessages("messages/received.csv");
+        // model.saveReceivedMessages("messages/received.csv");
         //Passes if no exception
     }
 
 
-    /** saves and sends the messages */
+    /**
+     * saves and sends the messages
+     */
     @Test
     public void saveSendMessages() {
         //model.saveSendMessages("messages/sent.csv");
@@ -69,7 +78,9 @@ public class ClientModelTest {
 
     }
 
-    /** loads the saved sended messages */
+    /**
+     * loads the saved sended messages
+     */
     @Test
     public void loadSavedSentMessage() throws IOException {
         List<String> expected = new ArrayList<>();
@@ -77,7 +88,7 @@ public class ClientModelTest {
         String[] expectedArray = {"test2: ", "Hello World3", "test2: ", "Hello World4"};
         expected.addAll(Arrays.asList(expectedArray));
         //actual = model.loadSavedMessages("messages/sent.csv");
-        assertEquals("Loaded messages match expected value",expected,actual);
+        assertEquals("Loaded messages match expected value", expected, actual);
 
         //Overwrites the test-files
         FileWriter writer = new FileWriter("messages/sent.csv");
@@ -85,7 +96,9 @@ public class ClientModelTest {
     }
 
 
-    /** loads the saved recieved messages */
+    /**
+     * loads the saved recieved messages
+     */
     @Test
     public void loadSavedReceivedMessage() throws IOException {
         List<String> expected = new ArrayList<>();
@@ -93,7 +106,7 @@ public class ClientModelTest {
         String[] expectedArray = {"test1: ", "Hello World", "test1: ", "Hello World2"};
         expected.addAll(Arrays.asList(expectedArray));
         //actual = model.loadSavedMessages("messages/received.csv");
-        assertEquals("Loaded messages match expected value",expected,actual);
+        assertEquals("Loaded messages match expected value", expected, actual);
 
         //Overwrites the test-files
         FileWriter writer = new FileWriter("messages/received.csv");
