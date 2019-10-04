@@ -58,8 +58,8 @@ public class ClientModel implements IMessageObservable {
             friendList.remove(uInfo);
         }
     }
-    public void removeMuted(String text) {
-        mutedFriends.remove(text);
+    public void removeMuted(UserInfo mutedUser) {
+        getMutedFriends().remove(mutedUser);
     }
     public boolean isMuted(UserInfo mutedUser) {
         for (UserInfo uInfo : getMutedFriends()) {
@@ -107,10 +107,10 @@ public class ClientModel implements IMessageObservable {
         int tmp = 0;
         for (int i = 0; i < min/2; i++){
             allSavedMessages.add(savedSentMessages.get(tmp));
+            //allSavedMessages.add(savedReceivedMessages.get(tmp));
             allSavedMessages.add(savedSentMessages.get(tmp + 1));
-            allSavedMessages.add(savedReceivedMessages.get(tmp));
-            allSavedMessages.add(savedReceivedMessages.get(tmp + 1));
-            tmp = i + 2;
+            //allSavedMessages.add(savedReceivedMessages.get(tmp + 1));
+            tmp = i + 1;
             index = i;
         }
         index = index * 4;

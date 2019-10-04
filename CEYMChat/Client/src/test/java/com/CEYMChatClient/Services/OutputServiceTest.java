@@ -2,10 +2,7 @@ package com.CEYMChatClient.Services;
 
 import com.CEYMChatClient.Model.ClientModel;
 import com.CEYMChatClient.Services.RemoteServices.OutputService;
-import com.CEYMChatLib.Command;
-import com.CEYMChatLib.CommandName;
-import com.CEYMChatLib.Message;
-import com.CEYMChatLib.UserInfo;
+import com.CEYMChatLib.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.*;
@@ -94,7 +91,7 @@ public class OutputServiceTest {
     // method, captures the argument being written to the output stream, serialize the
     // captured argument and finally checks is the sent message is equal to the captured argument.
     @Test
-    public void sendCommandMessage() throws IOException {
+    public void sendMessage() throws IOException {
         Command command = new Command(CommandName.SET_USER, "Yazan");
         Message<Command> cmdMessage = new Message<>(command);
         oos.writeObject(cmdMessage);
@@ -107,13 +104,13 @@ public class OutputServiceTest {
 
         Message<Command> message = argumentCaptor.getValue();
         oos1.writeObject(message);
-        oos.flush();
+        oos1.flush();
 
         assertArrayEquals(toBeSent.toByteArray(), toBeWritten.toByteArray());
     }
 
     @Test
-    public void update() throws IOException {
+    public void updateNewMessage() throws IOException {
         when(clientModel.getUsername()).thenReturn("mhd");
         UserInfo mhd = new UserInfo();
         mhd.setUsername("mhd");
@@ -132,4 +129,12 @@ public class OutputServiceTest {
 
         assertArrayEquals(toBeSent.toByteArray(), toBeWritten.toByteArray());
     }
+
+
+  /*  @Test
+    public void disconnect() {
+    outputService.disconnect();
+    assertEquals(oos.toString(),oos1.toString());
+
+    }*/
 }

@@ -54,6 +54,9 @@ public class FriendListItem implements IFXMLController {
         }
     }
 
+    public FriendListItem(){
+
+    }
     /** Is called when you press the friendIndicator image */
     @FXML
     public void toggleFriend(){

@@ -90,6 +90,7 @@ public class OutputService implements IOutput, IMessageObserver {
     @Override
     public void disconnect() {
         try {
+
             messageOutStream.close();
             socket.close();
         } catch (IOException e) {

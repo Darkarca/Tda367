@@ -4,19 +4,14 @@ import com.CEYMChatClient.Services.FileServices.ILoadMessages;
 import com.CEYMChatClient.Services.FileServices.ISaveMessages;
 import com.CEYMChatClient.Services.FileServices.LoadFromCSV;
 import com.CEYMChatClient.Services.FileServices.SaveToCSV;
-import com.CEYMChatLib.Message;
-import com.CEYMChatLib.MessageFactory;
-import com.CEYMChatLib.UserInfo;
+import com.CEYMChatLib.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Queue;
 
 import static org.junit.Assert.*;
 
@@ -27,14 +22,21 @@ public class ClientModelTest {
     private static ISaveMessages testSaver = new SaveToCSV();
     private static ILoadMessages testLoader = new LoadFromCSV();
     private static List<Message<String>> testReceivedList = new ArrayList<>();
+    private static List<String> sentTestMsgs = new ArrayList<>();
+    private static List<String> receivedTestMsgs = new ArrayList<>();
+    private static UserInfo testUserInfo1 = new UserInfo();
+    private static UserInfo testUserInfo2 = new UserInfo();
 
     /**
      * creates a virtual saved messages
      */
     @BeforeClass
     static public void mockUpSavedMessages() throws IOException {
-        UserInfo testUserInfo1 = new UserInfo();
-        UserInfo testUserInfo2 = new UserInfo();
+
+        sentTestMsgs.add("Hello World");
+        sentTestMsgs.add("Hello World2");
+        receivedTestMsgs.add("Hello World3");
+        receivedTestMsgs.add("Hello World4");
         testUserInfo1.setUsername("test1");
         testUserInfo2.setUsername("test2");
         model.addReceivedMessage(MessageFactory.createStringMessage("Hello World", testUserInfo1, "test2"));
@@ -47,10 +49,6 @@ public class ClientModelTest {
         testSentList.add(MessageFactory.createStringMessage("Hello World4", testUserInfo2, "test1"));
         testSaver.saveSendMessages(testSentList,"messages/sent.csv",model.getUsername());
         testSaver.saveReceivedMessages(testReceivedList,"messages/received.csv",model.getUsername());
-      //  testSaver.saveSendMessages();
-        //model.saveSendMessages("messages/sent.csv");
-        // model.saveReceivedMessages("messages/received.csv");
-
     }
 
     /**
@@ -64,7 +62,6 @@ public class ClientModelTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        // model.saveArrayListToFile(testList,"messages/test.csv");
         File testFile = new File("messages/test.csv");
         boolean exists = testFile.exists();
         assertTrue("MessageFile created successfully", exists);
@@ -75,9 +72,10 @@ public class ClientModelTest {
      * saves the received messages to a certain files
      */
     @Test
-    public void saveReceivedMessages() {
+    public void saveReceivedMessages() throws IOException {
         // model.saveReceivedMessages("messages/received.csv");
         //Passes if no exception
+
     }
 
 
@@ -85,9 +83,16 @@ public class ClientModelTest {
      * saves and sends the messages
      */
     @Test
-    public void saveSendMessages() {
+    public void saveSendMessages() throws FileNotFoundException {
         //model.saveSendMessages("messages/sent.csv");
         //Passes if no exception
+        //List<String> expected = new ArrayList<>();
+        //List<String> actual = new ArrayList<>();
+        //FileReader reader = new FileReader("messages/sent.csv");
+        //String[] expectedArray = {"test2: ", "Hello World3", "test2: ", "Hello World4"};
+        //actual = reader.
+        //expected.addAll(Arrays.asList(expectedArray));
+        //assertEquals(expected, actual);
 
     }
 
@@ -128,5 +133,45 @@ public class ClientModelTest {
         FileWriter writer = new FileWriter("messages/received.csv");
         writer.write("");
 
+    }
+
+    @Test
+    public void combineSavedLists(){
+        List<String> allTestMsgs = new ArrayList<>();
+        List<String> expected = new ArrayList<>();
+        model.combineSavedLists(sentTestMsgs,receivedTestMsgs,allTestMsgs);
+        for (String s:sentTestMsgs) {
+            expected.add(s);
+        }
+        for (String s:receivedTestMsgs) {
+            expected.add(s);
+        }
+        assertEquals(allTestMsgs.size(),expected.size());
+    }
+
+    @Test
+    public void messageIsOfStringType(){
+       Message m1 = MessageFactory.createStringMessage("String",testUserInfo1,"test2");
+       Message m2 = MessageFactory.createCommandMessage(new Command(CommandName.REFRESH_FRIENDLIST,"refresh"),testUserInfo1);
+       Message m3 = new Message(new String());
+        assertEquals(m1.getType(), "".getClass());
+        assertNotEquals(m2.getType(),"".getClass());
+        assertEquals(m3.getType(),"".getClass());
+    }
+
+    @Test
+    public void isMuted(){
+        assertEquals(model.isMuted(testUserInfo2),false);
+        model.addMuted(testUserInfo2);
+        assertEquals(model.isMuted(testUserInfo2),true);
+        model.removeMuted(testUserInfo2);
+        assertEquals(model.isMuted(testUserInfo2),false);
+    }
+
+    @Test
+    public void isBlocked(){
+        assertEquals(model.isBlocked(testUserInfo2),false);
+        model.addBlockedFriend(testUserInfo2);
+        assertEquals(model.isBlocked(testUserInfo2),true);
     }
 }

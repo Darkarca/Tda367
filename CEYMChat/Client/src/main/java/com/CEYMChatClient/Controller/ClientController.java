@@ -327,7 +327,7 @@ public class ClientController implements IClientController, IMessageObserver {
             item.getPane().setStyle("-fx-background-color: crimson");
         });
         unmute.setOnAction(event -> {
-            model.removeMuted(item.getFriendUsername().getText());
+            model.removeMuted(item.getUInfo());
             item.getPane().setStyle("-fx-background-color: white");
             });
         remove.setOnAction(event -> {

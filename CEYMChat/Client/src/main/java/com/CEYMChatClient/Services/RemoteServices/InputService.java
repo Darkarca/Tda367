@@ -31,7 +31,7 @@ public class InputService implements IInput {
      * @param socket
      */
 
-    InputService(ClientModel model, Socket socket)
+   public InputService(ClientModel model, Socket socket)
 
     {
         this.model = model;
