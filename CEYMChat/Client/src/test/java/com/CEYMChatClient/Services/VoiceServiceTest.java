@@ -14,10 +14,10 @@ import static org.junit.Assert.assertNotEquals;
 public class VoiceServiceTest {
     private static VoiceServices testService;
 
-    @BeforeClass
+    /*@BeforeClass
     public void Setup(){
         testService = new VoiceServices(Configurations.getInstance(),AudioFileFormat.Type.WAVE);
-    }
+    }*/
 
    // @Test
 
