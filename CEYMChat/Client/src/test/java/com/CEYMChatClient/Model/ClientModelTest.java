@@ -26,19 +26,23 @@ public class ClientModelTest {
     private static List<String> receivedTestMsgs = new ArrayList<>();
     private static UserInfo testUserInfo1 = new UserInfo();
     private static UserInfo testUserInfo2 = new UserInfo();
+    private static List<UserInfo> userList = new ArrayList<>();
 
     /**
      * creates a virtual saved messages
      */
     @BeforeClass
     static public void mockUpSavedMessages() throws IOException {
-
         sentTestMsgs.add("Hello World");
         sentTestMsgs.add("Hello World2");
         receivedTestMsgs.add("Hello World3");
         receivedTestMsgs.add("Hello World4");
         testUserInfo1.setUsername("test1");
         testUserInfo2.setUsername("test2");
+        userList.add(testUserInfo1);
+        model.setUInfo(testUserInfo2);
+        model.setUserList(userList);
+        model.addFriends(testUserInfo2);
         model.addReceivedMessage(MessageFactory.createStringMessage("Hello World", testUserInfo1, "test2"));
         model.addReceivedMessage(MessageFactory.createStringMessage("Hello World2", testUserInfo1, "test2"));
         model.addSentMessage(MessageFactory.createStringMessage("Hello World3", testUserInfo2, "test1"));
@@ -49,6 +53,7 @@ public class ClientModelTest {
         testSentList.add(MessageFactory.createStringMessage("Hello World4", testUserInfo2, "test1"));
         testSaver.saveSendMessages(testSentList,"messages/sent.csv",model.getUsername());
         testSaver.saveReceivedMessages(testReceivedList,"messages/received.csv",model.getUsername());
+        model.login();
     }
 
     /**
@@ -70,7 +75,7 @@ public class ClientModelTest {
 
     /**
      * saves the received messages to a certain files
-     */
+
     @Test
     public void saveReceivedMessages() throws IOException {
         // model.saveReceivedMessages("messages/received.csv");
@@ -81,7 +86,7 @@ public class ClientModelTest {
 
     /**
      * saves and sends the messages
-     */
+
     @Test
     public void saveSendMessages() throws FileNotFoundException {
         //model.saveSendMessages("messages/sent.csv");
@@ -95,7 +100,7 @@ public class ClientModelTest {
         //assertEquals(expected, actual);
 
     }
-
+     */
     /**
      * loads the saved sended messages
      */
@@ -173,5 +178,6 @@ public class ClientModelTest {
         assertEquals(model.isBlocked(testUserInfo2),false);
         model.addBlockedFriend(testUserInfo2);
         assertEquals(model.isBlocked(testUserInfo2),true);
+        assertNotEquals(model.getFriendList().contains(testUserInfo2),true);
     }
 }

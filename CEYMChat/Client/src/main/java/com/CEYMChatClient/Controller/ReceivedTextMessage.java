@@ -25,10 +25,8 @@ public class ReceivedTextMessage implements IFXMLController {
      * @throws IOException
      */
     public ReceivedTextMessage(String rMessage) {
-
         this.rMessage = rMessage;
-        load();
-        this.rMessageTextLabel.setText(rMessage);
+        //load();
     }
 
     @Override
@@ -37,6 +35,7 @@ public class ReceivedTextMessage implements IFXMLController {
         loader.setController(this);
         try {
             loader.load();
+            this.rMessageTextLabel.setText(rMessage);
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }

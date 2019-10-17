@@ -225,6 +225,7 @@ public class ClientController implements IClientController, IMessageObserver {
      */
     private void createAddReceiveMessagePane (final String rMessage) {
         ReceivedTextMessage receivedMessage = new ReceivedTextMessage(rMessage);
+        receivedMessage.load();
         Platform.runLater(() -> chatPane.getChildren().add(receivedMessage.rMessagePane));
     }
 
@@ -428,10 +429,10 @@ public class ClientController implements IClientController, IMessageObserver {
         );
     }
 
-    @FXML
+ /*   @FXML
     public void saveMessages (){
        // model.saveMessages();
-    }
+    }*/
 
     @Override
     public void updateNewMessage(Message message)  {
@@ -446,9 +447,9 @@ public class ClientController implements IClientController, IMessageObserver {
     }
 
 
-    public void disconnect() {
+    /*public void disconnect() {
         connectionEnded();
-    }
+    }*/
 
     public void setModel(ClientModel model) {
         this.model = model;

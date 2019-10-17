@@ -2,6 +2,8 @@ package com.CEYMChatClient.Model;
 
 import com.CEYMChatClient.IMessageObservable;
 import com.CEYMChatClient.IMessageObserver;
+import com.CEYMChatClient.Services.FileServices.Configurations;
+import com.CEYMChatClient.Services.FileServices.LoadFromCSV;
 import com.CEYMChatLib.*;
 
 import java.io.*;
@@ -39,6 +41,13 @@ public class ClientModel implements IMessageObservable {
     }
     public void addBlockedFriend(UserInfo item) {
         blockedFriends.add(item);
+        if(getFriendList().contains(item)){
+            friendList.remove(item);
+        }
+    }
+
+    public ClientModel(){
+        setSelectedFile(new File(Configurations.getInstance().getConfigProperty("saveDirectoryPath")));
     }
     public void addMuted(UserInfo uInfo) {
         mutedFriends.add(uInfo);

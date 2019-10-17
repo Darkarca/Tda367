@@ -16,8 +16,35 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane fx:id="programStackPane" prefHeight="685.0" prefWidth="774.0" stylesheets="@style/style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.CEYMChatClient.Controller.ClientController">
+<StackPane fx:id="programStackPane" prefHeight="685.0" prefWidth="774.0" stylesheets="@style/style.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.CEYMChatClient.Controller.ClientController">
    <children>
+      <AnchorPane fx:id="loginPane" prefHeight="400.0" prefWidth="582.0" styleClass="logo-Backgroundanother-colour" stylesheets="@style/style.css">
+         <children>
+            <Text fill="#5dbcd2" layoutX="357.0" layoutY="316.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login" wrappingWidth="86.63671875">
+               <font>
+                  <Font size="33.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="loginText-colour" />
+                  <String fx:value="loginText" />
+               </styleClass>
+            </Text>
+            <TextField fx:id="userNameTextField" layoutX="285.0" layoutY="366.0" onAction="#login" prefHeight="37.0" prefWidth="231.0" promptText="Username" />
+            <Button fx:id="loginButton" layoutX="285.0" layoutY="448.0" mnemonicParsing="false" onAction="#login" onMouseClicked="#login" prefHeight="37.0" prefWidth="231.0" text="Login" textFill="WHITE">
+               <styleClass>
+                  <String fx:value="back-colour" />
+                  <String fx:value="static-hinting" />
+                  <String fx:value="text-larger" />
+               </styleClass>
+            </Button>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="325.0" layoutY="104.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Logo.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="285.0" layoutY="403.0" prefHeight="17.0" prefWidth="126.0" text="Forgot your password?" textFill="#5dbcd2" />
+         </children>
+      </AnchorPane>
       <AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="1046.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="677.0" prefWidth="611.0" styleClass="logo-Backgroundanother-colour" stylesheets="@style/style.css">
           <children>
               <SplitPane dividerPositions="0.25647668393782386" prefHeight="677.0" prefWidth="774.0" styleClass="logo-Backgroundanother-colour">
@@ -81,7 +108,7 @@
                            </graphic>
                         </Button>
       
-                                                <Button layoutX="529.0" mnemonicParsing="false" onAction="#saveMessages" prefHeight="25.0" prefWidth="17.0">
+                                                <Button layoutX="529.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="17.0">
                            <graphic>
                               <ImageView fitHeight="20.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -150,33 +177,6 @@
                   </items>
               </SplitPane>
           </children>
-      </AnchorPane>
-      <AnchorPane fx:id="loginPane" prefHeight="400.0" prefWidth="582.0" styleClass="logo-Backgroundanother-colour" stylesheets="@style/style.css">
-         <children>
-            <Text fill="#5dbcd2" layoutX="357.0" layoutY="316.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login" wrappingWidth="86.63671875">
-               <font>
-                  <Font size="33.0" />
-               </font>
-               <styleClass>
-                  <String fx:value="loginText-colour" />
-                  <String fx:value="loginText" />
-               </styleClass>
-            </Text>
-            <TextField fx:id="userNameTextField" layoutX="285.0" layoutY="366.0" onAction="#login" prefHeight="37.0" prefWidth="231.0" promptText="Username" />
-            <Button fx:id="loginButton" layoutX="285.0" layoutY="448.0" mnemonicParsing="false" onAction="#login" onMouseClicked="#login" prefHeight="37.0" prefWidth="231.0" text="Login" textFill="WHITE">
-               <styleClass>
-                  <String fx:value="back-colour" />
-                  <String fx:value="static-hinting" />
-                  <String fx:value="text-larger" />
-               </styleClass>
-            </Button>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="325.0" layoutY="104.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../Logo.png" />
-               </image>
-            </ImageView>
-            <Label layoutX="285.0" layoutY="403.0" prefHeight="17.0" prefWidth="126.0" text="Forgot your password?" textFill="#5dbcd2" />
-         </children>
       </AnchorPane>
    </children>
 </StackPane>
