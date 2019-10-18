@@ -113,7 +113,7 @@ public class OutputServiceTest {
     public void updateNewMessage() throws IOException {
         when(clientModel.getUsername()).thenReturn("mhd");
         UserInfo mhd = new UserInfo();
-        mhd.setUsername("mhd");
+        mhd.setUsername(clientModel.getUsername());
 
         Message<String> textMessage = new Message<>("Hello World", mhd);
         oos.writeObject(textMessage);

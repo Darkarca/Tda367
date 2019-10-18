@@ -1,7 +1,6 @@
 package com.CEYMChatClient.Services.RemoteServices;
 
 import com.CEYMChatClient.Model.ClientModel;
-import com.CEYMChatClient.Services.RemoteServices.IInput;
 import com.CEYMChatLib.*;
 import javafx.application.Platform;
 import java.io.*;
@@ -16,8 +15,13 @@ import java.util.List;
  */
 public class InputService implements IInput {
     private Socket socket;
-    private ObjectInputStream messageInStream;
+    private ObjectInput messageInStream;
     private ClientModel model;
+
+    public Message getMessageIn() {
+        return messageIn;
+    }
+
     private Message messageIn;
     private Message lastMsg;
     private List<UserInfo> comingFriendsList = new ArrayList();
@@ -59,13 +63,14 @@ public class InputService implements IInput {
      * While it is running it continuously checks the stream,
      * checks what type of message it has received and processes it appropriately
      */
-    private void read() {
+    public void read() {
         new Thread(() -> {
             try {
                 while (running) {
-                    checkConnectionIsLive();
+                    //checkConnectionIsLive();
                     messageIn = (Message) messageInStream.readObject();
                     if(messageIn!= null){
+                        System.out.println("message received");
                         checkForType();
                         }
                     }
@@ -82,12 +87,14 @@ public class InputService implements IInput {
     }
 
 
-    private void checkConnectionIsLive(){
+    public boolean checkConnectionIsLive(){
         if(!socket.isConnected()){
             disconnect();
             System.out.println("DISCONNECTED FROM SERVER");
-            System.exit(0);
+            //System.exit(0);
+            return false;
         }
+        return true;
     }
     /**
      * Checks for the type of message that has been read and calls the appropriate method.
@@ -113,6 +120,11 @@ public class InputService implements IInput {
                     receiveFile();
                 }
                 break;
+            }
+            case COMMAND: {
+                if(((Command)messageIn.getData()).getCommandName().equals(CommandName.DISCONNECT)){
+                    disconnect();
+                }
             }
         }
     }
@@ -165,16 +177,19 @@ public class InputService implements IInput {
      * Safely stops all connections and stops the Thread
      */
     @Override
-    public void disconnect(){
+    public boolean disconnect(){
         running = false;
         try {
             messageInStream.close();
             socket.close();
+            System.out.print(messageIn);
+            return  true;
         } catch (IOException e) {
             System.out.println("Could not disconnect safely, exiting hard");
             System.exit(1);
             e.printStackTrace();
         }
+        return false;
     }
 
 

@@ -8,6 +8,6 @@ public interface IInput {
     void connectToServer();
 
 
-    void disconnect();
+    boolean disconnect();
 }
 
