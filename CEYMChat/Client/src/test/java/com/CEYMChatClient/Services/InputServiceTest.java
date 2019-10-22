@@ -118,9 +118,6 @@ public class InputServiceTest {
         wait(100);
         inputService.disconnect();
         assertEquals(inputService.getMessageIn().getData().toString(),message.getData().toString());
-
-
-
         Mockito.verify(objectInput,atLeast(1)).readObject();
     }
 

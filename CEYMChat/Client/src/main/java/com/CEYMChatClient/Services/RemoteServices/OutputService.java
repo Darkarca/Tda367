@@ -9,6 +9,7 @@ import java.net.Socket;
 public class OutputService implements IOutput, IMessageObserver {
     private ClientModel model;
     private ObjectOutput messageOutStream;
+    private OutputStream outputStream;
     private Socket socket;
 
     OutputService(ClientModel model, Socket socket) {
@@ -32,7 +33,9 @@ public class OutputService implements IOutput, IMessageObserver {
      */
     public void connectToServer(){
         try {
-            messageOutStream = new ObjectOutputStream(socket.getOutputStream());
+            if(messageOutStream == null) {
+                messageOutStream = new ObjectOutputStream(socket.getOutputStream());
+            }
         } catch (IOException e) {
             System.out.println("Failed to open an OutStream from socket, exiting hard");
             System.exit(1);
@@ -107,7 +110,7 @@ public class OutputService implements IOutput, IMessageObserver {
         BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
         bufferedInputStream.read(toSendArray,0,toSendArray.length);
 
-        OutputStream outputStream = getSocket().getOutputStream();
+        outputStream = getSocket().getOutputStream();
         outputStream.write(toSendArray,0,toSendArray.length);
         outputStream.flush();
         try {

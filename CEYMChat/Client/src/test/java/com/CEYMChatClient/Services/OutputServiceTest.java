@@ -8,16 +8,11 @@ import org.junit.Test;
 import org.mockito.*;
 import org.mockito.internal.util.reflection.FieldSetter;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutput;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.Socket;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.atLeastOnce;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.mockito.internal.verification.VerificationModeFactory.atLeast;
 
 public class OutputServiceTest {
@@ -117,6 +112,26 @@ public class OutputServiceTest {
         assertArrayEquals(toBeSent.toByteArray(), toBeWritten.toByteArray());
     }
 
+   /* @Test
+    public void testSendFile() throws IOException {
+        UserInfo uinfo = new UserInfo();
+        uinfo.setUsername("eg");
+
+        File file = new File(System.getProperty("user.dir") + "/messages/test.csv");
+        Message<File> fileMSG = MessageFactory.createFileMessage(new MessageFile(file),uinfo,"eg");
+        Mockito.when(clientModel.getSelectedFile()).thenReturn(file);
+
+        outputService.sendMessage(fileMSG);
+
+        verify(objectOutputStream).writeObject(argumentCaptor.capture());
+
+        Message<Command> message = argumentCaptor.getValue();
+        oos1.writeObject(message);
+        oos1.flush();
+
+        assertArrayEquals(toBeSent.toByteArray(), toBeWritten.toByteArray());
+    }*/
+
     @Test
     public void updateNewMessage() throws IOException {
         when(clientModel.getUsername()).thenReturn("mhd");
@@ -141,18 +156,30 @@ public class OutputServiceTest {
     @Test
     public void testDisconnect(){
         outputService.disconnect();
-        assertEquals(socket.isConnected(), false);
+        assertEquals(outputService.getSocket().isConnected(), false);
         Mockito.verify(socket,atLeastOnce()).isConnected();
     }
 
     @Test
-    public void testConnect(){
+    public void testLogin() throws IOException {
+        when(clientModel.getUsername()).thenReturn("eg");
+        UserInfo uInfo = new UserInfo();
+        uInfo.setUsername(clientModel.getUsername());
+        when((clientModel.getUInfo())).thenReturn(uInfo);
+        outputService.login();
+        Mockito.verify(clientModel,atLeast(1)).getUsername();
+        Mockito.verify(clientModel,atLeast(1)).getUInfo();
+        verify(objectOutputStream).writeObject(argumentCaptor.capture());
+        Message<Command> message = argumentCaptor.getValue();
 
+        assertEquals(message.getSender(),uInfo);
+        assertEquals(((Command)message.getData()).getCommandName(),CommandName.SET_USER);
+        assertEquals(((Command)message.getData()).getCommandData(),uInfo.getUsername());
     }
-  /*  @Test
-    public void disconnect() {
-    outputService.disconnect();
-    assertEquals(oos.toString(),oos1.toString());
 
-    }*/
+    @Test
+    public void testConnect(){
+        outputService.connectToServer();
+    }
+
 }

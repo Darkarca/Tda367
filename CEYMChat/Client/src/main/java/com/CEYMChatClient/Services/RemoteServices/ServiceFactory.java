@@ -39,7 +39,7 @@ public class ServiceFactory implements IServiceFactory {
         return new InputService(model, socket);
 
     }
-    public IOutput createOutputService(ClientModel model){
+    public IOutput createOutputService(ClientModel model) throws IOException {
         return new OutputService(model, socket);
     }
 

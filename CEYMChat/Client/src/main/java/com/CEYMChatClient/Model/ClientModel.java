@@ -42,7 +42,7 @@ public class ClientModel implements IMessageObservable {
     public void addBlockedFriend(UserInfo item) {
         blockedFriends.add(item);
         if(getFriendList().contains(item)){
-            friendList.remove(item);
+            getFriendList().remove(item);
         }
     }
 
@@ -64,7 +64,7 @@ public class ClientModel implements IMessageObservable {
     }
     public void removeFriends(UserInfo uInfo){
         if(!uInfo.getIsFriend() && friendList.contains(uInfo)){
-            friendList.remove(uInfo);
+            getFriendList().remove(uInfo);
         }
     }
     public void removeMuted(UserInfo mutedUser) {

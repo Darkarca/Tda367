@@ -1,27 +1,36 @@
 package com.CEYMChatClient.Controller;
 
 import com.CEYMChatLib.UserInfo;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+
 import static org.junit.Assert.assertEquals;
 
+
 public class FriendListItemTest {
-    FriendListItem testItem;
     UserInfo testInfo;
 
+    FriendListItem testItem;
+
     @Before
-    public void setup(){
-    testInfo = new UserInfo();
-    testItem = new FriendListItem();
-    testItem.setUInfo(testInfo);
+    public void setup() {
+        testItem = new FriendListItem();
+        testInfo = new UserInfo();
+
+        testItem.setUInfo(testInfo);
     }
 
     @Test
-    public void toggleFriend(){
-        assertEquals(testItem.getUInfo().getIsFriend(),false);
-        //testItem.toggleFriend();
-        //assertEquals(testItem.getUInfo().getIsFriend(),true);
+    public void toggleFriend() {
+        assertEquals(testItem.getUInfo().getIsFriend(), false);
+        testItem.toggleFriend();
+        assertEquals(testItem.getUInfo().getIsFriend(), true);
+        testItem.toggleFriend();
+        assertEquals(testItem.getUInfo().getIsFriend(), false);
     }
+
 }

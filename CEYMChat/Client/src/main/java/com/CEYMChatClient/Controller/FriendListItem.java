@@ -59,13 +59,18 @@ public class FriendListItem implements IFXMLController {
     }
     /** Is called when you press the friendIndicator image */
     @FXML
-    public void toggleFriend(){
+    public boolean toggleFriend(){
         uInfo.setIsFriend(!uInfo.getIsFriend());
-        if(uInfo.getIsFriend()) {
-            friendIndicator.setImage(new Image("friend.png"));
-        }else if(!uInfo.getIsFriend()){
-            friendIndicator.setImage(new Image("notFriend.png"));
+        if(friendIndicator != null) {
+            if (uInfo.getIsFriend()) {
+                friendIndicator.setImage(new Image("friend.png"));
+                return true;
+            } else {
+                friendIndicator.setImage(new Image("notFriend.png"));
+                return false;
+            }
         }
+        return false;
     }
 
     /** correctly sets the image of friendIndicator
