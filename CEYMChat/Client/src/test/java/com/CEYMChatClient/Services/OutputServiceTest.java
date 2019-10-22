@@ -12,10 +12,13 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
+import java.net.Socket;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.internal.verification.VerificationModeFactory.atLeast;
 
 public class OutputServiceTest {
 
@@ -34,6 +37,9 @@ public class OutputServiceTest {
 
     @Mock
     ObjectOutput objectOutputStream;
+
+    @Mock
+    Socket socket;
 
     @InjectMocks
     OutputService outputService;
@@ -57,6 +63,8 @@ public class OutputServiceTest {
         try {
             FieldSetter.setField(outputService, outputService.getClass().
                     getDeclaredField("messageOutStream"), objectOutputStream);
+            FieldSetter.setField(outputService, outputService.getClass()
+                    .getDeclaredField("socket"), socket);
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
             System.out.println("No Such Field");
@@ -130,7 +138,17 @@ public class OutputServiceTest {
         assertArrayEquals(toBeSent.toByteArray(), toBeWritten.toByteArray());
     }
 
+    @Test
+    public void testDisconnect(){
+        outputService.disconnect();
+        assertEquals(socket.isConnected(), false);
+        Mockito.verify(socket,atLeastOnce()).isConnected();
+    }
 
+    @Test
+    public void testConnect(){
+
+    }
   /*  @Test
     public void disconnect() {
     outputService.disconnect();

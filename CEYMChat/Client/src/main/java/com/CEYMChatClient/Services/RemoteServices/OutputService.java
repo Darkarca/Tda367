@@ -107,7 +107,7 @@ public class OutputService implements IOutput, IMessageObserver {
         BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
         bufferedInputStream.read(toSendArray,0,toSendArray.length);
 
-        OutputStream outputStream = socket.getOutputStream();
+        OutputStream outputStream = getSocket().getOutputStream();
         outputStream.write(toSendArray,0,toSendArray.length);
         outputStream.flush();
         try {

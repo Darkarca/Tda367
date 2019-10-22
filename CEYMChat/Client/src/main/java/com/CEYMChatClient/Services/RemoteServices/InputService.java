@@ -158,8 +158,6 @@ public class InputService implements IInput {
         InputStream inputStream = socket.getInputStream();
         FileOutputStream fileOut = new FileOutputStream(System.getProperty("user.dir") + "/Client/messages/" + ((MessageFile)messageIn.getData()).getFileName());
         BufferedOutputStream bufferedOut = new BufferedOutputStream(fileOut);
-         //inputStream.read(receivedFile,0,receivedFile.length);
-        //int current = bytesRead;
         int[] i = new int[1];
         while ((bytesRead = inputStream.read(receivedFile)) != 1) {
             i[0] = i[0] + bytesRead;

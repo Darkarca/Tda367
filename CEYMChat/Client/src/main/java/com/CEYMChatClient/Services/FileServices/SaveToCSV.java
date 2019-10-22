@@ -6,6 +6,8 @@ import com.CEYMChatLib.Message;
 import javafx.scene.control.Alert;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 import java.util.List;
 
 public class SaveToCSV implements ISaveMessages {
@@ -15,7 +17,7 @@ public class SaveToCSV implements ISaveMessages {
      * @param filename The location to save the file to
      */
     public void saveArrayListToFile(List<Message<String>> list, String filename, String username) throws IOException {
-        FileWriter writer = new FileWriter(System.getProperty("user.dir") + "/Client/" + filename);
+        FileWriter writer = new FileWriter( filename);
         for(Message message: list) {
             if(message.getSender().getUsername().equals(username)) {
                 writer.write("Me: " + "," + message.getData().toString() + ",");
@@ -67,7 +69,16 @@ public class SaveToCSV implements ISaveMessages {
      * be loaded the next time you load the client
      */
     public void saveMessages(List<Message<String>> receivedMessages, List<Message<String>> sentMessages, String username) {
-        saveReceivedMessages(receivedMessages,"/messages/received.csv", username);
-        saveSendMessages(sentMessages,"/messages/sent.csv", username);
+        Path path = FileSystems.getDefault().getPath("");
+        String absPath;
+        System.out.println(path.toAbsolutePath());
+        if(path.toAbsolutePath().endsWith("Client")){
+            absPath = System.getProperty("user.dir");
+
+        }else{
+            absPath = System.getProperty("user.dir") + "/Client";
+        }
+        saveReceivedMessages(receivedMessages,absPath + "/messages/received.csv", username);
+        saveSendMessages(sentMessages,absPath + "/messages/sent.csv", username);
     }
 }
