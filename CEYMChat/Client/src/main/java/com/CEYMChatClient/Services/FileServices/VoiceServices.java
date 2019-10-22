@@ -52,6 +52,7 @@ public class VoiceServices implements IVoice {
         this.config = config;
         maxRecordingTime = Integer.parseInt(config.getConfigProperty("maxRecordingTime"));
         directory = config.getConfigProperty("soundFile");
+        //directory = "C:/Users/Erik(404)/Documents/Tda367-master/Tda367/CEYMChat/Client/messages/RAudio.wav";//config.getConfigProperty("soundFile");
         fileFormat = type;
     }
 
@@ -76,7 +77,8 @@ public class VoiceServices implements IVoice {
                     // start recording
                     System.out.println("Recording...");
                     stopRecordingAfter(maxRecordingTime);
-                    AudioSystem.write(ais, fileFormat, new File(directory));
+                    AudioSystem.write(ais, fileFormat, new File(System.getProperty("user.dir") + directory));
+                    System.out.println("user.dir");
                 }  catch (IOException ioe) {
                     System.out.println("AudioStream not ran correctly");
                     ioe.printStackTrace();

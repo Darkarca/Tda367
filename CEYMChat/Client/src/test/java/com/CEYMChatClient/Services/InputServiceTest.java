@@ -3,6 +3,7 @@ package com.CEYMChatClient.Services;
 import com.CEYMChatClient.Model.ClientModel;
 import com.CEYMChatClient.Services.FileServices.Configurations;
 import com.CEYMChatClient.Services.RemoteServices.InputService;
+import com.CEYMChatClient.Services.RemoteServices.ServiceFactory;
 import com.CEYMChatLib.*;
 import org.junit.Before;
 import org.junit.Test;

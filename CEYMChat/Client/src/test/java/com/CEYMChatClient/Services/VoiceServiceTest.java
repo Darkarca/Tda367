@@ -5,20 +5,43 @@ import com.CEYMChatClient.Services.FileServices.VoiceServices;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import sun.security.krb5.Config;
 
 import javax.sound.sampled.AudioFileFormat;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import java.io.File;
+
+import static org.junit.Assert.*;
 
 public class VoiceServiceTest {
     private static VoiceServices testService;
 
-    /*@BeforeClass
-    public void Setup(){
+    @BeforeClass
+    public static void Setup(){
         testService = new VoiceServices(Configurations.getInstance(),AudioFileFormat.Type.WAVE);
-    }*/
+    }
 
-   // @Test
-
+    /**
+     * Tries to record 2s of audio and fails if an Exception is thrown
+     * Passes if there is a soundFile created
+     * Be wary of the filepath in configurations, not sure if saved correctly
+     * @throws InterruptedException
+     */
+    @Test
+    public synchronized void recordTest() throws InterruptedException {
+        String path = System.getProperty("user.dir") + Configurations.getInstance().getConfigProperty("soundFile");
+        File file;
+        file = new File(path);
+        file.delete();
+        assertFalse(file.exists());
+        try{
+            testService.recordVoice();
+            wait(2000);         //Records 2s of audio
+            testService.stopRecording();
+        }catch(Exception e) {
+            fail("Should not have thrown exception");
+        }
+        assertTrue(file.exists());
+        file.delete();
+    }
 }
