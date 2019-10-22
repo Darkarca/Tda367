@@ -61,6 +61,8 @@ public class InputServiceTest {
     UserInfo uInfo;
 
 
+
+
     @Before
     public void setup() throws IOException {
         // Socket s = new Socket();
@@ -113,7 +115,7 @@ public class InputServiceTest {
         Message message = MessageFactory.createStringMessage("hi", uInfo, "Erik");
         Mockito.when(objectInput.readObject()).thenReturn(message);
         inputService.read();
-        wait(10);
+        wait(100);
         inputService.disconnect();
         assertEquals(inputService.getMessageIn().getData().toString(),message.getData().toString());
 
@@ -127,7 +129,7 @@ public class InputServiceTest {
         Message message = new Message(new ArrayList<>(),uInfo);
         Mockito.when(objectInput.readObject()).thenReturn(message);
         inputService.read();
-        wait(10);
+        wait(100);
         inputService.disconnect();
         assertEquals(inputService.getMessageIn().getData().getClass(),message.getData().getClass());
 

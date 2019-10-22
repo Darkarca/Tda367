@@ -121,7 +121,7 @@ public class VoiceServices implements IVoice {
             // Make an audio stream from a source audio file
             try {
 
-                InputStream inputStream = new FileInputStream(directory);
+                InputStream inputStream = new FileInputStream(System.getProperty("user.dir") + directory);
                 audioStream = new AudioStream(inputStream);
 
             } catch (IOException e) {

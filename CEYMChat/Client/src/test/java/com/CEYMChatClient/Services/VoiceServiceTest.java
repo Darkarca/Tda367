@@ -38,10 +38,12 @@ public class VoiceServiceTest {
             testService.recordVoice();
             wait(2000);         //Records 2s of audio
             testService.stopRecording();
+            assertTrue(file.exists());
+            testService.playBack();
         }catch(Exception e) {
             fail("Should not have thrown exception");
         }
-        assertTrue(file.exists());
+
         file.delete();
     }
 }

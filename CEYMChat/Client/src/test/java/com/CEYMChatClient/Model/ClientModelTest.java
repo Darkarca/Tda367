@@ -51,8 +51,9 @@ public class ClientModelTest {
         testReceivedList.add(MessageFactory.createStringMessage("Hello World2", testUserInfo1, "test2"));
         testSentList.add(MessageFactory.createStringMessage("Hello World3", testUserInfo2, "test1"));
         testSentList.add(MessageFactory.createStringMessage("Hello World4", testUserInfo2, "test1"));
-        testSaver.saveSendMessages(testSentList,"messages/sent.csv",model.getUsername());
-        testSaver.saveReceivedMessages(testReceivedList,"messages/received.csv",model.getUsername());
+        //testSaver.saveReceivedMessages(testReceivedList,"/messages/received.csv",model.getUsername());
+        //testSaver.saveSendMessages(testSentList,"/messages/sent.csv",model.getUsername());
+        testSaver.saveMessages(testSentList,testReceivedList,model.getUsername());
         model.login();
     }
 
@@ -63,7 +64,7 @@ public class ClientModelTest {
     public void saveMessagesToFile() {
         ISaveMessages testSaver = new SaveToCSV();
         try {
-            ((SaveToCSV) testSaver).saveArrayListToFile(testSentList,"messages/test.csv", model.getUsername());
+            ((SaveToCSV) testSaver).saveArrayListToFile(testSentList,"/messages/test.csv", model.getUsername());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -108,12 +109,12 @@ public class ClientModelTest {
     public void loadSavedSentMessage() throws IOException {
         List<String> expected = new ArrayList<>();
         List<String> actual = new ArrayList<>();
-        String[] expectedArray = {"test2: ", "Hello World3", "test2: ", "Hello World4"};
+        String[] expectedArray = {"test1: ", "Hello World", "test1: ", "Hello World2"};
         expected.addAll(Arrays.asList(expectedArray));
         ILoadMessages testLoader = new LoadFromCSV();
         actual = testLoader.loadSavedMessages("messages/sent.csv");
         //actual = model.loadSavedMessages("messages/sent.csv");
-        assertEquals("Loaded messages match expected value", expected, actual);
+        assertEquals("Loaded messages doesn't match expected value", expected, actual);
 
         //Overwrites the test-files
         FileWriter writer = new FileWriter("messages/sent.csv");
@@ -128,11 +129,11 @@ public class ClientModelTest {
     public void loadSavedReceivedMessage() throws IOException {
         List<String> expected = new ArrayList<>();
         List<String> actual = new ArrayList<>();
-        String[] expectedArray = {"test1: ", "Hello World", "test1: ", "Hello World2"};
+        String[] expectedArray = {"test2: ", "Hello World3", "test2: ", "Hello World4"};
         expected.addAll(Arrays.asList(expectedArray));
         actual = testLoader.loadSavedMessages("messages/received.csv");
         //actual = model.loadSavedMessages("messages/received.csv");
-        assertEquals("Loaded messages match expected value", expected, actual);
+        assertEquals("Loaded messages doesn't match expected value", expected, actual);
 
         //Overwrites the test-files
         FileWriter writer = new FileWriter("messages/received.csv");

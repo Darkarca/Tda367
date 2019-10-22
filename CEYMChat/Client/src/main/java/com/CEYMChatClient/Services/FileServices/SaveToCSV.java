@@ -15,7 +15,7 @@ public class SaveToCSV implements ISaveMessages {
      * @param filename The location to save the file to
      */
     public void saveArrayListToFile(List<Message<String>> list, String filename, String username) throws IOException {
-        FileWriter writer = new FileWriter(filename);
+        FileWriter writer = new FileWriter(System.getProperty("user.dir") + "/Client/" + filename);
         for(Message message: list) {
             if(message.getSender().getUsername().equals(username)) {
                 writer.write("Me: " + "," + message.getData().toString() + ",");
@@ -67,7 +67,7 @@ public class SaveToCSV implements ISaveMessages {
      * be loaded the next time you load the client
      */
     public void saveMessages(List<Message<String>> receivedMessages, List<Message<String>> sentMessages, String username) {
-        saveReceivedMessages(receivedMessages, Configurations.getInstance().getConfigProperty("receivedTextFile"), username);
-        saveSendMessages(sentMessages, Configurations.getInstance().getConfigProperty("sentTextFile"), username);
+        saveReceivedMessages(receivedMessages,"/messages/received.csv", username);
+        saveSendMessages(sentMessages,"/messages/sent.csv", username);
     }
 }

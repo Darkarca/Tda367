@@ -156,7 +156,7 @@ public class InputService implements IInput {
     private void receiveFile() throws IOException {
         byte [] receivedFile  = new byte [((MessageFile)messageIn.getData()).getByteArray().length];
         InputStream inputStream = socket.getInputStream();
-        FileOutputStream fileOut = new FileOutputStream("Client/messages/" + ((MessageFile)messageIn.getData()).getFileName());
+        FileOutputStream fileOut = new FileOutputStream(System.getProperty("user.dir") + "/Client/messages/" + ((MessageFile)messageIn.getData()).getFileName());
         BufferedOutputStream bufferedOut = new BufferedOutputStream(fileOut);
          //inputStream.read(receivedFile,0,receivedFile.length);
         //int current = bytesRead;
