@@ -21,6 +21,10 @@ public class FriendListItemTest {
         testItem.setUInfo(testInfo);
     }
 
+    /**
+     * Test for toggleFriend()
+     * Fails if toggleFriend is not flipping the boolean isFriend correctly (Assumes it starts at false)
+     */
     @Test
     public void toggleFriend() {
         assertEquals(testItem.getUInfo().getIsFriend(), false);

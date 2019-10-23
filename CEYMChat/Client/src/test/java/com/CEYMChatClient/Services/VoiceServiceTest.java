@@ -25,6 +25,7 @@ public class VoiceServiceTest {
      * Tries to record 2s of audio and fails if an Exception is thrown
      * Passes if there is a soundFile created
      * Be wary of the filepath in configurations, not sure if saved correctly
+     * Fails if a sound file could not be created, does not verify that any sound actually was recorded
      * @throws InterruptedException
      */
     @Test
