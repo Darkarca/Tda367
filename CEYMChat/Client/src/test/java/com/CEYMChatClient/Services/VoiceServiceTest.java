@@ -18,6 +18,7 @@ public class VoiceServiceTest {
 
     @BeforeClass
     public static void Setup(){
+        // Create new voiceService to test
         testService = new VoiceServices(Configurations.getInstance(),AudioFileFormat.Type.WAVE);
     }
 

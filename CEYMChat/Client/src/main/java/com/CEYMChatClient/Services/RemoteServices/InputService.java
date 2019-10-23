@@ -6,6 +6,8 @@ import javafx.application.Platform;
 import java.io.*;
 import java.net.Socket;
 import java.net.SocketException;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -156,7 +158,17 @@ public class InputService implements IInput {
     private void receiveFile() throws IOException {
         byte [] receivedFile  = new byte [((MessageFile)messageIn.getData()).getByteArray().length];
         InputStream inputStream = socket.getInputStream();
-        FileOutputStream fileOut = new FileOutputStream(System.getProperty("user.dir") + "/Client/messages/" + ((MessageFile)messageIn.getData()).getFileName());
+
+        Path path = FileSystems.getDefault().getPath("");
+        String absPath;
+        System.out.println(path.toAbsolutePath());
+        if(path.toAbsolutePath().endsWith("Client")){
+            absPath = System.getProperty("user.dir");
+
+        }else{
+            absPath = System.getProperty("user.dir") + "/Client";
+        }
+        FileOutputStream fileOut = new FileOutputStream(absPath + "/messages/" + ((MessageFile)messageIn.getData()).getFileName());
         BufferedOutputStream bufferedOut = new BufferedOutputStream(fileOut);
         int[] i = new int[1];
         while ((bytesRead = inputStream.read(receivedFile)) != 1) {

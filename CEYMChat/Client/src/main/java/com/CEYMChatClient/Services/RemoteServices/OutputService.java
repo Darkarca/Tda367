@@ -104,7 +104,7 @@ public class OutputService implements IOutput, IMessageObserver {
     }
 
     private void sendFile() throws IOException {
-        File toSend = new File (model.getSelectedFile().getPath());
+        File toSend = new File (model.getSelectedFile().getAbsolutePath());
         byte [] toSendArray  = new byte [(int)toSend.length()];
         FileInputStream inputStream = new FileInputStream(toSend);
         BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
