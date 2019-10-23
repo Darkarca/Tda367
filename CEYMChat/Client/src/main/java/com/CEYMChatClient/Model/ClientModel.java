@@ -3,7 +3,6 @@ package com.CEYMChatClient.Model;
 import com.CEYMChatClient.IMessageObservable;
 import com.CEYMChatClient.IMessageObserver;
 import com.CEYMChatClient.Services.FileServices.Configurations;
-import com.CEYMChatClient.Services.FileServices.LoadFromCSV;
 import com.CEYMChatLib.*;
 
 import java.io.*;
@@ -40,7 +39,9 @@ public class ClientModel implements IMessageObservable {
         }
     }
     public void addBlockedFriend(UserInfo item) {
-        blockedFriends.add(item);
+        if(item != uInfo) {
+            getBlockedFriends().add(item);
+        }
         if(getFriendList().contains(item)){
             getFriendList().remove(item);
         }
@@ -116,9 +117,7 @@ public class ClientModel implements IMessageObservable {
         int tmp = 0;
         for (int i = 0; i < min/2; i++){
             allSavedMessages.add(savedSentMessages.get(tmp));
-            //allSavedMessages.add(savedReceivedMessages.get(tmp));
             allSavedMessages.add(savedSentMessages.get(tmp + 1));
-            //allSavedMessages.add(savedReceivedMessages.get(tmp + 1));
             tmp = i + 1;
             index = i;
         }
@@ -189,6 +188,7 @@ public class ClientModel implements IMessageObservable {
 
     public void setUInfo(UserInfo uInfo) {
     this.uInfo=uInfo;
+    setUsername(uInfo.getUsername());
     }
 
     public List<Message<String>> getReceivedMessages() {

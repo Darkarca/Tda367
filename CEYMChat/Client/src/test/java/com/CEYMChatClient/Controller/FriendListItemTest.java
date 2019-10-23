@@ -1,10 +1,7 @@
 package com.CEYMChatClient.Controller;
 
 import com.CEYMChatLib.UserInfo;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 

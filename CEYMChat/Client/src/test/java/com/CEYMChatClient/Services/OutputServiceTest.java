@@ -112,26 +112,6 @@ public class OutputServiceTest {
         assertArrayEquals(toBeSent.toByteArray(), toBeWritten.toByteArray());
     }
 
-   /* @Test
-    public void testSendFile() throws IOException {
-        UserInfo uinfo = new UserInfo();
-        uinfo.setUsername("eg");
-
-        File file = new File(System.getProperty("user.dir") + "/messages/test.csv");
-        Message<File> fileMSG = MessageFactory.createFileMessage(new MessageFile(file),uinfo,"eg");
-        Mockito.when(clientModel.getSelectedFile()).thenReturn(file);
-
-        outputService.sendMessage(fileMSG);
-
-        verify(objectOutputStream).writeObject(argumentCaptor.capture());
-
-        Message<Command> message = argumentCaptor.getValue();
-        oos1.writeObject(message);
-        oos1.flush();
-
-        assertArrayEquals(toBeSent.toByteArray(), toBeWritten.toByteArray());
-    }*/
-
     @Test
     public void updateNewMessage() throws IOException {
         when(clientModel.getUsername()).thenReturn("mhd");

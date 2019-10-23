@@ -43,17 +43,12 @@ public class ClientModelTest {
         model.setUInfo(testUserInfo2);
         model.setUserList(userList);
         model.addFriends(testUserInfo2);
+
         model.addReceivedMessage(MessageFactory.createStringMessage("Hello World", testUserInfo1, "test2"));
         model.addReceivedMessage(MessageFactory.createStringMessage("Hello World2", testUserInfo1, "test2"));
-        model.addSentMessage(MessageFactory.createStringMessage("Hello World3", testUserInfo2, "test1"));
-        model.addSentMessage(MessageFactory.createStringMessage("Hello World4", testUserInfo2, "test1"));
-        testReceivedList.add(MessageFactory.createStringMessage("Hello World", testUserInfo1, "test2"));
-        testReceivedList.add(MessageFactory.createStringMessage("Hello World2", testUserInfo1, "test2"));
-        testSentList.add(MessageFactory.createStringMessage("Hello World3", testUserInfo2, "test1"));
-        testSentList.add(MessageFactory.createStringMessage("Hello World4", testUserInfo2, "test1"));
-        //testSaver.saveReceivedMessages(testReceivedList,"/messages/received.csv",model.getUsername());
-        //testSaver.saveSendMessages(testSentList,"/messages/sent.csv",model.getUsername());
-        testSaver.saveMessages(testSentList,testReceivedList,model.getUsername());
+        model.addMessage(MessageFactory.createStringMessage("Hello World3", model.getUInfo(), "test1"));
+        model.addMessage(MessageFactory.createStringMessage("Hello World4", model.getUInfo(), "test1"));
+        testSaver.saveMessages(model.getReceivedMessages(),model.getSentMessages(),model.getUsername());
         model.login();
     }
 
@@ -75,45 +70,16 @@ public class ClientModelTest {
 
 
     /**
-     * saves the received messages to a certain files
-
-    @Test
-    public void saveReceivedMessages() throws IOException {
-        // model.saveReceivedMessages("messages/received.csv");
-        //Passes if no exception
-
-    }
-
-
-    /**
-     * saves and sends the messages
-
-    @Test
-    public void saveSendMessages() throws FileNotFoundException {
-        //model.saveSendMessages("messages/sent.csv");
-        //Passes if no exception
-        //List<String> expected = new ArrayList<>();
-        //List<String> actual = new ArrayList<>();
-        //FileReader reader = new FileReader("messages/sent.csv");
-        //String[] expectedArray = {"test2: ", "Hello World3", "test2: ", "Hello World4"};
-        //actual = reader.
-        //expected.addAll(Arrays.asList(expectedArray));
-        //assertEquals(expected, actual);
-
-    }
-     */
-    /**
      * loads the saved sended messages
      */
     @Test
     public void loadSavedSentMessage() throws IOException {
         List<String> expected = new ArrayList<>();
         List<String> actual = new ArrayList<>();
-        String[] expectedArray = {"test1: ", "Hello World", "test1: ", "Hello World2"};
+        String[] expectedArray = {"Me: ", "Hello World3", "Me: ", "Hello World4"};
         expected.addAll(Arrays.asList(expectedArray));
         ILoadMessages testLoader = new LoadFromCSV();
         actual = testLoader.loadSavedMessages("messages/sent.csv");
-        //actual = model.loadSavedMessages("messages/sent.csv");
         assertEquals("Loaded messages doesn't match expected value", expected, actual);
 
         //Overwrites the test-files
@@ -129,10 +95,9 @@ public class ClientModelTest {
     public void loadSavedReceivedMessage() throws IOException {
         List<String> expected = new ArrayList<>();
         List<String> actual = new ArrayList<>();
-        String[] expectedArray = {"test2: ", "Hello World3", "test2: ", "Hello World4"};
+        String[] expectedArray = {"test1: ", "Hello World", "test1: ", "Hello World2"};
         expected.addAll(Arrays.asList(expectedArray));
         actual = testLoader.loadSavedMessages("messages/received.csv");
-        //actual = model.loadSavedMessages("messages/received.csv");
         assertEquals("Loaded messages doesn't match expected value", expected, actual);
 
         //Overwrites the test-files
@@ -157,12 +122,13 @@ public class ClientModelTest {
 
     @Test
     public void messageIsOfStringType(){
-       Message m1 = MessageFactory.createStringMessage("String",testUserInfo1,"test2");
+       Message m1 = MessageFactory.createStringMessage("String",model.getUInfo(),model.getUsername());
        Message m2 = MessageFactory.createCommandMessage(new Command(CommandName.REFRESH_FRIENDLIST,"refresh"),testUserInfo1);
        Message m3 = new Message(new String());
-        assertEquals(m1.getType(), "".getClass());
-        assertNotEquals(m2.getType(),"".getClass());
-        assertEquals(m3.getType(),"".getClass());
+
+        assertEquals(model.messageIsOfStringType(m1),true);
+        assertNotEquals(model.messageIsOfStringType(m2),true);
+        assertEquals(model.messageIsOfStringType(m3),true);
     }
 
     @Test
@@ -177,8 +143,12 @@ public class ClientModelTest {
     @Test
     public void isBlocked(){
         assertEquals(model.isBlocked(testUserInfo2),false);
+        assertEquals(model.isBlocked(testUserInfo1),false);
+        model.addBlockedFriend(model.getUInfo());
         model.addBlockedFriend(testUserInfo2);
-        assertEquals(model.isBlocked(testUserInfo2),true);
-        assertNotEquals(model.getFriendList().contains(testUserInfo2),true);
+        model.addBlockedFriend(testUserInfo1);
+        assertEquals(model.isBlocked(testUserInfo2),false);
+        assertEquals(model.isBlocked(testUserInfo1),true);
+        assertNotEquals(model.getFriendList().contains(testUserInfo1),true);
     }
 }

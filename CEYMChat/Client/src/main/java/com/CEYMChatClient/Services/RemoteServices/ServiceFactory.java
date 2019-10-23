@@ -4,10 +4,7 @@ import com.CEYMChatClient.Model.ClientModel;
 import com.CEYMChatClient.Services.FileServices.Configurations;
 
 import javax.swing.*;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.net.Socket;
 
 public class ServiceFactory implements IServiceFactory {

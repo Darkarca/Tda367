@@ -26,7 +26,7 @@ public class ReceivedTextMessage implements IFXMLController {
      */
     public ReceivedTextMessage(String rMessage) {
         this.rMessage = rMessage;
-        //load();
+        load();
     }
 
     @Override

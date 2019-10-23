@@ -1,7 +1,5 @@
 package com.CEYMChatClient.Services.FileServices;
 
-import com.CEYMChatClient.Services.FileServices.ILoadMessages;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;

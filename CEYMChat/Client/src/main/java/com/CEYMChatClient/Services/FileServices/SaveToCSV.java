@@ -1,7 +1,5 @@
 package com.CEYMChatClient.Services.FileServices;
 
-import com.CEYMChatClient.Services.FileServices.Configurations;
-import com.CEYMChatClient.Services.FileServices.ISaveMessages;
 import com.CEYMChatLib.Message;
 import javafx.scene.control.Alert;
 import java.io.FileWriter;

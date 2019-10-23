@@ -75,7 +75,7 @@ public class ClientController implements IClientController, IMessageObserver {
     @FXML
     private MenuItem historyPath;
 
-    private Stage disconnectPopup = new Stage();
+    private Stage disconnectPopup;
 
     private Parent disconnect;
 
@@ -89,6 +89,7 @@ public class ClientController implements IClientController, IMessageObserver {
      *  Initiates the GUI and loading default configurations.
      */
     private void appInit() {
+        disconnectPopup  = new Stage();
         config.loadProperties();
         model.register(this);
         File received = new File(config.getConfigProperty("sentTextFile"));
